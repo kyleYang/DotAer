@@ -1,0 +1,37 @@
+/* 
+  Localization.strings
+  DotAer
+
+  Created by Kyle on 13-1-20.
+  Copyright (c) 2013年 KyleYang. All rights reserved.
+*/
+
+
+
+//ButtomNav
+
+"dota.buttom.nav.news"="新闻";
+"dota.buttom.nav.video"="视频";
+"dota.buttom.nav.photo"="图片";
+"dota.buttom.nav.strategy"="攻略";
+"dota.buttom.nav.simulator"="模拟器";
+
+
+//news
+"dota.news.title" = "新闻";
+"dota.categor.strategy" = "资讯";
+"dota.categor.photo" = "图片";
+"dota.categor.video" = "视频";
+
+//photo
+
+"dota.image.title" = "图片";
+
+
+//load more
+
+"dota.more.normal" = "上拉加载(共%d项)";
+"dota.more.loading" = "加载中....";
+"dota.more.done" = "加载完成(共%d项)";
+"dota.more.noresult" = "无相关内容";
+

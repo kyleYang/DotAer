@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>adcfg</key>
+	<string></string>
+	<key>app_net_append_header</key>
+	<dict/>
+	<key>host</key>
+	<string>42.96.151.160</string>
+	<key>service_entry_url</key>
+	<string>/phone/tvguide</string>
+	<key>swtype</key>
+	<string>tvguide</string>
+	<key>itunes_app_id</key>
+	<string>537898385</string>
+	<key>app_download_url_forweibo</key>
+	<string>http://guide.mobee.tv</string>
+	<key>about_website</key>
+	<string>http://www.mobee.tv</string>
+	<key>about_website_click</key>
+	<string>http://guide.mobee.tv</string>
+	<key>about_phone</key>
+	<string>0755-86369112</string>
+	<key>about_mail</key>
+	<string>kefu@mobee.tv</string>
+	<key>help_phone</key>
+	<string>0755-86369112</string>
+</dict>
+</plist>

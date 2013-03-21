@@ -7,6 +7,18 @@
 //
 
 #import "HumAppDelegate.h"
+#import "Env.h"
+#import "HumDotaDataMgr.h"
+
+
+@interface HumAppDelegate()<EnvProtocol>
+
+@property (nonatomic, retain) Env *theEnv;
+
+
+@end
+
+
 
 @implementation HumAppDelegate
 
@@ -16,17 +28,33 @@
     [_managedObjectContext release];
     [_managedObjectModel release];
     [_persistentStoreCoordinator release];
+    self.theEnv = nil;
+    self.viewController = nil;
     [super dealloc];
 }
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+@synthesize viewController;
+@synthesize theEnv;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    self.theEnv = [[[Env alloc] init] autorelease];
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
+    
+    if (!self.theEnv.bIsPad) {
+         self.viewController = [[[HumDotaBaseViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+         self.viewController.managedObjectContext = _managedObjectContext;
+    }else{
+       
+    }
+    
+    
+    self.window.rootViewController = self.viewController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
@@ -52,6 +80,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [HumDotaDataMgr instance]; //dataInit
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -66,13 +96,14 @@
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-             // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
-        } 
+        }
     }
 }
+
 
 #pragma mark - Core Data stack
 
@@ -90,6 +121,7 @@
         [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
     return _managedObjectContext;
+
 }
 
 // Returns the managed object model for the application.
@@ -114,9 +146,27 @@
     
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"DotAer.sqlite"];
     
+    // Put down default db if it doesn't already exist
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	if (![fileManager fileExistsAtPath:[storeURL path]]) {
+		NSString *defaultStorePath = [[NSBundle mainBundle]
+									  pathForResource:@"DotAer" ofType:@"sqlite"];
+		if ([fileManager fileExistsAtPath:defaultStorePath]) {
+			[fileManager copyItemAtPath:defaultStorePath toPath:[storeURL path] error:NULL];
+		}
+	}
+    
+    // Data format transform option
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
+                             NSFileProtectionCompleteUntilFirstUserAuthentication,NSFileProtectionKey,
+                             nil];
+    
+    
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
          
@@ -154,5 +204,18 @@
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
+
+#pragma mark - for env
+-(Env*)getEnv {
+    return self.theEnv;
+}
+
+-(UIViewController*)getRootViewController {
+    return self.viewController;
+}
+
+
+
+
 
 @end

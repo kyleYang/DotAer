@@ -1,0 +1,13 @@
+/* 
+  Localization.strings
+  DotAer
+
+  Created by Kyle on 13-1-20.
+  Copyright (c) 2013年 KyleYang. All rights reserved.
+*/
+
+"dota.buttom.nav.news"="News";
+"dota.buttom.nav.video"="Video";
+"dota.buttom.nav.photo"="Photo";
+"dota.buttom.nav.strategy"="Strategy";
+"dota.buttom.nav.simulator"="Simulator";

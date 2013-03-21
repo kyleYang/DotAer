@@ -1,0 +1,35 @@
+//
+//  MptAVPlayerFunctions.m
+//  CoreTextDemo
+//
+//  Created by Kyle on 12-12-10.
+//  Copyright (c) 2012年 深圳微普特. All rights reserved.
+//
+
+#import "MptAVPlayerFunctions.h"
+
+
+NSString* MptAVPlayerGetTimeFormatted(NSTimeInterval currentTime) {
+    if (currentTime < 0.) {
+        return @"0:00";
+    }
+    
+    NSInteger seconds = ((NSInteger)currentTime) % 60;
+    NSInteger minutes = currentTime / 60;
+    NSInteger hours = minutes / 60;
+    minutes = ((NSInteger)minutes) % 60;
+    
+    if (hours > 0) {
+        return [NSString stringWithFormat:@"%d:%02d:%02d", hours, minutes, seconds];
+    } else {
+        return [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
+    }
+    
+}
+
+NSString* MptAVPlayerGetRemainingTimeFormatted(NSTimeInterval currentTime, NSTimeInterval duration) {
+    NSInteger remainingTime = duration-currentTime;
+    NSString *formattedRemainingTime = MptAVPlayerGetTimeFormatted(remainingTime);
+    
+    return [NSString stringWithFormat:@"-%@", formattedRemainingTime];
+}

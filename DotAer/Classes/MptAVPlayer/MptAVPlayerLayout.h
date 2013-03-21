@@ -1,0 +1,91 @@
+//
+//  MptAVPlayerLayout.h
+//  CoreTextDemo
+//
+//  Created by Kyle on 12-12-10.
+//  Copyright (c) 2012年 深圳微普特. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "MptAVPlayerControlStyle.h"
+#import "MptWeak.h"
+
+
+
+
+@class MptAVPlayer;
+@class MptVolumeControl;
+@class MptAVPlayerControlView;
+@class MptScrubber;
+
+typedef enum{
+    UIDeviceResolution_Unknown          = 0,
+    UIDeviceResolution_iPhoneStandard   = 1,    // iPhone 1,3,3GS Standard Display  (320x480px)
+    UIDeviceResolution_iPhoneRetina35   = 2,    // iPhone 4,4S Retina Display 3.5"  (640x960px)
+    UIDeviceResolution_iPhoneRetina4    = 3,    // iPhone 5 Retina Display 4"       (640x1136px)
+    UIDeviceResolution_iPadStandard     = 4,    // iPad 1,2,mini Standard Display       (1024x768px)
+    UIDeviceResolution_iPadRetina       = 5     // iPad 3 Retina Display            (2048x1536px)
+}UIDeviceScreenType;
+
+
+@protocol MptAVPlayerLayout <NSObject>
+
+/** customizes the appearance of the top controls view. only get's called when the controlStyle changes */
+- (void)customizeTopControlsViewWithControlStyle:(MptAVPlayerControlStyle)controlStyle;
+- (void)customizeBottomControlsViewWithControlStyle:(MptAVPlayerControlStyle)controlStyle;
+- (void)customizeControlsWithControlStyle:(MptAVPlayerControlStyle)controlStyle;
+
+/** positions the top controls view */
+- (void)layoutTopControlsViewWithControlStyle:(MptAVPlayerControlStyle)controlStyle;
+/** positions the bottom controls view */
+- (void)layoutBottomControlsViewWithControlStyle:(MptAVPlayerControlStyle)controlStyle;
+
+/** layouts the controls for the given control style */
+- (void)layoutControlsWithControlStyle:(MptAVPlayerControlStyle)controlStyle AirplayAvailable:(BOOL)airPlayAvailable;
+
+@end
+
+
+@interface MptAVPlayerLayout : NSObject <MptAVPlayerLayout>
+
+
+
+@property (nonatomic, mpt_weak, readonly) MptAVPlayer *moviePlayer;
+@property (nonatomic, readonly) MptAVPlayerControlView *controlsView;
+@property (nonatomic, readonly) MptAVPlayerControlStyle controlStyle;
+@property (nonatomic, readonly, getter = isPlayingLivestream) BOOL playingLivestream;
+
+@property (nonatomic, readonly) CGFloat width;
+@property (nonatomic, readonly) CGFloat height;
+
+@property (nonatomic, assign, readonly) UIDeviceScreenType screenType;
+
+@property (nonatomic, retain, readonly) UIView *topControlsView;
+@property (nonatomic, retain, readonly) UIView *bottomControlsView;
+@property (nonatomic, retain, readonly) UIView *topControlsContainerView;
+
+@property (nonatomic, retain, readonly) MptScrubber *scrubberControl;;
+@property (nonatomic, retain, readonly) UILabel *currentTimeLabel;
+@property (nonatomic, retain, readonly) UILabel *totalTimeLabel;
+
+@property (nonatomic, retain, readonly) UIButton *playPauseControl;
+
+@property (nonatomic, retain, readonly) UIButton *rewindControl;
+@property (nonatomic, retain, readonly) UIButton *forwardControl;
+
+
+@property (nonatomic, retain, readonly) MptVolumeControl *volumeControl;
+
+@property (nonatomic, retain, readonly) UIControl *airPlayControlContainer;
+@property (nonatomic, retain, readonly) MPVolumeView *airPlayControl;
+@property (nonatomic, readonly, getter = isAirPlayControlVisible) BOOL airPlayControlVisible;
+@property (nonatomic, retain, readonly) UIButton *dismissControl;
+@property (nonatomic, retain, readonly) UIButton *zoomControl;
+
+- (void)setMoviePlayer:(MptAVPlayer *)moviePlayer;
+- (void)updateControlStyle:(MptAVPlayerControlStyle)controlStyle;
+- (void)invalidateLayout;
+
+@end

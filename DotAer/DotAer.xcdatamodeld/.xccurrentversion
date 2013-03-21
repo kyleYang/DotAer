@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>_XCCurrentVersionName</key>
-	<string>DotAer.xcdatamodel</string>
+	<string>CoreDataSqlite.xcdatamodel</string>
 </dict>
 </plist>

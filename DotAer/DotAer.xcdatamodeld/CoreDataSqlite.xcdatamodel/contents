@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="11E53" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Equipment" syncable="YES">
+        <attribute name="addAgilityh" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="addArmor" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="addDamage" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="addHP" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="addIntelligence" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="addMP" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="addStrength" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="available" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="equipDescrip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="equipImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="equipName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="equipOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="equipPrice" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="equipSN" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="formulaBe" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="formulaNeed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="materialNum" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="shopNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="upgrade" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="upgradeNum" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Event">
+        <attribute name="timeStamp" optional="YES" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <userInfo/>
+    </entity>
+    <entity name="HeroInfo" syncable="YES">
+        <attribute name="agilityGrow" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attackAnimation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attackRange" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="available" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="baseAttackTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="basicHpRegain" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="basicMpRegain" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="castingAnimation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="heroGif" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="heroImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="heroName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="heroNameEn" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="heroOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="heroQuality" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="heroSN" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="heroStory" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="heroTavern" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="heroTitleCN" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="heroTitleEn" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="initialAgility" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="initialArmor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="initialDamage1" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="initialDamage2" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="initialDef" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="initialHP" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="initialintelligence" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="initialMP" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="initialStrength" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="intelligenceGrow" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="missileSpeed" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="moveSpeed" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="sightRange" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill1Image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill1Introduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill1Level1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill1Level2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill1Level3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill1Level4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill1Name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill1Note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill2Image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill2Introduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill2Level1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill2Level2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill2Level3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill2Level4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill2Name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill2Note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill3Image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill3Introduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill3Level1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill3Level2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill3Level3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill3Level4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill3Name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill3Note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill4Image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill4Introduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill4Level1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill4Level2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill4Level3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill4Name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skill4Note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="strengthGrow" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Material" syncable="YES">
+        <attribute name="equipSN" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="materialSN" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Upgrade" syncable="YES">
+        <attribute name="equipSN" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="upgradSN" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Equipment" positionX="160" positionY="192" width="128" height="345"/>
+        <element name="Event" positionX="261" positionY="189" width="128" height="60"/>
+        <element name="HeroInfo" positionX="421" positionY="99" width="128" height="1005"/>
+        <element name="Upgrade" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="Material" positionX="160" positionY="192" width="128" height="75"/>
+    </elements>
+</model>
