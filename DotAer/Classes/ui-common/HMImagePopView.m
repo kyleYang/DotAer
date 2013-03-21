@@ -71,7 +71,7 @@
         self.image = [[[HumWebImageView alloc] initWithFrame:rect] autorelease];
         self.image.style = HUMWebImageStyleTopCentre;
         self.image.delegate = self;
-        self.image.image = popImage;
+        [self.image displayImage:popImage];
         self.image.progressStyle = HMProgressCircle;
         [self.scroll addSubview:self.image];
         
@@ -93,7 +93,7 @@
 {
     
     self.image.style = HUMWebImageStyleScale;
-    self.image.logoUrl = self.urlString;
+    self.image.imgUrl = self.urlString;
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [UIView animateWithDuration:0.8 delay:0 options:UIViewAnimationCurveEaseOut animations:^{

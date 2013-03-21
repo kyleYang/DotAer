@@ -826,10 +826,10 @@
             UIImage* img = [self.imgDic objectForKey:[imageData objectAtIndex:0]];
             if (!img) {
                 HumWebImageView *imageView = [[HumWebImageView alloc] initWithFrame:rect];
-                imageView.delegate = self;
+                imageView.imgDelegate = self;
                 imageView.style = HUMWebImageStyleTopCentre;
                 imageView.imgTag = index;
-                imageView.logoUrl = [imageData objectAtIndex:0];
+                imageView.imgUrl = [imageData objectAtIndex:0];
                 [imgViewAry addObject:imageView];
                 
             }
@@ -964,7 +964,7 @@
 
 - (void)humWebImageDidDownloader:(HumWebImageView *)view image:(UIImage *)image{
     int index = view.imgTag;
-    [self.imgDic setObject:image forKey:view.logoUrl];
+    [self.imgDic setObject:image forKey:view.imgUrl];
     [self.leavesView reloadCurrentPage:index];
 }
 

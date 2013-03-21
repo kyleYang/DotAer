@@ -162,7 +162,7 @@
         if([info.imgeArry count] != 0){
             NewsImg *newsImg = [info.imgeArry objectAtIndex:0];
             BqsLog(@"cell at section: %d,row :%d url = %@",indexPath.section,indexPath.row,newsImg.url);
-            cell.contImage.logoUrl = newsImg.url;
+            cell.contImage.imgUrl = newsImg.url;
         }
         
     }else{

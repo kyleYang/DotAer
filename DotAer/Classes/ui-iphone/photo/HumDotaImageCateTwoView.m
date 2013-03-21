@@ -152,7 +152,7 @@
     
         
     Photo *leftinfo = [self.dataArray objectAtIndex:indexPath.row*2];
-    cell.leftImage.logoUrl = leftinfo.imageUrl;
+    cell.leftImage.imgUrl = leftinfo.imageUrl;
     
     cell.rightImage.hidden = YES;
     
@@ -163,7 +163,7 @@
     
     cell.rightImage.hidden = NO;
     Photo *rightInfo = [self.dataArray objectAtIndex:indexPath.row*2+1];
-    cell.rightImage.logoUrl = rightInfo.imageUrl;
+    cell.rightImage.imgUrl = rightInfo.imageUrl;
     
     [cell setNeedsLayout];
     

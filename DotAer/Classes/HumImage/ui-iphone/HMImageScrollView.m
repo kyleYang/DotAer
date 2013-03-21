@@ -363,18 +363,17 @@ if(x > pageWidth * 2) x = 0.0f;\
     NSUInteger nowIndex = self.imgScorll.contentOffset.x/CGRectGetWidth(self.imgScorll.bounds);
     
     for (int i= 0; i<3 && i<_total; i++) {
-        HumWebImageView *imageView = [[HumWebImageView alloc] initWithImage:[_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f]];
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        imageView.delegate = self;
+        CGRect frame = CGRectMake(CGRectGetWidth(self.imgScorll.frame)*i, 0,CGRectGetWidth(self.imgScorll.frame),CGRectGetHeight(self.imgScorll.frame));
+        HumWebImageView *imageView = [[HumWebImageView alloc] initWithFrame:frame];
+        [imageView displayImage:[_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f]];
+        imageView.imgDelegate = self;
         imageView.style = HUMWebImageStyleNO;
         imageView.progressStyle = HMProgressCircle;
-        CGRect frame = CGRectMake(CGRectGetWidth(self.imgScorll.frame)*i, 0,CGRectGetWidth(self.imgScorll.frame),CGRectGetHeight(self.imgScorll.frame));
-        imageView.frame = frame;
         imageView.imgTag = i;
         
         if (_dataSource && [_dataSource respondsToSelector:@selector(imageUrlForScrollView:AtIndex:)]) {
             NSString *url = [_dataSource imageUrlForScrollView:self AtIndex:i];
-            imageView.logoUrl = url;
+            imageView.imgUrl = url;
         }
         
         if (i == nowIndex) {
@@ -407,18 +406,18 @@ if(x > pageWidth * 2) x = 0.0f;\
     NSUInteger nowIndex = self.imgScorll.contentOffset.x/CGRectGetWidth(self.imgScorll.bounds);
     
     for (int i= 0; i<3 && i<_total; i++) {
-        HumWebImageView *imageView = [[HumWebImageView alloc] initWithImage:[_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f]];
+        CGRect frame = CGRectMake(CGRectGetWidth(self.imgScorll.frame)*i, 0,CGRectGetWidth(self.imgScorll.frame),CGRectGetHeight(self.imgScorll.frame));
+        HumWebImageView *imageView = [[HumWebImageView alloc] initWithFrame:frame];
+        [imageView displayImage:[_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f]];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
-        imageView.delegate = self;
+        imageView.imgDelegate = self;
         imageView.style = HUMWebImageStyleNO;
         imageView.progressStyle = HMProgressCircle;
-        CGRect frame = CGRectMake(CGRectGetWidth(self.imgScorll.frame)*i, 0,CGRectGetWidth(self.imgScorll.frame),CGRectGetHeight(self.imgScorll.frame));
-        imageView.frame = frame;
         imageView.imgTag = i;
         
         if (_dataSource && [_dataSource respondsToSelector:@selector(imageUrlForScrollView:AtIndex:)]) {
             NSString *url = [_dataSource imageUrlForScrollView:self AtIndex:i];
-            imageView.logoUrl = url;
+            imageView.imgUrl = url;
         }
         
         if (i == nowIndex) {
@@ -456,17 +455,7 @@ if(x > pageWidth * 2) x = 0.0f;\
 }
 
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)theScrollView
-{
-    if (_bZooming) {
-        return;
-    }
-    
-    CGPoint off = self.imgScorll.contentOffset;
-    NSUInteger index =  off.x/CGRectGetWidth(self.imgScorll.frame);
-    _nowIndex = index;
-    
-}
+
 
 //获取重用的cell
 - (HumWebImageView *)dequeueReusableCellWithIdentifier{
@@ -529,26 +518,28 @@ if(x > pageWidth * 2) x = 0.0f;\
                     imageView  = [[HumWebImageView alloc] init];
                     imageView.contentMode = UIViewContentModeScaleAspectFit;
                     [imageView setUserInteractionEnabled:YES];
-                    imageView.image = [_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f];//保证在图片未加载出来之前能接受滑动手势
+                    [imageView displayImage:[_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f]];
+                   //保证在图片未加载出来之前能接受滑动手势
                     
     
                 }
                 else 
                 {
                     //NSLog(@"此条是从重用列表中获取的。。。。。");
-                    imageView.image = [_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f];
+                    [imageView displayImage:[_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f]];
+                    
                 }
                 imageView.imgTag = i;
                 imageView.style = HUMWebImageStyleNO;
                 imageView.progressStyle = HMProgressCircle;
-                imageView.delegate = self;
+                imageView.imgDelegate = self;
                 
                 imageView.frame = CGRectMake(CGRectGetWidth(self.imgScorll.frame)*i,0, CGRectGetWidth(self.imgScorll.frame), CGRectGetHeight(self.imgScorll.frame));
             
         
                 if (_dataSource && [_dataSource respondsToSelector:@selector(imageUrlForScrollView:AtIndex:)]) {
                     NSString *url = [_dataSource imageUrlForScrollView:self AtIndex:i];
-                    imageView.logoUrl = url;
+                    imageView.imgUrl = url;
                 }
                 NSUInteger nowIndex = self.imgScorll.contentOffset.x/CGRectGetWidth(self.imgScorll.bounds);
                 if (i == nowIndex) {
@@ -568,159 +559,34 @@ if(x > pageWidth * 2) x = 0.0f;\
 }
 
 #pragma mark UIScrollViewDelegate
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    if (!_viewZomm) {
-        if (scrollView == self.imgScorll){
-            _bZooming = YES;
-            _zoomOff = self.imgScorll.contentOffset;
-            for(HumWebImageView *temp in self.onScreenCells){
-                if (temp.frame.origin.x != _zoomOff.x) {
-                    [self.zommLeft addObject:temp];
-                    [temp removeFromSuperview];
-                }else {
-                    _viewZomm = temp;
-                }
-            }
-        }
-    }
-    
-    
-    if (_viewZomm&&!_positset) {
-        self.imgScorll.pagingEnabled = NO;
-        CGRect rc = _viewZomm.frame;
-        BqsLog(@"the scal orgx = %d",rc.origin.x);
-        rc.origin.x = 0;
-        rc.origin.y = 0;
-        _viewZomm.frame = rc;
-        _bBlockScrollEvent = YES;
-        _positset = TRUE;
-        self.imgScorll.contentSize = self.imgScorll.frame.size;
-        self.imgScorll.contentOffset = CGPointMake(0, 0);
-        _bBlockScrollEvent = NO;
-        if (thumbViewShowing) {
-            [self setControlsVisible:!self.controlsVisible animated:YES];
-        }
-    }
-    
-    return _viewZomm;
-    
-    
-    
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+     [self reloadImageViews];
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self reloadImageViews];
+    CGPoint off = self.imgScorll.contentOffset;
+    NSUInteger index =  off.x/CGRectGetWidth(self.imgScorll.frame);
+    _nowIndex = index;
 
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
-    if(self.imgScorll != scrollView) return;
-    
-    if(scale < 1.1) {
-        
-        // reset drag tags
-        _bBlockScrollEvent = YES;
-        
-        // reset zooming scale
-        self.imgScorll.maximumZoomScale = 3.0;
-        self.imgScorll.minimumZoomScale = .5;
-        self.imgScorll.zoomScale = 1.0;
-        self.imgScorll.bouncesZoom = YES;
-        self.imgScorll.pagingEnabled = YES;
-        
-        _bZooming = FALSE;
-        _positset = FALSE;
-        if (!thumbViewShowing) {
-             [self setControlsVisible:!self.controlsVisible animated:YES];
-        }
-        
-        
-        CGRect frme = _viewZomm.frame;
-        frme.origin.x = _zoomOff.x;
-        _viewZomm.frame = frme;
-        
-        _viewZomm = nil;
-        for (HumWebImageView *get in self.zommLeft) {
-            [self.imgScorll addSubview:get];
-        }
-        [self.zommLeft removeAllObjects];
-        float scrollW = CGRectGetWidth(self.imgScorll.frame)*_total;
-        float scrollH = CGRectGetHeight(self.imgScorll.frame);
-        
-        self.imgScorll.contentSize = CGSizeMake(scrollW, scrollH);
-        self.imgScorll.contentOffset = _zoomOff;
-    } 
-    
 }
-
-
-
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (_bZooming) return;
-	[self reloadImageViews];
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    if (_bZooming) return;
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-    if (_bZooming) return;
-	[self reloadImageViews];
-}
-
 
 
 
 
 #pragma mark
 #pragma mark humWebImageDelegae
-- (void)tapDetectingImageView:(HumWebImageView *)view gotSingleTapAtPoint:(CGPoint)tapPoint {
-    // Single tap shows or hides drawer of thumbnails.
-    if (_bZooming) {
-        float newScale = [self.imgScorll zoomScale] * ZOOM_MIN;    
-        CGRect zoomRect = [self zoomRectForScale:newScale withCenter:tapPoint];
-        [self.imgScorll zoomToRect:zoomRect animated:YES];
-
-        return;
-    }
+- (void)photoViewDidSingleTap:(HumWebImageView *)photoView{
     [self setControlsVisible:!self.controlsVisible animated:YES];
 }
-
-
-
-- (void)tapDetectingImageView:(HumWebImageView *)view gotDoubleTapAtPoint:(CGPoint)tapPoint {
-    // double tap zooms in
-    float newScale = [self.imgScorll zoomScale] * ZOOM_STEP;    
-    CGRect zoomRect = [self zoomRectForScale:newScale withCenter:tapPoint];
-    [self.imgScorll zoomToRect:zoomRect animated:YES];
+- (void)photoViewDidDoubleTap:(HumWebImageView *)photoView{
     
 }
-
-- (void)tapDetectingImageView:(HumWebImageView *)view gotTwoFingerTapAtPoint:(CGPoint)tapPoint {
-    // two-finger tap zooms out
-    float newScale = [self.imgScorll zoomScale] / ZOOM_STEP;
-    CGRect zoomRect = [self zoomRectForScale:newScale withCenter:tapPoint];
-    [self.imgScorll zoomToRect:zoomRect animated:YES];
+- (void)photoViewDidTwoFingerTap:(HumWebImageView *)photoView{
+    
 }
-
-
-#pragma mark
-#pragma mark ZOOM
-- (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center {
+- (void)photoViewDidDoubleTwoFingerTap:(HumWebImageView *)photoView{
     
-    CGRect zoomRect;
-    
-    // the zoom rect is in the content view's coordinates. 
-    //    At a zoom scale of 1.0, it would be the size of the imageScrollView's bounds.
-    //    //    As the zoom scale decreases, so more content is visible, the size of the rect grows.
-    zoomRect.size.height = [self.imgScorll frame].size.height / scale;
-    zoomRect.size.width  = [self.imgScorll frame].size.width  / scale;
-    
-    // choose an origin so as to get the right center.
-    zoomRect.origin.x    = center.x - (zoomRect.size.width  / 2.0);
-    zoomRect.origin.y    = center.y - (zoomRect.size.height / 2.0);
-    
-    return zoomRect;
 }
 
 

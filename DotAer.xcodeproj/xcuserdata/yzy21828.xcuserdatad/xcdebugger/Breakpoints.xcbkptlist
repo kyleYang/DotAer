@@ -541,11 +541,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-common/HumWebImageView.m"
-         timestampString = "385486646.509257"
+         timestampString = "385541816.85356"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "163"
-         endingLineNumber = "163"
+         startingLineNumber = "171"
+         endingLineNumber = "171"
          landmarkName = "-loadImageWithUrl:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -671,11 +671,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/HumImage/ui-iphone/HMImageScrollView.m"
-         timestampString = "384969068.146794"
+         timestampString = "385546817.028999"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "401"
-         endingLineNumber = "401"
+         startingLineNumber = "400"
+         endingLineNumber = "400"
          landmarkName = "-setDataSource:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -684,11 +684,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-common/HumWebImageView.m"
-         timestampString = "385486646.509257"
+         timestampString = "385541816.85356"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "164"
-         endingLineNumber = "164"
+         startingLineNumber = "172"
+         endingLineNumber = "172"
          landmarkName = "-loadImageWithUrl:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -697,11 +697,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-common/HumWebImageView.m"
-         timestampString = "385486646.509257"
+         timestampString = "385541816.85356"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "241"
-         endingLineNumber = "241"
+         startingLineNumber = "249"
+         endingLineNumber = "249"
          landmarkName = "-getImageCB:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -774,19 +774,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "DotAer/Classes/HumImage/ui-iphone/HMImageScrollView.m"
-         timestampString = "384969068.146794"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "589"
-         endingLineNumber = "589"
-         landmarkName = "-viewForZoomingInScrollView:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
          timestampString = "385010723.399827"
          startingColumnNumber = "9223372036854775807"
@@ -814,11 +801,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/HumImage/ui-iphone/HMImageScrollView.m"
-         timestampString = "384969068.146794"
+         timestampString = "385546817.028999"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "494"
-         endingLineNumber = "494"
+         startingLineNumber = "483"
+         endingLineNumber = "483"
          landmarkName = "-reloadImageViews"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1373,11 +1360,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-common/HumWebImageView.m"
-         timestampString = "385486646.509257"
+         timestampString = "385541816.85356"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "230"
-         endingLineNumber = "230"
+         startingLineNumber = "238"
+         endingLineNumber = "238"
          landmarkName = "-DownloadProgres:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1386,11 +1373,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-common/HumWebImageView.m"
-         timestampString = "385486646.509257"
+         timestampString = "385541816.85356"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "233"
-         endingLineNumber = "233"
+         startingLineNumber = "241"
+         endingLineNumber = "241"
          landmarkName = "-DownloadProgres:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1421,7 +1408,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/photo/HumDotaImageCateOneView.m"
@@ -1525,32 +1512,6 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "DotAer/Classes/ui-iphone/photo/HumImageTableCell.m"
-         timestampString = "384947794.654499"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "44"
-         endingLineNumber = "44"
-         landmarkName = "-tapDetectingImageView:gotSingleTapAtPoint:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "DotAer/Classes/ui-common/HumWebImageView.m"
-         timestampString = "385486646.509257"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "491"
-         endingLineNumber = "491"
-         landmarkName = "-handleSingleTap"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
@@ -1620,11 +1581,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/HumImage/ui-iphone/HMImageScrollView.m"
-         timestampString = "384969147.884607"
+         timestampString = "385550872.887656"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "554"
-         endingLineNumber = "554"
+         startingLineNumber = "545"
+         endingLineNumber = "545"
          landmarkName = "-reloadImageViews"
          landmarkType = "5">
       </FileBreakpoint>

@@ -117,8 +117,8 @@
     Video *info = [self.dataArray objectAtIndex:indexPath.row];
     CGFloat heigh = kOrgY;
     
-    cell.videoCover.image = nil;
-    cell.videoCover.logoUrl = info.imageUrl;
+    cell.videoCover.imageView.image = nil;
+    cell.videoCover.imgUrl = info.imageUrl;
     
     CGSize size = [info.title sizeWithFont:cell.title.font constrainedToSize:CGSizeMake(cell.title.frame.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
     CGRect frame = cell.title.frame;

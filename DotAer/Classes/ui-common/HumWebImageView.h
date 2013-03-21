@@ -20,6 +20,12 @@ typedef enum {
 } HMProgressStyle;
 
 
+typedef enum{
+    HMImageDisplayALL,
+    HMImageDisplaySome,
+}HMImageDisplayStyle;
+
+
 typedef enum {
     HUMWebImageStyleNO,
     HUMWebImageStyleScale,     //按比例
@@ -31,12 +37,10 @@ typedef enum {
     HUMWeiImageStyleEqualHeight,//等高
 } HUMWebImageStyle;
 
-@interface HumWebImageView : UIImageView{
-    HUMWebImageStyle    _style;
+@interface HumWebImageView : UIScrollView<UIScrollViewDelegate>{
     Downloader   *_downloader;
     PackageFile *_cacheFile;
     NSUInteger _netsTaskID;
-    NSString *_logoUrl;
     UIActivityIndicatorView *_acty;
     CGPoint tapLocation;
     BOOL multipleTouches;        // YES if a touch event contains more than one touch; reset when all fingers are lifted.
@@ -44,16 +48,24 @@ typedef enum {
 
 }
 
-@property (nonatomic, copy) NSString *logoUrl;
+@property (nonatomic, assign) id<humWebImageDelegae> imgDelegate;
+
+@property (nonatomic, copy) NSString *imgUrl;
+@property (nonatomic, retain) UIImageView *imageView;
 @property (nonatomic, assign) NSUInteger imgTag;
-@property (nonatomic, assign) id<humWebImageDelegae> delegate;
-@property (nonatomic, retain) Downloader *downloader;
-@property (nonatomic, retain) PackageFile *cacheFile;
+
 @property (nonatomic, assign) HUMWebImageStyle style;
 @property (nonatomic, assign) HMProgressStyle progressStyle;
+
+@property (nonatomic, assign) HMImageDisplayStyle displayStyle;
+
+@property (nonatomic, retain) Downloader *downloader;
+@property (nonatomic, retain) PackageFile *cacheFile;
+
 @property (nonatomic, retain) UIImage *downImage; //转换后的image
 @property (nonatomic, retain) KDGoalBar *ciclePrg;
 
+//use for image
 - (id)initWithFrame:(CGRect)frame urlPath:(NSString*)urlPath;
 - (id)initWithFrame:(CGRect)frame urlPath:(NSString*)urlPath pkFile:(PackageFile *)file style:(HUMWebImageStyle)style;
 - (void)loadImageWithUrl:(NSString*)url;
@@ -61,8 +73,14 @@ typedef enum {
 - (void)loadImageWithUrl:(NSString *)url Widht:(NSUInteger)widht Height:(NSUInteger)height;
 - (void)loadCacheImage:(NSString *)url;
 - (void)loadCacheImage:(NSString *)url Widht:(NSUInteger)widht Height:(NSUInteger)height;
-- (void)setImageFrame:(CGRect)frame;
 
+
+- (void)prepareForReuse;
+- (void)displayImage:(UIImage *)image;
+
+//use for zoom
+- (void)updateZoomScale:(CGFloat)newScale;
+- (void)updateZoomScale:(CGFloat)newScale withCenter:(CGPoint)center;
 
 @end
 
@@ -73,8 +91,9 @@ typedef enum {
 - (void)humWebImageDidDownloader:(HumWebImageView *)view image:(UIImage *)image;
 
 //Guest
-- (void)tapDetectingImageView:(HumWebImageView *)view gotSingleTapAtPoint:(CGPoint)tapPoint;
-- (void)tapDetectingImageView:(HumWebImageView *)view gotDoubleTapAtPoint:(CGPoint)tapPoint;
-- (void)tapDetectingImageView:(HumWebImageView *)view gotTwoFingerTapAtPoint:(CGPoint)tapPoint;
+- (void)photoViewDidSingleTap:(HumWebImageView *)photoView;
+- (void)photoViewDidDoubleTap:(HumWebImageView *)photoView;
+- (void)photoViewDidTwoFingerTap:(HumWebImageView *)photoView;
+- (void)photoViewDidDoubleTwoFingerTap:(HumWebImageView *)photoView;
 
 @end
