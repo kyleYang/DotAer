@@ -27,6 +27,9 @@
 #define kSEImageMessagelList @"imagemessage.list"
 #define kSEDefImageMessageURL @"/dota/front/listImage.action"
 
+#define kSEStrategyMessagelList @"strategmessage.list"
+#define kSEDefStrategMessageURL @"/dota/front/listArticle.action?"
+
 
 @implementation HumDotaNetOps
 
@@ -99,6 +102,18 @@
     return [dl addTask:url Target:target Callback:action Attached:att];
 }
 
+
+//strategy
+
+
++(int)strategyMessageDownloader:(Downloader *)dl Target:(id)target Sel:(SEL)action Attached:(id)att page:(int)page{
+    
+    Env *env = [Env sharedEnv];
+    NSString *url = [env getSEKey:kSEStrategyMessagelList Def:kSEDefStrategMessageURL];
+    
+    url = [BqsUtils setURL:url ParameterName:@"page" Value:[NSString stringWithFormat:@"%d",page]];
+    return [dl addTask:url Target:target Callback:action Attached:att];
+}
 
 
 @end

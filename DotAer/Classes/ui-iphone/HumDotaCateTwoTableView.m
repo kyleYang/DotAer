@@ -110,6 +110,17 @@
 - (void)viewWillAppear{
     [super viewWillAppear];
     [self loadLocalData];
+    [self performSelector:@selector(tableContentFrsh) withObject:nil afterDelay:0.3];
+    
+    
+}
+
+- (void)tableContentFrsh{
+    CGPoint tableOffset = self.tableView.contentOffset;
+    if (tableOffset.y > 40) {
+        return;
+    }
+    [self.tableView setContentOffset:CGPointMake(0, kFreshOffSet) animated:YES];
 }
 
 -(void)viewDidAppear {

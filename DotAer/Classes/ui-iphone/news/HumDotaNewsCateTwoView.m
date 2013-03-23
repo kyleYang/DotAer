@@ -46,7 +46,7 @@
 
 - (void)loadLocalData{
     self.dataArray = [[HumDotaDataMgr instance] readLocalSaveNewsData];
-    [self.tableView setContentOffset:CGPointMake(0, kFreshOffSet) animated:YES];
+
 }
 
 

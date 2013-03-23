@@ -18,7 +18,9 @@
 #import "LeavesView.h"
 #import "HumLeavesControlActionDelegate.h"
 #import "HumLeavesLayout.h"
-#import "HMImagePopView.h"
+#import "HMImagePopManager.h"
+#import "MBProgressHUD.h"
+#import "BqsUtils.h"
 
 
 @interface HMLeavesView ()<humWebImageDelegae,HumLeavesDelegate,LeavesViewDataSource, LeavesViewDelegate,OHAttributedLabelDelegate,UIGestureRecognizerDelegate,HumLeavesControlActionDelegate>
@@ -52,11 +54,13 @@
 @property (nonatomic, retain) NSMutableArray *linkes;
 @property (nonatomic, retain) NSMutableDictionary *asyImgViews; // 存放imaviews;
 
+@property (nonatomic, retain) MBProgressHUD *activityView;
 
 @end
 
 @implementation HMLeavesView
 
+@synthesize parentController;
 @synthesize leavesView;
 @synthesize delegate = _delegate;
 @synthesize controlsView = _controlsView;
@@ -79,13 +83,14 @@
 @synthesize imgDic = _imgDic;
 @synthesize paraseImges;
 @synthesize paraImagesDictory;
-
+@synthesize activityView;
 
 - (void)dealloc
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeOutControls) object:nil];
     
     self.leavesView = nil;
+    self.parentController = nil;
     _delegate =nil;
     [_bgColor release]; _bgColor= nil;
     [_characterColor release]; _characterColor = nil;
@@ -115,6 +120,7 @@
     self.paraseImges = nil;
     self.paraImagesDictory = nil;
     self.attributes = nil;
+    self.activityView = nil;
     [_content release]; _content = nil;
       
     [super dealloc];
@@ -177,6 +183,17 @@
     [_layout updateControlStyle:HumLeavesControlStyleFullscreen];
     
     
+    self.activityView = [[[MBProgressHUD alloc] initWithView:self] autorelease];
+    self.activityView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.activityView.mode = MBProgressHUDModeIndeterminate;
+    self.activityView.animationType = MBProgressHUDAnimationZoom;
+    self.activityView.screenType = MBProgressHUDSectionScreen;
+    self.activityView.opacity = 0.5;
+    self.activityView.labelText = NSLocalizedStringFromTable(@"player.loading.more", @"mptplayer",nil);
+    [self  addSubview:self.activityView];
+    [self.activityView hide:YES];
+    
+    
     UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     singleTapGestureRecognizer.numberOfTapsRequired = 1;
     singleTapGestureRecognizer.delegate = self;
@@ -236,21 +253,36 @@
         self.asyImgViews = [NSMutableDictionary dictionary];
     }
     
+    _shouldHideControls = TRUE;
+    
+    [self setControlsVisible:!self.controlsVisible animated:YES];
  
     
     self.transmitText = [self transformString:_content];
     
-    [self stringParaseAgain];
-    //    [self.attString setFont:_characterFont];
-    
-    [self buildFrames];
-    
-    [self.leavesView reloadData];
-    
-    _shouldHideControls = TRUE;
-    
-    [self setControlsVisible:!self.controlsVisible animated:YES];
+    [self.activityView show:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // 原代码块二
+        BOOL finish = [self stringParaseAgain];
+        if (finish) {
+            // 原代码块三
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+             BOOL done = [self buildFrames];
+                if (done) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.activityView hide:YES];
+                        [self.leavesView reloadData];
+                    });
+                }else{
+                     NSLog(@"error when buildFrames");
+                }
 
+            });
+        } else {
+            NSLog(@"error when stringParaseAgain");
+        }
+    });
+    
     
 }
 
@@ -566,7 +598,7 @@
 #pragma mark - Core Text
 ////////////////////////////////////////////////////////////////////////
 
-- (void)buildFrames //创建分页信息
+- (BOOL)buildFrames //创建分页信息
 {
     
     self.frames = [NSMutableArray array];
@@ -580,6 +612,8 @@
     
     int textPos = 0; //3
     int columnIndex = 0;
+    
+    BqsLog(@"All attString leng : %d",[self.attString length]);
     
     while (textPos < [self.attString length]) { //4
         CGRect colRect;
@@ -602,6 +636,11 @@
         [self.attributes addObject:subString];
         [self.frames addObject: (id)frame];
         
+        if (frameRange.length == 0) {
+            BqsLog(@"Error When frameRange == 0");
+            break;
+        }
+        
         //prepare for next frame
         textPos += frameRange.length;
         
@@ -618,14 +657,14 @@
         _totalPageNum = columnIndex;
     }
     
-    
+    return TRUE;
 }
 
 
-- (void)stringParaseAgain
+- (BOOL)stringParaseAgain
 {
     if (!_content || _content.length == 0) {
-        return;
+        return FALSE;
     }
     self.attString = nil;
     self.images = nil;
@@ -643,7 +682,7 @@
     
     self.attString = [NSMutableAttributedString attributedStringWithAttributedString:self.attString];
     
-    [self ParagraphStyleAttributeSetting:self.attString];
+   return [self ParagraphStyleAttributeSetting:self.attString];
     
     
 }
@@ -686,7 +725,7 @@
 
 
 
-- (void)ParagraphStyleAttributeSetting:(NSMutableAttributedString *)attributeSting // 设置文章间隔距离
+- (BOOL)ParagraphStyleAttributeSetting:(NSMutableAttributedString *)attributeSting // 设置文章间隔距离
 {
     /*****设置字间距离*********/
     long number = _characterSpacing;
@@ -721,6 +760,8 @@
     CTParagraphStyleRef style = CTParagraphStyleCreate(settings ,3);
     //给文本添加设置
     [attributeSting addAttribute:(id)kCTParagraphStyleAttributeName value:(id)style range:NSMakeRange(0 , [attributeSting length])];
+    
+    return TRUE;
 }
 
 
@@ -1010,20 +1051,13 @@
         
         CGRect imgBounds = CGRectFromString([imgInfo objectAtIndex:1]);
     
-        CGRect rect = CGRectMake(imgBounds.origin.x, self.frame.size.height-imgBounds.origin.y-imgBounds.size.height, imgBounds.size.width, imgBounds.size.height);
+        CGRect rect = CGRectMake(imgBounds.origin.x, self.frame.size.height-imgBounds.origin.y-imgBounds.size.height+18, imgBounds.size.width, imgBounds.size.height);
         
         
-        UIWindow *window = nil ;//= [UIApplication sharedApplication].keyWindow;
-        if(!window) {
-            window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-        }
-        UIView *topView = [[window subviews] objectAtIndex:0];
 
-        HMImagePopView *popView = [[HMImagePopView alloc] initWithFrame:topView.bounds image:img imageFrame:rect];
-        popView.urlString = [imgInfo objectAtIndex:0];
-        [topView addSubview:popView];
-        [popView popViewAnimation];
-
+        HMImagePopManager *popView = [[HMImagePopManager alloc] initWithParentConroller:self.parentController DefaultImg:img imageUrl:[imgInfo objectAtIndex:0] imageFrame:rect];
+        [popView handleFocusGesture:nil];
+    
     }
 }
 

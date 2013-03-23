@@ -459,11 +459,14 @@
     [self prepareForReuse];
     
     UIImageView *view = [[UIImageView alloc] initWithImage:image];
-    view.contentMode = UIViewContentModeScaleAspectFit;
     view.userInteractionEnabled = TRUE;
+
     [self insertSubview:view belowSubview: self.ciclePrg];
     self.imageView = view;
     [view release];
+    
+    [self configureForImageSize:image.size];
+    
     
     // add gesture recognizers to the image view
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
@@ -483,22 +486,28 @@
     [self.imageView addGestureRecognizer:doubleTap];
     [self.imageView addGestureRecognizer:twoFingerTap];
     [self.imageView addGestureRecognizer:doubleTwoFingerTap];
-    
-    if (_displayStyle == HMImageDisplaySome) {
-        self.imageView.frame = self.bounds;
-    }else if(_displayStyle == HMImageDisplayALL){
-        self.contentSize = self.imageView.frame.size;
-    }
-       
-    [self setMaxMinZoomScalesForCurrentBounds];
-    [self setZoomScale:self.minimumZoomScale animated:FALSE];
+    [singleTap release];
+    [doubleTap release];
+    [twoFingerTap release];
+    [doubleTwoFingerTap release];
+           
+//    [self setMaxMinZoomScalesForCurrentBounds];
+//    [self setZoomScale:self.minimumZoomScale animated:FALSE];
 }
+
+- (void)configureForImageSize:(CGSize)imageSize
+{
+    self.contentSize = imageSize;
+    [self setMaxMinZoomScalesForCurrentBounds];
+    self.zoomScale = self.minimumZoomScale;
+}
+
 
 #pragma mark - Gestures
 #pragma mark -
 
 - (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {
-    if (self.imgDelegate != nil) {
+    if (self.imgDelegate != nil && [self.imgDelegate respondsToSelector:@selector(photoViewDidSingleTap:)]) {
         [self.imgDelegate photoViewDidSingleTap:self];
     }
 }
@@ -514,7 +523,7 @@
         [self updateZoomScaleWithGesture:gestureRecognizer newScale:newScale];
     }
     
-    if (self.imgDelegate != nil) {
+    if (self.imgDelegate != nil && [self.imgDelegate respondsToSelector:@selector(photoViewDidDoubleTap:)]) {
         [self.imgDelegate photoViewDidDoubleTap:self];
     }
 }
@@ -524,19 +533,19 @@
     CGFloat newScale = MAX([self zoomScale] / kZoomStep, self.minimumZoomScale);
     [self updateZoomScaleWithGesture:gestureRecognizer newScale:newScale];
     
-    if (self.imgDelegate != nil) {
+    if (self.imgDelegate != nil && [self.imgDelegate respondsToSelector:@selector(photoViewDidTwoFingerTap:)]) {
         [self.imgDelegate photoViewDidTwoFingerTap:self];
     }
 }
 
 - (void)handleDoubleTwoFingerTap:(UIGestureRecognizer *)gestureRecognizer {
-    if (self.imgDelegate != nil) {
+    if (self.imgDelegate != nil  && [self.imgDelegate respondsToSelector:@selector(photoViewDidDoubleTwoFingerTap:)]) {
         [self.imgDelegate photoViewDidDoubleTwoFingerTap:self];
     }
 }
 
 - (void)handleScrollViewSingleTap:(UIGestureRecognizer *)gestureRecognizer {
-    if (self.imgDelegate != nil) {
+    if (self.imgDelegate != nil  && [self.imgDelegate respondsToSelector:@selector(photoViewDidSingleTap:)]) {
         [self.imgDelegate photoViewDidSingleTap:self];
     }
 }

@@ -65,7 +65,7 @@
 
 - (void)loadLocalData{
     self.dataArray = [[HumDotaDataMgr instance] readLocalSaveImageDataCat:self.imageCatId];
-    [self.tableView setContentOffset:CGPointMake(0, kFreshOffSet) animated:YES];
+    
 }
 
 

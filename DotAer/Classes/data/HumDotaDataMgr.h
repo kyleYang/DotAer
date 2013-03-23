@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Downloader.h"
 @class PackageFile;
-
+@class Article;
 
 #define kNtfDotaOneVideoChanged @"ntf.dota.one.video.category"
 #define kNtfDotaTwoVideoChanged @"ntf.dota.Two.video.category"
@@ -22,6 +22,7 @@
 @property (nonatomic, copy) NSString *videoPath;
 @property (nonatomic, copy) NSString *imagePath;
 @property (nonatomic, copy) NSString *strategyPath;
+@property (nonatomic, copy) NSString *articlePath;
 
 
 
@@ -63,5 +64,10 @@
 - (NSString *)pathOfStrategyMessageForCat:(NSString *)category;
 - (NSArray *)readLocalSaveStrategyDataCat:(NSString *)category;
 - (BOOL)saveStrategyData:(NSArray *)arr forCat:(NSString *)category;
+
+- (NSString *)pathOfArticlForArticleID:(NSString *)artId;
+- (Article *)articleContentOfAritcleID:(NSString *)artId;
+- (BOOL)saveArticleContent:(NSString *)content ArticleID:(NSString *)artId;
+
 
 @end

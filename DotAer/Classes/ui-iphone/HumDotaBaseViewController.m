@@ -15,6 +15,7 @@
 #import "HumDotaNewsCateOneView.h"
 #import "HumDotaVideoCateOneView.h"
 #import "HumDotaImageCateOneView.h"
+#import "HumDotaStrategyCateOneView.h"
 #import "HumLeftBaseView.h"
 #import "HumRightBaseView.h"
 #import "HumSettingView.h"
@@ -131,6 +132,8 @@
         av = [[[HumDotaVideoCateOneView alloc] initWithDotaCatFrameViewCtl:self Frame:frm] autorelease];
     }else if([kDotaCat_Photo isEqualToString:self.curCatId]){
         av = [[[HumDotaImageCateOneView alloc] initWithDotaCatFrameViewCtl:self Frame:frm] autorelease];
+    }else if([kDotaCat_Strategy isEqualToString:self.curCatId]){
+        av = [[[HumDotaStrategyCateOneView alloc] initWithDotaCatFrameViewCtl:self Frame:frm] autorelease];
     }
     av.topNav.delegate = self;
     av.frame = frm;
@@ -430,6 +433,25 @@
         [self humLeftBaseView:nil DidClickGoback:nil];
     }
     
+}
+
+
+#pragma mark
+#pragma mark IOS 6
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    
+}
+
+-(NSUInteger)supportedInterfaceOrientations{
+    
+    return UIInterfaceOrientationMaskPortrait;  // 可以修改为任何方向
+}
+
+-(BOOL)shouldAutorotate{
+    
+    return NO;
 }
 
 

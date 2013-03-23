@@ -319,8 +319,7 @@ static UIColor* creatColorWith16(NSString *hexColor)//16进制颜色转换  形�
                 __block int widthInt = 310;
                 __block int heithInt = 200;
                 
-                 [string appendAttributedString:[[[NSAttributedString alloc] initWithString:@"\n" attributes:nil] autorelease]];
-                
+    
                 //width
                 NSRegularExpression* widthRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<=width=[\'\"])[^[\'\"]]+" options:0 error:NULL] autorelease];
                 [widthRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
@@ -331,7 +330,7 @@ static UIColor* creatColorWith16(NSString *hexColor)//16进制颜色转换  形�
                 //height
                 NSRegularExpression* faceRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<=height=[\'\"])[^[\'\"]]+" options:0 error:NULL] autorelease];
                 [faceRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
-                    widthInt = [[tag substringWithRange: match.range] intValue];
+                    heithInt = [[tag substringWithRange: match.range] intValue];
                     height = [NSNumber numberWithInt: [[tag substringWithRange:match.range] intValue]];
                 }];
                 
@@ -343,15 +342,18 @@ static UIColor* creatColorWith16(NSString *hexColor)//16进制颜色转换  形�
                 }];
                 
                 //type
-                NSRegularExpression* typeRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<=type=[\'\"])[^[\'\"]]+" options:0 error:NULL] autorelease];
+                NSRegularExpression* typeRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<=imgtype=[\'\"])[^[\'\"]]+" options:0 error:NULL] autorelease];
                 [typeRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
                     type = [tag substringWithRange: match.range];
                 }];
                 
-                
-                int tempH = 200*heithInt/widthInt;
-                width = [NSNumber numberWithInt:310];
-                height = [NSNumber numberWithInt:tempH];
+                if(widthInt > 200){
+                    int tempH = 200*heithInt/widthInt;
+                    width = [NSNumber numberWithInt:310];
+                    height = [NSNumber numberWithInt:tempH];
+                    
+                    [string appendAttributedString:[[[NSAttributedString alloc] initWithString:@"\n" attributes:nil] autorelease]];
+                }
             
                 
                 //add the image for drawing

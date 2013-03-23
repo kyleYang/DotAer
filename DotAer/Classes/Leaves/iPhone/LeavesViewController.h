@@ -14,4 +14,6 @@
 
 - (id)initWithString:(NSString *)string;
 
+- (id)initWithArtUrl:(NSString *)url articeId:(NSString *)artId;
+
 @end

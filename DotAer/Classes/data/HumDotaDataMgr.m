@@ -16,12 +16,15 @@
 #import "Video.h"
 #import "Photo.h"
 #import "Strategy.h"
+#import "XmlWriter.h"
+#import "Article.h"
 
 #define kHumDota @"dotaer"
 #define kHumNews @"news"
 #define kHumVideo @"video"
 #define kHumImage @"image"
 #define kHumStrategy @"strategy"
+#define kHumArticle @"article"
 
 #define kFileNameOnlineDataPkgFile @"online.pak"
 #define kFileNameOnlineImagePkgFile @"image.pak"
@@ -35,6 +38,8 @@
 #define kFileNameVideoMessageCateFile @"dotavideo_%@.xml"
 #define kFileNameImageMessageCateFile @"dotaimage_%@.xml"
 #define kFileNameStrategyMessageCateFile @"dotastrategy_%@.xml"
+
+#define kFileNameArticle @"art_%@.txt"
 
 
 #define kCfgOneVideoCatResfreshTS @"cfg.dota.one.video.category.refreshTS"
@@ -82,6 +87,7 @@
 @synthesize videoPath;
 @synthesize imagePath;
 @synthesize strategyPath;
+@synthesize articlePath;
 
 @synthesize arrOneVideoCat; //video category
 @synthesize arrTwoVideoCat;
@@ -102,6 +108,7 @@
     self.videoPath = nil;
     self.imagePath = nil;
     self.strategyPath = nil;
+    self.articlePath = nil;
     self.arrOneVideoCat = nil;
     self.arrTwoVideoCat = nil;
     self.arrOneImageCat = nil;
@@ -137,8 +144,9 @@
     self.videoPath = [self.rootPath stringByAppendingPathComponent:kHumVideo];
     self.imagePath = [self.rootPath stringByAppendingPathComponent:kHumImage];
     self.strategyPath = [self.rootPath stringByAppendingPathComponent:kHumStrategy];
+    self.articlePath = [self.rootPath stringByAppendingPathComponent:kHumArticle];
     
-	BqsLog(@"dota rootPath=%@,newsPath = %@,videoPath = %@,imagePath = %@,strategyPath = %@ ", self.rootPath,self.newsPath,self.videoPath,self.imagePath,self.strategyPath);
+	BqsLog(@"dota rootPath=%@,newsPath = %@,videoPath = %@,imagePath = %@,strategyPath = %@ ,articlePath = %@", self.rootPath,self.newsPath,self.videoPath,self.imagePath,self.strategyPath,self.articlePath);
     
     self.downloader = [[[Downloader alloc] init] autorelease];
     self.downloader.bSearialLoad = YES;
@@ -279,9 +287,31 @@
 }
 
 - (NSArray *)readLocalSaveStrategyDataCat:(NSString *)category{
-    
+     return [Strategy parseXmlData:[NSData dataWithContentsOfFile:[self pathOfStrategyMessageForCat:category]]];
 }
 - (BOOL)saveStrategyData:(NSArray *)arr forCat:(NSString *)category{
+    return [Strategy saveToFile:[self pathOfStrategyMessageForCat:category] Arr:arr];
+}
+
+//article
+- (NSString *)pathOfArticlForArticleID:(NSString *)artId{
+    NSString *detailFile = [NSString stringWithFormat:kFileNameArticle,artId];
+    NSString *path = [self.articlePath stringByAppendingPathComponent:detailFile];
+    BqsLog(@"pathOfArticlForArticleID :%@",path);
+	return path;
+}
+
+- (Article *)articleContentOfAritcleID:(NSString *)artId{
+    return [Article parseXmlData:[NSData dataWithContentsOfFile:[self pathOfArticlForArticleID:artId]]];
+}
+
+- (BOOL)saveArticleContent:(NSString *)content ArticleID:(NSString *)artId{
+    
+    Article *artcle = [[[Article alloc] init] autorelease];
+    artcle.articleId = artId;
+    artcle.content = content;
+    
+    return [Article saveToFile:[self pathOfArticlForArticleID:artId] article:artcle];
     
 }
 
