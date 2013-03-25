@@ -18,6 +18,8 @@
 @property (nonatomic, retain, readwrite) UIView *topControlsContainerView;
 
 @property (nonatomic, retain, readwrite) UIButton *backControl;
+@property (nonatomic, retain, readwrite) UIButton *addControl;
+@property (nonatomic, retain, readwrite) UIButton *cutControl;
 
 @end
 
@@ -34,6 +36,8 @@
 @synthesize TopControlFullscreenImage = _TopControlFullscreenImage;
 
 @synthesize backControl = _backControl;
+@synthesize addControl = _addControl;
+@synthesize cutControl = _cutControl;
 
 
 - (void)dealloc{
@@ -68,6 +72,8 @@
         self.topControlsContainerView = _controlsView.topControlsContainerView;
         
         self.backControl = _controlsView.backControl;
+        self.addControl = _controlsView.addControl;
+        self.cutControl = _controlsView.cutControl;
         
 
     }
@@ -77,7 +83,7 @@
     [self customizeTopControlsViewWithControlStyle:controlStyle];
     [self customizeBottomControlsViewWithControlStyle:controlStyle];
     [self customizeControlsWithControlStyle:controlStyle];
-    
+    [self layoutControlsWithControlStyle:controlStyle];
     [self invalidateLayout];
 }
 
@@ -213,15 +219,27 @@
 
 
 - (void)layoutSubviewsForControlStyleFullscreen{
+    CGRect frame = self.backControl.frame;
+    frame.origin.x = 13;
+    frame.origin.y = 3;
+    self.backControl.frame = frame;
     
+    frame = self.addControl.frame;
+    frame.origin.x = 220;
+    frame.origin.y = 3;
+    self.addControl.frame = frame;
+    
+    frame = self.cutControl.frame;
+    frame.origin.x = CGRectGetMaxX(self.addControl.frame)+10;
+    frame.origin.y = 3;
+    self.cutControl.frame = frame;
 
 }
 
 
 - (void)layoutSubviewsForControlStyleInline{
     
-    self.backControl.frame = CGRectMake(15, 0, 60, 40);
-    
+        
     
 }
 

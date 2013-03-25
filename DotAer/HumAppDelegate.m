@@ -43,8 +43,10 @@
 {
     
     self.theEnv = [[[Env alloc] init] autorelease];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+  
     
     if (!self.theEnv.bIsPad) {
          self.viewController = [[[HumDotaBaseViewController alloc] initWithNibName:nil bundle:nil] autorelease];

@@ -9,19 +9,34 @@
 #import "HumImageTableCell.h"
 
 #define kOrgX 13
-#define kOrgY 10
+#define kOrgY 5
 
 #define kGapW 14
 #define kWdith 140
 
 @implementation HumImageTableCell
+@synthesize bgImg;
+@synthesize leftImage;
+@synthesize rightImage;
+
+- (void)dealloc{
+    self.bgImg = nil;
+    self.leftImage = nil;
+    self.rightImage = nil;
+    [super dealloc];
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        self.leftImage = [[[HumWebImageView alloc] initWithFrame:CGRectMake(kOrgX, kOrgY, kWdith, CGRectGetHeight(self.bounds)-kOrgY)] autorelease];
+        self.bgImg = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+        self.bgImg.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+        self.bgImg.backgroundColor = [UIColor clearColor];
+        [self addSubview:self.bgImg];
+        
+        self.leftImage = [[[HumWebImageView alloc] initWithFrame:CGRectMake(kOrgX, kOrgY, kWdith, CGRectGetHeight(self.bounds)-2*kOrgY)] autorelease];
         self.leftImage.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         self.leftImage.style = HUMWebImageStyleTopCentre;
         self.leftImage.imgDelegate = self;

@@ -43,18 +43,30 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+            
         UIButton *cellSelct = [[UIButton alloc] initWithFrame:self.bounds];
         cellSelct.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         [cellSelct addTarget:self action:@selector(cellSelct:) forControlEvents:UIControlEventTouchUpInside];
+        [cellSelct setBackgroundImage:[[Env sharedEnv] cacheImage:@"dota_catOne_down.png"] forState:UIControlEventTouchDown];
         cellSelct.backgroundColor = [UIColor clearColor];
         [self addSubview:cellSelct];
         [cellSelct release];
         
-        self.itemName = [[[UILabel alloc] initWithFrame:self.bounds] autorelease];
+        CGRect frame = CGRectMake(5, 0, CGRectGetWidth(self.bounds)-5, CGRectGetHeight(self.bounds));
+
+        
+        self.itemName = [[[UILabel alloc] initWithFrame:frame] autorelease];
         self.itemName.font = [UIFont systemFontOfSize:12.f];
         self.itemName.textColor = [UIColor whiteColor];
         self.itemName.backgroundColor = [UIColor clearColor];
         [self addSubview:self.itemName];
+        
+        UIImageView *line =  [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 3, self.frame.size.width, 2)];
+        line.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
+        line.image = [[Env sharedEnv] cacheImage:@"dota_cell_line.png"];
+        [self addSubview:line];
+        [line release];
+
     }
     return self;
 }
@@ -107,13 +119,14 @@
         self.arrItem = arr;
         self.popPoint = point;
         
-        CGRect sFrame = CGRectMake(point.x - kOneWidth/2, point.y+40, kOneWidth, 200);
+        CGRect sFrame = CGRectMake(point.x - kOneWidth/2, point.y+35, kOneWidth, 212);
         self.tableBg = [[[UIImageView alloc] initWithFrame:sFrame] autorelease];
         self.tableBg.image = [[Env sharedEnv] cacheImage:@"dota_video_cate_one_bg.png"];
         self.tableBg.userInteractionEnabled = YES;
+        self.tableBg.alpha = 0.6;
         [self addSubview:self.tableBg];
         
-        self.table = [[[UITableView alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(sFrame), CGRectGetHeight(sFrame) - 12)] autorelease];
+        self.table = [[[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(sFrame), CGRectGetHeight(sFrame) - 12)] autorelease];
         self.table.dataSource = self;
         self.table.delegate = self;
         self.table.backgroundColor = [UIColor clearColor];

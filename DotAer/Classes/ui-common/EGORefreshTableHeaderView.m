@@ -9,9 +9,10 @@
 #define  RefreshViewHight 65.0f
 
 #import "EGORefreshTableHeaderView.h"
+#include "Env.h"
 
 
-#define TEXT_COLOR	 [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0]
+#define TEXT_COLOR	 [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]
 #define FLIP_ANIMATION_DURATION 0.18f
 
 
@@ -43,14 +44,21 @@
     if (self) {
 		
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		self.backgroundColor = [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
+        
+        UIImageView *bg = [[UIImageView alloc] initWithFrame:self.bounds];
+        bg.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        bg.image = [[Env sharedEnv] cacheScretchableImage:@"dota_pull_bg.png" X:20 Y:3];
+        [self addSubview:bg];
+        [bg release];
+        
+//		self.backgroundColor = [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
         
         self.pullDistance = RefreshViewHight;
         
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, CGRectGetHeight(frame)- 50, self.frame.size.width, 20.0f)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, CGRectGetHeight(frame)- 30, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
-		label.font = [UIFont boldSystemFontOfSize:13.0f];
+		label.font = [UIFont boldSystemFontOfSize:17.0f];
 		label.textColor = TEXT_COLOR;
 		label.shadowColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
 		label.shadowOffset = CGSizeMake(0.0f, 1.0f);
@@ -61,24 +69,24 @@
 		[label release];
 
 
-		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,_statusLabel.frame.origin.y+_statusLabel.frame.size.height, self.frame.size.width, 20.0f)];
-		label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;;
-		label.font = [UIFont systemFontOfSize:12.0f];
-		label.textColor = TEXT_COLOR;
-		label.shadowColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
-		label.shadowOffset = CGSizeMake(0.0f, 1.0f);
-		label.backgroundColor = [UIColor clearColor];
-		label.textAlignment = UITextAlignmentCenter;
-		[self addSubview:label];
-		_lastUpdatedLabel=label;
-		[label release];
+//		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,_statusLabel.frame.origin.y+_statusLabel.frame.size.height, self.frame.size.width, 20.0f)];
+//		label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;;
+//		label.font = [UIFont systemFontOfSize:12.0f];
+//		label.textColor = TEXT_COLOR;
+//		label.shadowColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
+//		label.shadowOffset = CGSizeMake(0.0f, 1.0f);
+//		label.backgroundColor = [UIColor clearColor];
+//		label.textAlignment = UITextAlignmentCenter;
+//		[self addSubview:label];
+//		_lastUpdatedLabel=label;
+//		[label release];
 		
 		
 		
 		CALayer *layer = [CALayer layer];
-		layer.frame = CGRectMake(25.0f, CGRectGetHeight(frame)- 50, 30.0f, 40.0f);
+		layer.frame = CGRectMake(80.0f, CGRectGetHeight(frame)- 30, 15.0f, 17.0f);
 		layer.contentsGravity = kCAGravityResizeAspect;
-		layer.contents = (id)[UIImage imageNamed:@"blueArrow.png"].CGImage;
+		layer.contents = (id)[UIImage imageNamed:@"whiteArrow.png"].CGImage;
 		
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
 		if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
@@ -89,8 +97,8 @@
 		[[self layer] addSublayer:layer];
 		_arrowImage=layer;
 		
-		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		view.frame = CGRectMake(25.0f, CGRectGetHeight(frame)- 38.0f, 20.0f, 20.0f);
+		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+		view.frame = CGRectMake(80.0f, CGRectGetHeight(frame)- 25.0f, 20.0f, 20.0f);
 		[self addSubview:view];
 		_activityView = view;
 		[view release];
@@ -109,8 +117,11 @@
 
 - (void)refreshLastUpdatedDate {
 	
+    return;
+    
 	if (_delegate&&[_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceLastUpdated:)]) {
 		
+        
 		NSDate *date = [_delegate egoRefreshTableHeaderDataSourceLastUpdated:self];
 		
 		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -136,7 +147,7 @@
 	switch (aState) {
 		case EGOOPullRefreshPulling:
 			
-			_statusLabel.text = NSLocalizedString(@"pg.pulling.fresh", nil);
+			_statusLabel.text = NSLocalizedString(@"dota.pulling.fresh", nil);
 			[CATransaction begin];
 			[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
 			_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
@@ -152,7 +163,7 @@
 				[CATransaction commit];
 			}
 			
-			_statusLabel.text = NSLocalizedString(@"pg.pullup.fresh", nil);
+			_statusLabel.text = NSLocalizedString(@"dota.pullup.fresh", nil);
 			[_activityView stopAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
@@ -165,7 +176,7 @@
 			break;
 		case EGOOPullRefreshLoading:
 			
-			_statusLabel.text = NSLocalizedString(@"pg.pullup.loading", nil);
+			_statusLabel.text = NSLocalizedString(@"dota.pullup.loading", nil);
 			[_activityView startAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 

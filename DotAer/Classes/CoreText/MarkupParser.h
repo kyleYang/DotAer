@@ -11,6 +11,9 @@
 
 #define kDefaultFont @"HelveticaNeueUI"
 #define kCTFont @"font"
+#define kCTP @"p"
+#define kCTPend @"/p>"
+#define kCTBrend @"br/>"
 #define kCTFileName @"fileName"
 #define kCTWidth @"width"
 #define kCTHeight @"height"
@@ -31,6 +34,7 @@
     CGFloat _setFontSize;
     NSString  *_setFont;
     BOOL _hyperType;
+    BOOL _branch;
     UIColor *_setColor; //设置默认字体颜色
     UIColor *linkColor; //设置超链接显示形式
     UIColor *_setLinkColor;

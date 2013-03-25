@@ -73,7 +73,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/HumDotaBaseViewController.m"
-         timestampString = "385637418.886978"
+         timestampString = "385870270.91706"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "169"
@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/HumDotaBaseViewController.m"
-         timestampString = "385637418.886978"
+         timestampString = "385870270.91706"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "228"
-         endingLineNumber = "228"
+         startingLineNumber = "230"
+         endingLineNumber = "230"
          landmarkName = "-humLeftBaseView:DidClickGoback:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385669904.71355"
+         timestampString = "385829471.210715"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "237"
-         endingLineNumber = "237"
+         startingLineNumber = "336"
+         endingLineNumber = "336"
          landmarkName = "-setContent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385669904.71355"
+         timestampString = "385828551.096599"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "164"
-         endingLineNumber = "164"
+         startingLineNumber = "171"
+         endingLineNumber = "171"
          landmarkName = "-parameterInit"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/HumLeavesLayout.m"
-         timestampString = "382203830.826525"
+         timestampString = "385827046.13858"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "77"
-         endingLineNumber = "77"
+         startingLineNumber = "83"
+         endingLineNumber = "83"
          landmarkName = "-updateControlStyle:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/HumLeavesLayout.m"
-         timestampString = "382203830.826525"
+         timestampString = "385827046.13858"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "94"
-         endingLineNumber = "94"
+         startingLineNumber = "100"
+         endingLineNumber = "100"
          landmarkName = "-TopControlFullscreenImage"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385669904.71355"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "489"
-         endingLineNumber = "489"
+         startingLineNumber = "560"
+         endingLineNumber = "560"
          landmarkName = "-setControlStyle:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385669904.71355"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "441"
-         endingLineNumber = "441"
+         startingLineNumber = "512"
+         endingLineNumber = "512"
          landmarkName = "-setControlsVisible:animated:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385669904.71355"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "591"
-         endingLineNumber = "591"
+         startingLineNumber = "679"
+         endingLineNumber = "679"
          landmarkName = "-restartFadeOutControlsViewTimer"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385669904.71355"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "515"
-         endingLineNumber = "515"
+         startingLineNumber = "586"
+         endingLineNumber = "586"
          landmarkName = "-humLeavesControl:didPerformAction:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -203,11 +203,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/HumLeavesControlView.m"
-         timestampString = "382203877.078943"
+         timestampString = "385827046.13858"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "110"
-         endingLineNumber = "110"
+         startingLineNumber = "140"
+         endingLineNumber = "140"
          landmarkName = "-handleBackButtonPress:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -216,11 +216,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/LeavesViewController.m"
-         timestampString = "385708527.905858"
+         timestampString = "385796720.681485"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "172"
-         endingLineNumber = "172"
+         startingLineNumber = "182"
+         endingLineNumber = "182"
          landmarkName = "-viewWillDisappear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -229,11 +229,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385669904.71355"
+         timestampString = "385828551.096599"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "91"
-         endingLineNumber = "91"
+         startingLineNumber = "93"
+         endingLineNumber = "93"
          landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
@@ -242,11 +242,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385669904.71355"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "482"
-         endingLineNumber = "482"
+         startingLineNumber = "553"
+         endingLineNumber = "553"
          landmarkName = "-fadeOutControls"
          landmarkType = "5">
       </FileBreakpoint>
@@ -463,24 +463,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "385010723.399827"
+         timestampString = "385812266.02071"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "197"
-         endingLineNumber = "197"
+         startingLineNumber = "199"
+         endingLineNumber = "199"
          landmarkName = "-tableView:heightForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "385010723.399827"
+         timestampString = "385812266.02071"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "165"
-         endingLineNumber = "165"
+         startingLineNumber = "167"
+         endingLineNumber = "167"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -749,11 +749,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "385010723.399827"
+         timestampString = "385812266.02071"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "236"
-         endingLineNumber = "236"
+         startingLineNumber = "238"
+         endingLineNumber = "238"
          landmarkName = "-humNewsCell:didSelectIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -762,11 +762,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "385010723.399827"
+         timestampString = "385812266.02071"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "219"
-         endingLineNumber = "219"
+         startingLineNumber = "221"
+         endingLineNumber = "221"
          landmarkName = "-humNewsCell:didSelectIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -827,11 +827,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/CoreText/MarkupParser.m"
-         timestampString = "385480758.636837"
+         timestampString = "385746315.718248"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "195"
-         endingLineNumber = "195"
+         startingLineNumber = "196"
+         endingLineNumber = "196"
          landmarkName = "-attrStringFromMarkup:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -840,11 +840,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/CoreText/MarkupParser.m"
-         timestampString = "385480758.636837"
+         timestampString = "385746315.718248"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "258"
-         endingLineNumber = "258"
+         startingLineNumber = "266"
+         endingLineNumber = "266"
          landmarkName = "-attrStringFromMarkup:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -853,11 +853,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/CoreText/MarkupParser.m"
-         timestampString = "385480758.636837"
+         timestampString = "385746373.106881"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "204"
-         endingLineNumber = "204"
+         startingLineNumber = "206"
+         endingLineNumber = "206"
          landmarkName = "-attrStringFromMarkup:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -866,11 +866,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/CoreText/MarkupParser.m"
-         timestampString = "385704599.534606"
+         timestampString = "385750512.744092"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "392"
-         endingLineNumber = "392"
+         startingLineNumber = "440"
+         endingLineNumber = "440"
          landmarkName = "-attrStringFromMarkup:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -879,11 +879,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/CoreText/MarkupParser.m"
-         timestampString = "385704599.534606"
+         timestampString = "385750512.744092"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "396"
-         endingLineNumber = "396"
+         startingLineNumber = "444"
+         endingLineNumber = "444"
          landmarkName = "-attrStringFromMarkup:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -892,11 +892,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/CoreText/MarkupParser.m"
-         timestampString = "385704599.534606"
+         timestampString = "385750512.744092"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "360"
-         endingLineNumber = "360"
+         startingLineNumber = "408"
+         endingLineNumber = "408"
          landmarkName = "-attrStringFromMarkup:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -957,11 +957,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/video/HumDotaVideoCateOneView.m"
-         timestampString = "385003915.064167"
+         timestampString = "385831278.047074"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "233"
-         endingLineNumber = "233"
+         startingLineNumber = "234"
+         endingLineNumber = "234"
          landmarkName = "-calcCatTwoHash:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -970,11 +970,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/video/HumDotaVideoCateOneView.m"
-         timestampString = "385003915.064167"
+         timestampString = "385831278.047074"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "215"
-         endingLineNumber = "215"
+         startingLineNumber = "216"
+         endingLineNumber = "216"
          landmarkName = "-allCatIdFor:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1035,11 +1035,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-common/HMCateOnePopView.m"
-         timestampString = "384496483.467039"
+         timestampString = "385830913.643933"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "161"
-         endingLineNumber = "161"
+         startingLineNumber = "174"
+         endingLineNumber = "174"
          landmarkName = "-tableView:heightForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1048,11 +1048,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-common/HMCateOnePopView.m"
-         timestampString = "384496483.467039"
+         timestampString = "385830913.643933"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "140"
-         endingLineNumber = "140"
+         startingLineNumber = "153"
+         endingLineNumber = "153"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1061,25 +1061,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-common/HMCateOnePopView.m"
-         timestampString = "384496483.467039"
+         timestampString = "385830913.643933"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "107"
-         endingLineNumber = "107"
+         startingLineNumber = "119"
+         endingLineNumber = "119"
          landmarkName = "-initWithFrame:withArray:popAt:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "DotAer/Classes/ui-common/HMCateOnePopView.m"
-         timestampString = "384496929.447278"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "168"
-         endingLineNumber = "168"
-         landmarkName = "-hmCateOneTableCell:didSelectIndex:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1126,11 +1113,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/video/HumDotaVideoCateOneView.m"
-         timestampString = "385003915.064167"
+         timestampString = "385831278.047074"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "83"
-         endingLineNumber = "83"
+         startingLineNumber = "84"
+         endingLineNumber = "84"
          landmarkName = "-viewForCatOneIdx:TwoIdx:VCtl:Frame:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1269,11 +1256,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/HumLeavesLayout.m"
-         timestampString = "384752873.639246"
+         timestampString = "385827046.13858"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "222"
-         endingLineNumber = "222"
+         startingLineNumber = "242"
+         endingLineNumber = "242"
          landmarkName = "-layoutSubviewsForControlStyleInline"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1568,11 +1555,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "385479983.092151"
+         timestampString = "385812266.02071"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "227"
-         endingLineNumber = "227"
+         startingLineNumber = "229"
+         endingLineNumber = "229"
          landmarkName = "-humNewsCell:didSelectIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1581,11 +1568,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385701539.824418"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "685"
-         endingLineNumber = "685"
+         startingLineNumber = "773"
+         endingLineNumber = "773"
          landmarkName = "-stringParaseAgain"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1594,11 +1581,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385701539.824418"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "841"
-         endingLineNumber = "841"
+         startingLineNumber = "898"
+         endingLineNumber = "898"
          landmarkName = "-attachImagesWithFrame:withImages:withContext:inIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1620,11 +1607,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385701539.824418"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1049"
-         endingLineNumber = "1049"
+         startingLineNumber = "1106"
+         endingLineNumber = "1106"
          landmarkName = "-excuteEventAtIndex:atPageIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1659,11 +1646,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-common/HumWebImageView.m"
-         timestampString = "385572114.633391"
+         timestampString = "385812549.795829"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "461"
-         endingLineNumber = "461"
+         startingLineNumber = "465"
+         endingLineNumber = "465"
          landmarkName = "-displayImage:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1672,11 +1659,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-common/HumWebImageView.m"
-         timestampString = "385615191.429215"
+         timestampString = "385812549.795829"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "461"
-         endingLineNumber = "461"
+         startingLineNumber = "465"
+         endingLineNumber = "465"
          landmarkName = "-displayImage:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1750,11 +1737,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385701539.824418"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1055"
-         endingLineNumber = "1055"
+         startingLineNumber = "1112"
+         endingLineNumber = "1112"
          landmarkName = "-excuteEventAtIndex:atPageIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1802,11 +1789,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-common/HumWebImageView.m"
-         timestampString = "385632238.049447"
+         timestampString = "385812549.795829"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "516"
-         endingLineNumber = "516"
+         startingLineNumber = "520"
+         endingLineNumber = "520"
          landmarkName = "-handleDoubleTap:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1841,11 +1828,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/LeavesViewController.m"
-         timestampString = "385708527.905858"
+         timestampString = "385796720.681485"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "191"
-         endingLineNumber = "191"
+         startingLineNumber = "201"
+         endingLineNumber = "201"
          landmarkName = "-contentFinishCB:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1867,11 +1854,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385701539.824418"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "680"
-         endingLineNumber = "680"
+         startingLineNumber = "768"
+         endingLineNumber = "768"
          landmarkName = "-stringParaseAgain"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1880,11 +1867,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385669904.71355"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "604"
-         endingLineNumber = "604"
+         startingLineNumber = "692"
+         endingLineNumber = "692"
          landmarkName = "-buildFrames"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1893,11 +1880,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385701539.824418"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "660"
-         endingLineNumber = "660"
+         startingLineNumber = "748"
+         endingLineNumber = "748"
          landmarkName = "-buildFrames"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1906,37 +1893,37 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385701539.824418"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "649"
-         endingLineNumber = "649"
+         startingLineNumber = "737"
+         endingLineNumber = "737"
          landmarkName = "-buildFrames"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385705023.236946"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "771"
-         endingLineNumber = "771"
+         startingLineNumber = "828"
+         endingLineNumber = "828"
          landmarkName = "-attachImagesWithFrame:withImages:withContext:inIndex:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
-         timestampString = "385705276.29595"
+         timestampString = "385829599.960044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "823"
-         endingLineNumber = "823"
+         startingLineNumber = "880"
+         endingLineNumber = "880"
          landmarkName = "-attachImagesWithFrame:withImages:withContext:inIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1951,6 +1938,136 @@
          startingLineNumber = "57"
          endingLineNumber = "57"
          landmarkName = "+parseXmlData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/CoreText/MarkupParser.m"
+         timestampString = "385750512.744092"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "361"
+         endingLineNumber = "361"
+         landmarkName = "-attrStringFromMarkup:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/CoreText/MarkupParser.m"
+         timestampString = "385750512.744092"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "397"
+         endingLineNumber = "397"
+         landmarkName = "-attrStringFromMarkup:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/CoreText/MarkupParser.m"
+         timestampString = "385750512.744092"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "388"
+         endingLineNumber = "388"
+         landmarkName = "-attrStringFromMarkup:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/CoreText/MarkupParser.m"
+         timestampString = "385797578.568826"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "331"
+         endingLineNumber = "331"
+         landmarkName = "-attrStringFromMarkup:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/CoreText/MarkupParser.m"
+         timestampString = "385798116.59807"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "389"
+         endingLineNumber = "389"
+         landmarkName = "-attrStringFromMarkup:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/CoreText/MarkupParser.m"
+         timestampString = "385798121.221601"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "330"
+         endingLineNumber = "330"
+         landmarkName = "-attrStringFromMarkup:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
+         timestampString = "385829599.960044"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "923"
+         endingLineNumber = "923"
+         landmarkName = "-attachImagesWithFrame:withImages:withContext:inIndex:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/Leaves/HumLeavesLayout.m"
+         timestampString = "385827046.13858"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "208"
+         endingLineNumber = "208"
+         landmarkName = "-layoutControlsWithControlStyle:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
+         timestampString = "385829599.960044"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "445"
+         endingLineNumber = "445"
+         landmarkName = "-setFontAdd:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/Leaves/iPhone/HMLeavesView.m"
+         timestampString = "385829599.960044"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "607"
+         endingLineNumber = "607"
+         landmarkName = "-humLeavesControl:didPerformAction:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

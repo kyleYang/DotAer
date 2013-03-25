@@ -39,6 +39,7 @@
         _setFontSize = 0.0f;
         self.fontAdd = 0.0f;
         _hyperType =  FALSE;
+        _branch = FALSE;
         self.linkColor = [UIColor blueColor];
         self.underlineLinks = YES;
         self.images = [NSMutableArray array];
@@ -201,6 +202,11 @@ static UIColor* creatColorWith16(NSString *hexColor)//16进制颜色转换  形�
        
         NSDictionary* attrs;
         NSString *linkerStr;
+        
+        if (_branch) {
+            [string appendAttributedString:[[[NSAttributedString alloc] initWithString:@"\n" attributes:nil] autorelease]]; //p分行
+        }
+        
         if (!_hyperType) {
             attrs = [NSDictionary dictionaryWithObjectsAndKeys:
                                    (id)self.color.CGColor, kCTForegroundColorAttributeName,
@@ -233,6 +239,8 @@ static UIColor* creatColorWith16(NSString *hexColor)//16进制颜色转换  形�
             
         CFRelease(fontRef);
         
+        _branch = FALSE;
+        
         if (_setFont && _setFont.length>1) { //根据外部设置的默认值
             self.font = _setFont;
         }else{
@@ -255,6 +263,16 @@ static UIColor* creatColorWith16(NSString *hexColor)//16进制颜色转换  形�
         if ([parts count]>1) 
         {
             NSString* tag = (NSString*)[parts objectAtIndex:1];
+            if ([tag isEqualToString:kCTPend]) {
+              
+                _branch = TRUE;
+                
+            }
+            if ([tag isEqualToString:kCTBrend]) {
+                
+                _branch = TRUE;
+                
+            }
             if ([tag hasPrefix:kCTFont]) {
                 //stroke color
                 NSRegularExpression* scolorRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<=strokeColor=[\'\"])\\w+" options:0 error:NULL] autorelease];
@@ -319,6 +337,10 @@ static UIColor* creatColorWith16(NSString *hexColor)//16进制颜色转换  形�
                 __block int widthInt = 310;
                 __block int heithInt = 200;
                 
+                if (_branch) {
+                    [string appendAttributedString:[[[NSAttributedString alloc] initWithString:@"\n" attributes:nil] autorelease]]; //p分行
+                }
+                
     
                 //width
                 NSRegularExpression* widthRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<=width=[\'\"])[^[\'\"]]+" options:0 error:NULL] autorelease];
@@ -334,6 +356,21 @@ static UIColor* creatColorWith16(NSString *hexColor)//16进制颜色转换  形�
                     height = [NSNumber numberWithInt: [[tag substringWithRange:match.range] intValue]];
                 }];
                 
+                NSRegularExpression* widthPxRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<= width: )[^[px]]+" options:0 error:NULL] autorelease];
+                [widthPxRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
+                    widthInt = [[tag substringWithRange: match.range] intValue];
+                    width = [NSNumber numberWithInt: [[tag substringWithRange: match.range] intValue] ];
+                }];
+                
+                //height
+                NSRegularExpression* facePxRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<= height: )[^[px]]+" options:0 error:NULL] autorelease];
+                [facePxRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
+                    heithInt = [[tag substringWithRange: match.range] intValue];
+                    height = [NSNumber numberWithInt: [[tag substringWithRange:match.range] intValue]];
+                }];
+
+                
+                
                 //image
                 NSRegularExpression* srcRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<=src=[\'\"])[^[\'\"]]+" options:0 error:NULL] autorelease];
                 [srcRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
@@ -347,13 +384,24 @@ static UIColor* creatColorWith16(NSString *hexColor)//16进制颜色转换  形�
                     type = [tag substringWithRange: match.range];
                 }];
                 
+                int tempH = 0;
                 if(widthInt > 200){
-                    int tempH = 200*heithInt/widthInt;
+                    tempH = 310*heithInt/widthInt;
                     width = [NSNumber numberWithInt:310];
                     height = [NSNumber numberWithInt:tempH];
                     
-                    [string appendAttributedString:[[[NSAttributedString alloc] initWithString:@"\n" attributes:nil] autorelease]];
+//                    [string appendAttributedString:[[[NSAttributedString alloc] initWithString:@"\n" attributes:nil] autorelease]];
                 }
+                
+                int tempW = 0;
+                if (tempH > 460) {
+                    tempH = 460;
+                    tempW = 460*widthInt/tempH;
+                    width = [NSNumber numberWithInt:tempW];
+                    height = [NSNumber numberWithInt:460];
+                }
+                
+                
             
                 
                 //add the image for drawing

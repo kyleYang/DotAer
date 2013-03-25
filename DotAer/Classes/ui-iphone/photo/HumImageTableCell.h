@@ -18,6 +18,7 @@ enum ImagePositon {
 @interface HumImageTableCell : UITableViewCell<humWebImageDelegae>
 
 @property (nonatomic, assign) id<HumImageTableCellDelegate> delegate;
+@property (nonatomic, retain) UIImageView *bgImg;
 @property (nonatomic, retain) HumWebImageView *leftImage;
 @property (nonatomic, retain) HumWebImageView *rightImage;
 

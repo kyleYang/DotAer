@@ -14,6 +14,8 @@
 
 typedef enum {
     HumLeavesControlActionBack,
+    HumLeavesControlActionFontAdd,
+    HumLeavesControlActionFontCut,
     HumLeavesControlActionWillShowControls,
     HumLeavesControlActionDidShowControls,
     HumLeavesControlActionWillHideControls,

@@ -52,6 +52,7 @@ enum VIDEOCASE {
         _videoCase = VIDEOONE;
         
         SVSegmentedControl *navSC = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects:@"DotA 1", @"DotA 2", nil]];
+        navSC.backgroundImage = [[Env sharedEnv] cacheImage:@"dota_seg_bg.png"];
         [self.topNav addSubview:navSC];
         
         navSC.center = CGPointMake(CGRectGetMidX(self.topNav.frame), CGRectGetMidY(self.topNav.frame));

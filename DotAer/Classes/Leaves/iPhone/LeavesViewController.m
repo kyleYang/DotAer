@@ -140,10 +140,30 @@
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     }
 
+    if (articleId != nil) {
+        Article *content = [[HumDotaDataMgr instance] articleContentOfAritcleID:self.articleId];
+        if (content==nil || ![content.articleId isEqualToString:self.articleId]){
+            [self.downloader addTask:self.artUrl Target:self Callback:@selector(contentFinishCB:) Attached:nil];
+            self.progress.hidden = NO;
+            return;
+
+        }
+    }
     
+    [self performSelector:@selector(loadContentForLeaves) withObject:nil afterDelay:0.2];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+
+
+- (void)loadContentForLeaves{
     if (_string != nil) {
         _leavesView.content = _string;
-
+        
     }else if(_path != nil){
         NSString *text = [NSString stringWithContentsOfFile:_path encoding:NSUTF8StringEncoding error:NULL];
         
@@ -152,18 +172,8 @@
         Article *content = [[HumDotaDataMgr instance] articleContentOfAritcleID:self.articleId];
         if (content!=nil && [content.articleId isEqualToString:self.articleId] && content.content != nil) {
             _leavesView.content = content.content;
-        }else{
-            [self.downloader addTask:self.artUrl Target:self Callback:@selector(contentFinishCB:) Attached:nil];
-            self.progress.hidden = NO;
         }
     }
-    
-}
-
-
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
 }
 
 

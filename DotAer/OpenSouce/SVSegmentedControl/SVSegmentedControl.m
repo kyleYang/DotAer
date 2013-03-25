@@ -103,6 +103,8 @@
     if(thumb == nil)
         thumb = [[SVSegmentedThumb alloc] initWithFrame:CGRectZero];
     
+    thumb.backgroundImage = [UIImage imageNamed:@"dota_seg_selt"];
+    thumb.highlightedBackgroundImage = [UIImage imageNamed:@"dota_seg_selt"];
     return thumb;
 }
 
@@ -146,6 +148,7 @@
 	self.segmentWidth = ceil(self.segmentWidth/2.0)*2; // make it an even number so we can position with center
 	self.bounds = CGRectMake(0, 0, self.segmentWidth*c, self.height);
     self.thumbHeight = self.thumb.backgroundImage ? self.thumb.backgroundImage.size.height : self.height-(self.thumbEdgeInset.top+self.thumbEdgeInset.bottom);
+    self.thumbHeight = CGRectGetHeight(self.bounds)-5;//just for this app,because of the image
     
     i = 0;
     
@@ -158,6 +161,7 @@
 	self.thumb.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.thumb.bounds cornerRadius:2].CGPath;
     [self.thumb setTitleData:[self.titlesArray objectAtIndex:0]];
 	self.thumb.font = self.font;
+    
 	
 	[self insertSubview:self.thumb atIndex:0];
     

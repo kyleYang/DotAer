@@ -20,6 +20,10 @@
 @property (nonatomic, retain, readwrite) UIView *topControlsContainerView;
 @property (nonatomic, retain, readwrite) UIButton *backControl;
 
+@property (nonatomic, retain, readwrite) UIButton *addControl;
+@property (nonatomic, retain, readwrite) UIButton *cutControl;
+
+
 
 @end
 
@@ -31,6 +35,8 @@
 @synthesize topControlsContainerView = _topControlsContainerView;
 
 @synthesize backControl = _backControl;
+@synthesize addControl = _addControl;
+@synthesize cutControl = _cutControl;
 
 
 - (void)dealloc{
@@ -39,6 +45,8 @@
     [_bottomControlsView release]; _bottomControlsView = nil;
     [_topControlsContainerView release]; _topControlsContainerView = nil;
     _backControl = nil;
+    _addControl = nil;
+    _cutControl = nil;
     [super dealloc];
 }
 
@@ -65,17 +73,39 @@
         _bottomControlsView.alpha = 0.8f;
         _bottomControlsView.userInteractionEnabled = YES;
         _bottomControlsView.backgroundColor = [UIColor clearColor];
-        [self addSubview:_bottomControlsView];
+//        [self addSubview:_bottomControlsView];
         
         
         _backControl = [UIButton buttonWithType:UIButtonTypeCustom];
         _backControl.showsTouchWhenHighlighted = YES;
-        _backControl.frame = (CGRect) { .size = CGSizeMake(60.f, 40.f) };
+        _backControl.frame = (CGRect) { .size = CGSizeMake(35.f, 33.f) };
         _backControl.contentMode = UIViewContentModeCenter;
         [_backControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_bar_back"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlStateNormal];
         [_backControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_backdown"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlEventTouchDown];
         [_backControl addTarget:self action:@selector(handleBackButtonPress:) forControlEvents:UIControlEventTouchUpInside];
         [_topControlsView addSubview:_backControl];
+        
+        
+        _addControl = [UIButton buttonWithType:UIButtonTypeCustom];
+        _addControl.showsTouchWhenHighlighted = YES;
+        _addControl.frame = (CGRect) { .size = CGSizeMake(35.f, 33.f) };
+        _addControl.contentMode = UIViewContentModeCenter;
+        [_addControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_bar_add"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlStateNormal];
+        [_addControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_bar_add_down"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlEventTouchDown];
+        [_addControl addTarget:self action:@selector(handleAddButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+        [_topControlsView addSubview:_addControl];
+        
+        
+        _cutControl = [UIButton buttonWithType:UIButtonTypeCustom];
+        _cutControl.showsTouchWhenHighlighted = YES;
+        _cutControl.frame = (CGRect) { .size = CGSizeMake(35.f, 33.f) };
+        _cutControl.contentMode = UIViewContentModeCenter;
+        [_cutControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_bar_plus"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlStateNormal];
+        [_cutControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_bar_plus_down"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlEventTouchDown];
+        [_cutControl addTarget:self action:@selector(handleCutButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+        [_topControlsView addSubview:_cutControl];
+
+
 
         
         
@@ -111,6 +141,20 @@
     [self.delegate humLeavesControl:sender didPerformAction:HumLeavesControlActionBack];
 
 }
+
+- (void)handleAddButtonPress:(id)sender{
+    
+    [self.delegate humLeavesControl:sender didPerformAction:HumLeavesControlActionFontAdd];
+    
+}
+
+
+- (void)handleCutButtonPress:(id)sender{
+    
+    [self.delegate humLeavesControl:sender didPerformAction:HumLeavesControlActionFontCut];
+    
+}
+
 
 
 @end

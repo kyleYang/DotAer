@@ -7,6 +7,7 @@
 //
 
 #import "PgLoadingFooterView.h"
+#import "Env.h"
 
 @interface PgLoadingFooterView()
 
@@ -26,9 +27,14 @@
     
     self.backgroundColor = [UIColor clearColor];
     
-    UIButton *activty = [[UIButton alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(frame), 40)];
+    UIButton *activty = [[UIButton alloc] initWithFrame:self.bounds];
     activty.backgroundColor = [UIColor clearColor];
+    activty.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [activty addTarget:self action:@selector(loadMore:) forControlEvents:UIControlEventTouchUpInside];
+    [activty setBackgroundImage:[[Env sharedEnv] cacheImage:@"dota_cell_double_bg.png"] forState:UIControlStateNormal];
+    [activty setBackgroundImage:[[Env sharedEnv] cacheImage:@"dota_cell_select.png"] forState:UIControlEventTouchDown];
+    
+    
     [self addSubview:activty];
     [activty release];
     

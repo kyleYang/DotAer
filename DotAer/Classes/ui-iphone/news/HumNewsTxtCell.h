@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "HumWebImageView.h"
 
+#define kTxtCellImageWidth 300
+#define kTxtCellImageHeigh 140
+
 @protocol HumNewsCellDelegate;
 
 @interface HumNewsTxtCell : UITableViewCell

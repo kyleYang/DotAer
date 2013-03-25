@@ -57,7 +57,7 @@
         Env *env = [Env sharedEnv];
         
         //background view
-        self.ivBg = [[[UIImageView alloc] initWithImage:[env cacheImage:@"dota_frame_bg.jpg"]] autorelease];
+        self.ivBg = [[[UIImageView alloc] initWithImage:[env cacheImage:@"dota_table_bg.png"]] autorelease];
         self.ivBg.frame = self.bounds;
         self.ivBg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:self.ivBg];
@@ -127,7 +127,7 @@
     _distance = distance;
     if (self.delegate && [self.delegate respondsToSelector:@selector(humDotaBaseFrameMoveingDistance:)]) {
             _didMoved = TRUE;
-            [self.delegate humDotaBaseFrameMoveingDistance:distance];
+//            [self.delegate humDotaBaseFrameMoveingDistance:distance];
     }
         
     
@@ -147,7 +147,7 @@
     _didMoved = FALSE;
     BqsLog(@"HumDotaBaseFrameView touchesEnded point x:%f y:%f distance:%f",_endPoint.x,_endPoint.y,distance);
     if (self.delegate && [self.delegate respondsToSelector:@selector(humDotaBaseFrameMoveEnd:)]) {
-        [self.delegate humDotaBaseFrameMoveEnd:self];
+//        [self.delegate humDotaBaseFrameMoveEnd:self];
     }
 }
 

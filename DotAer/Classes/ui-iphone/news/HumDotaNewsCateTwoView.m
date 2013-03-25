@@ -153,15 +153,17 @@
         frame = cell.contImage.frame;
         frame.origin.x = 10;
         frame.origin.y = CGRectGetMaxY(cell.title.frame)+5;
-        frame.size.width = 300;
-        frame.size.height = 130;
+        frame.size.width = kTxtCellImageWidth;
+        frame.size.height = kTxtCellImageHeigh;
         
         cell.contImage.frame =frame;
-        heigh += 5+130;
+        heigh += 5+kTxtCellImageHeigh;
         
         if([info.imgeArry count] != 0){
             NewsImg *newsImg = [info.imgeArry objectAtIndex:0];
             BqsLog(@"cell at section: %d,row :%d url = %@",indexPath.section,indexPath.row,newsImg.url);
+            UIImage *image = [[Env sharedEnv] cacheImage:@"dota_news_default.png"];
+            cell.contImage.imageView.image = [[Env sharedEnv] cacheImage:@"dota_news_default.png"];
             cell.contImage.imgUrl = newsImg.url;
         }
         
@@ -202,7 +204,7 @@
     CGSize size = [info.title sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:CGSizeMake(300, 1000) lineBreakMode:UILineBreakModeWordWrap];
     height += size.height;
     if (info.category == HumDotaNewsTypeImages) {
-        height += 5+130;
+        height += 5+kTxtCellImageHeigh;
     }
     height += 5+20;
     

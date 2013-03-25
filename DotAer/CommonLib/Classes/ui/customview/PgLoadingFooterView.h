@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kPgLoadingFooterView_H 44
+#define kPgLoadingFooterView_H 50
 
 @protocol pgFootViewDelegate;
 

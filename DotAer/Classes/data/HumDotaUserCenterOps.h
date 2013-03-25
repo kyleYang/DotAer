@@ -10,4 +10,15 @@
 
 @interface HumDotaUserCenterOps : NSObject
 
+
+#define kReadFontSize @"dota.raad.font.size"
+
+
+
++(CGFloat)intValueReadForKey:(NSString *)key;
++(void)intVaule:(int)value saveForKey:(NSString *)key;
+
++(CGFloat)floatValueReadForKey:(NSString *)key;
++(void)floatVaule:(CGFloat)value saveForKey:(NSString *)key;
+
 @end

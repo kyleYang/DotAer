@@ -27,6 +27,11 @@
 
 "dota.image.title" = "图片";
 
+//pull down
+"dota.pulling.fresh" = "松开刷新";
+"dota.pullup.fresh" = "下拉刷新";
+"dota.pullup.loading" = "加载中...";
+
 
 //load more
 
@@ -34,4 +39,21 @@
 "dota.more.loading" = "加载中....";
 "dota.more.done" = "加载完成(共%d项)";
 "dota.more.noresult" = "无相关内容";
+
+
+//setting
+
+"setting.main.section.basic"="基本信息";
+"setting.main.section.other"="其他";
+
+"setting.main.basic.account"="我的账户";
+
+"setting.main.other.about"="关于本软件";
+"setting.main.other.cleanMass"="清除缓存";
+"setting.main.other.checknewversion"="检查新版本";
+"setting.main.other.resetsetting"="恢复默认设置";
+"setting.main.other.apprecommend"="应用推荐";
+"setting.main.other.pingfen"="给我评分";
+"setting.main.other.feedback"="问题反馈";
+
 

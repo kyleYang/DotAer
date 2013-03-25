@@ -20,6 +20,8 @@
 @property (nonatomic, retain, readonly) UIView *topControlsContainerView;
 
 @property (nonatomic, retain, readonly) UIButton *backControl;
+@property (nonatomic, retain, readonly) UIButton *addControl;
+@property (nonatomic, retain, readonly) UIButton *cutControl;
 
 @property (nonatomic, assign) HumLeavesControlStyle controlStyle;
 

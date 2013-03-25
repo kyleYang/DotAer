@@ -21,6 +21,8 @@
 #import "HMImagePopManager.h"
 #import "MBProgressHUD.h"
 #import "BqsUtils.h"
+#import "Env.h"
+#import "HumDotaUserCenterOps.h"
 
 
 @interface HMLeavesView ()<humWebImageDelegae,HumLeavesDelegate,LeavesViewDataSource, LeavesViewDelegate,OHAttributedLabelDelegate,UIGestureRecognizerDelegate,HumLeavesControlActionDelegate>
@@ -140,14 +142,14 @@
 
 - (void)parameterInit
 {
-    _offsetX = 3.0f;
-    _offsetY = 3.0f;
-    _bottomX = 3.0f;
-    _bottomY = 3.0f;
+    _offsetX = 0.0f;
+    _offsetY = 0.0f;
+    _bottomX = 0.0f;
+    _bottomY = 0.0f;
     
-    _characterSpacing = 1.0f;
-    _linesSpacing = 3.0f;
-    _paragraphSpacing = 7.0f;
+    _characterSpacing = 2.0f;
+    _linesSpacing = 4.50f;
+    _paragraphSpacing = 8.0f;
     
     _fontAdd = 0.0f;
     
@@ -155,7 +157,12 @@
     _characterColor = [[UIColor blackColor] retain];
     _linkerColor = [[UIColor blueColor] retain];
     _characterFont = [@"Arial" retain];
-    _characterSize = 17.0f;
+    
+    _characterSize = [HumDotaUserCenterOps floatValueReadForKey:kReadFontSize];
+    if (_characterSize ==0) {
+        _characterSize = 18.0f;
+        [HumDotaUserCenterOps floatVaule:_characterSize saveForKey:kReadFontSize];
+    }
     
     self.asyImgViews = [NSMutableDictionary dictionary];
     self.imgDic = [NSMutableDictionary dictionary];
@@ -163,6 +170,11 @@
     
     CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)+20.f-_offsetY-_bottomY);
 
+    CGRect rec = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+20);
+    UIImageView *bg = [[UIImageView alloc] initWithFrame:rec];
+    bg.image = [[Env sharedEnv] cacheImage:@"dota_read_bg.png"];
+    [self addSubview:bg];
+    [bg release];
     
     self.leavesView = [[[LeavesView alloc] initWithFrame:labFrame] autorelease];
 	self.leavesView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -171,12 +183,16 @@
 	[self addSubview:self.leavesView];
     
     self.controlStyle = HumLeavesControlStyleFullscreen;
-    _controlsVisible = YES;
+    _controlsVisible = NO;
    
     // Controls
     _controlsView = [[HumLeavesControlView alloc] initWithFrame:self.bounds];
     _controlsView.delegate = self;
     [self addSubview:_controlsView];
+    
+    _controlsView.alpha = 0.0f;
+    [self sendSubviewToBack:_controlsView];
+    
     
     _layout = [[HumLeavesLayout alloc] init];
     _layout.controlsView = _controlsView;
@@ -225,6 +241,89 @@
 }
 
 
+- (void)contentReadForRead{
+    [self.activityView show:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // 原代码块二
+        BOOL finish = [self stringParaseAgain];
+        if (finish) {
+            // 原代码块三
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                BOOL done = [self buildFrames];
+                if (done) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.activityView hide:YES];
+                        [self.leavesView reloadData];
+                    });
+                }else{
+                    NSLog(@"error when buildFrames");
+                }
+                
+            });
+        } else {
+            NSLog(@"error when stringParaseAgain");
+        }
+    });
+
+}
+
+- (void)contentSettingAgain{
+    [self.activityView show:YES];
+    
+    self.frames = nil;
+    self.attributes = nil;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // 原代码块二
+        BOOL finish = [self stringParaseAgain];
+        if (finish) {
+            // 原代码块三
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                CTFrameRef curframe = [self.leavesView getCurentFrame];
+                CFRange curRange = CTFrameGetVisibleStringRange(curframe); //得到没有变化时候的字体的frame
+                
+                for (id temp in self.frames) {
+                    CFRelease((CTFrameRef)temp);
+                    temp = NULL;
+                }
+
+                BOOL finish = [self buildFrames];
+ 
+                if (finish) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.activityView hide:YES];
+                        int curPage = 0;
+                        for (id temp in self.frames) {  //重新计算原来的页面在新的参数下属于哪一页
+                            CTFrameRef frame = (CTFrameRef)temp;
+                            CFRange frameRange = CTFrameGetVisibleStringRange(frame);
+                            if (curRange.location+curRange.length/2>=frameRange.location && curRange.location+curRange.length/2<frameRange.location+frameRange.length) {
+                                break;
+                            }
+                            curPage++;
+                        }
+                        if (curPage >= self.attributes.count) {
+                            curPage = self.attributes.count - 1;
+                        }
+                        [self.leavesView flush];
+                        [self.leavesView setCurrentPageIndex:curPage];
+                        
+                    });
+                }else{
+                    NSLog(@"error when buildFrames");
+                }
+            });
+        } else {
+            NSLog(@"error when stringParaseAgain");
+        }
+    });
+
+
+}
+
+
+
+
 
 - (void)setContent:(NSString *)acontent
 {
@@ -259,31 +358,8 @@
  
     
     self.transmitText = [self transformString:_content];
-    
-    [self.activityView show:YES];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // 原代码块二
-        BOOL finish = [self stringParaseAgain];
-        if (finish) {
-            // 原代码块三
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-             BOOL done = [self buildFrames];
-                if (done) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.activityView hide:YES];
-                        [self.leavesView reloadData];
-                    });
-                }else{
-                     NSLog(@"error when buildFrames");
-                }
-
-            });
-        } else {
-            NSLog(@"error when stringParaseAgain");
-        }
-    });
-    
-    
+    [self contentReadForRead];
+       
 }
 
 - (void)setOffsetX:(CGFloat)aoffsetX
@@ -296,7 +372,7 @@
     CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
     self.leavesView.frame = labFrame;
 
-    [self propertySetAgain];
+//    [self propertySetAgain];
 }
 
 - (void)setOffsetY:(CGFloat)aoffsetY
@@ -309,7 +385,7 @@
     CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
     self.leavesView.frame = labFrame;
 
-    [self propertySetAgain];
+//    [self propertySetAgain];
 }
 
 - (void)setBottomX:(CGFloat)abottomX
@@ -322,7 +398,7 @@
     CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
     self.leavesView.frame = labFrame;
 
-    [self propertySetAgain];
+//    [self propertySetAgain];
 }
 
 - (void)setBottomY:(CGFloat)abottomY
@@ -334,7 +410,7 @@
     }
     CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
     self.leavesView.frame = labFrame;
-    [self propertySetAgain];
+//    [self propertySetAgain];
 }
 
 - (void)setCharacterSpacing:(CGFloat)acharacterSpacing
@@ -343,8 +419,7 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    [self stringParaseAgain];
-    [self propertySetAgain];
+   [self contentSettingAgain];
 }
 
 - (void)setLinesSpacing:(CGFloat)alinesSpacing
@@ -353,9 +428,7 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    [self stringParaseAgain];
-    [self propertySetAgain];
-}
+    [self contentSettingAgain];}
 
 - (void)setParagraphSpacing:(CGFloat)aparagraphSpacing
 {
@@ -363,18 +436,19 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    [self stringParaseAgain];
-    [self propertySetAgain];
+     [self contentSettingAgain];
 }
 
 - (void)setFontAdd:(CGFloat)afontAdd
 {
-    _fontAdd = afontAdd;
+    
+    _characterSize += afontAdd;
+    [HumDotaUserCenterOps floatVaule:_characterSize saveForKey:kReadFontSize];
     if (!_content || _content.length == 0) {
         return;
     }
-    [self stringParaseAgain];
-    [self propertySetAgain];
+    [self contentSettingAgain];
+
 }
 
 - (void)setBgColor:(UIColor *)abgColor
@@ -395,8 +469,7 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    [self stringParaseAgain];
-    [self propertySetAgain];
+    [self contentSettingAgain];
 }
 
 - (void)setCharacterSize:(CGFloat)aSize
@@ -405,8 +478,7 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    [self stringParaseAgain];
-    [self propertySetAgain];
+    [self contentSettingAgain];
 }
 
 - (void)setCharacterFont:(NSString *)acharacterFont
@@ -416,8 +488,7 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    [self stringParaseAgain];
-    [self propertySetAgain];
+    [self contentSettingAgain];
 }
 
 
@@ -521,8 +592,25 @@
                 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeOutControls) object:nil];
                     [self.delegate humLeavesBack:self];
                 }
+                break;
                 
         }
+        case HumLeavesControlActionFontAdd:{
+            
+            _shouldHideControls = FALSE;
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeOutControls) object:nil];
+            self.fontAdd = 0.5f;
+            break;
+        }
+
+        case HumLeavesControlActionFontCut:{
+            
+            _shouldHideControls = FALSE;
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeOutControls) object:nil];
+             self.fontAdd = -0.5f;
+            break;
+        }
+
             
             
         case HumLeavesControlActionWillShowControls: {
@@ -688,37 +776,6 @@
 }
 
 
-- (void)propertySetAgain
-{
-    CTFrameRef curframe = [self.leavesView getCurentFrame];
-    CFRange curRange = CTFrameGetVisibleStringRange(curframe); //得到没有变化时候的字体的frame
-    
-    for (id temp in self.frames) {
-        CFRelease((CTFrameRef)temp);
-        temp = NULL;
-    }
-    
-    self.frames = nil;
-    self.attributes = nil;
-    
-    [self buildFrames];
-    
-    int curPage = 0;
-    for (id temp in self.frames) {  //重新计算原来的页面在新的参数下属于哪一页
-        CTFrameRef frame = (CTFrameRef)temp;
-        CFRange frameRange = CTFrameGetVisibleStringRange(frame);
-        if (curRange.location+curRange.length/2>=frameRange.location && curRange.location+curRange.length/2<frameRange.location+frameRange.length) {
-            break;
-        }
-        curPage++;
-    }
-    if (curPage >= self.attributes.count) {
-        curPage = self.attributes.count - 1;
-    }
-    [self.leavesView flush];
-    [self.leavesView setCurrentPageIndex:curPage];
-
-}
 
 
 
@@ -1116,11 +1173,16 @@
     }
     id subCTFrame = [self.frames objectAtIndex:index];
     
+    CGRect rc = CGContextGetClipBoundingBox(ctx);
+    
+    UIImage *img = [[Env sharedEnv] cacheImage:@"dota_read_bg.png"];
+    if(nil != img) {
+         CGContextDrawImage(ctx, rc, img.CGImage);
+    }
+
 
     [self attachImagesWithFrame:(CTFrameRef)subCTFrame withImages:self.images withContext:ctx inIndex:index];
     
-    
-        
 }
 
 - (void) asyRenderPageAtIndex:(NSUInteger)index inContext:(CGContextRef)ctx
@@ -1134,6 +1196,15 @@
         return;
     }
     id subCTFrame = [self.frames objectAtIndex:index];
+    
+    CGRect rc = CGContextGetClipBoundingBox(ctx);
+    
+    UIImage *img = [[Env sharedEnv] cacheImage:@"dota_read_bg.png"];
+    if(nil != img) {
+        CGContextDrawImage(ctx, rc, img.CGImage);
+    }
+
+    
     [self redrawImagesWithFrame:(CTFrameRef)subCTFrame withImages:self.images withContext:ctx inIndex:index];
 }
 

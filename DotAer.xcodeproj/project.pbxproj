@@ -273,6 +273,21 @@
 		31D57E1616B811EC0078C5C1 /* HumDotaNewsCateTwoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D57E1516B811EC0078C5C1 /* HumDotaNewsCateTwoView.m */; };
 		31D57E1916B813890078C5C1 /* HumLeftBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D57E1816B813880078C5C1 /* HumLeftBaseView.m */; };
 		31D57E1D16B8181F0078C5C1 /* HumSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D57E1C16B8181F0078C5C1 /* HumSettingView.m */; };
+		31D5831316FEDC1B00C17E2D /* HMLeftRightTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D5831216FEDC1B00C17E2D /* HMLeftRightTextCell.m */; };
+		31D5831A16FEF8DD00C17E2D /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5831916FEF8DD00C17E2D /* whiteArrow@2x.png */; };
+		31D5831C16FEF92700C17E2D /* dota_pull_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5831B16FEF92700C17E2D /* dota_pull_bg@2x.png */; };
+		31D5831E16FEFB1C00C17E2D /* dota_table_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5831D16FEFB1C00C17E2D /* dota_table_bg@2x.png */; };
+		31D5832016FEFC6200C17E2D /* dota_video_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5831F16FEFC6200C17E2D /* dota_video_default@2x.png */; };
+		31D5832A16FF048300C17E2D /* dota_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5832916FF048300C17E2D /* dota_default@2x.png */; };
+		31D5832E16FF055800C17E2D /* dota_photo_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5832D16FF055800C17E2D /* dota_photo_default@2x.png */; };
+		31D5833016FF061D00C17E2D /* dota_news_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5832F16FF061C00C17E2D /* dota_news_default@2x.png */; };
+		31D5833716FF35C400C17E2D /* dota_read_bg-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5833516FF35C400C17E2D /* dota_read_bg-568h.png */; };
+		31D5833816FF35C400C17E2D /* dota_read_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5833616FF35C400C17E2D /* dota_read_bg@2x.png */; };
+		31D5833A16FF4FA700C17E2D /* dota_catOne_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5833916FF4FA700C17E2D /* dota_catOne_down@2x.png */; };
+		31D5833D16FF513000C17E2D /* dota_seg_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5833B16FF513000C17E2D /* dota_seg_bg@2x.png */; };
+		31D5833E16FF513000C17E2D /* dota_seg_selt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5833C16FF513000C17E2D /* dota_seg_selt@2x.png */; };
+		31D5834116FFE8AE00C17E2D /* tablecell_disclosure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5833F16FFE8AE00C17E2D /* tablecell_disclosure@2x.png */; };
+		31D5834216FFE8AE00C17E2D /* main_setting_section_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5834016FFE8AE00C17E2D /* main_setting_section_bg.png */; };
 		31DCA5F616CA471B000F4C9D /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 31DCA5F316CA471B000F4C9D /* icon-72.png */; };
 		31DCA5F716CA471B000F4C9D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 31DCA5F416CA471B000F4C9D /* icon.png */; };
 		31DCA5F816CA471B000F4C9D /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31DCA5F516CA471B000F4C9D /* icon@2x.png */; };
@@ -785,6 +800,22 @@
 		31D57E1816B813880078C5C1 /* HumLeftBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumLeftBaseView.m; sourceTree = "<group>"; };
 		31D57E1B16B8181F0078C5C1 /* HumSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumSettingView.h; sourceTree = "<group>"; };
 		31D57E1C16B8181F0078C5C1 /* HumSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumSettingView.m; sourceTree = "<group>"; };
+		31D5831116FEDC1B00C17E2D /* HMLeftRightTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLeftRightTextCell.h; sourceTree = "<group>"; };
+		31D5831216FEDC1B00C17E2D /* HMLeftRightTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLeftRightTextCell.m; sourceTree = "<group>"; };
+		31D5831916FEF8DD00C17E2D /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
+		31D5831B16FEF92700C17E2D /* dota_pull_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_pull_bg@2x.png"; sourceTree = "<group>"; };
+		31D5831D16FEFB1C00C17E2D /* dota_table_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_table_bg@2x.png"; sourceTree = "<group>"; };
+		31D5831F16FEFC6200C17E2D /* dota_video_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_video_default@2x.png"; sourceTree = "<group>"; };
+		31D5832916FF048300C17E2D /* dota_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_default@2x.png"; sourceTree = "<group>"; };
+		31D5832D16FF055800C17E2D /* dota_photo_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_photo_default@2x.png"; sourceTree = "<group>"; };
+		31D5832F16FF061C00C17E2D /* dota_news_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_news_default@2x.png"; sourceTree = "<group>"; };
+		31D5833516FF35C400C17E2D /* dota_read_bg-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_read_bg-568h.png"; sourceTree = "<group>"; };
+		31D5833616FF35C400C17E2D /* dota_read_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_read_bg@2x.png"; sourceTree = "<group>"; };
+		31D5833916FF4FA700C17E2D /* dota_catOne_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_catOne_down@2x.png"; sourceTree = "<group>"; };
+		31D5833B16FF513000C17E2D /* dota_seg_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_seg_bg@2x.png"; sourceTree = "<group>"; };
+		31D5833C16FF513000C17E2D /* dota_seg_selt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_seg_selt@2x.png"; sourceTree = "<group>"; };
+		31D5833F16FFE8AE00C17E2D /* tablecell_disclosure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tablecell_disclosure@2x.png"; sourceTree = "<group>"; };
+		31D5834016FFE8AE00C17E2D /* main_setting_section_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_setting_section_bg.png; sourceTree = "<group>"; };
 		31DCA5F316CA471B000F4C9D /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72.png"; sourceTree = "<group>"; };
 		31DCA5F416CA471B000F4C9D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		31DCA5F516CA471B000F4C9D /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
@@ -1649,6 +1680,8 @@
 		31C6EB1916AC477700187A67 /* ui-common */ = {
 			isa = PBXGroup;
 			children = (
+				31D5831116FEDC1B00C17E2D /* HMLeftRightTextCell.h */,
+				31D5831216FEDC1B00C17E2D /* HMLeftRightTextCell.m */,
 				31E7978116FBF50B0013D4EB /* HMImagePopView */,
 				31E421EE16F1A735003C0AEA /* HMPopMsg */,
 				31C359F716E637F2009043A4 /* EGORefreshTableHeaderView.h */,
@@ -1792,6 +1825,12 @@
 		31C6EB2316AC477700187A67 /* img-iphone */ = {
 			isa = PBXGroup;
 			children = (
+				31D5833F16FFE8AE00C17E2D /* tablecell_disclosure@2x.png */,
+				31D5834016FFE8AE00C17E2D /* main_setting_section_bg.png */,
+				31D5832916FF048300C17E2D /* dota_default@2x.png */,
+				31D5831D16FEFB1C00C17E2D /* dota_table_bg@2x.png */,
+				31D5831B16FEF92700C17E2D /* dota_pull_bg@2x.png */,
+				31D5831916FEF8DD00C17E2D /* whiteArrow@2x.png */,
 				31B1DE7716EF6FE100C2B77C /* dota_title_cat_one@2x.png */,
 				31B1DE7816EF6FE100C2B77C /* dota_title_scr_bg@2x.png */,
 				31B1DE7916EF6FE100C2B77C /* dota_cell_select@2x.png */,
@@ -1825,6 +1864,7 @@
 		31C6EB2416AC477700187A67 /* news */ = {
 			isa = PBXGroup;
 			children = (
+				31D5832F16FF061C00C17E2D /* dota_news_default@2x.png */,
 				31F71F2716E38FFF0092BC2A /* dota_news_type_img@2x.png */,
 				31F71F2816E38FFF0092BC2A /* dota_news_type_txt@2x.png */,
 				31F71F2916E38FFF0092BC2A /* dota_news_type_video@2x.png */,
@@ -1835,6 +1875,7 @@
 		31C6EB2516AC477700187A67 /* photo */ = {
 			isa = PBXGroup;
 			children = (
+				31D5832D16FF055800C17E2D /* dota_photo_default@2x.png */,
 			);
 			path = photo;
 			sourceTree = "<group>";
@@ -1849,6 +1890,8 @@
 		31C6EB2716AC477700187A67 /* strategy */ = {
 			isa = PBXGroup;
 			children = (
+				31D5833516FF35C400C17E2D /* dota_read_bg-568h.png */,
+				31D5833616FF35C400C17E2D /* dota_read_bg@2x.png */,
 			);
 			path = strategy;
 			sourceTree = "<group>";
@@ -1856,6 +1899,10 @@
 		31C6EB2816AC477700187A67 /* video */ = {
 			isa = PBXGroup;
 			children = (
+				31D5833B16FF513000C17E2D /* dota_seg_bg@2x.png */,
+				31D5833C16FF513000C17E2D /* dota_seg_selt@2x.png */,
+				31D5833916FF4FA700C17E2D /* dota_catOne_down@2x.png */,
+				31D5831F16FEFC6200C17E2D /* dota_video_default@2x.png */,
 				31B1DE8116F0047700C2B77C /* dota_video_play@2x.png */,
 				31005C2516EAEE9F009607B1 /* dota_video_cate_one_bg@2x.png */,
 			);
@@ -2110,6 +2157,20 @@
 				31B1DE7C16EF6FE100C2B77C /* dota_cell_select@2x.png in Resources */,
 				31B1DE8216F0047700C2B77C /* dota_video_play@2x.png in Resources */,
 				31E421F616F1A735003C0AEA /* HM_Notice_bg@2x.png in Resources */,
+				31D5831A16FEF8DD00C17E2D /* whiteArrow@2x.png in Resources */,
+				31D5831C16FEF92700C17E2D /* dota_pull_bg@2x.png in Resources */,
+				31D5831E16FEFB1C00C17E2D /* dota_table_bg@2x.png in Resources */,
+				31D5832016FEFC6200C17E2D /* dota_video_default@2x.png in Resources */,
+				31D5832A16FF048300C17E2D /* dota_default@2x.png in Resources */,
+				31D5832E16FF055800C17E2D /* dota_photo_default@2x.png in Resources */,
+				31D5833016FF061D00C17E2D /* dota_news_default@2x.png in Resources */,
+				31D5833716FF35C400C17E2D /* dota_read_bg-568h.png in Resources */,
+				31D5833816FF35C400C17E2D /* dota_read_bg@2x.png in Resources */,
+				31D5833A16FF4FA700C17E2D /* dota_catOne_down@2x.png in Resources */,
+				31D5833D16FF513000C17E2D /* dota_seg_bg@2x.png in Resources */,
+				31D5833E16FF513000C17E2D /* dota_seg_selt@2x.png in Resources */,
+				31D5834116FFE8AE00C17E2D /* tablecell_disclosure@2x.png in Resources */,
+				31D5834216FFE8AE00C17E2D /* main_setting_section_bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2337,6 +2398,7 @@
 				31B9234816FC57A3004DB449 /* HumStrategyTableCell.m in Sources */,
 				31B9235B16FCCC5B004DB449 /* DDProgressView.m in Sources */,
 				31B9235E16FD6888004DB449 /* Article.m in Sources */,
+				31D5831316FEDC1B00C17E2D /* HMLeftRightTextCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

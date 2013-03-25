@@ -149,9 +149,15 @@
         return nil;
     }
     
-    
+    if (indexPath.row % 2 == 0) {
+        cell.bgImg.image = [[Env sharedEnv] cacheImage:@"dota_cell_singer_bg.png"];
+    }else{
+        cell.bgImg.image = [[Env sharedEnv] cacheImage:@"dota_cell_double_bg.png"];
+    }
         
     Photo *leftinfo = [self.dataArray objectAtIndex:indexPath.row*2];
+    
+    cell.leftImage.imageView.image = [[Env sharedEnv] cacheImage:@"dota_photo_default.png"];
     cell.leftImage.imgUrl = leftinfo.imageUrl;
     
     cell.rightImage.hidden = YES;
@@ -162,6 +168,7 @@
     }
     
     cell.rightImage.hidden = NO;
+    cell.rightImage.imageView.image = [[Env sharedEnv] cacheImage:@"dota_photo_default.png"];
     Photo *rightInfo = [self.dataArray objectAtIndex:indexPath.row*2+1];
     cell.rightImage.imgUrl = rightInfo.imageUrl;
     

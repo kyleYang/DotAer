@@ -168,6 +168,8 @@
     
     CGFloat time = (CGRectGetWidth(self.frameView.bounds)- kMainLeftViewRightGap-CGRectGetMinX(self.frameView.frame))*kTimeInterval/(CGRectGetMaxX(self.frameView.bounds) - kMainLeftViewRightGap);
     
+    [self.leftView viewWillAppear];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         
          self.leftView.layer.shouldRasterize = YES;

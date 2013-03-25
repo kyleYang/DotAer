@@ -456,6 +456,10 @@
 
 - (void)displayImage:(UIImage *)image {
     
+    if (!image) {
+        return;
+    }
+    
     [self prepareForReuse];
     
     UIImageView *view = [[UIImageView alloc] initWithImage:image];
