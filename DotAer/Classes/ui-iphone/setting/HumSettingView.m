@@ -11,6 +11,7 @@
 #import "Env.h"
 #import "HMLeftRightTextCell.h"
 #import "iRate.h"
+#import "iVersion.h"
 
 @interface HumSettingView()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -270,6 +271,7 @@
 
 -(void)onClickCheckNewVersion {
     BqsLog(@"onClickCheckNewVersion");
+    [[iVersion sharedInstance] checkForNewVersion];
 }
 
 -(void)onClickFeedback {

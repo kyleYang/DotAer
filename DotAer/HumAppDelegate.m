@@ -10,6 +10,7 @@
 #import "Env.h"
 #import "HumDotaDataMgr.h"
 #import "iRate.h"
+#import "iVersion.h"
 
 
 @interface HumAppDelegate()<EnvProtocol>
@@ -46,6 +47,7 @@
     
     
 	[iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+   
     
     //enable preview mode
     
@@ -56,6 +58,7 @@
     
     self.theEnv = [[[Env alloc] init] autorelease];
     [iRate sharedInstance].appStoreID = [[Env sharedEnv].itunesAppId intValue];
+    [iVersion sharedInstance].appStoreID = [[Env sharedEnv].itunesAppId intValue];
     
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     

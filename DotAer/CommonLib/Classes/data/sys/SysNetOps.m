@@ -187,6 +187,9 @@
 }
 
 -(void)checkSysUpdateFromItunes {
+    
+    return; //not use this for updata,use iVersion for updata
+    
     NSString *sAppId = [Env sharedEnv].itunesAppId;
     if(nil == sAppId || [sAppId length] < 1) {
         BqsLog(@"no itunes_app_id defined, don't check version");

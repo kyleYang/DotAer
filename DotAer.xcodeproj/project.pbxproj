@@ -41,6 +41,8 @@
 		314E4139170176F500B83BD6 /* DotAer.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 314E4138170176F500B83BD6 /* DotAer.sqlite */; };
 		31568BA517042FB1000D8CDC /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 31568BA217042FB1000D8CDC /* iRate.bundle */; };
 		31568BA617042FB1000D8CDC /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 31568BA417042FB1000D8CDC /* iRate.m */; };
+		31568BAC17044238000D8CDC /* iVersion.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 31568BA917044238000D8CDC /* iVersion.bundle */; };
+		31568BAD17044238000D8CDC /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 31568BAB17044238000D8CDC /* iVersion.m */; };
 		319A5B6416BECD4200C33620 /* HumRightBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A5B6316BECD4200C33620 /* HumRightBaseView.m */; };
 		319A5B6816BED00200C33620 /* HumRightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A5B6716BED00200C33620 /* HumRightView.m */; };
 		319A5B9216C1DE9C00C33620 /* mptplayer.strings in Resources */ = {isa = PBXBuildFile; fileRef = 319A5B6E16C1DE9B00C33620 /* mptplayer.strings */; };
@@ -1229,6 +1231,9 @@
 		31568BA217042FB1000D8CDC /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
 		31568BA317042FB1000D8CDC /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		31568BA417042FB1000D8CDC /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
+		31568BA917044238000D8CDC /* iVersion.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iVersion.bundle; sourceTree = "<group>"; };
+		31568BAA17044238000D8CDC /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
+		31568BAB17044238000D8CDC /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
 		319A5B6216BECD4200C33620 /* HumRightBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumRightBaseView.h; sourceTree = "<group>"; };
 		319A5B6316BECD4200C33620 /* HumRightBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumRightBaseView.m; sourceTree = "<group>"; };
 		319A5B6616BED00200C33620 /* HumRightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumRightView.h; sourceTree = "<group>"; };
@@ -2676,6 +2681,16 @@
 			path = iRate;
 			sourceTree = "<group>";
 		};
+		31568BA817044238000D8CDC /* iVersion */ = {
+			isa = PBXGroup;
+			children = (
+				31568BA917044238000D8CDC /* iVersion.bundle */,
+				31568BAA17044238000D8CDC /* iVersion.h */,
+				31568BAB17044238000D8CDC /* iVersion.m */,
+			);
+			path = iVersion;
+			sourceTree = "<group>";
+		};
 		319A5B6D16C1DE9B00C33620 /* MptAVPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -3651,6 +3666,7 @@
 		31C6EB2916AC477700187A67 /* OpenSouce */ = {
 			isa = PBXGroup;
 			children = (
+				31568BA817044238000D8CDC /* iVersion */,
 				31568BA117042FB1000D8CDC /* iRate */,
 				31B9235916FCCC5B004DB449 /* DDProgressView.h */,
 				31B9235A16FCCC5B004DB449 /* DDProgressView.m */,
@@ -6487,6 +6503,7 @@
 				31CBA9A8170308DE00F002B7 /* dota_inte.jpg in Resources */,
 				31CBA9AA17030AEE00F002B7 /* dota_stren.jpg in Resources */,
 				31568BA517042FB1000D8CDC /* iRate.bundle in Resources */,
+				31568BAC17044238000D8CDC /* iVersion.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6725,6 +6742,7 @@
 				31D86FB41701410600D94099 /* DSDetailView.m in Sources */,
 				31CBA99C1702F62700F002B7 /* SimuImageHelp.m in Sources */,
 				31568BA617042FB1000D8CDC /* iRate.m in Sources */,
+				31568BAD17044238000D8CDC /* iVersion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
