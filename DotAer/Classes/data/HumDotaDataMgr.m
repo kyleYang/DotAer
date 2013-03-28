@@ -9,7 +9,6 @@
 #import "HumDotaDataMgr.h"
 #import "Env.h"
 #import "BqsUtils.h"
-#import "PackageFile.h"
 #import "HumDotaNetOps.h"
 #import "HMCategory.h"
 #import "News.h"
@@ -186,6 +185,20 @@
     return self.onlineCachePkgFile;
 }
 
+- (void)cleanOtherCacheFile{
+    NSString *pkgPath = [self.rootPath stringByAppendingPathComponent:kFileNameOnlineDataPkgFile];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSError* err = nil;
+	BOOL bIsDir = NO;
+	BOOL bExist = [fileManager fileExistsAtPath:pkgPath isDirectory: &bIsDir];
+    if (bExist) {
+        [fileManager removeItemAtPath:pkgPath error:&err];
+    }
+    self.onlineCachePkgFile = nil;
+}
+
+
+
 -(PackageFile*)imgCacheFilePath {
     if(nil != self.imgCachePkgFile) {
         return [[self.imgCachePkgFile retain] autorelease];
@@ -213,6 +226,20 @@
     return self.imgCachePkgFile;
 }
 
+- (void)cleanImageCacheFile{
+    NSString *pkgPath = [self.rootPath stringByAppendingPathComponent:kFileNameOnlineImagePkgFile];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSError* err = nil;
+	BOOL bIsDir = NO;
+	BOOL bExist = [fileManager fileExistsAtPath:pkgPath isDirectory: &bIsDir];
+    if (bExist) {
+        [fileManager removeItemAtPath:pkgPath error:&err];
+    }
+    self.imgCachePkgFile = nil;
+    
+}
+
+
 #pragma mark
 #pragma mark - ntf handler
 -(void)appTermNtf:(NSNotification*)ntf {
@@ -226,6 +253,60 @@
     BqsLog(@"appResumeNtf");
     
     [self performSelector:@selector(doNetworkUpdataChecks) withObject:nil afterDelay:3];
+}
+
+
+#pragma mark
+#pragma mark file dir 
+-(long)fileSizeForDir:(NSString*)path//计算文件夹下文件的总大小
+{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    
+    long size = 0.0l;
+    
+    NSArray* array = [fileManager contentsOfDirectoryAtPath:path error:nil];
+    for(int i = 0; i<[array count]; i++)
+    {
+        NSString *fullPath = [path stringByAppendingPathComponent:[array objectAtIndex:i]];
+        BqsLog(@"path:%@ the index:%d fileName:%@",path,i,fullPath);
+        
+        BOOL isDir;
+        if ( !([fileManager fileExistsAtPath:fullPath isDirectory:&isDir] && isDir) )
+        {
+            NSDictionary *fileAttributeDic=[fileManager attributesOfItemAtPath:fullPath error:nil];
+            size+= fileAttributeDic.fileSize;
+        }
+        else
+        {
+            [self fileSizeForDir:fullPath];
+        }
+    }
+    [fileManager release];
+    return size;
+    
+}
+
+- (void)cleanAllFileForDir:(NSString *)path{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    
+    NSArray* array = [fileManager contentsOfDirectoryAtPath:path error:nil];
+    NSError *error;
+    for(int i = 0; i<[array count]; i++)
+    {
+        NSString *fullPath = [path stringByAppendingPathComponent:[array objectAtIndex:i]];
+        BqsLog(@"path:%@ the index:%d fileName:%@",path,i,fullPath);
+        
+        BOOL isDir;
+        if ( !([fileManager fileExistsAtPath:fullPath isDirectory:&isDir] && isDir) )
+        {
+            [fileManager removeItemAtPath:fullPath error:&error];
+        }
+        else
+        {
+            [self cleanAllFileForDir:fullPath];
+        }
+    }
+    
 }
 
 
@@ -293,7 +374,9 @@
     return [Strategy saveToFile:[self pathOfStrategyMessageForCat:category] Arr:arr];
 }
 
-//article
+
+
+
 - (NSString *)pathOfArticlForArticleID:(NSString *)artId{
     NSString *detailFile = [NSString stringWithFormat:kFileNameArticle,artId];
     NSString *path = [self.articlePath stringByAppendingPathComponent:detailFile];
@@ -305,13 +388,10 @@
     return [Article parseXmlData:[NSData dataWithContentsOfFile:[self pathOfArticlForArticleID:artId]]];
 }
 
-- (BOOL)saveArticleContent:(NSString *)content ArticleID:(NSString *)artId{
+
+- (BOOL)saveArticleContent:(Article *)article ArticleID:(NSString *)artId;{
     
-    Article *artcle = [[[Article alloc] init] autorelease];
-    artcle.articleId = artId;
-    artcle.content = content;
-    
-    return [Article saveToFile:[self pathOfArticlForArticleID:artId] article:artcle];
+    return [Article saveToFile:[self pathOfArticlForArticleID:artId] article:article];
     
 }
 

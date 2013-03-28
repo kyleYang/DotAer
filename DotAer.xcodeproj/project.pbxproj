@@ -12,6 +12,12 @@
 		31005C2616EAEE9F009607B1 /* dota_video_cate_one_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31005C2516EAEE9F009607B1 /* dota_video_cate_one_bg@2x.png */; };
 		31005C2916EAFB8E009607B1 /* HumDotaVideCateTwoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31005C2816EAFB8E009607B1 /* HumDotaVideCateTwoView.m */; };
 		31005C2C16EB05D1009607B1 /* HumVideoTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31005C2B16EB05D1009607B1 /* HumVideoTableCell.m */; };
+		3101958717048CDA002ACE30 /* HumMassCleanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3101958617048CDA002ACE30 /* HumMassCleanViewController.m */; };
+		3101958D17048EF7002ACE30 /* pg_bar_done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3101958817048EF5002ACE30 /* pg_bar_done@2x.png */; };
+		3101958E17048EF7002ACE30 /* pg_bar_donedown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3101958917048EF5002ACE30 /* pg_bar_donedown@2x.png */; };
+		3101958F17048EF7002ACE30 /* pg_bar_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3101958A17048EF6002ACE30 /* pg_bar_back@2x.png */; };
+		3101959017048EF7002ACE30 /* pg_bar_backdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3101958B17048EF6002ACE30 /* pg_bar_backdown@2x.png */; };
+		3101959117048EF7002ACE30 /* pg_navigation_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3101958C17048EF7002ACE30 /* pg_navigation_bg@2x.png */; };
 		31099DC216C80AC30015406C /* MptScrubber.m in Sources */ = {isa = PBXBuildFile; fileRef = 31099DC016C80AC20015406C /* MptScrubber.m */; };
 		310DEF6B16EB733900350A27 /* SVSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 310DEF6816EB733900350A27 /* SVSegmentedControl.m */; };
 		310DEF6C16EB733900350A27 /* SVSegmentedThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = 310DEF6A16EB733900350A27 /* SVSegmentedThumb.m */; };
@@ -1185,6 +1191,13 @@
 		31005C2816EAFB8E009607B1 /* HumDotaVideCateTwoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaVideCateTwoView.m; sourceTree = "<group>"; };
 		31005C2A16EB05D1009607B1 /* HumVideoTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumVideoTableCell.h; sourceTree = "<group>"; };
 		31005C2B16EB05D1009607B1 /* HumVideoTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumVideoTableCell.m; sourceTree = "<group>"; };
+		3101958517048CDA002ACE30 /* HumMassCleanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumMassCleanViewController.h; sourceTree = "<group>"; };
+		3101958617048CDA002ACE30 /* HumMassCleanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumMassCleanViewController.m; sourceTree = "<group>"; };
+		3101958817048EF5002ACE30 /* pg_bar_done@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pg_bar_done@2x.png"; sourceTree = "<group>"; };
+		3101958917048EF5002ACE30 /* pg_bar_donedown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pg_bar_donedown@2x.png"; sourceTree = "<group>"; };
+		3101958A17048EF6002ACE30 /* pg_bar_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pg_bar_back@2x.png"; sourceTree = "<group>"; };
+		3101958B17048EF6002ACE30 /* pg_bar_backdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pg_bar_backdown@2x.png"; sourceTree = "<group>"; };
+		3101958C17048EF7002ACE30 /* pg_navigation_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pg_navigation_bg@2x.png"; sourceTree = "<group>"; };
 		31099DC016C80AC20015406C /* MptScrubber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MptScrubber.m; sourceTree = "<group>"; };
 		31099DC116C80AC30015406C /* MptScrubber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MptScrubber.h; sourceTree = "<group>"; };
 		310DEF6716EB733900350A27 /* SVSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSegmentedControl.h; sourceTree = "<group>"; };
@@ -2612,6 +2625,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3101958417048C5D002ACE30 /* usercenter */ = {
+			isa = PBXGroup;
+			children = (
+				3101958517048CDA002ACE30 /* HumMassCleanViewController.h */,
+				3101958617048CDA002ACE30 /* HumMassCleanViewController.m */,
+			);
+			path = usercenter;
+			sourceTree = "<group>";
+		};
 		310DEF6616EB733900350A27 /* SVSegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -3437,6 +3459,7 @@
 		31C6EB1B16AC477700187A67 /* ui-iphone */ = {
 			isa = PBXGroup;
 			children = (
+				3101958417048C5D002ACE30 /* usercenter */,
 				31D57E1A16B816FF0078C5C1 /* setting */,
 				313DF5AF16AEE2F0003886EF /* frame */,
 				31C6EB1C16AC477700187A67 /* news */,
@@ -3579,6 +3602,11 @@
 		31C6EB2316AC477700187A67 /* img-iphone */ = {
 			isa = PBXGroup;
 			children = (
+				3101958817048EF5002ACE30 /* pg_bar_done@2x.png */,
+				3101958917048EF5002ACE30 /* pg_bar_donedown@2x.png */,
+				3101958A17048EF6002ACE30 /* pg_bar_back@2x.png */,
+				3101958B17048EF6002ACE30 /* pg_bar_backdown@2x.png */,
+				3101958C17048EF7002ACE30 /* pg_navigation_bg@2x.png */,
 				31D5833F16FFE8AE00C17E2D /* tablecell_disclosure@2x.png */,
 				31D5834016FFE8AE00C17E2D /* main_setting_section_bg.png */,
 				31D5832916FF048300C17E2D /* dota_default@2x.png */,
@@ -6504,6 +6532,11 @@
 				31CBA9AA17030AEE00F002B7 /* dota_stren.jpg in Resources */,
 				31568BA517042FB1000D8CDC /* iRate.bundle in Resources */,
 				31568BAC17044238000D8CDC /* iVersion.bundle in Resources */,
+				3101958D17048EF7002ACE30 /* pg_bar_done@2x.png in Resources */,
+				3101958E17048EF7002ACE30 /* pg_bar_donedown@2x.png in Resources */,
+				3101958F17048EF7002ACE30 /* pg_bar_back@2x.png in Resources */,
+				3101959017048EF7002ACE30 /* pg_bar_backdown@2x.png in Resources */,
+				3101959117048EF7002ACE30 /* pg_navigation_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6743,6 +6776,7 @@
 				31CBA99C1702F62700F002B7 /* SimuImageHelp.m in Sources */,
 				31568BA617042FB1000D8CDC /* iRate.m in Sources */,
 				31568BAD17044238000D8CDC /* iVersion.m in Sources */,
+				3101958717048CDA002ACE30 /* HumMassCleanViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

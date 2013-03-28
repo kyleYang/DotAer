@@ -20,6 +20,7 @@
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *summary;
 @property (nonatomic, copy) NSString *imageUrl;
+@property (nonatomic, copy) NSString *md5;
 @property (nonatomic, retain) NSArray *imgeArry;
 
 -(NSString*)description;

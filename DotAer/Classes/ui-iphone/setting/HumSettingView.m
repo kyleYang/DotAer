@@ -12,6 +12,8 @@
 #import "HMLeftRightTextCell.h"
 #import "iRate.h"
 #import "iVersion.h"
+#import "HumMassCleanViewController.h"
+#import "HumDotaUIOps.h"
 
 @interface HumSettingView()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -267,6 +269,9 @@
 
 -(void)onClickCellClean {
     BqsLog(@"onClickCellClean");
+    HumMassCleanViewController *massVcl = [[[HumMassCleanViewController alloc] init] autorelease];
+    [HumDotaUIOps slideShowModalViewInNavControler:massVcl ParentVCtl:self.parCtl];
+    
 }
 
 -(void)onClickCheckNewVersion {

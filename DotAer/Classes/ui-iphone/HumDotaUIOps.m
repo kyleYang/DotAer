@@ -9,6 +9,8 @@
 #import "HumDotaUIOps.h"
 #import "CustomNavigationController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "CustomNavigationBar.h"
+#import "Env.h"
 
 
 @implementation HumDotaUIOps
@@ -34,6 +36,10 @@
     
     CustomNavigationController *nav = [[[CustomNavigationController alloc] initWithRootViewController:vctl] autorelease];
     nav.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    CustomNavigationBar *navBar = [[[CustomNavigationBar alloc] init] autorelease];
+    UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"pg_navigation_bg.png" X:6 Y:20];
+    [navBar setCustomBgImage:bgImg];
+    [nav setValue:navBar forKey:@"navigationBar"];
     
     [self slideShowModalViewControler:nav ParentVCtl:pvctl];
     

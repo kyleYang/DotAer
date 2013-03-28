@@ -22,7 +22,7 @@
 #define kContent @"content"
 #define kSummary @"summary"
 #define kImageUrl @"imgeUrl"
-
+#define kMd5 @"md5"
 
 
 
@@ -36,6 +36,7 @@
 @synthesize content;
 @synthesize summary;
 @synthesize imageUrl;
+@synthesize md5;
 @synthesize imgeArry;
 
 
@@ -46,6 +47,7 @@
     self.time = nil;
     self.content = nil;
     self.imgeArry = nil;
+    self.md5 = nil;
     self.summary = nil;
     
     [super dealloc];
@@ -54,8 +56,8 @@
 
 
 -(NSString*)description {
-    return [NSString stringWithFormat:@"[strategyid:%@,title:%@,imageurl:%@,time:%@,type:%d]",
-            self.articleId, self.title,self.imageUrl,self.time,self.category];
+    return [NSString stringWithFormat:@"[strategyid:%@,title:%@,imageurl:%@,time:%@,type:%d,md5:%@]",
+            self.articleId, self.title,self.imageUrl,self.time,self.category,self.md5];
 }
 
 - (void)writeXmlItem:(XmlWriter*)wrt {
@@ -67,6 +69,7 @@
     [wrt writeStringTag:kContent Value:self.content CData:NO];
     [wrt writeStringTag:kSummary Value:self.summary CData:NO];
     [wrt writeStringTag:kImageUrl Value:self.imageUrl CData:NO];
+    [wrt writeStringTag:kMd5 Value:self.md5 CData:NO];
     
 }
 
@@ -101,6 +104,8 @@
                 strategy.content = text;
             }else if([kSummary isEqualToString:sName]) {
                 strategy.summary = text;
+            }else if([kMd5 isEqualToString:sName]) {
+                strategy.md5 = text;
             }else if([kImageUrl isEqualToString:sName]) {
                 strategy.imageUrl = text;
             }else {

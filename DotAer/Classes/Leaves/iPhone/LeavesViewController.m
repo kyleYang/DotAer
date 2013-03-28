@@ -27,6 +27,7 @@
 
 @property (nonatomic, copy) NSString  *artUrl;
 @property (nonatomic, copy) NSString  *articleId;
+@property (nonatomic, copy) NSString  *articlMd5;
 
 @property (nonatomic, retain) Downloader *downloader;
 @property (nonatomic, retain) DDProgressView *progress;
@@ -40,6 +41,7 @@
 @synthesize string = _string;
 @synthesize downloader;
 @synthesize articleId;
+@synthesize articlMd5;
 @synthesize artUrl;
 @synthesize progress;
 
@@ -50,6 +52,7 @@
     [self.downloader cancelAll];
     self.downloader = nil;
     self.articleId = nil;
+    self.articlMd5 = nil;
     self.artUrl = nil;
     self.progress = nil;
     [super dealloc];
@@ -64,13 +67,13 @@
     return self;
 }
 
-
-- (id)initWithArtUrl:(NSString *)url articeId:(NSString *)artId{
+- (id)initWithArtUrl:(NSString *)url articeId:(NSString *)artId articlMd5:(NSString *)md5{
     self  = [super init];
     if (self) {
         
         self.artUrl = url;
         self.articleId = artId;
+        self.articlMd5 = md5;
         
         _statusBarStyle = [UIApplication sharedApplication].statusBarStyle;
         _statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
@@ -79,6 +82,13 @@
         
     }
     return self;
+
+}
+
+
+- (id)initWithArtUrl:(NSString *)url articeId:(NSString *)artId{
+    
+    return [self initWithArtUrl:url articeId:artId articlMd5:@""];
 }
 
 
@@ -170,7 +180,7 @@
         _leavesView.content = text;
     }else if(articleId != nil){
         Article *content = [[HumDotaDataMgr instance] articleContentOfAritcleID:self.articleId];
-        if (content!=nil && [content.articleId isEqualToString:self.articleId] && content.content != nil) {
+        if (content!=nil && [content.articleId isEqualToString:self.articleId] &&[content.md5 isEqualToString:self.articlMd5] && content.content != nil) {
             _leavesView.content = content.content;
         }
     }
@@ -211,9 +221,12 @@
     if (content == nil) {
         return;
     }
+    Article *article = [[[Article alloc] init] autorelease];
     _leavesView.content = content;
-    [[HumDotaDataMgr instance] saveArticleContent:content ArticleID:self.articleId];
-    
+    article.articleId = self.articleId;
+    article.md5 = self.articlMd5;
+    article.content = content;
+    [[HumDotaDataMgr instance] saveArticleContent:article ArticleID:self.articleId];
 
 }
 

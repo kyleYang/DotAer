@@ -937,7 +937,7 @@
                 [imgViewAry addObject:imageView];
                 
             }
-//            img = [UIImage imageNamed:[imageData objectAtIndex:0]];//default img
+            img = [[Env sharedEnv] cacheScretchableImage:@"dota_default.png" X:10 Y:10];//default img
             CGContextDrawImage(ctx, imgBounds, img.CGImage);
             //            [imageView addTarget:self action:@selector(clickImage:) forControlEvents:UIControlEventTouchUpInside];
         }else {

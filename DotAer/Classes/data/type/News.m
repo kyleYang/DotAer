@@ -20,6 +20,7 @@
 #define kTime @"time"
 #define kContent @"content"
 #define kSummary @"summary"
+#define kMd5 @"md5"
 #define kImageUrl @"imgeUrl"
 #define kImgUrls @"imgUrls"
 #define kImg @"img"
@@ -116,6 +117,7 @@
 @synthesize time;
 @synthesize content;
 @synthesize summary;
+@synthesize md5;
 @synthesize imageUrl;
 @synthesize imgeArry;
 
@@ -128,15 +130,15 @@
     self.content = nil;
     self.imgeArry = nil;
     self.summary = nil;
-    
+    self.md5 = nil;
     [super dealloc];
 }
 
 
 
 -(NSString*)description {
-    return [NSString stringWithFormat:@"[newsid:%@,title:%@,imageurl:%@,time:%@,type:%d]",
-            self.newsId, self.title,self.imageUrl,self.time,self.category];
+    return [NSString stringWithFormat:@"[newsid:%@,title:%@,imageurl:%@,time:%@,type:%d,md5:%@]",
+            self.newsId, self.title,self.imageUrl,self.time,self.category,self.md5];
 }
 
 - (void)writeXmlItem:(XmlWriter*)wrt {
@@ -147,6 +149,7 @@
     [wrt writeStringTag:kTime Value:self.time CData:NO];
     [wrt writeStringTag:kContent Value:self.content CData:NO];
     [wrt writeStringTag:kSummary Value:self.summary CData:NO];
+    [wrt writeStringTag:kMd5 Value:self.md5 CData:NO];
     [wrt writeStringTag:kImageUrl Value:self.imageUrl CData:NO];
     [wrt writeStartTag:kImgUrls];
     
@@ -194,6 +197,8 @@
                 news.content = text;
             }else if([kSummary isEqualToString:sName]) {
                 news.summary = text;
+            }else if([kMd5 isEqualToString:sName]) {
+                news.md5 = text;
             }else if([kImgUrls isEqualToString:sName]) {
                 news.imgeArry = [NewsImg parseArrayXml:item];
             }else {

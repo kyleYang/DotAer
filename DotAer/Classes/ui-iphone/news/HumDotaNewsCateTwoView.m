@@ -229,8 +229,8 @@
     switch (info.category) {
         case HumDotaNewsTypeText:
         {
-            LeavesViewController *txt = [[[LeavesViewController alloc] initWithString:info.content] autorelease];
-            [self.parCtl presentModalViewController:txt animated:YES];
+            LeavesViewController *leaves = [[[LeavesViewController alloc] initWithArtUrl:info.content articeId:info.newsId articlMd5:info.md5] autorelease];
+            [HumDotaUIOps slideShowModalViewControler:leaves ParentVCtl:self.parCtl];
         }
             break;
     case HumDotaNewsTypeImages:

@@ -95,3 +95,12 @@
 "setting.main.other.feedback"="问题反馈";
 
 
+//mass clean
+"massclean.navigation.title" = "缓存管理";
+"massclean.mass.image" = "清空图片缓存";
+"massclean.mass.article" = "清空文章缓存";
+"massclean.mass.other" = "清空其他缓存";
+
+
+
+

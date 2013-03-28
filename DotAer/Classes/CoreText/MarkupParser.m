@@ -356,17 +356,31 @@ static UIColor* creatColorWith16(NSString *hexColor)//16进制颜色转换  形�
                     height = [NSNumber numberWithInt: [[tag substringWithRange:match.range] intValue]];
                 }];
                 
+                NSRegularExpression* PxRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<=-width: )[^[px]]+" options:0 error:NULL] autorelease];
+                [PxRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
+                    widthInt = [[tag substringWithRange: match.range] intValue];
+                    if(widthInt == 0) {
+                        widthInt = 32;
+                        heithInt = 32;
+                    }
+                    width = [NSNumber numberWithInt: widthInt];
+                    height = [NSNumber numberWithInt: heithInt];
+                }];
+
+                
                 NSRegularExpression* widthPxRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<= width: )[^[px]]+" options:0 error:NULL] autorelease];
                 [widthPxRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
                     widthInt = [[tag substringWithRange: match.range] intValue];
-                    width = [NSNumber numberWithInt: [[tag substringWithRange: match.range] intValue] ];
+                    if(widthInt == 0) widthInt = 32;
+                    width = [NSNumber numberWithInt: widthInt];
                 }];
                 
                 //height
                 NSRegularExpression* facePxRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<= height: )[^[px]]+" options:0 error:NULL] autorelease];
                 [facePxRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
                     heithInt = [[tag substringWithRange: match.range] intValue];
-                    height = [NSNumber numberWithInt: [[tag substringWithRange:match.range] intValue]];
+                    if(heithInt == 0) heithInt = 32;
+                    height = [NSNumber numberWithInt: heithInt];
                 }];
 
                 

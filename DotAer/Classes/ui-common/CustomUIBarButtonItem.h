@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define kBarStrePosX 20
+#define kBarStrePosY 13
+
 typedef enum {
     CustomUIBarButtonItemStylePlain,    // shows glow when pressed
     CustomUIBarButtonItemStyleBack,

@@ -182,7 +182,7 @@
     }
     
     Strategy *info = [self.dataArray objectAtIndex:index.row];
-    LeavesViewController *leaves = [[[LeavesViewController alloc] initWithArtUrl:info.content articeId:info.articleId] autorelease];
+    LeavesViewController *leaves = [[[LeavesViewController alloc] initWithArtUrl:info.content articeId:info.articleId articlMd5:info.md5] autorelease];
     [HumDotaUIOps slideShowModalViewControler:leaves ParentVCtl:self.parCtl];
 
     

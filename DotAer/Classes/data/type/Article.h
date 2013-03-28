@@ -15,6 +15,7 @@
 
 @property (nonatomic, copy) NSString *articleId;
 @property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *md5;
 
 -(NSString*)description;
 

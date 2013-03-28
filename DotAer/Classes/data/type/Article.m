@@ -18,6 +18,7 @@
 #define kArtId @"artid"
 #define kContent @"content"
 #define kSummary @"summary"
+#define kMd5 @"md5"
 #define kImageUrl @"imgeUrl"
 
 
@@ -28,25 +29,26 @@
 @implementation Article
 @synthesize articleId;
 @synthesize content;
-
+@synthesize md5;
 
 - (void)dealloc{
     self.articleId = nil;
     self.content = nil;
-     
+    self.md5 = nil;
     [super dealloc];
 }
 
 
 
 -(NSString*)description {
-    return [NSString stringWithFormat:@"[strategyid:%@,content:%@]",
-            self.articleId,self.content];
+    return [NSString stringWithFormat:@"[strategyid:%@,content:%@,md5:%@]",
+            self.articleId,self.content,self.md5];
 }
 
 - (void)writeXmlItem:(XmlWriter*)wrt {
     
     [wrt writeStringTag:kArtId Value:self.articleId CData:NO];
+    [wrt writeStringTag:kMd5 Value:self.md5 CData:NO];
     [wrt writeStringTag:kContent Value:self.content CData:YES];
     
 }
@@ -83,6 +85,8 @@
                 NSString *sVale = [TBXML textForElement:si];
                 if([kArtId isEqualToString:siName]) {
                     article.articleId = sVale;
+                }else if([kMd5 isEqualToString:siName]){
+                    article.md5 = sVale;
                 }else if([kContent isEqualToString:siName]){
                     article.content = sVale;
                 }else {

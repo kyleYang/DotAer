@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Downloader.h"
-@class PackageFile;
+#import "PackageFile.h"
 @class Article;
 
 #define kNtfDotaOneVideoChanged @"ntf.dota.one.video.category"
@@ -30,6 +30,11 @@
 - (PackageFile*)onlineCacheFilePath;
 - (PackageFile*)imgCacheFilePath;
 
+- (void)cleanOtherCacheFile;
+- (void)cleanImageCacheFile;
+
+-(long)fileSizeForDir:(NSString*)path;
+- (void)cleanAllFileForDir:(NSString *)path;
 
 - (NSString *)pathOfDotaOneVideoCategory;
 - (NSString *)pathOfDotaTwoVideoCategory;
@@ -67,7 +72,7 @@
 
 - (NSString *)pathOfArticlForArticleID:(NSString *)artId;
 - (Article *)articleContentOfAritcleID:(NSString *)artId;
-- (BOOL)saveArticleContent:(NSString *)content ArticleID:(NSString *)artId;
+- (BOOL)saveArticleContent:(Article *)article ArticleID:(NSString *)artId;
 
 
 @end
