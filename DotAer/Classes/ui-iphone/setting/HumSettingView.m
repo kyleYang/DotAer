@@ -10,6 +10,7 @@
 #import "BqsUtils.h"
 #import "Env.h"
 #import "HMLeftRightTextCell.h"
+#import "iRate.h"
 
 @interface HumSettingView()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -278,6 +279,7 @@
 
 -(void)onclickCommit {
     BqsLog(@"onclickCommit");
+    [[iRate sharedInstance] promptForRating];
 }
 
 

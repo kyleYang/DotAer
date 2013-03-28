@@ -1,15 +1,14 @@
 //
 //  iRate.h
 //
-//  Version 1.5.1
+//  Version 1.7.3
 //
 //  Created by Nick Lockwood on 26/01/2011.
 //  Copyright 2011 Charcoal Design
 //
 //  Distributed under the permissive zlib license
-//  Get the latest version from either of these locations:
+//  Get the latest version from here:
 //
-//  http://charcoaldesign.co.uk/source/cocoa#irate
 //  https://github.com/nicklockwood/iRate
 //
 //  This software is provided 'as-is', without any express or implied
@@ -31,51 +30,16 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-//
-//  ARC Helper
-//
-//  Version 2.1
-//
-//  Created by Nick Lockwood on 05/01/2012.
-//  Copyright 2012 Charcoal Design
-//
-//  Distributed under the permissive zlib license
-//  Get the latest version from here:
-//
-//  https://gist.github.com/1563325
-//
 
-#ifndef ah_retain
-#if __has_feature(objc_arc)
-#define ah_retain self
-#define ah_dealloc self
-#define release self
-#define autorelease self
-#else
-#define ah_retain retain
-#define ah_dealloc dealloc
-#define __bridge
-#endif
-#endif
-
-//  Weak delegate support
-
-#ifndef ah_weak
 #import <Availability.h>
-#if (__has_feature(objc_arc)) && \
-((defined __IPHONE_OS_VERSION_MIN_REQUIRED && \
-__IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0) || \
-(defined __MAC_OS_X_VERSION_MIN_REQUIRED && \
-__MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
-#define ah_weak weak
-#define __ah_weak __weak
+#undef weak_delegate
+#if __has_feature(objc_arc_weak) && \
+(!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || \
+__MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
+#define weak_delegate weak
 #else
-#define ah_weak unsafe_unretained
-#define __ah_weak __unsafe_unretained
+#define weak_delegate unsafe_unretained
 #endif
-#endif
-
-//  ARC Helper ends
 
 
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
@@ -86,6 +50,25 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
 
 
 extern NSUInteger const iRateAppStoreGameGenreID;
+extern NSString *const iRateErrorDomain;
+
+
+//localisation string keys
+static NSString *const iRateMessageTitleKey = @"iRateMessageTitle";
+static NSString *const iRateAppMessageKey = @"iRateAppMessage";
+static NSString *const iRateGameMessageKey = @"iRateGameMessage";
+static NSString *const iRateCancelButtonKey = @"iRateCancelButton";
+static NSString *const iRateRemindButtonKey = @"iRateRemindButton";
+static NSString *const iRateRateButtonKey = @"iRateRateButton";
+
+
+typedef enum
+{
+    iRateErrorBundleIdDoesNotMatchAppStore = 1,
+    iRateErrorApplicationNotFoundOnAppStore,
+    iRateErrorApplicationIsNotLatestVersion
+}
+iRateErrorCode;
 
 
 @protocol iRateDelegate <NSObject>
@@ -97,44 +80,14 @@ extern NSUInteger const iRateAppStoreGameGenreID;
 - (void)iRateUserDidAttemptToRateApp;
 - (void)iRateUserDidDeclineToRateApp;
 - (void)iRateUserDidRequestReminderToRateApp;
+- (BOOL)iRateShouldOpenAppStore;
+- (void)iRateDidPresentStoreKitModal;
+- (void)iRateDidDismissStoreKitModal;
 
 @end
 
 
 @interface iRate : NSObject
-
-//required for 32-bit Macs
-#ifdef __i386
-{
-@private
-    
-    NSUInteger _appStoreID;
-    NSUInteger _appStoreGenreID;
-    NSString *_appStoreCountry;
-    NSString *_applicationName;
-    NSString *_applicationVersion;
-    NSString *_applicationBundleID;
-    NSUInteger _usesUntilPrompt;
-    NSUInteger _eventsUntilPrompt;
-    float _daysUntilPrompt;
-    float _remindPeriod;
-    NSString *_messageTitle;
-    NSString *_message;
-    NSString *_cancelButtonLabel;
-    NSString *_remindButtonLabel;
-    NSString *_rateButtonLabel;
-    NSURL *_ratingsURL;
-    BOOL _disableAlertViewResizing;
-    BOOL _onlyPromptIfLatestVersion;
-    BOOL _onlyPromptIfMainWindowIsAvailable;
-    BOOL _promptAtLaunch;
-    BOOL _debug;
-    id<iRateDelegate> __ah_weak _delegate;
-    id _visibleAlert;
-    int _previousOrientation;
-    BOOL _currentlyChecking;
-}
-#endif
 
 + (iRate *)sharedInstance;
 
@@ -153,9 +106,10 @@ extern NSUInteger const iRateAppStoreGameGenreID;
 @property (nonatomic, assign) NSUInteger usesUntilPrompt;
 @property (nonatomic, assign) NSUInteger eventsUntilPrompt;
 @property (nonatomic, assign) float daysUntilPrompt;
+@property (nonatomic, assign) float usesPerWeekForPrompt;
 @property (nonatomic, assign) float remindPeriod;
 
-//message text, you may wish to customise these, e.g. for localisation
+//message text, you may wish to customise these
 @property (nonatomic, copy) NSString *messageTitle;
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, copy) NSString *cancelButtonLabel;
@@ -163,21 +117,28 @@ extern NSUInteger const iRateAppStoreGameGenreID;
 @property (nonatomic, copy) NSString *rateButtonLabel;
 
 //debugging and prompt overrides
+@property (nonatomic, assign) BOOL useAllAvailableLanguages;
 @property (nonatomic, assign) BOOL disableAlertViewResizing;
+@property (nonatomic, assign) BOOL promptAgainForEachNewVersion;
 @property (nonatomic, assign) BOOL onlyPromptIfLatestVersion;
 @property (nonatomic, assign) BOOL onlyPromptIfMainWindowIsAvailable;
+@property (nonatomic, assign) BOOL displayAppUsingStorekitIfAvailable;
 @property (nonatomic, assign) BOOL promptAtLaunch;
-@property (nonatomic, assign) BOOL debug;
+@property (nonatomic, assign) BOOL verboseLogging;
+@property (nonatomic, assign) BOOL previewMode;
 
 //advanced properties for implementing custom behaviour
-@property (nonatomic, strong) NSURL *ratingsURL;
-@property (nonatomic, strong) NSDate *firstUsed;
-@property (nonatomic, strong) NSDate *lastReminded;
+@property (nonatomic, retain) NSURL *ratingsURL;
+@property (nonatomic, retain) NSDate *firstUsed;
+@property (nonatomic, retain) NSDate *lastReminded;
 @property (nonatomic, assign) NSUInteger usesCount;
 @property (nonatomic, assign) NSUInteger eventCount;
+@property (nonatomic, readonly) float usesPerWeek;
 @property (nonatomic, assign) BOOL declinedThisVersion;
+@property (nonatomic, readonly) BOOL declinedAnyVersion;
 @property (nonatomic, assign) BOOL ratedThisVersion;
-@property (nonatomic, ah_weak) id<iRateDelegate> delegate;
+@property (nonatomic, readonly) BOOL ratedAnyVersion;
+@property (nonatomic, assign) id<iRateDelegate> delegate;
 
 //manually control behaviour
 - (BOOL)shouldPromptForRating;

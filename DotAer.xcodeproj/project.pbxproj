@@ -39,6 +39,8 @@
 		313DF5C016AEE66B003886EF /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313DF5BB16AEE66B003886EF /* CustomNavigationBar.m */; };
 		313DF5C116AEE66B003886EF /* CustomUIBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 313DF5BD16AEE66B003886EF /* CustomUIBarButtonItem.m */; };
 		314E4139170176F500B83BD6 /* DotAer.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 314E4138170176F500B83BD6 /* DotAer.sqlite */; };
+		31568BA517042FB1000D8CDC /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 31568BA217042FB1000D8CDC /* iRate.bundle */; };
+		31568BA617042FB1000D8CDC /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 31568BA417042FB1000D8CDC /* iRate.m */; };
 		319A5B6416BECD4200C33620 /* HumRightBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A5B6316BECD4200C33620 /* HumRightBaseView.m */; };
 		319A5B6816BED00200C33620 /* HumRightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A5B6716BED00200C33620 /* HumRightView.m */; };
 		319A5B9216C1DE9C00C33620 /* mptplayer.strings in Resources */ = {isa = PBXBuildFile; fileRef = 319A5B6E16C1DE9B00C33620 /* mptplayer.strings */; };
@@ -1224,6 +1226,9 @@
 		313DF5BC16AEE66B003886EF /* CustomUIBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUIBarButtonItem.h; sourceTree = "<group>"; };
 		313DF5BD16AEE66B003886EF /* CustomUIBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUIBarButtonItem.m; sourceTree = "<group>"; };
 		314E4138170176F500B83BD6 /* DotAer.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DotAer.sqlite; sourceTree = "<group>"; };
+		31568BA217042FB1000D8CDC /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
+		31568BA317042FB1000D8CDC /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
+		31568BA417042FB1000D8CDC /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		319A5B6216BECD4200C33620 /* HumRightBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumRightBaseView.h; sourceTree = "<group>"; };
 		319A5B6316BECD4200C33620 /* HumRightBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumRightBaseView.m; sourceTree = "<group>"; };
 		319A5B6616BED00200C33620 /* HumRightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumRightView.h; sourceTree = "<group>"; };
@@ -2661,6 +2666,16 @@
 			path = frame;
 			sourceTree = "<group>";
 		};
+		31568BA117042FB1000D8CDC /* iRate */ = {
+			isa = PBXGroup;
+			children = (
+				31568BA217042FB1000D8CDC /* iRate.bundle */,
+				31568BA317042FB1000D8CDC /* iRate.h */,
+				31568BA417042FB1000D8CDC /* iRate.m */,
+			);
+			path = iRate;
+			sourceTree = "<group>";
+		};
 		319A5B6D16C1DE9B00C33620 /* MptAVPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -3636,6 +3651,7 @@
 		31C6EB2916AC477700187A67 /* OpenSouce */ = {
 			isa = PBXGroup;
 			children = (
+				31568BA117042FB1000D8CDC /* iRate */,
 				31B9235916FCCC5B004DB449 /* DDProgressView.h */,
 				31B9235A16FCCC5B004DB449 /* DDProgressView.m */,
 				311584AD16EEB89700A10BB9 /* KDGoalBar */,
@@ -6470,6 +6486,7 @@
 				31CBA9A7170308DE00F002B7 /* dota_dam.jpg in Resources */,
 				31CBA9A8170308DE00F002B7 /* dota_inte.jpg in Resources */,
 				31CBA9AA17030AEE00F002B7 /* dota_stren.jpg in Resources */,
+				31568BA517042FB1000D8CDC /* iRate.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6707,6 +6724,7 @@
 				31D86FB017013F0000D94099 /* DSTavernTableCell.m in Sources */,
 				31D86FB41701410600D94099 /* DSDetailView.m in Sources */,
 				31CBA99C1702F62700F002B7 /* SimuImageHelp.m in Sources */,
+				31568BA617042FB1000D8CDC /* iRate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

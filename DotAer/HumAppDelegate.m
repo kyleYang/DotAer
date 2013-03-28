@@ -9,6 +9,7 @@
 #import "HumAppDelegate.h"
 #import "Env.h"
 #import "HumDotaDataMgr.h"
+#import "iRate.h"
 
 
 @interface HumAppDelegate()<EnvProtocol>
@@ -39,10 +40,23 @@
 @synthesize viewController;
 @synthesize theEnv;
 
+
++ (void)initialize
+{
+    
+    
+	[iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+    
+    //enable preview mode
+    
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
     self.theEnv = [[[Env alloc] init] autorelease];
+    [iRate sharedInstance].appStoreID = [[Env sharedEnv].itunesAppId intValue];
+    
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
