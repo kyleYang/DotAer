@@ -22,10 +22,48 @@
 "dota.categor.strategy" = "攻略";
 "dota.categor.photo" = "图片";
 "dota.categor.video" = "视频";
+"dota.categor.simulator" = "模拟器";
 
 //photo
 
 "dota.image.title" = "图片";
+
+//simulator
+"dota.simu.damage" = "攻击力";
+"dota.simu.armor" = "护甲";
+"dota.simu.strength" = "力量";
+"dota.simu.algor" = "敏捷";
+"dota.simu.inteli" = "智力";
+
+
+"dota.simu.hero" = "英雄酒馆";
+"dota.simu.equip" = "装备商店";
+
+"dota.simu.hero.jw.strone" = "近卫力量（一）";
+"dota.simu.hero.jw.strtwo" = "近卫力量（二）";
+"dota.simu.hero.jw.agione" = "近卫敏捷（一）";
+"dota.simu.hero.jw.agitwo" = "近卫敏捷（二）";
+"dota.simu.hero.jw.intone" = "近卫智力（一）";
+"dota.simu.hero.jw.inttwo" = "近卫智力（二）";
+
+"dota.simu.hero.tz.strone" = "天灾力量（一）";
+"dota.simu.hero.tz.strtwo" = "天灾力量（二）";
+"dota.simu.hero.tz.agione" = "天灾敏捷（一）";
+"dota.simu.hero.tz.agitwo" = "天灾敏捷（二）";
+"dota.simu.hero.tz.intone" = "天灾智力（一）";
+"dota.simu.hero.tz.inttwo" = "天灾智力（二）";
+
+"dota.simu.equip.one" = "圣物关口";
+"dota.simu.equip.two" = "支援法衣";
+"dota.simu.equip.three" = "秘法圣所";
+"dota.simu.equip.four" = "保护领地";
+"dota.simu.equip.five" = "魅惑遗物";
+"dota.simu.equip.six" = "远古兵器";
+"dota.simu.equip.seven" = "武器商人";
+"dota.simu.equip.egiht" = "饰品商人";
+"dota.simu.equip.nine" = "奎尔瑟兰的密室";
+"dota.simu.equip.ten" = "奇迹古树";
+"dota.simu.equip.eleven" = "黑市商人";
 
 //pull down
 "dota.pulling.fresh" = "松开刷新";

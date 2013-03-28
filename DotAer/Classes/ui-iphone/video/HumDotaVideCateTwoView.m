@@ -13,7 +13,7 @@
 #import "HumVideoTableCell.h"
 #import "MptAVPlayerViewController.h"
 
-#define kVideoPageEachNum 15
+#define kVideoPageEachNum 10
 
 @interface HumDotaVideCateTwoView()<HumVideoTableCellDelegate,MptAVPlayerViewController_Callback>
 
@@ -53,10 +53,11 @@
     if (!bLoadMore) {
         _hasMore = YES;
         self.netArray = nil;
-        self.nTaskId = [HumDotaNetOps videoMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.videoCatId page:0];
+        _curPage = 0;
+        self.nTaskId = [HumDotaNetOps videoMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.videoCatId page:_curPage];
     }else{
-        int page = [self.netArray count]/kVideoPageEachNum;
-        self.nTaskId = [HumDotaNetOps videoMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.videoCatId page:page];
+        _curPage++;
+        self.nTaskId = [HumDotaNetOps videoMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.videoCatId page:_curPage];
     }
     
 }

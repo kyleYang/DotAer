@@ -99,6 +99,7 @@
     }
     
     _hasMore = YES;
+    _curPage = 0;
     // create downloade
     self.nTotalNum = -1;
     self.nTaskId = -1;

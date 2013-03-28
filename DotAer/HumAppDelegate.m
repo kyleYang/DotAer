@@ -50,7 +50,7 @@
     
     if (!self.theEnv.bIsPad) {
          self.viewController = [[[HumDotaBaseViewController alloc] initWithNibName:nil bundle:nil] autorelease];
-         self.viewController.managedObjectContext = _managedObjectContext;
+         self.viewController.managedObjectContext = self.managedObjectContext;
     }else{
        
     }

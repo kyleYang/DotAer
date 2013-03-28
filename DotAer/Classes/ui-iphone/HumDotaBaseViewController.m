@@ -16,6 +16,7 @@
 #import "HumDotaVideoCateOneView.h"
 #import "HumDotaImageCateOneView.h"
 #import "HumDotaStrategyCateOneView.h"
+#import "HumDotaSimuCateOneView.h"
 #import "HumLeftBaseView.h"
 #import "HumRightBaseView.h"
 #import "HumSettingView.h"
@@ -31,7 +32,7 @@
 #define kTimeInterval 0.6
 
 
-@interface HumDotaBaseViewController ()<HumDotaTopNavDelegate,HumDotaButtomNavDelgate,HumLeftBaseViewDelegate,HumRightBaseViewDelegate,HumBaseFrameDelegate>{
+@interface HumDotaBaseViewController ()<HumDotaTopNavDelegate,HumDotaButtomNavDelgate,HumLeftBaseViewDelegate,HumRightBaseViewDelegate,DSDetailDelegate,HumBaseFrameDelegate>{
     CGPoint _swipeBeg;
     CGPoint _swipeEnd;
     BOOL _swiped;
@@ -41,7 +42,7 @@
 @property (nonatomic, retain) HumDotaBaseFrame *frameView;
 @property (nonatomic, retain) HumDotaCatOneBaseView *vieCatOne;
 @property (nonatomic, retain) HumLeftBaseView *leftView;
-@property (nonatomic, retain) HumRightBaseView *rightView;
+@property (nonatomic, retain) HumRightView *rightView;
 
 @property (nonatomic, copy) NSString *curCatId;
 
@@ -134,6 +135,10 @@
         av = [[[HumDotaImageCateOneView alloc] initWithDotaCatFrameViewCtl:self Frame:frm] autorelease];
     }else if([kDotaCat_Strategy isEqualToString:self.curCatId]){
         av = [[[HumDotaStrategyCateOneView alloc] initWithDotaCatFrameViewCtl:self Frame:frm] autorelease];
+    }else if([kDotaCat_Simulator isEqualToString:self.curCatId]){
+        av = [[[HumDotaSimuCateOneView alloc] initWithDotaCatFrameViewCtl:self Frame:frm managedObjectContext:self.managedObjectContext] autorelease];
+    }else{
+        BqsLog(@"Unknow category one name");
     }
     av.topNav.delegate = self;
     av.frame = frm;
@@ -195,12 +200,14 @@
     
     
     if(nil == self.rightView) {
-        self.rightView = [[[HumRightView alloc] initWithDotaCatFrameViewCtl:self Frame:self.view.bounds] autorelease];
+        self.rightView = [[[HumRightView alloc] initWithDotaCatFrameViewCtl:self Frame:self.view.bounds managedObjectContext:_managedObjectContext] autorelease];
         self.rightView.delegate = self;
+        self.rightView.dsDelegate = self;
         [self.view insertSubview:self.rightView belowSubview:self.frameView];
     }
     
     CGFloat time = (CGRectGetMaxX(self.frameView.bounds)-kMainRightViewLeftGap+CGRectGetMinX(self.frameView.frame))*kTimeInterval/(CGRectGetMaxX(self.frameView.bounds) - kMainRightViewLeftGap);
+    [self.rightView viewWillAppear];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -312,11 +319,9 @@
         } completion:^(BOOL finished) {
             
             _animated = NO;
-            [self.rightView viewDidDisappear];
+            
             self.frameView.userInteractionEnabled = YES;
             self.rightView.layer.shouldRasterize = NO;
-            [self.rightView removeFromSuperview];
-            self.rightView = nil;
             
         }];
     }
@@ -436,6 +441,22 @@
     }
     
 }
+
+
+#define mark
+#define makr DSDetailDelegate
+
+- (void)didSelectHero:(HeroInfo *)hero{
+    BqsLog(@"didSelectHero heroName = %@",hero.heroName);
+    [self.vieCatOne didSelectHero:hero];
+    
+}
+- (void)didSelectEquip:(Equipment *)equip{
+    BqsLog(@"didSelectEquip heroName = %@",equip.equipName);
+    [self.vieCatOne didSelectEquip:equip];
+
+}
+
 
 
 #pragma mark

@@ -15,7 +15,7 @@
 #import "HumDotaUIOps.h"
 
 #define kAllCategory @"1"
-#define kStrategyPageEachNum 15
+#define kStrategyPageEachNum 10
 
 @interface HumDotaStrategyCateTwoView()<HumStrategyCellDelegate>
 
@@ -51,10 +51,11 @@
     if (!bLoadMore) {
         _hasMore = YES;
         self.netArray = nil;
-        self.nTaskId = [HumDotaNetOps strategyMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil page:0];
+        _curPage = 0;
+        self.nTaskId = [HumDotaNetOps strategyMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil page:_curPage];
     }else{
-        int page = [self.netArray count]/kStrategyPageEachNum;
-        self.nTaskId = [HumDotaNetOps strategyMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil page:page];
+        _curPage++;
+        self.nTaskId = [HumDotaNetOps strategyMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil page:_curPage];
     }
     
 }

@@ -64,4 +64,12 @@
     
 }
 
+//must be rewirte in simulator
+-(void)didSelectHero:(HeroInfo *)hero{
+    
+}
+-(void)didSelectEquip:(Equipment *)equip{
+    
+}
+
 @end

@@ -18,6 +18,7 @@
     BOOL _reloading;
     BOOL _loadMore;
     BOOL _hasMore;
+    int _curPage;
 }
 
 @property (nonatomic, retain) NSArray *dataArray;

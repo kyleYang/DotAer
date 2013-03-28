@@ -11,6 +11,8 @@
 #import "Downloader.h"
 #import "Env.h"
 #import "BqsUtils.h"
+#import "HeroInfo.h"
+#import "Equipment.h"
 
 @interface HumDotaCateTowBaseView : UIView
 
@@ -28,5 +30,9 @@
 -(void)viewDidAppear;
 -(void)viewWillDisappear;
 -(void)viewDidDisappear;
+
+-(void)didSelectHero:(HeroInfo *)hero;
+-(void)didSelectEquip:(Equipment *)equip;
+
 
 @end

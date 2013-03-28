@@ -142,7 +142,7 @@
 
 - (void)parameterInit
 {
-    _offsetX = 0.0f;
+    _offsetX = 5.0f;
     _offsetY = 0.0f;
     _bottomX = 0.0f;
     _bottomY = 0.0f;
@@ -168,7 +168,7 @@
     self.imgDic = [NSMutableDictionary dictionary];
     self.paraImagesDictory = [NSMutableDictionary dictionary];
     
-    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)+20.f-_offsetY-_bottomY);
+    CGRect labFrame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+20.f);
 
     CGRect rec = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+20);
     UIImageView *bg = [[UIImageView alloc] initWithFrame:rec];
@@ -369,9 +369,6 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
-    self.leavesView.frame = labFrame;
-
 //    [self propertySetAgain];
 }
 
@@ -382,8 +379,6 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
-    self.leavesView.frame = labFrame;
 
 //    [self propertySetAgain];
 }
@@ -395,8 +390,7 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
-    self.leavesView.frame = labFrame;
+
 
 //    [self propertySetAgain];
 }
@@ -408,8 +402,6 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
-    self.leavesView.frame = labFrame;
 //    [self propertySetAgain];
 }
 
@@ -805,6 +797,20 @@
     lineSpaceStyle.value =&lineSpace;
     
     
+    /*********设置行开始的位置********/
+    CGFloat lineHead = _offsetX;
+    CTParagraphStyleSetting lineHeadStyle;
+    lineHeadStyle.spec = kCTParagraphStyleSpecifierHeadIndent;
+    lineHeadStyle.valueSize = sizeof(lineHead);
+    lineHeadStyle.value =&lineHead;
+    
+    /*********设置行宽度********/
+    CGFloat lineWidht = CGRectGetWidth(self.leavesView.bounds)-2*_offsetX;
+    CTParagraphStyleSetting lineWidthStyle;
+    lineWidthStyle.spec = kCTParagraphStyleSpecifierTailIndent;
+    lineWidthStyle.valueSize = sizeof(lineWidht);
+    lineWidthStyle.value =&lineWidht;
+    
     
     //设置文本段间距
     CGFloat paragraphSpacing = _paragraphSpacing;
@@ -813,7 +819,7 @@
     paragraphSpaceStyle.valueSize = sizeof(CGFloat);
     paragraphSpaceStyle.value = &paragraphSpacing;
     
-    CTParagraphStyleSetting settings[ ] ={alignmentStyle,lineSpaceStyle,paragraphSpaceStyle};
+    CTParagraphStyleSetting settings[ ] ={alignmentStyle,lineSpaceStyle,lineHeadStyle,lineWidthStyle,paragraphSpaceStyle};
     CTParagraphStyleRef style = CTParagraphStyleCreate(settings ,3);
     //给文本添加设置
     [attributeSting addAttribute:(id)kCTParagraphStyleAttributeName value:(id)style range:NSMakeRange(0 , [attributeSting length])];

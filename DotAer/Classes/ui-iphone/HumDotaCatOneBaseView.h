@@ -11,6 +11,8 @@
 #import "HumDotaCatTitle.h"
 #import "HumDotaBaseViewController.h"
 #import "HumDotaCateTowBaseView.h"
+#import "HeroInfo.h"
+#import "Equipment.h"
 
 
 
@@ -33,6 +35,9 @@
 -(void)viewDidAppear;
 -(void)viewWillDisappear;
 -(void)viewDidDisappear;
+
+-(void)didSelectHero:(HeroInfo *)hero;
+-(void)didSelectEquip:(Equipment *)equip;
 
 @end
 

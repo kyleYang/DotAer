@@ -20,7 +20,7 @@
 #import "HMImageViewController.h"
 
 
-#define kImageEachDownNum 15
+#define kImageEachDownNum 10
 
 @interface HumDotaImageCateTwoView()<HumImageTableCellDelegate>
 
@@ -74,10 +74,11 @@
     if (!bLoadMore) {
         _hasMore = YES;
         self.netArray = nil;
-        self.nTaskId = [HumDotaNetOps imageMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.imageCatId page:0];
+        _curPage = 0;
+        self.nTaskId = [HumDotaNetOps imageMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.imageCatId page:_curPage];
     }else{
-        int page = [self.netArray count]/kImageEachDownNum;
-        self.nTaskId = [HumDotaNetOps imageMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.imageCatId page:page];
+        _curPage++;
+        self.nTaskId = [HumDotaNetOps imageMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.imageCatId page:_curPage];
     }
     
 }

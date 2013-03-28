@@ -18,7 +18,7 @@
 #import "LeavesViewController.h"
 #import "HumDotaDataMgr.h"
 
-#define kNewsPageEachNum 15
+#define kNewsPageEachNum 10
 
 @interface HumDotaNewsCateTwoView()<HumNewsCellDelegate,MptAVPlayerViewController_Callback>
 
@@ -55,10 +55,11 @@
     if (!bLoadMore) {
         _hasMore = YES;
         self.netArray = nil;
+        _curPage = 0;
         self.nTaskId = [HumDotaNetOps newsMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil page:0];
     }else{
-        int page = [self.netArray count]/kNewsPageEachNum;
-        self.nTaskId = [HumDotaNetOps newsMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil page:page];
+        _curPage++;
+        self.nTaskId = [HumDotaNetOps newsMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil page:_curPage];
     }
     
 }
@@ -162,7 +163,6 @@
         if([info.imgeArry count] != 0){
             NewsImg *newsImg = [info.imgeArry objectAtIndex:0];
             BqsLog(@"cell at section: %d,row :%d url = %@",indexPath.section,indexPath.row,newsImg.url);
-            UIImage *image = [[Env sharedEnv] cacheImage:@"dota_news_default.png"];
             cell.contImage.imageView.image = [[Env sharedEnv] cacheImage:@"dota_news_default.png"];
             cell.contImage.imgUrl = newsImg.url;
         }

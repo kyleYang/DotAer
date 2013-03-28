@@ -32,4 +32,11 @@
 @dynamic formulaNeed;
 
 
+
+- (NSString *)description{
+        return [NSString stringWithFormat:@"[Equip equipSN:%@,available:%@,upgrade:%@,shopNumber:%@,equipOrder:%@,equipName:%@,equipPrice:%@,addHP:%@,addMP:%@,addArmor:%@,addDamage:%@,addStrength:%@,addAgilityh:%@,addIntelligence:%@]",
+                self.equipSN, self.available,self.upgrade,self.shopNumber,self.equipOrder, self.equipName, self.equipPrice,self.addHP,self.addMP,self.addArmor, self.addDamage, self.addStrength,self.addAgilityh,self.addIntelligence];
+}
+
+
 @end
