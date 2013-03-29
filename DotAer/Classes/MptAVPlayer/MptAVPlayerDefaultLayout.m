@@ -35,14 +35,12 @@
 @synthesize topControlsViewAlignment = _topControlsViewAlignment;
 @synthesize zoomOutButtonPosition = _zoomOutButtonPosition;
 
-
 - (void)dealloc
 {
     _bottomControlFullscreenImage = nil;
     _TopControlFullscreenImage = nil;
     _topControlsButtons = nil;
     [_scrubberFillColor release]; _scrubberFillColor = nil;
-    
     [super dealloc];
     
 }
@@ -64,11 +62,14 @@
     }
     
     return self;
+
 }
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - MptAVPlayerLayout
 ////////////////////////////////////////////////////////////////////////
+
+
 
 - (void)customizeTopControlsViewWithControlStyle:(MptAVPlayerControlStyle)controlStyle {
     UIImageView *topControlsImageView = (UIImageView *)self.topControlsView;
@@ -336,8 +337,8 @@
     leftEdge = self.playPauseControl.frame.origin.x + self.playPauseControl.frame.size.width;
     
     // volume control and zoom button are always on the right
-    self.zoomControl.frame = CGRectMake(width-kControlWidth, 0.f, kControlWidth, controlsViewHeight);
-    [self.zoomControl setImage:[UIImage imageNamed:@"NGMoviePlayer.bundle/zoomIn"] forState:UIControlStateNormal];
+//    self.zoomControl.frame = CGRectMake(width-kControlWidth, 0.f, kControlWidth, controlsViewHeight);
+//    [self.zoomControl setImage:[UIImage imageNamed:@"NGMoviePlayer.bundle/zoomIn"] forState:UIControlStateNormal];
     
 //    self.volumeControl.frame = CGRectMake(rightEdge-kControlWidth, self.bottomControlsView.frame.origin.y, kControlWidth, controlsViewHeight);
 //    rightEdge = self.volumeControl.frame.origin.x;
@@ -371,15 +372,19 @@
     CGFloat topY = 2.f;
     
     self.dismissControl.frame = CGRectMake(15, 0, 40, 40);
+    
+    CGRect rct = CGRectMake(CGRectGetMaxX(self.dismissControl.frame), CGRectGetMinY(self.dismissControl.frame), CGRectGetWidth(self.topControlsView.frame)-CGRectGetMaxX(self.dismissControl.frame), CGRectGetHeight(self.topControlsContainerView.frame));
+    self.videoTitle.frame = rct;
+    
     // zoom button can be left or right
    
-    CGFloat zoomButtonWidth = CGRectGetWidth(self.zoomControl.frame);
+//    CGFloat zoomButtonWidth = CGRectGetWidth(self.zoomControl.frame);
    
-    if (self.zoomOutButtonPosition == MptAVPlayerControlViewZoomOutButtonPositionLeft) {
-        self.zoomControl.frame = CGRectMake(CGRectGetWidth(self.dismissControl.frame)+5, 0.f, zoomButtonWidth, self.topControlsView.bounds.size.height);
-    } else {
-        self.zoomControl.frame = CGRectMake(self.width - zoomButtonWidth-10, 0.f, zoomButtonWidth, self.topControlsView.bounds.size.height);
-    }
+//    if (self.zoomOutButtonPosition == MptAVPlayerControlViewZoomOutButtonPositionLeft) {
+//        self.zoomControl.frame = CGRectMake(CGRectGetWidth(self.dismissControl.frame)+5, 0.f, zoomButtonWidth, self.topControlsView.bounds.size.height);
+//    } else {
+//        self.zoomControl.frame = CGRectMake(self.width - zoomButtonWidth-10, 0.f, zoomButtonWidth, self.topControlsView.bounds.size.height);
+//    }
     
     CGFloat offX = 0.0f;
     CGFloat paddingX = 0.0f;
@@ -420,7 +425,7 @@
     frame.origin.x = CGRectGetMaxX(self.playPauseControl.frame);
     self.forwardControl.frame = frame;
 //    self.rewindControl.hidden = !displaySkipButtons;
-    self.forwardControl.enabled = !displaySkipButtons;
+    self.forwardControl.enabled = displaySkipButtons;
        
     
     frame = self.volumeControl.frame;
@@ -436,6 +441,7 @@
     
     frame = self.airPlayControlContainer.frame;
     frame.origin.x = CGRectGetMaxX(self.volumeControl.frame);
+    frame.origin.y = (CGRectGetHeight(self.bottomControlsView.frame)  - CGRectGetHeight(frame))/2;
     self.airPlayControlContainer.frame = frame;
     
     // next row of controls

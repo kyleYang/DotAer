@@ -82,6 +82,7 @@ typedef enum{
 @property (nonatomic, retain, readonly) MPVolumeView *airPlayControl;
 @property (nonatomic, readonly, getter = isAirPlayControlVisible) BOOL airPlayControlVisible;
 @property (nonatomic, retain, readonly) UIButton *dismissControl;
+@property (nonatomic, retain, readonly) UILabel *videoTitle;
 @property (nonatomic, retain, readonly) UIButton *zoomControl;
 
 - (void)setMoviePlayer:(MptAVPlayer *)moviePlayer;

@@ -188,4 +188,41 @@
 }
 
 
++(UIAlertView *)showChaoseAlertError:(NSError*)err Msg:(NSString*)msg delegate:(id)delegate{
+    NSMutableString *errMsg = [[NSMutableString alloc] initWithCapacity:128];
+
+    if(nil != msg) {
+		[errMsg appendString:msg];
+	}
+	
+	if(nil != err) {
+		if(NSURLErrorCancelled == [err code]) {
+			BqsLog(@"error cancel");
+			[errMsg release];
+			return nil;
+		}
+        NSString *m = [err localizedDescription];
+		if(nil != m) {
+			[errMsg appendString:@":"];
+			[errMsg appendString:m];
+		}
+	}
+    
+	if(nil == errMsg) return nil;
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                    message:errMsg
+                                                   delegate:delegate
+										  cancelButtonTitle:NSLocalizedStringFromTable(@"button.no", @"commonlib", nil)
+										  otherButtonTitles:NSLocalizedStringFromTable(@"button.yes", @"commonlib", nil),nil];
+    [errMsg release];
+	
+    [alert show];
+    
+    return [alert autorelease];
+
+    
+}
+
+
 @end

@@ -124,6 +124,7 @@ static void *MptAVPlayerAirPlayVideoActiveContext = &MptAVPlayerAirPlayVideoActi
     
     [_URL release]; _URL = nil;
     self.asset = nil;
+    self.name = nil;
     
     [self.player removeTimeObserver:self.playerTimeObserver];
     self.playerTimeObserver = nil;
@@ -179,9 +180,14 @@ static void *MptAVPlayerAirPlayVideoActiveContext = &MptAVPlayerAirPlayVideoActi
 ////////////////////////////////////////////////////////////////////////
 
 - (id)initWithURL:(NSURL *)URL initialPlaybackTime:(NSTimeInterval)initialPlaybackTime {
+    return [self initWithURL:URL initialPlaybackTime:initialPlaybackTime name:@""];
+}
+
+
+- (id)initWithURL:(NSURL *)URL initialPlaybackTime:(NSTimeInterval)initialPlaybackTime name:(NSString *)videoName {
     if ((self = [super init])) {
         _autostartWhenReady = YES; //default is YES
-        _mptControlAble = NO;//default is NO 
+        _mptControlAble = NO;//default is NO
         _seekToInitialPlaybackTimeBeforePlay = YES;
         _airPlayEnabled = [AVPlayer instancesRespondToSelector:@selector(allowsAirPlayVideo)];
         _rateToRestoreAfterScrubbing = 1.;
@@ -190,13 +196,19 @@ static void *MptAVPlayerAirPlayVideoActiveContext = &MptAVPlayerAirPlayVideoActi
         _initialPlaybackToleranceTime = kMptDefaultInitialPlaybackToleranceTime;
         _videoGravity = MptAVPlayerVideoGravityResize;
         // calling setter here on purpose
+        self.name = videoName; //must befor url,beacuse self.url can build many message
         self.URL = URL;
+       
     }
     return self;
 }
 
 - (id)initWithURL:(NSURL *)URL {
     return [self initWithURL:URL initialPlaybackTime:0.];
+}
+
+- (id)initWithURL:(NSURL *)URL name:(NSString *)videoName{
+    return [self initWithURL:URL initialPlaybackTime:0. name:videoName];
 }
 
 - (id)init {
@@ -459,7 +471,7 @@ static void *MptAVPlayerAirPlayVideoActiveContext = &MptAVPlayerAirPlayVideoActi
 
 - (MptAVPlayerView *)view {
     if (_view == nil) {
-        _view = [[MptAVPlayerView alloc] initWithFrame:CGRectZero] ;
+        _view = [[MptAVPlayerView alloc] initWithFrame:CGRectZero name:self.name] ;
         _view.delegate = self;
         
         // layout that is used per default

@@ -12,11 +12,14 @@
 #import "Video.h"
 #import "HumVideoTableCell.h"
 #import "MptAVPlayerViewController.h"
+#import "HumDotaUserCenterOps.h"
+#import "HMPopMsgView.h"
 
 #define kVideoPageEachNum 10
 
 @interface HumDotaVideCateTwoView()<HumVideoTableCellDelegate,MptAVPlayerViewController_Callback>
 
+@property (nonatomic, retain) Video *retainInfo;
 @property (nonatomic, retain) NSString *videoCatId;
 @property (nonatomic, retain) NSMutableArray *netArray;
 
@@ -25,8 +28,9 @@
 @implementation HumDotaVideCateTwoView
 @synthesize videoCatId;
 @synthesize netArray;
-
+@synthesize retainInfo;
 - (void)dealloc{
+    self.retainInfo = nil;
     self.videoCatId = nil;
     self.netArray = nil;
     [super dealloc];
@@ -226,12 +230,42 @@
         
         return;
     }
-    Video *info = [self.dataArray objectAtIndex:index.row];
+    BOOL haveNet = [HumDotaUserCenterOps BoolValueForKey:kDftHaveNetWork];
+    if (!haveNet) {
+        [HMPopMsgView showAlterError:nil Msg:NSLocalizedString(@"title.nonetwork.cannot.paly", nil) Delegate:self];
+        return;
+    }
     
-    MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:info.content] autorelease];
+    Video *info = [self.dataArray objectAtIndex:index.row];
+    self.retainInfo = info;
+    BOOL isWifi = [HumDotaUserCenterOps BoolValueForKey:kDftNetTypeWifi];
+    if (!isWifi) {
+        [HMPopMsgView showChaoseAlertError:nil Msg:NSLocalizedString(@"title.network.3G.play", self) delegate:nil];
+        return;
+    }
+    
+
+    MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:info.content name:info.title] autorelease];
     play.call_back = self;
     [self.parCtl presentModalViewController:play animated:YES];
        
+    
+}
+
+#pragma mark
+#pragma mark UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    BqsLog(@"alertView didClick Button at index:%d",buttonIndex);
+    if (buttonIndex == 1) {
+        if (self.retainInfo == nil) {
+            BqsLog(@"Error because the retain info == nil");
+        }
+        MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:self.retainInfo.content name:self.retainInfo.title] autorelease];
+        play.call_back = self;
+        [self.parCtl presentModalViewController:play animated:YES];        
+    }
+    
     
 }
 

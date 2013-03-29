@@ -72,7 +72,7 @@
         _infoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _infoLabel.backgroundColor = [UIColor clearColor];
         _infoLabel.textColor = [UIColor whiteColor];
-        _infoLabel.font = [UIFont systemFontOfSize:14.f];
+        _infoLabel.font = [UIFont systemFontOfSize:17.f];
         _infoLabel.numberOfLines = 0;
         _infoLabel.lineBreakMode = UILineBreakModeWordWrap | UILineBreakModeTailTruncation;
         _infoLabel.textAlignment = UITextAlignmentCenter;
@@ -93,7 +93,7 @@
     self.activityView.center = self.center;
     
     CGFloat centerX = self.activityView.center.x;
-    CGFloat topY = self.activityView.frame.origin.y + self.activityView.frame.size.height + 5.f;
+    CGFloat topY = self.activityView.frame.origin.y + self.activityView.frame.size.height + 15.f;
     
     self.infoLabel.center = CGPointMake(centerX, topY + self.infoLabel.frame.size.height/2.f);
     self.infoLabel.frame = CGRectIntegral(self.infoLabel.frame);

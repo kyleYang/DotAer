@@ -31,4 +31,16 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+
+
++(BOOL)BoolValueForKey:(NSString *)key{
+     return [[NSUserDefaults standardUserDefaults] boolForKey:key];
+}
+
++(void)saveBoolVaule:(BOOL)value forKye:(NSString *)key{
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
 @end

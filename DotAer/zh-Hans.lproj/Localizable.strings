@@ -101,6 +101,12 @@
 "massclean.mass.article" = "清空文章缓存";
 "massclean.mass.other" = "清空其他缓存";
 
+//network
+"title.error.nonetwork" = "网络断开链接";
+"title.nonetwork.cannot.paly" = "您已经断开网络,无法播放";
+"title.network.3G.play" = "您正在使用 3G 网络,会消耗教多流量,是否继续观看?";
 
+//alter
+"button.sure" = "确定";
 
 

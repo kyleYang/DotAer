@@ -17,21 +17,24 @@
 #import "HMImageViewController.h"
 #import "LeavesViewController.h"
 #import "HumDotaDataMgr.h"
+#import "HumDotaUserCenterOps.h"
+#import "HMPopMsgView.h"
 
 #define kNewsPageEachNum 10
 
 @interface HumDotaNewsCateTwoView()<HumNewsCellDelegate,MptAVPlayerViewController_Callback>
 
 @property (nonatomic, retain) NSMutableArray *netArray;
-
+@property (nonatomic, retain) News *retainInfo;
 @end
 
 
 @implementation HumDotaNewsCateTwoView
 @synthesize netArray;
-
+@synthesize retainInfo;
 - (void)dealloc{
     self.netArray = nil;
+    self.retainInfo = nil;
     [super dealloc];
 }
 
@@ -252,7 +255,27 @@
             break;
     case HumDotaNewsTypeVideo:
         {
-            MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:info.content] autorelease];
+            
+            BOOL haveNet = [HumDotaUserCenterOps BoolValueForKey:kDftHaveNetWork];
+            if (!haveNet) {
+                [HMPopMsgView showAlterError:nil Msg:NSLocalizedString(@"title.nonetwork.cannot.paly", nil) Delegate:nil];
+                return;
+            }
+            
+            self.retainInfo = info;
+            BOOL isWifi = [HumDotaUserCenterOps BoolValueForKey:kDftNetTypeWifi];
+            if (!isWifi) {
+                [HMPopMsgView showChaoseAlertError:nil Msg:NSLocalizedString(@"title.network.3G.play", nil) delegate:self];
+                return;
+            }
+            NSString *titleName = info.title;
+            NSArray *nameAry = [info.title componentsSeparatedByString:@"]"];
+            if (nameAry && nameAry.count>0) {
+                titleName = [nameAry lastObject];
+            }
+            
+            
+            MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:info.content name:titleName] autorelease];
             play.call_back = self;
             [self.parCtl presentModalViewController:play animated:YES];
         }
@@ -264,6 +287,32 @@
 
 }
 
+
+#pragma mark
+#pragma mark UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    BqsLog(@"alertView didClick Button at index:%d",buttonIndex);
+    if (buttonIndex == 1) {
+        if (self.retainInfo == nil) {
+            BqsLog(@"Error because the retain info == nil");
+        }
+        NSString *titleName = self.retainInfo.title;
+        NSArray *nameAry = [self.retainInfo.title componentsSeparatedByString:@"]"];
+        if (nameAry && nameAry.count>0) {
+            titleName = [nameAry lastObject];
+        }
+
+        
+        MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:self.retainInfo.content name:titleName] autorelease];
+        play.call_back = self;
+        [self.parCtl presentModalViewController:play animated:YES];
+        
+        
+    }
+    
+    
+}
 
 
 #pragma mark -

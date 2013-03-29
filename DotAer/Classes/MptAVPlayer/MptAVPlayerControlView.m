@@ -49,6 +49,7 @@ static NSString *AirPlayAlpha = @"alpha";
 @property (nonatomic, retain, readwrite) UIControl *airPlayControlContainer;
 @property (nonatomic, retain, readwrite) MPVolumeView *airPlayControl;
 @property (nonatomic, retain, readwrite) UIButton *dismissControl;
+@property (nonatomic, retain, readwrite) UILabel *videoTitle;
 @property (nonatomic, retain, readwrite) UIButton *zoomControl;
 
 @property (nonatomic, retain) UIButton *airplayButton;
@@ -71,6 +72,7 @@ static NSString *AirPlayAlpha = @"alpha";
 @synthesize airPlayControlContainer = _airPlayControlContainer;
 @synthesize airPlayControl = _airPlayControl;
 @synthesize dismissControl = _dismissControl;
+@synthesize videoTitle = _videoTitle;
 @synthesize zoomControl = _zoomControl;
 @synthesize volumeControl = _volumeControl;
 @synthesize airplayButton;
@@ -87,6 +89,7 @@ static NSString *AirPlayAlpha = @"alpha";
     MptSafeRelease(_scrubberControl);
     MptSafeRelease(_currentTimeLabel);
     MptSafeRelease(_totalTimeLabel);
+    MptSafeRelease(_videoTitle);
     _playPauseControl = nil;
     _rewindControl = nil;
     _forwardControl = nil;
@@ -243,14 +246,25 @@ static NSString *AirPlayAlpha = @"alpha";
         [_topControlsView addSubview:_dismissControl];
         
         
-        _zoomControl = [UIButton buttonWithType:UIButtonTypeCustom];
-        _zoomControl.showsTouchWhenHighlighted = YES;
-        _zoomControl.contentMode = UIViewContentModeCenter;
-        _zoomControl.frame = CGRectMake(0, 0, 60, 40);
-        [_zoomControl addTarget:self action:@selector(handleZoomButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-         UIImage *zoomButtonImage = [UIImage imageNamed:@"MptPlayer.bundle/iPhone/player_zoom_out"];
-        [_zoomControl setImage:zoomButtonImage forState:UIControlStateNormal];
-        [_topControlsView addSubview:_zoomControl];
+        _videoTitle = [[UILabel alloc] initWithFrame:CGRectZero];
+        _videoTitle.backgroundColor = [UIColor clearColor];
+        _videoTitle.textColor = [UIColor whiteColor];
+        _videoTitle.shadowColor = [UIColor blackColor];
+        _videoTitle.shadowOffset = CGSizeMake(0.f, 1.f);
+        _videoTitle.font = [UIFont boldSystemFontOfSize:15.];
+        _videoTitle.textAlignment = UITextAlignmentCenter;
+        _videoTitle.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [_topControlsView addSubview:_videoTitle];
+        
+        
+//        _zoomControl = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _zoomControl.showsTouchWhenHighlighted = YES;
+//        _zoomControl.contentMode = UIViewContentModeCenter;
+//        _zoomControl.frame = CGRectMake(0, 0, 60, 40);
+//        [_zoomControl addTarget:self action:@selector(handleZoomButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+//         UIImage *zoomButtonImage = [UIImage imageNamed:@"MptPlayer.bundle/iPhone/player_zoom_out"];
+//        [_zoomControl setImage:zoomButtonImage forState:UIControlStateNormal];
+//        [_topControlsView addSubview:_zoomControl];
     
         _statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
         

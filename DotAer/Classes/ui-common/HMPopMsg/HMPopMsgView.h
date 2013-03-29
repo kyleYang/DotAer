@@ -20,4 +20,6 @@
 +(void)showAlterError:(NSString*)err Msg:(NSString*)msg Delegate:(id)target ;
 +(void)showAlertError:(NSError*)err Msg:(NSString*)msg RetMsg: (NSString*)retMsg RetStatus: (NSString*)retStatus;
 
++(UIAlertView *)showChaoseAlertError:(NSError*)err Msg:(NSString*)msg delegate:(id)delegate;
+
 @end

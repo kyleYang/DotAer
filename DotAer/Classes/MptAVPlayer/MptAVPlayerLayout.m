@@ -33,6 +33,7 @@
 @property (nonatomic, retain, readwrite) UIControl *airPlayControlContainer;
 @property (nonatomic, retain, readwrite) MPVolumeView *airPlayControl;
 @property (nonatomic, retain, readwrite) UIButton *dismissControl;
+@property (nonatomic, retain, readwrite) UILabel *videoTitle;
 @property (nonatomic, retain, readwrite) UIButton *zoomControl;
 @end
 
@@ -47,7 +48,7 @@
 @synthesize width;
 @synthesize height;
 @synthesize scrubberControl,currentTimeLabel,totalTimeLabel;
-@synthesize topControlsView,bottomControlsView,topControlsContainerView,playPauseControl,rewindControl,forwardControl,airPlayControlContainer,airPlayControl,dismissControl,zoomControl;
+@synthesize topControlsView,bottomControlsView,topControlsContainerView,playPauseControl,rewindControl,forwardControl,airPlayControlContainer,airPlayControl,dismissControl,videoTitle,zoomControl;
 @synthesize screenType;
 
 
@@ -68,6 +69,7 @@
     self.airPlayControlContainer = nil;
     self.airPlayControl = nil;
     self.dismissControl = nil;
+    self.videoTitle = nil;
     self.zoomControl = nil;
     [super dealloc];
 }
@@ -133,6 +135,7 @@
         self.airPlayControl = _moviePlayer.view.controlsView.airPlayControl;
         
         self.dismissControl = _moviePlayer.view.controlsView.dismissControl;
+        self.videoTitle = _moviePlayer.view.controlsView.videoTitle;
         self.zoomControl = _moviePlayer.view.controlsView.zoomControl;
     }
 }

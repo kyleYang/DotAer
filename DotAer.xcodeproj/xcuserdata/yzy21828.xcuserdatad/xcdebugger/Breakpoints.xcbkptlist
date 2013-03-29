@@ -255,11 +255,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/MptAVPlayer/MptAVPlayer.m"
-         timestampString = "382357475.758962"
+         timestampString = "386236401.405428"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "955"
-         endingLineNumber = "955"
+         startingLineNumber = "967"
+         endingLineNumber = "967"
          landmarkName = "-startObservingPlayerTimeChanges"
          landmarkType = "5">
       </FileBreakpoint>
@@ -268,11 +268,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/MptAVPlayer/MptAVPlayer.m"
-         timestampString = "382357475.758962"
+         timestampString = "386236401.405428"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "952"
-         endingLineNumber = "952"
+         startingLineNumber = "964"
+         endingLineNumber = "964"
          landmarkName = "-startObservingPlayerTimeChanges"
          landmarkType = "5">
       </FileBreakpoint>
@@ -281,11 +281,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/MptAVPlayer/MptAVPlayer.m"
-         timestampString = "382357475.758962"
+         timestampString = "386236401.405428"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "841"
-         endingLineNumber = "841"
+         startingLineNumber = "853"
+         endingLineNumber = "853"
          landmarkName = "-CMDuration"
          landmarkType = "5">
       </FileBreakpoint>
@@ -294,11 +294,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/MptAVPlayer/MptAVPlayer.m"
-         timestampString = "382357073.691611"
+         timestampString = "386236401.405428"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "588"
-         endingLineNumber = "588"
+         startingLineNumber = "600"
+         endingLineNumber = "600"
          landmarkName = "-setCurrentPlaybackTime:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -320,11 +320,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/MptAVPlayer/MptAVPlayer.m"
-         timestampString = "382358870.66617"
+         timestampString = "386236401.405428"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "258"
-         endingLineNumber = "258"
+         startingLineNumber = "270"
+         endingLineNumber = "270"
          landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -346,11 +346,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/MptAVPlayer/MptAVPlayer.m"
-         timestampString = "385440260.237467"
+         timestampString = "386236401.405428"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "623"
-         endingLineNumber = "623"
+         startingLineNumber = "635"
+         endingLineNumber = "635"
          landmarkName = "-playableDuration"
          landmarkType = "5">
       </FileBreakpoint>
@@ -359,11 +359,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "385010651.065091"
+         timestampString = "386225175.295619"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "56"
-         endingLineNumber = "56"
+         startingLineNumber = "59"
+         endingLineNumber = "59"
          landmarkName = "-loadNetworkData:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -372,11 +372,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "386065266.602052"
+         timestampString = "386225175.295619"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "69"
-         endingLineNumber = "69"
+         startingLineNumber = "72"
+         endingLineNumber = "72"
          landmarkName = "-onLoadDataFinished:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -424,11 +424,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "386065266.602052"
+         timestampString = "386225175.295619"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "96"
-         endingLineNumber = "96"
+         startingLineNumber = "99"
+         endingLineNumber = "99"
          landmarkName = "-numberOfSectionsInTableView:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -437,11 +437,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "386065266.602052"
+         timestampString = "386225175.295619"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "99"
-         endingLineNumber = "99"
+         startingLineNumber = "102"
+         endingLineNumber = "102"
          landmarkName = "-tableView:numberOfRowsInSection:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -450,11 +450,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "386065266.602052"
+         timestampString = "386225175.295619"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "105"
-         endingLineNumber = "105"
+         startingLineNumber = "108"
+         endingLineNumber = "108"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -463,11 +463,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "386065266.602052"
+         timestampString = "386225175.295619"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "199"
-         endingLineNumber = "199"
+         startingLineNumber = "202"
+         endingLineNumber = "202"
          landmarkName = "-tableView:heightForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -476,11 +476,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "386065266.602052"
+         timestampString = "386225175.295619"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "167"
-         endingLineNumber = "167"
+         startingLineNumber = "170"
+         endingLineNumber = "170"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -749,11 +749,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "386065266.602052"
+         timestampString = "386225175.295619"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "238"
-         endingLineNumber = "238"
+         startingLineNumber = "241"
+         endingLineNumber = "241"
          landmarkName = "-humNewsCell:didSelectIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -762,11 +762,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "386065266.602052"
+         timestampString = "386225175.295619"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "221"
-         endingLineNumber = "221"
+         startingLineNumber = "224"
+         endingLineNumber = "224"
          landmarkName = "-humNewsCell:didSelectIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1139,11 +1139,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/video/HumDotaVideCateTwoView.m"
-         timestampString = "386065266.602052"
+         timestampString = "386225175.295619"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "128"
-         endingLineNumber = "128"
+         startingLineNumber = "132"
+         endingLineNumber = "132"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1343,7 +1343,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/photo/HumDotaImageCateOneView.m"
@@ -1434,7 +1434,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/photo/HumDotaImageCateTwoView.m"
@@ -1447,7 +1447,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/photo/HumDotaImageCateTwoView.m"
@@ -1486,7 +1486,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/frame/HumDotaCatTwoSelView.m"
@@ -1499,7 +1499,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/photo/HumDotaImageCateOneView.m"
@@ -1555,11 +1555,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
-         timestampString = "386065266.602052"
+         timestampString = "386225175.295619"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "229"
-         endingLineNumber = "229"
+         startingLineNumber = "232"
+         endingLineNumber = "232"
          landmarkName = "-humNewsCell:didSelectIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2279,7 +2279,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/OpenSouce/iVersion/iVersion.m"
@@ -2292,7 +2292,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DotAer/OpenSouce/iVersion/iVersion.m"
@@ -2302,6 +2302,97 @@
          startingLineNumber = "822"
          endingLineNumber = "822"
          landmarkName = "-checkForNewVersionInBackground"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/ui-iphone/news/HumDotaNewsCateTwoView.m"
+         timestampString = "386239319.863453"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "295"
+         endingLineNumber = "295"
+         landmarkName = "-alertView:didDismissWithButtonIndex:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/MptAVPlayer/MptAVPlayerPlaceholderView.m"
+         timestampString = "386236232.024461"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "108"
+         endingLineNumber = "108"
+         landmarkName = "-setInfoText:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/ui-iphone/photo/HumDotaImageCateOneView.m"
+         timestampString = "386236300.174616"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "59"
+         endingLineNumber = "59"
+         landmarkName = "-viewWillAppear"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/MptAVPlayer/MptAVPlayer.m"
+         timestampString = "386236401.405428"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "201"
+         endingLineNumber = "201"
+         landmarkName = "-initWithURL:initialPlaybackTime:name:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/MptAVPlayer/MptAVPlayer.m"
+         timestampString = "386236531.56576"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "321"
+         endingLineNumber = "321"
+         landmarkName = "-play"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/MptAVPlayer/MptAVPlayerDefaultLayout.m"
+         timestampString = "386238437.512771"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "443"
+         endingLineNumber = "443"
+         landmarkName = "-layoutSubviewsForControlStyleFullscreenAirplayAvailable:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DotAer/Classes/MptAVPlayer/MptAVPlayerDefaultLayout.m"
+         timestampString = "386238816.288799"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "367"
+         endingLineNumber = "367"
+         landmarkName = "-layoutSubviewsForControlStyleFullscreenAirplayAvailable:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -13,6 +13,9 @@
 
 #define kReadFontSize @"dota.raad.font.size"
 
+#define kDftHaveNetWork @"dota.network.have"
+#define kDftNetTypeWifi @"dota.network.type"//net type
+
 
 
 +(CGFloat)intValueReadForKey:(NSString *)key;
@@ -20,5 +23,11 @@
 
 +(CGFloat)floatValueReadForKey:(NSString *)key;
 +(void)floatVaule:(CGFloat)value saveForKey:(NSString *)key;
+
+
+
++(BOOL)BoolValueForKey:(NSString *)key;
++(void)saveBoolVaule:(BOOL)value forKye:(NSString *)key;
+
 
 @end

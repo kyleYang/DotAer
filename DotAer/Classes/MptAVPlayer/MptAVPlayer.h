@@ -29,6 +29,8 @@
 
 /** The URL of the video to play, start player by setting the URL */
 @property (nonatomic, copy) NSURL *URL;
+/** The Play of Video Name */
+@property (nonatomic, copy) NSString *name;
 /** flag to indicate if the player is currently playing */
 @property (nonatomic, readonly, getter = isPlaying) BOOL playing;
 /** Indicates whether the current played URL is a livestream */
@@ -69,8 +71,11 @@
 + (void)setAudioSessionCategory:(MptAVPlayerAudioSessionCategory)audioSessionCategory;
 
 - (id)initWithURL:(NSURL *)URL;
-- (id)initWithURL:(NSURL *)URL initialPlaybackTime:(NSTimeInterval)initialPlaybackTime;
 
+- (id)initWithURL:(NSURL *)URL name:(NSString *)videoName;
+
+- (id)initWithURL:(NSURL *)URL initialPlaybackTime:(NSTimeInterval)initialPlaybackTime;
+- (id)initWithURL:(NSURL *)URL initialPlaybackTime:(NSTimeInterval)initialPlaybackTime name:(NSString *)videoName;
 - (void)setURL:(NSURL *)URL initialPlaybackTime:(NSTimeInterval)initialPlaybackTime;
 
 

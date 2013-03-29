@@ -11,9 +11,13 @@
 #import "HumDotaDataMgr.h"
 #import "iRate.h"
 #import "iVersion.h"
+#import "Reachability.h"
+#import "HumDotaUserCenterOps.h"
 
 
-@interface HumAppDelegate()<EnvProtocol>
+@interface HumAppDelegate()<EnvProtocol>{
+    Reachability  *_hostReach;
+}
 
 @property (nonatomic, retain) Env *theEnv;
 
@@ -76,6 +80,15 @@
     self.window.rootViewController = self.viewController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name: kReachabilityChangedNotification
+                                               object: nil];
+    _hostReach = [[Reachability reachabilityWithHostName:@"www.baidu.com"] retain];
+    [_hostReach startNotifier];
+    
     return YES;
 }
 
@@ -214,6 +227,28 @@
     }    
     
     return _persistentStoreCoordinator;
+}
+
+
+- (void)reachabilityChanged:(NSNotification *)note {
+    Reachability* curReach = [note object];
+    NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+    NetworkStatus status = [curReach currentReachabilityStatus];
+    
+    [HumDotaUserCenterOps saveBoolVaule:TRUE forKye:kDftHaveNetWork];
+    if (status == NotReachable) {
+        [HumDotaUserCenterOps saveBoolVaule:FALSE forKye:kDftHaveNetWork];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:NSLocalizedString(@"title.error.nonetwork", nil)
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"button.sure", nil) otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }else if(status == ReachableViaWiFi) {
+        [HumDotaUserCenterOps saveBoolVaule:TRUE forKye:kDftNetTypeWifi];
+    }else {
+        [HumDotaUserCenterOps saveBoolVaule:FALSE forKye:kDftNetTypeWifi];
+    }
 }
 
 #pragma mark - Application's Documents directory

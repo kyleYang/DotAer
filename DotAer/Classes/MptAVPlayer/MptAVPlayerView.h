@@ -83,4 +83,7 @@
  */
 - (void)handlePlayButtonPress:(id)playControl;
 
+
+- (id)initWithFrame:(CGRect)frame name:(NSString *)videoName;
+
 @end

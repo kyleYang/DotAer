@@ -20,7 +20,8 @@
 
 @property (nonatomic, retain, readwrite) MptAVPlayer *moviePlayer; // overwrite as readwrite
 @property (nonatomic, retain) NSURL *playURL;
-@property (nonatomic, retain) NSArray *urlArray;
+@property (nonatomic, retain) NSArray *urlArray; //use for the same video with many url
+@property (nonatomic, copy) NSString *name;
 
 @end
 
@@ -31,6 +32,7 @@
 @synthesize call_back;
 @synthesize urlArray;
 @synthesize playURL;
+@synthesize name;
 
 - (void)dealloc
 {
@@ -58,7 +60,7 @@
         _statusBarStyle = [UIApplication sharedApplication].statusBarStyle;
         _statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
         
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
         
         
         _moviePlayer = [[[[self class] moviePlayerClass] alloc] initWithURL:self.playURL];
@@ -74,22 +76,28 @@
 }
 
 - (id)initWithContentString:(NSString *)contentURL {
+    
+    return [self initWithContentString:contentURL name:@""];
+}
+
+- (id)initWithContentString:(NSString *)contentURL name:(NSString*)videoName{
     if ((self = [super initWithNibName:nil bundle:nil])) {
         _statusBarStyle = [UIApplication sharedApplication].statusBarStyle;
         _statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
         
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
         
         self.playURL= [NSURL URLWithString:contentURL];
-        _moviePlayer = [[[[self class] moviePlayerClass] alloc] initWithURL:self.playURL];
+        self.name = videoName;
+        _moviePlayer = [[[[self class] moviePlayerClass] alloc] initWithURL:self.playURL name:self.name];
         NSLog(@"the _moviePlayer retain count = %d", _moviePlayer.retainCount);
         _moviePlayer.delegate = self;
         _moviePlayer.autostartWhenReady = YES;
         _redirect = FALSE;
         self.urlArray = nil;
     }
-    
     return self;
+    
 }
 
 
@@ -99,7 +107,7 @@
         _statusBarStyle = [UIApplication sharedApplication].statusBarStyle;
         _statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
         
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
         
         self.urlArray = playUrlArray;
         NSString *contentURL = nil;

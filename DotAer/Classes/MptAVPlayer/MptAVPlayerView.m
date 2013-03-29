@@ -35,6 +35,7 @@ static void *mptPlayerLayerReadyForDisplayContext = &mptPlayerLayerReadyForDispl
 @property (nonatomic, retain) UIView *videoOverlaySuperview;
 @property (nonatomic, retain) NSString *deviceOutputType;
 @property (nonatomic, retain) NSString *airplayDeviceName;
+@property (nonatomic, retain) NSString *name;
 
 @property (nonatomic, readonly, getter = isAirPlayVideoActive) BOOL airPlayVideoActive;
 
@@ -61,7 +62,7 @@ static void *mptPlayerLayerReadyForDisplayContext = &mptPlayerLayerReadyForDispl
 @synthesize activityView;
 @synthesize deviceOutputType;
 @synthesize airplayDeviceName;
-
+@synthesize name;
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -69,15 +70,20 @@ static void *mptPlayerLayerReadyForDisplayContext = &mptPlayerLayerReadyForDispl
 ////////////////////////////////////////////////////////////////////////
 
 - (id)initWithFrame:(CGRect)frame {
+    return [self initWithFrame:frame name:@""];
+}
+
+- (id)initWithFrame:(CGRect)frame name:(NSString *)videoName{
     if ((self = [super initWithFrame:frame])) {
         self.clipsToBounds = YES;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.backgroundColor = [UIColor clearColor];
-        
+        self.name = videoName;
         [self setup];
     }
     
     return self;
+    
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -110,6 +116,7 @@ static void *mptPlayerLayerReadyForDisplayContext = &mptPlayerLayerReadyForDispl
     self.externalWindow = nil;
     self.deviceOutputType = nil;
     self.airplayDeviceName = nil;
+    self.name = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIScreenDidConnectNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIScreenDidDisconnectNotification object:nil];
@@ -584,12 +591,14 @@ static void *mptPlayerLayerReadyForDisplayContext = &mptPlayerLayerReadyForDispl
     // Controls
     _controlsView = [[MptAVPlayerControlView alloc] initWithFrame:self.bounds];
     _controlsView.alpha = 0.f;
+    _controlsView.videoTitle.text = self.name;
     [self addSubview:_controlsView];
     
 //    [_controlsView.volumeControl addTarget:self action:@selector(volumeControlValueChanged:) forControlEvents:UIControlEventValueChanged];
 //    
     // Placeholder
     MptAVPlayerPlaceholderView *placeholderView = [[MptAVPlayerPlaceholderView alloc] initWithFrame:self.bounds];
+    placeholderView.infoText = self.name;
     [placeholderView addBackButtonTarget:self action:@selector(handleBackButtonPress:)];
     
     [_placeholderView release]; _placeholderView = nil;

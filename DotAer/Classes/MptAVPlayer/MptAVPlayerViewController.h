@@ -31,6 +31,7 @@ typedef enum MptAVPlayerResult MptAVPlayerResult;
 
 - (id)initWithContentURL:(NSURL *)contentURL;
 - (id)initWithContentString:(NSString *)contentURL;
+- (id)initWithContentString:(NSString *)contentURL name:(NSString*)videoName;
 - (id)initWithContentURLArray:(NSArray *)urlArray;
 
 

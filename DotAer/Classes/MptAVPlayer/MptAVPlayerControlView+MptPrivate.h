@@ -34,6 +34,7 @@
 @property (nonatomic, retain, readonly) UIControl *airPlayControlContainer;
 @property (nonatomic, retain, readonly) MPVolumeView *airPlayControl;
 @property (nonatomic, retain, readonly) UIButton *dismissControl;
+@property (nonatomic, retain, readonly) UILabel *videoTitle;
 @property (nonatomic, retain, readonly) UIButton *zoomControl;
 
 
