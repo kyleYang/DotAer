@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Downloader.h"
 #import "UIImage+Additions.h"
-#import "KDGoalBar.h"
+#import "DACircularProgressView.h"
 
 @protocol humWebImageDelegae;
 
@@ -63,7 +63,7 @@ typedef enum {
 @property (nonatomic, retain) PackageFile *cacheFile;
 
 @property (nonatomic, retain) UIImage *downImage; //转换后的image
-@property (nonatomic, retain) KDGoalBar *ciclePrg;
+@property (nonatomic, retain) DACircularProgressView *ciclePrg;
 
 //use for image
 - (id)initWithFrame:(CGRect)frame urlPath:(NSString*)urlPath;

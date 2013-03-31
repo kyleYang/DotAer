@@ -23,6 +23,8 @@
 - (void)viewWillAppear{
     [super viewWillAppear];
     [self.topNav setTitle:NSLocalizedString(@"dota.categor.strategy", nil) Show:YES];
+    self.topNav.ivRight.hidden = YES;
+    self.topNav.btnRight.hidden = YES;
 }
 
 

@@ -82,7 +82,7 @@
 
 -(void)downloadTask: (DownloadTask*)tsk DidFinishWithError: (NSError*)error;
 
--(NSInteger)doAddDownloadTask:(NSString*)url IsPost:(BOOL)bPost PostData:(NSData*)postData PostContentType:(NSString*)postContentType AppendPassport:(BOOL)bAppendPassport UserName:(NSString*)userName Passwrod:(NSString*)password Target:(id)target Callback:(SEL)sel Attached:(id)attached AdditionalHeader:(NSDictionary*)dic CachedPkgFile:(PackageFile*)pkg;
+-(NSInteger)doAddDownloadTask:(NSString*)url DownloadPath:(NSString *)path Resume:(BOOL)resume IsPost:(BOOL)bPost PostData:(NSData*)postData PostContentType:(NSString*)postContentType AppendPassport:(BOOL)bAppendPassport UserName:(NSString*)userName Passwrod:(NSString*)password Target:(id)target Callback:(SEL)sel Attached:(id)attached AdditionalHeader:(NSDictionary*)dic CachedPkgFile:(PackageFile*)pkg;
 -(void)doDownloadCallback:(BqsDownloaderItem*)di Task: (DownloadTask*)tsk Error:(NSError*)error;
 
 @end
@@ -130,36 +130,67 @@
 
 // callback select must has the form:
 // (void)callbackName:(DownloaderCallbackObj*)obj
+//get with no path
 -(NSInteger)addTask:(NSString*)url Target:(id)target Callback:(SEL)sel Attached:(id)attached {
-    return [self doAddDownloadTask:url IsPost:NO PostData:nil PostContentType:nil AppendPassport:YES UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:nil CachedPkgFile:nil];
+    return [self doAddDownloadTask:url DownloadPath:nil Resume:NO IsPost:NO PostData:nil PostContentType:nil AppendPassport:YES UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:nil CachedPkgFile:nil];
 }
 -(NSInteger)addTask:(NSString*)url Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendHeaders:(NSDictionary*)dic {
-    return [self doAddDownloadTask:url IsPost:NO PostData:nil PostContentType:nil AppendPassport:YES UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:dic CachedPkgFile:nil];    
+    return [self doAddDownloadTask:url DownloadPath:nil Resume:NO IsPost:NO PostData:nil PostContentType:nil AppendPassport:YES UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:dic CachedPkgFile:nil];
 }
 -(NSInteger)addTask:(NSString*)url Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport {
-    return [self doAddDownloadTask:url IsPost:NO PostData:nil PostContentType:nil AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:nil CachedPkgFile:nil];
+    return [self doAddDownloadTask:url DownloadPath:nil Resume:NO IsPost:NO PostData:nil PostContentType:nil AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:nil CachedPkgFile:nil];
 }
 -(NSInteger)addTask:(NSString*)url Target:(id)target Callback:(SEL)sel Attached:(id)attached UserName:(NSString*)user Password:(NSString*)password {
-    return [self doAddDownloadTask:url IsPost:NO PostData:nil PostContentType:nil AppendPassport:NO UserName:user Passwrod:password Target:target Callback:sel Attached:attached AdditionalHeader: nil CachedPkgFile:nil];
+    return [self doAddDownloadTask:url DownloadPath:nil Resume:NO IsPost:NO PostData:nil PostContentType:nil AppendPassport:NO UserName:user Passwrod:password Target:target Callback:sel Attached:attached AdditionalHeader: nil CachedPkgFile:nil];
 }
 
+//get with path
+-(NSInteger)addTask:(NSString*)url DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached {
+    return [self doAddDownloadTask:url DownloadPath:path Resume:resume IsPost:NO PostData:nil PostContentType:nil AppendPassport:YES UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:nil CachedPkgFile:nil];
+}
+-(NSInteger)addTask:(NSString*)url DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendHeaders:(NSDictionary*)dic {
+    return [self doAddDownloadTask:url DownloadPath:path Resume:resume IsPost:NO PostData:nil PostContentType:nil AppendPassport:YES UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:dic CachedPkgFile:nil];
+}
+-(NSInteger)addTask:(NSString*)url DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport {
+    return [self doAddDownloadTask:url DownloadPath:path Resume:resume IsPost:NO PostData:nil PostContentType:nil AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:nil CachedPkgFile:nil];
+}
+-(NSInteger)addTask:(NSString*)url DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached UserName:(NSString*)user Password:(NSString*)password {
+    return [self doAddDownloadTask:url DownloadPath:path Resume:resume IsPost:NO PostData:nil PostContentType:nil AppendPassport:NO UserName:user Passwrod:password Target:target Callback:sel Attached:attached AdditionalHeader: nil CachedPkgFile:nil];
+}
+
+//post without path
+
 -(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType Target:(id)target Callback:(SEL)sel Attached:(id)attached {
-    return [self doAddDownloadTask:url IsPost:YES PostData:data PostContentType:sContentType AppendPassport:YES UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader: nil CachedPkgFile:nil];
+    return [self doAddDownloadTask:url DownloadPath:nil Resume:NO IsPost:YES PostData:data PostContentType:sContentType AppendPassport:YES UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader: nil CachedPkgFile:nil];
 }
 
 -(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport {
-    return [self doAddDownloadTask:url IsPost:YES PostData:data PostContentType:sContentType AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader: nil CachedPkgFile:nil];
+    return [self doAddDownloadTask:url DownloadPath:nil Resume:NO IsPost:YES PostData:data PostContentType:sContentType AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader: nil CachedPkgFile:nil];
 }
 -(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport AdditionalHeader:(NSDictionary*)hdr {
-    return [self doAddDownloadTask:url IsPost:YES PostData:data PostContentType:sContentType AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader: hdr CachedPkgFile:nil];
+    return [self doAddDownloadTask:url DownloadPath:nil Resume:NO IsPost:YES PostData:data PostContentType:sContentType AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader: hdr CachedPkgFile:nil];
 }
+
+//post with path
+-(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType DownloadPath:(NSString*)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached {
+    return [self doAddDownloadTask:url DownloadPath:path Resume:resume IsPost:YES PostData:data PostContentType:sContentType AppendPassport:YES UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader: nil CachedPkgFile:nil];
+}
+
+-(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType DownloadPath:(NSString*)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport {
+    return [self doAddDownloadTask:url DownloadPath:path Resume:resume IsPost:YES PostData:data PostContentType:sContentType AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader: nil CachedPkgFile:nil];
+}
+-(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType DownloadPath:(NSString*)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport AdditionalHeader:(NSDictionary*)hdr {
+    return [self doAddDownloadTask:url DownloadPath:path Resume:resume IsPost:YES PostData:data PostContentType:sContentType AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader: hdr CachedPkgFile:nil];
+}
+
+
 
 -(NSInteger)addCachedTask:(NSString*)url PkgFile:(PackageFile*)pkgFile Target:(id)target Callback:(SEL)sel Attached:(id)attached {
     return [self addCachedTask:url PkgFile:pkgFile Target:target Callback:sel Attached:attached AppendPassport:YES];
 }
 -(NSInteger)addCachedTask:(NSString*)url PkgFile:(PackageFile*)pkgFile Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport {
     if(nil == pkgFile) {
-        return [self doAddDownloadTask:url IsPost:NO PostData:nil PostContentType:nil AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:nil CachedPkgFile:nil];
+        return [self doAddDownloadTask:url DownloadPath:nil Resume:NO IsPost:NO PostData:nil PostContentType:nil AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:nil CachedPkgFile:nil];
     }
     
     NSMutableDictionary *dicReqAddHeader = nil;
@@ -254,12 +285,117 @@
         }
     }
         
-    return [self doAddDownloadTask:url IsPost:NO PostData:nil PostContentType:nil AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:dicReqAddHeader CachedPkgFile:pkgFile];
+    return [self doAddDownloadTask:url DownloadPath:nil Resume:NO IsPost:NO PostData:nil PostContentType:nil AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:dicReqAddHeader CachedPkgFile:pkgFile];
 
 }
 
 
--(NSInteger)doAddDownloadTask:(NSString*)url IsPost:(BOOL)bPost PostData:(NSData*)postData PostContentType:(NSString*)postContentType AppendPassport:(BOOL)bAppendPassport UserName:(NSString*)userName Passwrod:(NSString*)password Target:(id)target Callback:(SEL)sel Attached:(id)attached AdditionalHeader:(NSDictionary*)dic CachedPkgFile:(PackageFile*)pkg{
+-(NSInteger)addCachedTask:(NSString*)url PkgFile:(PackageFile*)pkgFile DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached {
+    return [self addCachedTask:url PkgFile:pkgFile DownloadPath:path Resume:resume Target:target Callback:sel Attached:attached AppendPassport:YES];
+}
+-(NSInteger)addCachedTask:(NSString*)url PkgFile:(PackageFile*)pkgFile DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport {
+    if(nil == pkgFile) {
+        return [self doAddDownloadTask:url DownloadPath:path Resume:resume IsPost:NO PostData:nil PostContentType:nil AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:nil CachedPkgFile:nil];
+    }
+    
+    NSMutableDictionary *dicReqAddHeader = nil;
+    
+    // check cache
+    int dataLen = [pkgFile getDataLength:url];
+    if(dataLen > 0) {
+        
+        // read header
+        NSString *hdrPath = [self pathOfUrlHeader:url];
+        NSData *data = [pkgFile readDataName:hdrPath];
+        if(nil != data && [data length] > 0) {
+            id unaobj = nil;
+            @try {
+                unaobj = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            }
+            @catch (NSException *exception) {
+            }
+            @finally {
+            }
+            
+            if(nil != unaobj || [unaobj isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dicHeader = (NSDictionary*)unaobj;
+                
+                
+                double now = [[NSDate date] timeIntervalSince1970];
+                
+                double fExpire = -1.0;
+                int iDatalen = 0;
+                BOOL bPoweredByBorqs = NO;
+                NSString *sContentType = nil;
+                dicReqAddHeader = [NSMutableDictionary dictionaryWithCapacity:2];
+                
+                // read
+                NSString *sV = [dicHeader objectForKey:kHeader_ExpireTS];
+                if(nil != sV && [sV length] > 0) fExpire = [sV floatValue];
+                
+                sV = [dicHeader objectForKey:kHeader_PoweredByBorqs];
+                bPoweredByBorqs = [BqsUtils parseBoolean:sV Def:NO];
+                
+                sV = [dicHeader objectForKey:kHeader_DataLen];
+                if(nil != sV && [sV length] > 0) iDatalen = [sV intValue];
+                
+                sV = [dicHeader objectForKey:kHeader_ContentType];
+                if(nil != sV && [sV length] > 0) sContentType = [[sV copy] autorelease];
+                
+                
+                sV = [dicHeader objectForKey:kHeader_ETag];
+                if(nil != sV && [sV length] > 0) [dicReqAddHeader setValue:[[sV copy] autorelease] forKey:kHttpHeader_ReqETag];
+                sV = [dicHeader objectForKey:kHeader_LastModified];
+                if(nil != sV && [sV length] > 0) [dicReqAddHeader setValue:[[sV copy] autorelease] forKey:kHttpHeader_ReqLastModifed];
+                
+                // check expire
+                if(fExpire > now) {
+                    NSData *cachedBodyData = [pkgFile readDataName:url];
+                    if(nil != cachedBodyData &&
+                       iDatalen == [cachedBodyData length] &&
+                       iDatalen == dataLen) {
+                        
+                        // not yet expire
+                        BqsLog(@"data not yet expire: %@", url);
+                        
+                        [pkgFile updateDataTimeToNow:hdrPath Flush:NO];
+                        [pkgFile updateDataTimeToNow:url Flush:NO];
+                        
+                        int tskId = -1;
+                        @synchronized(self) {
+                            tskId = _taskId ++;
+                        }
+                        
+                        DownloaderCallbackObj *cbO = [[DownloaderCallbackObj alloc] init];
+                        cbO.taskId = tskId;
+                        cbO.url = url;
+                        cbO.httpStatus = 200;
+                        cbO.httpContentType = sContentType;
+                        cbO.rspHeaders = dicHeader;
+                        cbO.rspData = cachedBodyData;
+                        cbO.error = nil;
+                        cbO.attached = attached;
+                        
+                        if(nil != target && [target respondsToSelector:sel]) {
+                            [target performSelector:sel withObject:cbO afterDelay:.01];
+                        }
+                        [cbO release];
+                        return tskId;
+                    } else {
+                        // data not exist
+                        dicReqAddHeader = nil;
+                    }
+                }
+            }
+        }
+    }
+    
+    return [self doAddDownloadTask:url DownloadPath:nil Resume:resume IsPost:NO PostData:nil PostContentType:nil AppendPassport:bAppendPassport UserName:nil Passwrod:nil Target:target Callback:sel Attached:attached AdditionalHeader:dicReqAddHeader CachedPkgFile:pkgFile];
+    
+}
+
+
+-(NSInteger)doAddDownloadTask:(NSString*)url DownloadPath:(NSString*)path Resume:(BOOL)resume IsPost:(BOOL)bPost PostData:(NSData*)postData PostContentType:(NSString*)postContentType AppendPassport:(BOOL)bAppendPassport UserName:(NSString*)userName Passwrod:(NSString*)password Target:(id)target Callback:(SEL)sel Attached:(id)attached AdditionalHeader:(NSDictionary*)dic CachedPkgFile:(PackageFile*)pkg{
     @synchronized(self) {
         BqsDownloaderItem *di = [[BqsDownloaderItem alloc] init];
         di.taskId = _taskId ++;
@@ -269,9 +405,9 @@
         DownloadTask *dt = nil;
         
         if(!bPost) {
-            dt = [[DownloadTask alloc] initWithUrl:url Path:nil Callback:self ProgressCallback:self Resume:NO Attached:di AppendPassport:bAppendPassport UserName:userName Password:password AddtionalHeaders:dic];
+            dt = [[DownloadTask alloc] initWithUrl:url Path:path Callback:self ProgressCallback:self Resume:resume Attached:di AppendPassport:bAppendPassport UserName:userName Password:password AddtionalHeaders:dic];
         } else {
-            dt = [[DownloadTask alloc] initPostWithUrl:url Data:postData ContentType:postContentType Path:nil Callback:self ProgressCallback:self Attached:di AppendPassport:bAppendPassport UserName:userName Password:password AddtionalHeaders:dic];
+            dt = [[DownloadTask alloc] initPostWithUrl:url Data:postData ContentType:postContentType Path:path Callback:self ProgressCallback:self Attached:di AppendPassport:bAppendPassport UserName:userName Password:password AddtionalHeaders:dic];
         }
         di.downloadTask = dt;
         dt.attached = di;
@@ -308,6 +444,10 @@
     }
 
 }
+
+
+
+
 #pragma mark
 #pragma mark DownloaderCallback
 

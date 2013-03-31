@@ -11,8 +11,8 @@
 #import "Env.h"
 #import "BqsUtils.h"
 
-#define kSumOrgX 5
-#define kSumOrgY 5
+#define kSumOrgX 10
+#define kSumOrgY 10
 
 #define kTagKey @"key="
 
@@ -32,6 +32,8 @@ if(x > pageWidth * 2) x = 0.0f;\
 #define kDefinTimeVas 1
 #define kLoadmoreSize 5
 
+#define kIndicatorHeigh 20
+#define kTDGap 5
 
 @interface HMImageScrollView ()<UIScrollViewDelegate,humWebImageDelegae,UIGestureRecognizerDelegate,HumLeavesControlActionDelegate>
 {
@@ -67,7 +69,10 @@ if(x > pageWidth * 2) x = 0.0f;\
 
 @property (nonatomic, retain) NSString *sumStr;
 @property (nonatomic, retain) UIImageView *summaryBg;
+@property (nonatomic, retain) UILabel *indicator;
 @property (nonatomic, retain) UILabel *summary;
+
+- (void)setSumStr:(NSString *)sumStr index:(int)index;
 
 @end
 
@@ -84,6 +89,7 @@ if(x > pageWidth * 2) x = 0.0f;\
 @synthesize controlsVisible = _controlsVisible;
 @synthesize summaryBg;
 @synthesize summary;
+@synthesize indicator;
 @synthesize sumStr = _sumStr;
 
 - (void)dealloc
@@ -99,7 +105,9 @@ if(x > pageWidth * 2) x = 0.0f;\
     self.zommLeft = nil;
     self.summaryBg = nil;
     self.summary = nil;
+    self.indicator = nil;
     [_sumStr release]; _sumStr = nil;
+    
     [super dealloc];
 }
 
@@ -120,6 +128,8 @@ if(x > pageWidth * 2) x = 0.0f;\
         [self.imgScorll setMinimumZoomScale:.5];
         [self.imgScorll setZoomScale:1];
         [self.imgScorll setContentOffset:CGPointZero];
+        self.imgScorll.showsHorizontalScrollIndicator = FALSE;
+        self.imgScorll.showsVerticalScrollIndicator = FALSE;
         [self.imgScorll setContentSize:CGSizeMake(self.frame.size.width*3, self.frame.size.height)];
         [self addSubview:self.imgScorll];
         
@@ -130,11 +140,18 @@ if(x > pageWidth * 2) x = 0.0f;\
         
         self.summary = [[[UILabel alloc] initWithFrame:CGRectMake(kSumOrgX, kSumOrgY, CGRectGetWidth(self.summaryBg.frame)-2*kSumOrgX, CGRectGetHeight(self.summaryBg.frame))] autorelease];
         self.summary.textColor = [UIColor whiteColor];
+        self.summary.numberOfLines = 0;
         self.summary.backgroundColor = [UIColor clearColor];
-        self.summary.font = [UIFont systemFontOfSize:13.0f];
-        self.summary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        self.summary.font = [UIFont systemFontOfSize:14.0f];
+        self.summary.lineBreakMode = UILineBreakModeWordWrap;
         [self.summaryBg addSubview:self.summary];
-
+        
+        self.indicator = [[[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.summaryBg.frame)-kIndicatorHeigh-kSumOrgX, CGRectGetWidth(self.summaryBg.frame), kIndicatorHeigh)] autorelease];
+        self.indicator.backgroundColor = [UIColor clearColor];
+        self.indicator.textColor = [UIColor whiteColor];
+        self.indicator.font = [UIFont systemFontOfSize:15.0f];
+        self.indicator.textAlignment = UITextAlignmentCenter;
+        [self.summaryBg addSubview:self.indicator];
         
         _controlsView = [[HMImageControllerView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 60)];
         _controlsView.delegate = self;
@@ -322,16 +339,26 @@ if(x > pageWidth * 2) x = 0.0f;\
 }
 
 
-- (void)setSumStr:(NSString *)sumStr{
+- (void)setSumStr:(NSString *)sumStr index:(int)index{
      [_sumStr release]; _sumStr = nil;
     _sumStr = [sumStr retain];
     
-    CGSize size = [_sumStr sizeWithFont:self.summary.font constrainedToSize:self.summary.frame.size lineBreakMode:NSLineBreakByCharWrapping];
+    CGSize size = [_sumStr sizeWithFont:self.summary.font constrainedToSize:CGSizeMake(CGRectGetWidth(self.summary.frame), 1000) lineBreakMode:self.summary.lineBreakMode ];
     
     CGRect frame = self.summaryBg.frame;
-    frame.size.height = size.height + kSumOrgY;
+    frame.size.height = size.height + 2*kSumOrgY+kIndicatorHeigh+kTDGap;
     frame.origin.y = CGRectGetHeight(self.bounds)-frame.size.height;
     self.summaryBg.frame = frame;
+    
+    frame = self.summary.frame;
+    frame.size.height = size.height;
+    self.summary.frame = frame;
+    
+    frame = self.indicator.frame;
+    frame.origin.y = CGRectGetHeight(self.summaryBg.frame) - kIndicatorHeigh - kSumOrgY;
+    self.indicator.frame = frame;
+    
+    self.indicator.text = [NSString stringWithFormat:@"%d/%d",index,_total];
     
     self.summary.text = _sumStr;
     
@@ -379,7 +406,8 @@ if(x > pageWidth * 2) x = 0.0f;\
         if (i == nowIndex) {
             if (_dataSource && [_dataSource respondsToSelector:@selector(summaryForScrollView:AtIndex:)]) {
                 NSString *sum = [_dataSource summaryForScrollView:self AtIndex:i];
-                self.sumStr = sum;
+                [self setSumStr:sum index:nowIndex+1];
+                
             }
         }
         
@@ -423,7 +451,7 @@ if(x > pageWidth * 2) x = 0.0f;\
         if (i == nowIndex) {
             if (_dataSource && [_dataSource respondsToSelector:@selector(summaryForScrollView:AtIndex:)]) {
                 NSString *sum = [_dataSource summaryForScrollView:self AtIndex:i];
-                self.sumStr = sum;
+                [self setSumStr:sum index:nowIndex+1];
             }
         }
         
@@ -518,7 +546,8 @@ if(x > pageWidth * 2) x = 0.0f;\
                     imageView  = [[HumWebImageView alloc] init];
                     imageView.contentMode = UIViewContentModeScaleAspectFit;
                     [imageView setUserInteractionEnabled:YES];
-                    [imageView displayImage:[_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f]];
+                    imageView.imageView.image = nil;
+//                    [imageView displayImage:[_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f]];
                    //保证在图片未加载出来之前能接受滑动手势
                     
     
@@ -526,7 +555,8 @@ if(x > pageWidth * 2) x = 0.0f;\
                 else 
                 {
                     //NSLog(@"此条是从重用列表中获取的。。。。。");
-                    [imageView displayImage:[_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f]];
+                    imageView.imageView.image = nil;
+//                    [imageView displayImage:[_env cacheScretchableImage:@"pic_default.png" X:5.0f Y:5.0f]];
                     
                 }
                 imageView.imgTag = i;
@@ -541,19 +571,20 @@ if(x > pageWidth * 2) x = 0.0f;\
                     NSString *url = [_dataSource imageUrlForScrollView:self AtIndex:i];
                     imageView.imgUrl = url;
                 }
-                NSUInteger nowIndex = self.imgScorll.contentOffset.x/CGRectGetWidth(self.imgScorll.bounds);
-                if (i == nowIndex) {
-                    if (_dataSource && [_dataSource respondsToSelector:@selector(summaryForScrollView:AtIndex:)]) {
-                        NSString *sum = [_dataSource summaryForScrollView:self AtIndex:i];
-                        self.sumStr = sum;
-                    }
-                }
-                
                 [self.imgScorll addSubview:imageView];
                 [self.onScreenCells addObject:imageView];
             }
         }
     }
+    
+    NSUInteger nowIndex = (self.imgScorll.contentOffset.x+CGRectGetWidth(self.imgScorll.frame)/2)/CGRectGetWidth(self.imgScorll.bounds); //already 1/2,then change
+   
+    if (_dataSource && [_dataSource respondsToSelector:@selector(summaryForScrollView:AtIndex:)]) {
+            NSString *sum = [_dataSource summaryForScrollView:self AtIndex:nowIndex];
+            [self setSumStr:sum index:nowIndex+1];
+    }
+
+
     _loadMore = FALSE;
     
 }

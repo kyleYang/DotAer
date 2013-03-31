@@ -17,8 +17,8 @@
 
 #define DOUBLE_TAP_DELAY 0.35
 
-#define kCircleProgWidth 177
-#define kCircleProgHeigh 177
+#define kCircleProgWidth 40
+#define kCircleProgHeigh 40
 
 @interface  HumWebImageView(){
     CGPoint  _pointToCenterAfterResize;
@@ -213,7 +213,8 @@
         [_acty startAnimating];
     }else if(_progressStyle == HMProgressCircle){
         self.ciclePrg.hidden = NO;
-        [self.ciclePrg setPercent:0 animated:NO];
+        self.ciclePrg.progress = 0.01f;
+
     }
     
     [self.downloader cancelAll];
@@ -238,7 +239,7 @@
 -(void)DownloadProgres:(CGFloat)percentage{
     
     if (_progressStyle == HMProgressCircle) {
-        [self.ciclePrg setPercent:percentage animated:YES];
+        self.ciclePrg.progress = percentage/100.0f;
     }
 }
 
@@ -355,10 +356,8 @@
         _acty.center = self.center;
         _acty.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
         
-        self.ciclePrg = [[[KDGoalBar alloc] initWithFrame:CGRectMake(0, 0, kCircleProgWidth, kCircleProgHeigh)] autorelease];
-        [self.ciclePrg setAllowDragging:NO];
-        [self.ciclePrg setAllowSwitching:NO];
-        [self.ciclePrg setPercent:0 animated:NO];
+        self.ciclePrg = [[DACircularProgressView alloc] initWithFrame:CGRectMake(0.0f,0.0f, kCircleProgWidth, kCircleProgHeigh)];
+        self.ciclePrg.progress = 0.01f;
         self.ciclePrg.hidden = YES;
         [self addSubview:self.ciclePrg];
         
@@ -465,7 +464,7 @@
     UIImageView *view = [[UIImageView alloc] initWithImage:image];
     view.userInteractionEnabled = TRUE;
 
-    [self insertSubview:view belowSubview: self.ciclePrg];
+    [self insertSubview:view belowSubview: _acty];
     self.imageView = view;
     [view release];
     

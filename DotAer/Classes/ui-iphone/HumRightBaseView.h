@@ -15,7 +15,7 @@
 
 @interface HumRightBaseView : UIView
 
-
+@property (nonatomic, retain) UIView *btnRightMask;
 @property (nonatomic, assign) UIViewController *parCtl;
 @property (nonatomic, assign) id<HumRightBaseViewDelegate> delegate;
 

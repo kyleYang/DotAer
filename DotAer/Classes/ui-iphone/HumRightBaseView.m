@@ -17,7 +17,7 @@
     CGPoint _endPoint;
 }
 
-@property (nonatomic, retain) UIView *btnRightMask;
+
 
 @end
 

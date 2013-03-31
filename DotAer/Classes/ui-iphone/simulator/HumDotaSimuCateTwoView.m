@@ -89,7 +89,7 @@
     
     self.headView.heroNameCN.text = _selectHero.heroName;
     
-    self.headView.heroHead.image = [SimuImageHelp imageWithFileName:_selectHero.heroImage];
+    self.headView.heroHead.image = [SimuImageHelp imageForHeroSN:_selectHero.heroSN WithFileName:_selectHero.heroImage];
     
     CGRect frame;
     
@@ -204,8 +204,7 @@
         return nil;
     }
     
-    cell.skillImg.image = [SimuImageHelp imageWithFileName:[arrItem objectAtIndex:0]];
-    
+    cell.skillImg.image = [SimuImageHelp imageForHeroSN:_selectHero.heroSN WithFileName:[arrItem objectAtIndex:0]];
     CGFloat cellHeigh = 0.0f;
 
     

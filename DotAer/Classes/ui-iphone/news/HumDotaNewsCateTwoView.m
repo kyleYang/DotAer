@@ -166,7 +166,7 @@
         if([info.imgeArry count] != 0){
             NewsImg *newsImg = [info.imgeArry objectAtIndex:0];
             BqsLog(@"cell at section: %d,row :%d url = %@",indexPath.section,indexPath.row,newsImg.url);
-            cell.contImage.imageView.image = [[Env sharedEnv] cacheImage:@"dota_news_default.png"];
+            [cell.contImage displayImage:[[Env sharedEnv] cacheImage:@"dota_news_default.png"]];
             cell.contImage.imgUrl = newsImg.url;
         }
         

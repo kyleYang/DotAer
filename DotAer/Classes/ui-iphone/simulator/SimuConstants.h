@@ -20,6 +20,8 @@
 #define kHeroTavern @"heroTavern"
 #define kHeroOrder @"heroOrder"
 
+#define kHeroDBSN @"heroSN"
+
 /*********Equipment*******/
 #define kShopNumber @"shopNumber"
 #define kEquipOrder @"equipOrder"

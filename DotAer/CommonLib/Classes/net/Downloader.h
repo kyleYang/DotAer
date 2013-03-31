@@ -54,17 +54,37 @@ enum {
 
 // callback select must has the form:
 // (void)callbackName:(DownloaderCallbackObj*)obj
+
+/*******getway without path****************/
 -(NSInteger)addTask:(NSString*)url Target:(id)target Callback:(SEL)sel Attached:(id)attached;
 -(NSInteger)addTask:(NSString*)url Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendHeaders:(NSDictionary*)dic;
 -(NSInteger)addTask:(NSString*)url Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport;
 -(NSInteger)addTask:(NSString*)url Target:(id)target Callback:(SEL)sel Attached:(id)attached UserName:(NSString*)user Password:(NSString*)password;
 
+/*******getway with path****************/
+-(NSInteger)addTask:(NSString*)url DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached;
+-(NSInteger)addTask:(NSString*)url DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendHeaders:(NSDictionary*)dic;
+-(NSInteger)addTask:(NSString*)url DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport;
+-(NSInteger)addTask:(NSString*)url DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached UserName:(NSString*)user Password:(NSString*)password;
+
+/*******post without path****************/
 -(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType Target:(id)target Callback:(SEL)sel Attached:(id)attached;
 -(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport;
 -(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport AdditionalHeader:(NSDictionary*)hdr;
 
+/*******post with path****************/
+-(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached;
+-(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport;
+-(NSInteger)addPostTask:(NSString*)url Data:(NSData*)data ContentType:(NSString*)sContentType DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport AdditionalHeader:(NSDictionary*)hdr;
+
+
+// cache with out path
 -(NSInteger)addCachedTask:(NSString*)url PkgFile:(PackageFile*)pkgFile Target:(id)target Callback:(SEL)sel Attached:(id)attached;
 -(NSInteger)addCachedTask:(NSString*)url PkgFile:(PackageFile*)pkgFile Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport;
+
+//cache with path
+-(NSInteger)addCachedTask:(NSString*)url PkgFile:(PackageFile*)pkgFile DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached;
+-(NSInteger)addCachedTask:(NSString*)url PkgFile:(PackageFile*)pkgFile DownloadPath:(NSString *)path Resume:(BOOL)resume Target:(id)target Callback:(SEL)sel Attached:(id)attached AppendPassport:(BOOL)bAppendPassport;
 
 -(void)cancelTask:(NSInteger)taskId;
 -(void)cancelAll;

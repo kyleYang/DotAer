@@ -10,8 +10,11 @@
 
 @interface SimuImageHelp : NSObject
 
-
 +(UIImage*)imageWithFileName:(NSString *)name;
+
++(UIImage*)imageForHeroSN:(NSNumber *)heroSn WithFileName:(NSString *)name;
+
++(UIImage*)imageForEquipWithFileName:(NSString *)name;
 
 
 @end

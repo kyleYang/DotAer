@@ -43,4 +43,17 @@
 
 }
 
+//obj
++(id)objectValueForKey:(NSString *)key{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:key];
+}
+
++(void)setObjectValue:(id)value forKey:(NSString *)key{
+    [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
+
+
 @end

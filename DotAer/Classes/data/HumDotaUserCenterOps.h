@@ -16,6 +16,11 @@
 #define kDftHaveNetWork @"dota.network.have"
 #define kDftNetTypeWifi @"dota.network.type"//net type
 
+#define kSimulatorLastVersionKey  @"simulatorLastVersionChecked"
+#define kSimulatorNowVersionName  @"simulatorLastVersionName"
+#define kSimulatorIgnoreVersion  @"simulatorIgnoreVersion"
+#define kSimulatorLastChecked  @"simulatorLastChecked"
+#define kSimulatorLastReminded  @"simulatorLastReminded"
 
 
 +(CGFloat)intValueReadForKey:(NSString *)key;
@@ -25,9 +30,10 @@
 +(void)floatVaule:(CGFloat)value saveForKey:(NSString *)key;
 
 
-
 +(BOOL)BoolValueForKey:(NSString *)key;
 +(void)saveBoolVaule:(BOOL)value forKye:(NSString *)key;
 
++(id)objectValueForKey:(NSString *)key;
++(void)setObjectValue:(id)value forKey:(NSString *)key;
 
 @end

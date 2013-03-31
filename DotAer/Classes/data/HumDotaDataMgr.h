@@ -23,12 +23,13 @@
 @property (nonatomic, copy) NSString *imagePath;
 @property (nonatomic, copy) NSString *strategyPath;
 @property (nonatomic, copy) NSString *articlePath;
-
+@property (nonatomic, copy) NSString *simulatorPath;
 
 
 + (HumDotaDataMgr*)instance;
 - (PackageFile*)onlineCacheFilePath;
 - (PackageFile*)imgCacheFilePath;
+
 
 - (void)cleanOtherCacheFile;
 - (void)cleanImageCacheFile;
@@ -73,6 +74,20 @@
 - (NSString *)pathOfArticlForArticleID:(NSString *)artId;
 - (Article *)articleContentOfAritcleID:(NSString *)artId;
 - (BOOL)saveArticleContent:(Article *)article ArticleID:(NSString *)artId;
+
+
+//simulator
+- (NSString *)pathOfSimlatorTempFile;
+- (NSString *)pathofSimulatorDir;
+
+//path of heroinfo for simulator
+- (NSString *)pathOfHeroInfoXML;
+
+//path of equipinfo for simulator
+- (NSString *)pathOfEquipInfoXML;
+
+- (NSString *)pathOfHeroImageDir;
+- (NSString *)pathOfEquipImageDir;
 
 
 @end

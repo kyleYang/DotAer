@@ -12,11 +12,7 @@
 
 @interface HumDotaTopNav()
 @property (nonatomic, retain) UIImageView *bgImage;
-@property (nonatomic, retain) UIImageView *ivLeft;
-@property (nonatomic, retain) UIButton *btnLeft;
-@property (nonatomic, retain) UIImageView *ivRight;
-@property (nonatomic, retain) UIButton *btnRight;
-@property (nonatomic, retain) UILabel *lblTitle;
+
 
 
 -(void)onClickBtnLeft:(id)sender;
@@ -68,7 +64,7 @@
         [self addSubview:self.btnLeft];
         
         // right button
-        self.ivRight = [[[UIImageView alloc] initWithImage:[env cacheImage:@"dota_frame_control.png"]] autorelease];
+        self.ivRight = [[[UIImageView alloc] initWithImage:[env cacheImage:@"dota_frame_option.png"]] autorelease];
         [self addSubview:self.ivRight];
         
         self.btnRight = [UIButton buttonWithType:UIButtonTypeCustom];

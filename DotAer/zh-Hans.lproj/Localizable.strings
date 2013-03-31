@@ -65,6 +65,20 @@
 "dota.simu.equip.ten" = "奇迹古树";
 "dota.simu.equip.eleven" = "黑市商人";
 
+"dota.simu.newversion.first" = "您还没下载 DotA 模拟器数据,不能使用。最新版本是 %@,是否下载";
+"dota.simu.newversion.retry" = "您当前模拟器数据版本是 %@,最新版本是 %@,是否跟新";
+
+"dota.simu.ignore" = "忽略此版";
+"dota.simu.download" = "下载更新";
+"dota.simu.download.remind" = "稍后提示";
+
+"dota.simu.data.ready" = "解析中...";
+
+"dota.simu.unzip.error" = "解压数据出错,请重试";
+"dota.simu.save.hero.error" = "解析英雄数据出错,请重试";
+"dota.simu.save.equip.error" = "解析物品装备数据出错,请重试";
+"dota.simu.save.data.ok" = "解析数据成功,您可以使用最新版模拟器了";
+
 //pull down
 "dota.pulling.fresh" = "松开刷新";
 "dota.pullup.fresh" = "下拉刷新";

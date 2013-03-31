@@ -7,6 +7,7 @@
 //
 
 #import "DSItemImag.h"
+#import "SimuImageHelp.h"
 
 
 @implementation DSItemImag
@@ -60,7 +61,7 @@
     [_equip release]; _equip = nil;
     if(_hero){
         NSLog(@"the imageName is %@",_hero.heroImage);
-        UIImage *img = [UIImage imageNamed:_hero.heroImage];
+        UIImage *img = [SimuImageHelp imageForHeroSN:_hero.heroSN WithFileName:_hero.heroImage];
         self.imageView.image = img;
     }else{ //defalut Image
         self.imageView.image = nil;
@@ -77,11 +78,11 @@
             if(_isFormula)
                 self.imageView.image = [UIImage imageNamed:@"item__500.jpeg"];
             else
-                self.imageView.image = [UIImage imageNamed:_equip.equipImage];
+                self.imageView.image = [SimuImageHelp imageForEquipWithFileName:_equip.equipImage];
 
         }else {
             NSLog(@"the imageName is %@",_equip.equipImage);
-            self.imageView.image = [UIImage imageNamed:_equip.equipImage];
+            self.imageView.image = [SimuImageHelp imageForEquipWithFileName:_equip.equipImage];
         }
     }else{ //default Image
         self.imageView.image = nil;
@@ -96,7 +97,7 @@
     if (_isFormula) {
         self.imageView.image = [UIImage imageNamed:@"item__500.jpeg"];
     }else{
-        self.imageView.image = [UIImage imageNamed:_equip.equipImage];
+        self.imageView.image = [SimuImageHelp imageForEquipWithFileName:_equip.equipImage];
     }
     }
 }

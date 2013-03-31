@@ -31,6 +31,9 @@
 #define kSEDefStrategMessageURL @"/dota/front/listArticle.action?"
 
 
+#define kSECheckUpdatSimulatorList @"simulatorUpdata.list"
+#define kSEDefCheckUpdatSimulatorURL @"/dota/front/findMaxOrderSimulator.action"
+
 @implementation HumDotaNetOps
 
 
@@ -112,6 +115,13 @@
     NSString *url = [env getSEKey:kSEStrategyMessagelList Def:kSEDefStrategMessageURL];
     
     url = [BqsUtils setURL:url ParameterName:@"page" Value:[NSString stringWithFormat:@"%d",page]];
+    return [dl addTask:url Target:target Callback:action Attached:att];
+}
+
+//simulator
++(int)checkUpdataForSimulatorDownloader:(Downloader *)dl Target:(id)target Sel:(SEL)action Attached:(id)att{
+    Env *env = [Env sharedEnv];
+    NSString *url = [env getSEKey:kSECheckUpdatSimulatorList Def:kSEDefCheckUpdatSimulatorURL];
     return [dl addTask:url Target:target Callback:action Attached:att];
 }
 

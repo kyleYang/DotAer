@@ -24,6 +24,7 @@
 #define kHumImage @"image"
 #define kHumStrategy @"strategy"
 #define kHumArticle @"article"
+#define kHumSimulator @"simulator"
 
 #define kFileNameOnlineDataPkgFile @"online.pak"
 #define kFileNameOnlineImagePkgFile @"image.pak"
@@ -40,6 +41,7 @@
 
 #define kFileNameArticle @"art_%@.txt"
 
+#define kFileSimulatorTempFile @"simuTemp.zip"
 
 #define kCfgOneVideoCatResfreshTS @"cfg.dota.one.video.category.refreshTS"
 #define kRefreshOneVideoCatIntervalS (24*60*60.0)
@@ -68,6 +70,9 @@
 
 @property (nonatomic, retain) NSArray *arrOneImageCat;//image category
 
+@property (nonatomic, retain) NSString *pathHeroImgDir;//image category
+@property (nonatomic, retain) NSString *pathEquipImgDIr;
+
 - (void)doNetworkUpdataChecks;
 - (void)oneVideCategoryRefresh; // one for dotaOne, two for dotaTwo
 - (void)twoVideCategoryRefresh;
@@ -87,9 +92,13 @@
 @synthesize imagePath;
 @synthesize strategyPath;
 @synthesize articlePath;
+@synthesize simulatorPath;
 
 @synthesize arrOneVideoCat; //video category
 @synthesize arrTwoVideoCat;
+
+@synthesize pathEquipImgDIr;
+@synthesize pathHeroImgDir;
 
 @synthesize arrOneImageCat;//image category
 
@@ -108,9 +117,12 @@
     self.imagePath = nil;
     self.strategyPath = nil;
     self.articlePath = nil;
+    self.simulatorPath = nil;
     self.arrOneVideoCat = nil;
     self.arrTwoVideoCat = nil;
     self.arrOneImageCat = nil;
+    self.pathEquipImgDIr  = nil;
+    self.pathHeroImgDir = nil;
     [super dealloc];
 }
 
@@ -144,8 +156,8 @@
     self.imagePath = [self.rootPath stringByAppendingPathComponent:kHumImage];
     self.strategyPath = [self.rootPath stringByAppendingPathComponent:kHumStrategy];
     self.articlePath = [self.rootPath stringByAppendingPathComponent:kHumArticle];
-    
-	BqsLog(@"dota rootPath=%@,newsPath = %@,videoPath = %@,imagePath = %@,strategyPath = %@ ,articlePath = %@", self.rootPath,self.newsPath,self.videoPath,self.imagePath,self.strategyPath,self.articlePath);
+    self.simulatorPath = [self.rootPath stringByAppendingPathComponent:kHumSimulator];
+	BqsLog(@"dota rootPath=%@,newsPath = %@,videoPath = %@,imagePath = %@,strategyPath = %@ ,articlePath = %@,simulator = %@", self.rootPath,self.newsPath,self.videoPath,self.imagePath,self.strategyPath,self.articlePath,self.simulatorPath);
     
     self.downloader = [[[Downloader alloc] init] autorelease];
     self.downloader.bSearialLoad = YES;
@@ -306,7 +318,7 @@
             [self cleanAllFileForDir:fullPath];
         }
     }
-    
+    [fileManager release];
 }
 
 
@@ -393,6 +405,63 @@
     
     return [Article saveToFile:[self pathOfArticlForArticleID:artId] article:article];
     
+}
+
+
+//simulator
+- (NSString *)pathOfSimlatorTempFile{
+    NSString *path = [self.simulatorPath stringByAppendingPathComponent:kFileSimulatorTempFile];
+    BqsLog(@"pathOfSimlatorCompareFile :%@",path);
+    return path;
+    
+}
+
+- (NSString *)pathofSimulatorDir{
+    return self.simulatorPath;
+}
+
+- (NSString *)pathOfHeroInfoXML{
+    NSString *path = [self pathofSimulatorDir];
+    path = [path stringByAppendingPathComponent:@"data"];
+    path = [path stringByAppendingPathComponent:@"HeroData.xml"];
+    BqsLog(@"pathOfHeroInfoXML :%@",path);
+    return path;
+}
+
+//path of equipinfo for simulator
+- (NSString *)pathOfEquipInfoXML{
+    NSString *path = [self pathofSimulatorDir];
+    path = [path stringByAppendingPathComponent:@"data"];
+    path = [path stringByAppendingPathComponent:@"EquipData.xml"];
+    BqsLog(@"pathOfEquipInfoXML :%@",path);
+    return path;
+
+}
+
+- (NSString *)pathOfHeroImageDir{
+    if (self.pathHeroImgDir != nil) {
+        return self.pathHeroImgDir;
+    }
+    NSString *path =  [self pathofSimulatorDir];
+    path = [path stringByAppendingPathComponent:@"data"];
+    path = [path stringByAppendingPathComponent:@"Hero"];
+    BqsLog(@"pathOfHeroImageDir :%@",path);
+    self.pathHeroImgDir = path;
+    return path;
+
+    
+}
+- (NSString *)pathOfEquipImageDir{
+    if (self.pathEquipImgDIr != nil) {
+        return self.pathEquipImgDIr;
+    }
+    NSString *path =  [self pathofSimulatorDir];
+    path = [path stringByAppendingPathComponent:@"data"];
+    path = [path stringByAppendingPathComponent:@"Item"];
+    BqsLog(@"pathOfEquipImageDir :%@",path);
+    self.pathEquipImgDIr = path;
+    return path;
+
 }
 
 

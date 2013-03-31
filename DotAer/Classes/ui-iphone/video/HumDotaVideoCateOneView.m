@@ -76,6 +76,8 @@ enum VIDEOCASE {
 
 -(void)viewDidAppear {
     [super viewDidAppear];
+    self.topNav.ivRight.hidden = YES;
+    self.topNav.btnRight.hidden = YES;
     [self checkDotaCatChanged];
     [self.cateScroll humDotaCateTwoSetCatArr:self.arrCateOne itemArr:self.arrCateTwo];
 }

@@ -14,6 +14,12 @@
 
 @property (nonatomic, assign) id<HumDotaTopNavDelegate>delegate;
 
+@property (nonatomic, retain) UIImageView *ivLeft;
+@property (nonatomic, retain) UIButton *btnLeft;
+@property (nonatomic, retain) UIImageView *ivRight;
+@property (nonatomic, retain) UIButton *btnRight;
+@property (nonatomic, retain) UILabel *lblTitle;
+
 -(void)setTitle:(NSString*)title Show:(BOOL)value;
 
 @end

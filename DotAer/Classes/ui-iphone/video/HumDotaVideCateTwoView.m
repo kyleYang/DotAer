@@ -121,7 +121,7 @@
     Video *info = [self.dataArray objectAtIndex:indexPath.row];
     CGFloat heigh = kOrgY;
     
-    cell.videoCover.imageView.image = [[Env sharedEnv] cacheImage:@"dota_video_default.png"];
+    [cell.videoCover displayImage:[[Env sharedEnv] cacheImage:@"dota_video_default.png"]];
     cell.videoCover.imgUrl = info.imageUrl;
     
     CGSize size = [info.title sizeWithFont:cell.title.font constrainedToSize:CGSizeMake(cell.title.frame.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
