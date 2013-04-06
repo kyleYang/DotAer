@@ -84,7 +84,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.wantsFullScreenLayout = YES;
     
     self.frameView = [[[HumDotaBaseFrame alloc] initWithFrame: self.view.bounds] autorelease];
     self.frameView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -98,7 +98,7 @@
     self.frameView.viewCatSel.curCatId = kDotaCat_News;
     [self HumDotaButtomNav:self.frameView.viewCatSel DidSelect:kDotaCat_News];
 
-
+    
     
 }
 
@@ -144,8 +144,10 @@
     av.frame = frm;
     av.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     
-    [av viewWillAppear];
     [self.frameView.viewContent addSubview:av];
+    
+    [av viewWillAppear];
+    
     [av viewDidAppear];
     
     [self.vieCatOne viewDidDisappear];

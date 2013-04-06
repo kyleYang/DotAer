@@ -13,6 +13,8 @@
 #import "Strategy.h"
 #import "LeavesViewController.h"
 #import "HumDotaUIOps.h"
+#import "HMPopMsgView.h"
+#import "HumDotaUserCenterOps.h"
 
 #define kAllCategory @"1"
 #define kStrategyPageEachNum 10
@@ -40,8 +42,23 @@
     return self;
 }
 
-- (void)loadLocalData{
+- (BOOL)loadLocalDataNeedFresh{
     self.dataArray = [[HumDotaDataMgr instance] readLocalSaveStrategyDataCat:kAllCategory];
+    self.netArray = [NSMutableArray arrayWithArray:self.dataArray];
+    _curPage = self.dataArray.count / kStrategyPageEachNum;
+    if (_curPage != 0) {
+        _curPage -= 1;
+    }
+    
+    CGFloat lastUploadTs = [HumDotaUserCenterOps floatValueReadForKey:[NSString stringWithFormat:kDftStrategyCatSaveTimeForCat,kAllCategory]];
+    const float fNow = (float)[NSDate timeIntervalSinceReferenceDate];
+    
+    if (fNow - lastUploadTs > kRefreshStrategyInterVals) {
+        return TRUE;
+    }
+    
+    return FALSE;
+
     
 }
 
@@ -67,6 +84,8 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
 		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
+        [HMPopMsgView showPopMsgError:cb.error Msg:nil Delegate:nil];
+        
         return;
 	}
     if (nil == self.netArray) {
@@ -82,6 +101,8 @@
     }
     self.dataArray = self.netArray;
     [[HumDotaDataMgr instance] saveStrategyData:self.dataArray forCat:kAllCategory];
+    const float fNow = (float)[NSDate timeIntervalSinceReferenceDate];
+    [HumDotaUserCenterOps floatVaule:fNow saveForKey:[NSString stringWithFormat:kDftStrategyCatSaveTimeForCat,kAllCategory]];
     
 }
 

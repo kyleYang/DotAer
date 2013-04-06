@@ -47,8 +47,23 @@
     return self;
 }
 
-- (void)loadLocalData{
+- (BOOL)loadLocalDataNeedFresh{
     self.dataArray = [[HumDotaDataMgr instance] readLocalSaveNewsData];
+    self.netArray = [NSMutableArray arrayWithArray:self.dataArray];
+    _curPage = self.dataArray.count / kNewsPageEachNum;
+    if (_curPage != 0) {
+        _curPage -= 1;
+    }
+
+    
+    CGFloat lastUploadTs = [HumDotaUserCenterOps floatValueReadForKey:kDftNewsCatSaveTime];
+    const float fNow = (float)[NSDate timeIntervalSinceReferenceDate];
+    
+    if (fNow - lastUploadTs > kRefreshNewsIntervalS) {
+        return TRUE;
+    }
+    
+    return FALSE;
 
 }
 
@@ -89,6 +104,9 @@
     }
     self.dataArray = self.netArray;
     [[HumDotaDataMgr instance] saveNewsData:self.dataArray];
+    const float fNow = (float)[NSDate timeIntervalSinceReferenceDate];
+    [HumDotaUserCenterOps floatVaule:fNow saveForKey:kDftNewsCatSaveTime];
+
     
 }
 
@@ -344,14 +362,18 @@
     NSString *osVersion = [UIDevice currentDevice].systemVersion;
     if ([osVersion floatValue] >= 5.0) {
         [ctl dismissViewControllerAnimated:YES completion:^(void){
-            
+            [HMPopMsgView showPopMsg:resultString];
         }];
     }else{
         [ctl dismissModalViewControllerAnimated:YES];
+        [self performSelector:@selector(messageNotice:) withObject:[[resultString retain] autorelease] afterDelay:0.2];
     }
     
 }
 
+- (void)messageNotice:(NSString *)message{
+    [HMPopMsgView showPopMsg:message];
+}
 
 
 

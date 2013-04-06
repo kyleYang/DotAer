@@ -125,7 +125,7 @@
     int m_width = self.size.width;  
     int m_height = self.size.height;  
     uint32_t *rgbImage = (uint32_t *) malloc(m_width * m_height * sizeof(uint32_t));  
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();  
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(rgbImage, m_width, m_height, 8, m_width * 4, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipLast);  
     CGContextSetInterpolationQuality(context, kCGInterpolationHigh);  
     CGContextSetShouldAntialias(context, NO);  
@@ -146,7 +146,7 @@
     }  
     free(rgbImage);  
     // convert from a gray scale image back into a UIImage  
-    uint8_t *result = (uint8_t *) calloc(m_width * m_height *sizeof(uint32_t), 1);  
+    uint8_t *result = (uint8_t *) calloc(m_width * m_height *sizeof(uint32_t), 1);
     // process the image back to rgb  
     for(int i = 0; i < m_height * m_width; i++) {  
         result[i*4]=0;  
@@ -164,7 +164,9 @@
     UIImage *resultUIImage = [UIImage imageWithCGImage:newimage];  
     CGImageRelease(newimage);  
     // make sure the data will be released by giving it to an autoreleased NSData  
-    [NSData dataWithBytesNoCopy:result length:m_width * m_height];  
+    [NSData dataWithBytesNoCopy:result length:m_width * m_height];
+    free(result);
+    free(m_imageData);
     return resultUIImage; 
 }
 

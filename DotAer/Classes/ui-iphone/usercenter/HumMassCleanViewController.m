@@ -50,7 +50,7 @@
     
     self.navigationItem.title = NSLocalizedString(@"massclean.navigation.title", nil);
     
-    NSString *leftBarName = NSLocalizedString(@"返回", nil);
+    NSString *leftBarName = NSLocalizedString(@"button.back", nil);
         
     self.navigationItem.leftBarButtonItem = [CustomUIBarButtonItem initWithImage:[env cacheScretchableImage:@"pg_bar_back.png" X:kBarStrePosX Y:kBarStrePosY] eventImg:[env cacheScretchableImage:@"pg_bar_backdown.png" X:kBarStrePosX Y:kBarStrePosY]  title:leftBarName target:self action:@selector(backToTop)];
     

@@ -47,8 +47,22 @@
 }
 
 
-- (void)loadLocalData{
+- (BOOL)loadLocalDataNeedFresh{
     self.dataArray = [[HumDotaDataMgr instance] readLocalSaveVideoDataCat:self.videoCatId];
+    self.netArray = [NSMutableArray arrayWithArray:self.dataArray];
+    _curPage = self.dataArray.count / kVideoPageEachNum;
+    if (_curPage != 0) {
+        _curPage -= 1;
+    }
+    
+    CGFloat lastUploadTs = [HumDotaUserCenterOps floatValueReadForKey:[NSString stringWithFormat:kDftVideoCatSaveTimeForCat,self.videoCatId]];
+    const float fNow = (float)[NSDate timeIntervalSinceReferenceDate];
+    
+    if (fNow - lastUploadTs > kRefreshVideoInterVals) {
+        return TRUE;
+    }
+    
+    return FALSE;
 }
 
 
@@ -88,6 +102,9 @@
     }
     self.dataArray = self.netArray;
     [[HumDotaDataMgr instance] saveVideoData:self.dataArray forCat:self.videoCatId];
+    
+    const float fNow = (float)[NSDate timeIntervalSinceReferenceDate];
+    [HumDotaUserCenterOps floatVaule:fNow saveForKey:[NSString stringWithFormat:kDftVideoCatSaveTimeForCat,self.videoCatId]];
 
 }
 
@@ -209,11 +226,18 @@
     NSString *osVersion = [UIDevice currentDevice].systemVersion;
     if ([osVersion floatValue] >= 5.0) {
         [ctl dismissViewControllerAnimated:YES completion:^(void){
+            [HMPopMsgView showPopMsg:resultString];
         }];
     }else{
         [ctl dismissModalViewControllerAnimated:YES];
+        [self performSelector:@selector(messageNotice:) withObject:[[resultString retain] autorelease] afterDelay:0.2];
     }
     
+}
+
+
+- (void)messageNotice:(NSString *)message{
+    [HMPopMsgView showPopMsg:message];
 }
 
 
@@ -247,6 +271,7 @@
 
     MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:info.content name:info.title] autorelease];
     play.call_back = self;
+//    play.modalTransitionStyle = UIModalTransitionStylePartialCurl;
     [self.parCtl presentModalViewController:play animated:YES];
        
     

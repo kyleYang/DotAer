@@ -55,7 +55,7 @@ enum VIDEOCASE {
         navSC.backgroundImage = [[Env sharedEnv] cacheImage:@"dota_seg_bg.png"];
         [self.topNav addSubview:navSC];
         
-        navSC.center = CGPointMake(CGRectGetMidX(self.topNav.frame), CGRectGetMidY(self.topNav.frame));
+        navSC.center = CGPointMake(CGRectGetMidX(self.topNav.frame), CGRectGetMidY(self.topNav.bounds));
         [navSC addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
         [navSC release];
        
@@ -74,8 +74,8 @@ enum VIDEOCASE {
 }
 
 
--(void)viewDidAppear {
-    [super viewDidAppear];
+-(void)viewWillAppear {
+    [super viewWillAppear];
     self.topNav.ivRight.hidden = YES;
     self.topNav.btnRight.hidden = YES;
     [self checkDotaCatChanged];

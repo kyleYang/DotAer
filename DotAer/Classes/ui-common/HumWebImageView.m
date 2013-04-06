@@ -335,14 +335,17 @@
         UITapGestureRecognizer *scrollViewDoubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleScrollViewDoubleTap:)];
         [scrollViewDoubleTap setNumberOfTapsRequired:2];
         [self addGestureRecognizer:scrollViewDoubleTap];
+        [scrollViewDoubleTap release];
         
         UITapGestureRecognizer *scrollViewTwoFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleScrollViewTwoFingerTap:)];
         [scrollViewTwoFingerTap setNumberOfTouchesRequired:2];
         [self addGestureRecognizer:scrollViewTwoFingerTap];
+        [scrollViewTwoFingerTap release];
         
         UITapGestureRecognizer *scrollViewSingleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleScrollViewSingleTap:)];
         [scrollViewSingleTap requireGestureRecognizerToFail:scrollViewDoubleTap];
         [self addGestureRecognizer:scrollViewSingleTap];
+        [scrollViewSingleTap release];
 
     
         self.cacheFile = file;
@@ -356,7 +359,7 @@
         _acty.center = self.center;
         _acty.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
         
-        self.ciclePrg = [[DACircularProgressView alloc] initWithFrame:CGRectMake(0.0f,0.0f, kCircleProgWidth, kCircleProgHeigh)];
+        self.ciclePrg = [[[DACircularProgressView alloc] initWithFrame:CGRectMake(0.0f,0.0f, kCircleProgWidth, kCircleProgHeigh)] autorelease];
         self.ciclePrg.progress = 0.01f;
         self.ciclePrg.hidden = YES;
         [self addSubview:self.ciclePrg];

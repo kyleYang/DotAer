@@ -34,6 +34,13 @@
 #define kSECheckUpdatSimulatorList @"simulatorUpdata.list"
 #define kSEDefCheckUpdatSimulatorURL @"/dota/front/findMaxOrderSimulator.action"
 
+#define kSEUserFeedbackPost @"dota.user.feedback"
+#define kSEDeUserFeedbackPost @"/dota/front/postFeedback.action"
+
+#define kSEUserListQuestion @"dota.list.question"
+#define kSEDeListQuestion @"/dota/front/listQuestion.action"
+
+
 @implementation HumDotaNetOps
 
 
@@ -124,6 +131,26 @@
     NSString *url = [env getSEKey:kSECheckUpdatSimulatorList Def:kSEDefCheckUpdatSimulatorURL];
     return [dl addTask:url Target:target Callback:action Attached:att];
 }
+
+
+#pragma mark - Rate
++(NSInteger)tskPostFeedback:(NSString *)content Downloader:(Downloader*)dl Target:(id)target Callback:(SEL)op Attached:(id)att {
+    Env *env = [Env sharedEnv];
+    NSString *url = [env getSEKey:kSEUserFeedbackPost Def:kSEDeUserFeedbackPost];
+    url = [BqsUtils setURL:url ParameterName:@"question" Value:content];
+    return [dl addTask:url Target:target Callback:op Attached:att];
+}
+
++(int)questionMessageDownloader:(Downloader *)dl Target:(id)target Sel:(SEL)action Attached:(id)att page:(int)page{
+    
+    Env *env = [Env sharedEnv];
+    NSString *url = [env getSEKey:kSEUserListQuestion Def:kSEDeListQuestion];
+    
+    url = [BqsUtils setURL:url ParameterName:@"page" Value:[NSString stringWithFormat:@"%d",page]];
+    return [dl addTask:url Target:target Callback:action Attached:att];
+}
+
+
 
 
 @end

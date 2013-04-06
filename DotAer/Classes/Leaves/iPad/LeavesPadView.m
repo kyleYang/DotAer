@@ -105,7 +105,7 @@ BOOL CTRunContainsCharactersFromStringRange(CTRunRef run, NSRange range) {
 	return (intersectedRange.length > 0);
 }
 
-@property (assign) CGFloat leafEdge;
+@property (nonatomic,assign) CGFloat leafEdge;
 
 @end
 

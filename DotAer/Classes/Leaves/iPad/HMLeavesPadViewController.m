@@ -464,7 +464,7 @@
 - (void)ParagraphStyleAttributeSetting:(NSMutableAttributedString *)attributeSting // 设置文章间隔距离
 {
     /*****设置字间距离*********/
-    long number = _characterSpacing;
+    CGFloat number = _characterSpacing;
     CFNumberRef num = CFNumberCreate(kCFAllocatorDefault,kCFNumberSInt8Type,&number);
     [attributeSting addAttribute:(id)kCTKernAttributeName value:(id)num range:NSMakeRange(0, [attributeSting length])];
     CFRelease(num);

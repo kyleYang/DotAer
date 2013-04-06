@@ -23,6 +23,12 @@
 "dota.categor.photo" = "图片";
 "dota.categor.video" = "视频";
 "dota.categor.simulator" = "模拟器";
+//video
+"detail.progrome.player.cancle" = "";
+"detail.progrome.player.fininsh" = "视频播放完毕";
+"detail.progrome.player.urleror" = "地址错误，视频播放失败";
+"detail.progrome.player.failed" = "未知原因，视频播放失败";
+
 
 //photo
 
@@ -108,6 +114,22 @@
 "setting.main.other.pingfen"="给我评分";
 "setting.main.other.feedback"="问题反馈";
 
+"setting.mian.use.feedback" = "用户反馈";
+"setting.mian.use.feedback.submit" = "提交";
+"setting.mian.use.feedback.plac" = "您有任何建议,欢迎反馈给我们,帮助我们改进";
+
+"setting.post.feedback.error" = "提交反馈出错,请重试";
+"setting.post.feedback.success" = "提交反馈成功,谢谢您";
+
+"setting.feeback.answer.head" = "回复:";
+"setting.feeback.question.head" = "建议:";
+
+"setting.feedback.noanswer" = "您好,我们会尽快回复您的建议";
+"setting.feedback.answer.format" = "%@";
+"setting.feedback.qeestion.fromat" = "%@";
+"setting.feedback.username.format" = "用户: %@";
+"setting.feedback.nousername.format" = "用户: 匿名%d";
+"setting.feedback.time.format" = "时间: %@";
 
 //mass clean
 "massclean.navigation.title" = "缓存管理";
@@ -122,5 +144,6 @@
 
 //alter
 "button.sure" = "确定";
+"button.back" = "返回";
 
 

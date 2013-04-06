@@ -21,8 +21,11 @@
 
 -(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame;
 
--(void)loadLocalData;
+
+-(BOOL)loadLocalDataNeedFresh;
 -(void)loadNetworkData:(BOOL)bLoadMore;
+
+
 
 -(void)onLoadDataFinished:(DownloaderCallbackObj*)cb;
 

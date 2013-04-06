@@ -56,9 +56,11 @@
     
 }
 
-- (void)loadLocalData{
-    
+- (BOOL)loadLocalDataNeedFresh{
+    return TRUE;
 }
+
+
 
 -(void)onLoadDataFinished:(DownloaderCallbackObj*)cb{
     

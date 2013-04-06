@@ -43,7 +43,7 @@
     [self addSubview:self.viewAct];
     
     
-    self.message = [[[UILabel alloc] initWithFrame:CGRectMake(0, 15, CGRectGetWidth(frame), 20)] autorelease];
+    self.message = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), 20)] autorelease];
     self.message.backgroundColor = [UIColor clearColor];
     self.message.textAlignment = UITextAlignmentCenter;
     self.message.textColor = [UIColor blackColor];
@@ -65,7 +65,8 @@
 -(void)layoutSubviews {
     [super layoutSubviews];
     
-    self.viewAct.center = CGPointMake(80, CGRectGetMidY(self.message.frame));
+    self.viewAct.center = CGPointMake(80, CGRectGetHeight(self.bounds)/2);
+    self.message.center = CGPointMake(CGRectGetWidth(self.bounds)/2, CGRectGetHeight(self.bounds)/2);
     
 }
 

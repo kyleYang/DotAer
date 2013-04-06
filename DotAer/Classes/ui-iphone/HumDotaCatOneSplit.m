@@ -51,7 +51,7 @@
         self.cateScroll = [[[HumDotaCatTwoSelView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.topNav.frame), CGRectGetWidth(frame), kCatScrollH)] autorelease];
         self.cateScroll.delegate = self;
         
-        CGRect cframe = CGRectMake(0, kTopNavHeigh+kCatScrollH, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kTopNavHeigh-kCatScrollPaddY-kCatScrollH);
+        CGRect cframe = CGRectMake(0, CGRectGetMaxY(self.cateScroll.frame), CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)-CGRectGetMaxY(self.cateScroll.frame)-20);
         self.contentView.frame = cframe;
         
         [self addSubview:cateScroll];
@@ -61,7 +61,7 @@
 }
 
 -(HumDotaCateTowBaseView *)createCatTwoViewCatOneIdx:(int)oneIdx TwoInx:(int)twoIdx {
-    return [self viewForCatOneIdx:_nOneCurIdx TwoIdx:twoIdx VCtl:self.parCtl Frame:CGRectMake(0, kTopNavHeigh+kCatScrollPaddY+kCatScrollH, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kTopNavHeigh-kCatScrollPaddY-kCatScrollH)];
+    return [self viewForCatOneIdx:_nOneCurIdx TwoIdx:twoIdx VCtl:self.parCtl Frame:CGRectMake(0, CGRectGetMaxY(self.cateScroll.frame), CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - CGRectGetMaxY(self.cateScroll.frame)-20)];
 }
 
 #pragma mark
@@ -127,9 +127,9 @@
 -(void)viewWillAppear {
     [self.contentView viewWillAppear];
     
-    if(_nTwoCurIdx < 0) {
-        [self humDotaCatTwoSelectView:self.cateScroll DidSelectCatOne:0 CatTwo:0 PrevSelect:-1];
-    }
+//    if(_nTwoCurIdx < 0) {
+//        [self humDotaCatTwoSelectView:self.cateScroll DidSelectCatOne:0 CatTwo:0 PrevSelect:-1];
+//    }
 }
 
 -(void)viewDidAppear {

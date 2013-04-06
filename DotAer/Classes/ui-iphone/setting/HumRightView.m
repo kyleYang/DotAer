@@ -28,6 +28,8 @@
 #import "HeroInfo.h"
 #import "HeroInfoSave.h"
 #import "EquipInfo.h"
+#import "JTListView.h"
+#import "HumShopCell.h"
 
 
 #define kSTGap 5
@@ -45,19 +47,20 @@
 
 
 
-@interface HumRightView()<UITableViewDelegate,UITableViewDataSource,DSDetailDelegate>
+@interface HumRightView()<JTListViewDataSource,JTListViewDelegate,DSDetailDelegate,HumShopCellDelegate>
 {
     int _selectTyp;
     int _checkTaskId;
     int _prePercentage;
 }
 
-@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) JTListView *tableView;
 @property (nonatomic, retain) NSMutableArray *resultAry;
 @property (nonatomic, retain) DSDetailView *detailView;
 
 @property (nonatomic, retain) NSArray *heroTav;
 @property (nonatomic, retain) NSArray *equipTav;
+@property (nonatomic, retain) NSArray *equipImgAry;
 @property (nonatomic, retain) Downloader *downloader;
 @property (nonatomic, retain) Simulator *downSimlator;
 
@@ -77,11 +80,13 @@
 @synthesize dsDelegate;
 @synthesize heroTav;
 @synthesize equipTav;
+@synthesize equipImgAry;
 @synthesize downloader;
 @synthesize downSimlator;
 @synthesize progressBg;
 @synthesize progress;
 @synthesize activityView;
+
 
 -(void)dealloc{
     
@@ -98,6 +103,7 @@
     self.downSimlator = nil;
     self.progressBg = nil;
     self.progress = nil;
+    self.equipImgAry = nil;
     [super dealloc];
 }
 
@@ -118,7 +124,7 @@
         navSC.backgroundImage = [[Env sharedEnv] cacheImage:@"dota_seg_bg.png"];
         [self addSubview:navSC];
         
-        navSC.center = CGPointMake(160, 20);
+        navSC.center = CGPointMake(160, 40);
         [navSC addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
         [navSC release];
         [self segmentedControlChangedValue:navSC];
@@ -137,7 +143,7 @@
 //        "dota.simu.hero.tz.intone" = "天灾智力（一）";
 //        "dota.simu.hero.tz.inttwo" = "天灾智力（二）";
         
-        self.heroTav = [NSArray arrayWithObjects:NSLocalizedString(@"dota.simu.hero.jw.strone", nil), NSLocalizedString(@"dota.simu.hero.jw.strtwo", nil),NSLocalizedString(@"dota.simu.hero.jw.agione", nil),NSLocalizedString(@"dota.simu.hero.jw.agitwo", nil),NSLocalizedString(@"dota.simu.hero.jw.intone", nil),NSLocalizedString(@"dota.simu.hero.jw.inttwo", nil),NSLocalizedString(@"dota.simu.hero.tz.strone", nil),NSLocalizedString(@"dota.simu.hero.tz.strtwo", nil),NSLocalizedString(@"dota.simu.hero.tz.agione", nil),NSLocalizedString(@"dota.simu.hero.tz.agitwo", nil),NSLocalizedString(@"dota.simu.hero.tz.intone", nil),NSLocalizedString(@"dota.simu.hero.tz.inttwo", nil),nil];
+        self.heroTav = [NSArray arrayWithObjects:@"jw_strone.gif",@"jw_strtwo.gif",@"jw_agione.gif",@"jw_agitwo.gif",@"jw_intone.gif",@"jw_inttwo.gif",@"tz_strone.gif",@"tz_strtwo.gif",@"tz_agione.gif",@"tz_agitwo.gif",@"tz_intone.gif",@"tz_inttwo.gif",nil];
         
 //        dota.simu.equip.one" = "圣物关口";
 //        "dota.simu.equip.two" = "支援法衣";
@@ -152,12 +158,13 @@
 //        "dota.simu.equip.eleven" = "黑市商人";
         
            self.equipTav = [NSArray arrayWithObjects:NSLocalizedString(@"dota.simu.equip.one", nil), NSLocalizedString(@"dota.simu.equip.two", nil),NSLocalizedString(@"dota.simu.equip.three", nil),NSLocalizedString(@"dota.simu.equip.four", nil),NSLocalizedString(@"dota.simu.equip.five", nil),NSLocalizedString(@"dota.simu.equip.six", nil),NSLocalizedString(@"dota.simu.equip.seven", nil),NSLocalizedString(@"dota.simu.equip.egiht", nil),NSLocalizedString(@"dota.simu.equip.nine", nil),NSLocalizedString(@"dota.simu.equip.ten", nil),NSLocalizedString(@"dota.simu.equip.eleven", nil),nil];
+        self.equipImgAry = [NSArray arrayWithObjects:@"equip_one.jpg",@"equip_two.jpg",@"equip_three.gif",@"equip_four.jpg",@"equip_five.jpg",@"equip_six.jpg",@"equip_seven.jpg",@"equip_egiht.jpg",@"equip_nine.jpg",@"equip_ten.jpg",@"equip_eleven.jpg", nil];
         
-        
-        self.tableView = [[[UITableView alloc] initWithFrame:CGRectMake(CGRectGetMinX(navSC.frame), CGRectGetMaxY(navSC.frame)+kSTGap, CGRectGetWidth(navSC.frame), CGRectGetHeight(self.bounds)-CGRectGetMaxY(navSC.frame)-kDetailHeigh-kSTGap-20) style:UITableViewStylePlain] autorelease];
+        self.tableView = [[[JTListView alloc] initWithFrame:CGRectMake(CGRectGetMinX(navSC.frame), CGRectGetMaxY(navSC.frame)+kSTGap, CGRectGetWidth(self.bounds) -CGRectGetMinX(navSC.frame)-20 , 100)] autorelease];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         [self addSubview:self.tableView];
+        self.tableView.showsHorizontalScrollIndicator = FALSE;
         
         self.detailView = [[[DSDetailView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.bounds)-kDetailWidth)/2+ CGRectGetMinX(self.tableView.frame)/2,CGRectGetHeight(self.bounds)-kDetailHeigh-kButtomH, kDetailWidth, kDetailHeigh)] autorelease];
         self.detailView.delegate = self;
@@ -181,6 +188,10 @@
     }
     self.downloader.delegate = nil;
     _checkTaskId = [HumDotaNetOps checkUpdataForSimulatorDownloader:self.downloader Target:self Sel:@selector(checkUpdataFinished:) Attached:nil];
+    
+    [self.tableView setContentOffset:CGPointZero animated:YES];
+    [self.tableView reloadData];
+
 }
 
 - (void)viewWillDisappear{
@@ -238,9 +249,8 @@
 
 #pragma mark
 #pragma mark UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section
-{
-    if(table == self.tableView){
+- (NSUInteger)numberOfItemsInListView:(JTListView *)listView{
+    if(listView == self.tableView){
         if(_selectTyp == DOTAHERO){
             return [self.heroTav count];
         }else if(_selectTyp == DOTAEQUIP){
@@ -248,40 +258,55 @@
         }
     }
     return 0;
-}
 
-- (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *tavernIdentify = @"tavernIdentify";
-    if(table == self.tableView){
-        DSTavernTableCell *cell = [tableView dequeueReusableCellWithIdentifier:tavernIdentify];
-        if(!cell){
-            cell = [[[DSTavernTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tavernIdentify] autorelease];
-        }
-        NSString *name;
-        if (_selectTyp == DOTAHERO) {
-            name = [self.heroTav objectAtIndex:indexPath.row];
-        }else if(_selectTyp == DOTAEQUIP){
-            name = [self.equipTav objectAtIndex:indexPath.row];
-        }
+}
+- (UIView *)listView:(JTListView *)listView viewForItemAtIndex:(NSUInteger)index{
+    HumShopCell *view = (HumShopCell *)[listView dequeueReusableView];
+    
+    if (!view) {
+        view = [[[HumShopCell alloc] initWithFrame:CGRectMake(0, 0, 80, 100)] autorelease];
         
-        cell.textLabel.text = name;
-        return cell;
+          }
+    
+    view.cellTag = index;
+    view.delegate = self;
+    NSString *imageName;
+    if (_selectTyp == DOTAHERO) {
+        imageName = [self.heroTav objectAtIndex:index];
+        view.title.hidden = YES;
+    }else if(_selectTyp == DOTAEQUIP){
+        imageName = [self.equipImgAry objectAtIndex:index];
+        view.title.hidden = NO;
+        view.title.text = [self.equipTav objectAtIndex:index];
     }
-    return nil;
+    view.logo.image = [UIImage imageNamed:imageName];
+    
+    return view;
+   
 }
 
-- (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (CGFloat)listView:(JTListView *)listView widthForItemAtIndex:(NSUInteger)index;  // for horizontal layouts
 {
-    BqsLog(@"Table didSelectRowAtIndexPath %d",indexPath.row);
+    return 80;
+}
+
+
+
+
+
+- (void)HumShopCellDidClick:(HumShopCell *)cell
+{
+    int indx = cell.cellTag;
+    BqsLog(@"Table didSelectRowAtIndexPath %d",indx);
     if(_selectTyp == DOTAHERO){
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", kHeroTavern, [NSNumber numberWithInt:indexPath.row+1]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", kHeroTavern, [NSNumber numberWithInt:indx+1]];
         NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:kHeroOrder ascending:YES];
         NSArray *sortDescriptors = [NSArray arrayWithObject:descriptor];
         
         [self configureResultWithPredicate:predicate sortDescriptors:sortDescriptors];
     }else if(_selectTyp == DOTAEQUIP){
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", kShopNumber, [NSNumber numberWithInt:indexPath.row+1]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", kShopNumber, [NSNumber numberWithInt:indx+1]];
         NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:kEquipOrder ascending:YES];
         NSArray *sortDescriptors = [NSArray arrayWithObject:descriptor];
         
@@ -388,6 +413,7 @@
         if( NO==ret )
         {
             [HMPopMsgView showErrorAlert:nil Msg:NSLocalizedString(@"dota.simu.unzip.error", nil) Delegate:nil];
+            [zip release];
             return;
         }
         [zip UnzipCloseFile];
@@ -397,6 +423,7 @@
     NSFileManager *fm = [[NSFileManager alloc] init]; // delete temp file  for simulator
     NSError *error;
     [fm removeItemAtPath:[[HumDotaDataMgr instance] pathOfSimlatorTempFile] error:&error];
+    [fm release];
     
     
 //    "dota.simu.save.hero.error" = "解析英雄数据出错,请重试";

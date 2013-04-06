@@ -326,7 +326,7 @@
 - (void)layoutSubviewsForControlStyleInlineAirplayAvailable:(BOOL)airPlayAvailable{
     CGFloat width = self.width;
     CGFloat controlsViewHeight = [self bottomControlsViewHeightForControlStyle:self.controlStyle];
-    CGFloat leftEdge = 0.f;
+//    CGFloat leftEdge = 0.f;
     CGFloat rightEdge = width;   // the right edge of the last positioned button in the bottom controls view (starting from right)
     
     // skip buttons always hidden in inline mode
@@ -334,7 +334,7 @@
     
     // play button always on the left
     self.playPauseControl.frame = CGRectMake(0.f, 0.f, kControlWidth, controlsViewHeight);
-    leftEdge = self.playPauseControl.frame.origin.x + self.playPauseControl.frame.size.width;
+//    leftEdge = self.playPauseControl.frame.origin.x + self.playPauseControl.frame.size.width;
     
     // volume control and zoom button are always on the right
 //    self.zoomControl.frame = CGRectMake(width-kControlWidth, 0.f, kControlWidth, controlsViewHeight);
@@ -347,7 +347,7 @@
     // this is a workaround for a layout bug I can't remember
     self.airPlayControlContainer.frame = CGRectMake(rightEdge-kControlWidth, 0.f, kControlWidth, controlsViewHeight);
     if (self.airPlayControlVisible) {
-        rightEdge = self.airPlayControlContainer.frame.origin.x;
+//        rightEdge = self.airPlayControlContainer.frame.origin.x;
     }
     
 //    self.currentTimeLabel.frame = CGRectMake(leftEdge, 0.f, 55.f, controlsViewHeight);
@@ -366,10 +366,10 @@
     BOOL displaySkipButtons = !self.skipButtonsHidden && !self.playingLivestream && (self.bottomControlsView.frame.size.width > self.minWidthToDisplaySkipButtons);
     CGFloat width = self.bottomControlsView.bounds.size.width;
     CGFloat outerPadding = UI_USER_INTERFACE_IDIOM()  == UIUserInterfaceIdiomPhone ? 5.f : 10.f;
-    CGFloat controlWidth = UI_USER_INTERFACE_IDIOM()  == UIUserInterfaceIdiomPhone ? 44.f : 50.f;
-    CGFloat offset = UI_USER_INTERFACE_IDIOM()  == UIUserInterfaceIdiomPhone ? 54.f : 66.f;
-    CGFloat controlHeight = 44.f;
-    CGFloat topY = 2.f;
+//    CGFloat controlWidth = UI_USER_INTERFACE_IDIOM()  == UIUserInterfaceIdiomPhone ? 44.f : 50.f;
+//    CGFloat offset = UI_USER_INTERFACE_IDIOM()  == UIUserInterfaceIdiomPhone ? 54.f : 66.f;
+//    CGFloat controlHeight = 44.f;
+//    CGFloat topY = 2.f;
     
     self.dismissControl.frame = CGRectMake(15, 0, 40, 40);
     
@@ -386,7 +386,7 @@
 //        self.zoomControl.frame = CGRectMake(self.width - zoomButtonWidth-10, 0.f, zoomButtonWidth, self.topControlsView.bounds.size.height);
 //    }
     
-    CGFloat offX = 0.0f;
+//    CGFloat offX = 0.0f;
     CGFloat paddingX = 0.0f;
     if (!airPlayAvailable) {
         paddingX = 20.0f;
@@ -395,7 +395,7 @@
     
     
     if (self.screenType == UIDeviceResolution_iPhoneRetina4) {
-        offX = 10.0f;
+//        offX = 10.0f;
     }
     
     self.scrubberControl.frame = CGRectMake(12.f, 0,  width- 24.f, 15.f);
@@ -445,7 +445,7 @@
     self.airPlayControlContainer.frame = frame;
     
     // next row of controls
-    topY += controlHeight + 5.f;
+//    topY += controlHeight + 5.f;
     
 }
 - (void)layoutTopControlsViewButtons {

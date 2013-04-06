@@ -10,7 +10,7 @@
 #import <CoreText/CoreText.h>
 
 #define kDefaultFont @"HelveticaNeueUI"
-#define kCTFont @"font"
+#define kCTFont @"font_dota"
 #define kCTP @"p"
 #define kCTPend @"/p>"
 #define kCTBrend @"br/>"

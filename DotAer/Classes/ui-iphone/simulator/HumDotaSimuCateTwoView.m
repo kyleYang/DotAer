@@ -155,7 +155,7 @@
     static NSString *cellIden = @"cellId";
     HumDotaSimuTableCell *cell = (HumDotaSimuTableCell *)[aTableView dequeueReusableCellWithIdentifier:cellIden];
     if (!cell) {
-        cell = [[HumDotaSimuTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+        cell = [[[HumDotaSimuTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden] autorelease];
     }
    
     NSMutableArray *arrItem = [[[NSMutableArray alloc] initWithCapacity:4] autorelease];

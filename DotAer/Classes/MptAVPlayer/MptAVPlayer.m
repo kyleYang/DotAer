@@ -133,7 +133,10 @@ static void *MptAVPlayerAirPlayVideoActiveContext = &MptAVPlayerAirPlayVideoActi
     [player removeObserver:self forKeyPath:kCurrentItemKey];
 	[_playerItem removeObserver:self forKeyPath:kStatusKey];
     [_playerItem removeObserver:self forKeyPath:kDrautionKey];
-   
+    [_playerItem removeObserver:self forKeyPath:kPlaybackBufferEmpty];
+    [_playerItem removeObserver:self forKeyPath:kPlaybackLikelyToKeepUp];
+    
+
     if ([AVPlayer instancesRespondToSelector:@selector(allowsAirPlayVideo)]) {
         [player removeObserver:self forKeyPath:kAirPlayVideoActiveKye];
     }

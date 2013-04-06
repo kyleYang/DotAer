@@ -273,7 +273,7 @@ static UIColor* creatColorWith16(NSString *hexColor)//16进制颜色转换  形�
                 _branch = TRUE;
                 
             }
-            if ([tag hasPrefix:kCTFont]) {
+            if ([tag hasPrefix:kCTFont]) { //don't change text color,if want to change the text font and color CTFont @"font"
                 //stroke color
                 NSRegularExpression* scolorRegex = [[[NSRegularExpression alloc] initWithPattern:@"(?<=strokeColor=[\'\"])\\w+" options:0 error:NULL] autorelease];
                 [scolorRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){

@@ -78,7 +78,7 @@
     
     
     self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.btn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//    self.btn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.btn.showsTouchWhenHighlighted = YES;
     self.btn.frame = CGRectMake(0, 0, self.imgNor.size.width, self.imgNor.size.height);
     [self.btn setBackgroundImage:self.imgNor forState:UIControlStateNormal];

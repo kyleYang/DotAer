@@ -61,6 +61,7 @@
 -(HumDotaCateTowBaseView *)createContentViewCatIdx {
     
     CGRect frame = self.contentView.frame;
+    frame.size.height -=20;
     return [self viewForViewController:self.parCtl frame:frame ];
 }
 

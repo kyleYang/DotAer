@@ -77,26 +77,26 @@
     }
     
     // serach bar
-    {
-        self.viewSearchbar.backgroundColor = [UIColor clearColor];
-        self.viewSearchbar.placeholder = NSLocalizedString(@"guide.search.searchbox.channel.tip", nil);
-        //        self.viewSearchbar.showsCancelButton = YES;
-        self.viewSearchbar.backgroundColor = [UIColor clearColor];
-        self.viewSearchbar.delegate = self;
-        for ( UIView * subview in self.viewSearchbar.subviews )
-        {
-            if ([subview isKindOfClass:NSClassFromString(@"UISearchBarBackground") ] )
-                subview.alpha = 0.0;
-            
-            else if ([subview isKindOfClass:NSClassFromString(@"UISegmentedControl") ] )
-                subview.alpha = 0.0;
-            
-        }
-        
-        self.viewSearchbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.tableView.tableHeaderView = self.viewSearchbar;
-
-    }
+//    {
+//        self.viewSearchbar.backgroundColor = [UIColor clearColor];
+//        self.viewSearchbar.placeholder = NSLocalizedString(@"guide.search.searchbox.channel.tip", nil);
+//        //        self.viewSearchbar.showsCancelButton = YES;
+//        self.viewSearchbar.backgroundColor = [UIColor clearColor];
+//        self.viewSearchbar.delegate = self;
+//        for ( UIView * subview in self.viewSearchbar.subviews )
+//        {
+//            if ([subview isKindOfClass:NSClassFromString(@"UISearchBarBackground") ] )
+//                subview.alpha = 0.0;
+//            
+//            else if ([subview isKindOfClass:NSClassFromString(@"UISegmentedControl") ] )
+//                subview.alpha = 0.0;
+//            
+//        }
+//        
+//        self.viewSearchbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//        self.tableView.tableHeaderView = self.viewSearchbar;
+//
+//    }
     
     _hasMore = YES;
     _curPage = 0;
@@ -110,8 +110,9 @@
 
 - (void)viewWillAppear{
     [super viewWillAppear];
-    [self loadLocalData];
-    [self performSelector:@selector(tableContentFrsh) withObject:nil afterDelay:0.3];
+    if(! [self loadLocalDataNeedFresh])
+        return;
+    [self performSelector:@selector(tableContentFrsh) withObject:nil afterDelay:0.5];
     
     
 }
@@ -121,6 +122,7 @@
     if (tableOffset.y > 40) {
         return;
     }
+    
     [self.tableView setContentOffset:CGPointMake(0, kFreshOffSet) animated:YES];
 }
 
@@ -142,8 +144,8 @@
 }
 #pragma mark
 #pragma mark - network ops
-- (void)loadLocalData{
-    
+- (BOOL)loadLocalDataNeedFresh{
+    return TRUE;
 }
 
 -(void)loadNetworkData:(BOOL)bLoadMore {

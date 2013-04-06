@@ -11,12 +11,12 @@
 
 @implementation LeavesPadCache
 
-@synthesize dataSource, pageSize;
+@synthesize dataSource, pageSize = _pageSize;
 
 - (id) initWithPageSize:(CGSize)aPageSize
 {
 	if (self = [super init]) {
-		pageSize = aPageSize;
+		_pageSize = aPageSize;
 		pageCache = [[NSMutableDictionary alloc] init];
 	}
 	return self;
@@ -34,14 +34,14 @@
     CGFloat scale = [UIScreen mainScreen].scale;
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 	CGContextRef context = CGBitmapContextCreate(NULL, 
-												 pageSize.width/2*scale,
-												 pageSize.height*scale,
+												 _pageSize.width/2*scale,
+												 _pageSize.height*scale,
 												 8,						/* bits per component*/
-												 pageSize.width/2 * 4*scale, 	/* bytes per row */
+												 _pageSize.width/2 * 4*scale, 	/* bytes per row */
 												 colorSpace, 
 												 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
 	CGColorSpaceRelease(colorSpace);
-	CGContextClipToRect(context, CGRectMake(0, 0, pageSize.width/2*scale, pageSize.height*scale));
+	CGContextClipToRect(context, CGRectMake(0, 0, _pageSize.width/2*scale, _pageSize.height*scale));
     CGContextScaleCTM(context, scale, scale);
 	[dataSource renderPageAtIndex:pageIndex inContext:context isleft:left];
 	
@@ -59,14 +59,14 @@
     CGFloat scale = [UIScreen mainScreen].scale;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(NULL,
-                                                 pageSize.width/2*scale,
-                                                 pageSize.height*scale,
+                                                 _pageSize.width/2*scale,
+                                                 _pageSize.height*scale,
                                                  8,						/* bits per component*/
-                                                 pageSize.width/2*scale * 4, 	/* bytes per row */
+                                                 _pageSize.width/2*scale * 4, 	/* bytes per row */
                                                  colorSpace,
                                                  kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     CGColorSpaceRelease(colorSpace);
-    CGContextClipToRect(context, CGRectMake(0, 0, pageSize.width/2*scale, pageSize.height*scale));
+    CGContextClipToRect(context, CGRectMake(0, 0, _pageSize.width/2*scale, _pageSize.height*scale));
     CGContextScaleCTM(context, scale, scale);
     [dataSource asyRenderPageAtIndex:pageIndex inContext:context isLeft:left];
     
@@ -84,19 +84,19 @@
     CGFloat scale = [UIScreen mainScreen].scale;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(NULL,
-                                                 pageSize.width*scale,
-                                                 pageSize.height*scale,
+                                                 _pageSize.width*scale,
+                                                 _pageSize.height*scale,
                                                  8,						/* bits per component*/
-                                                 pageSize.width*scale * 4, 	/* bytes per row */
+                                                 _pageSize.width*scale * 4, 	/* bytes per row */
                                                  colorSpace,
                                                  kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     CGColorSpaceRelease(colorSpace);
     
-    CGContextClipToRect(context, CGRectMake(0, 0, pageSize.width*scale, pageSize.height*scale));
+    CGContextClipToRect(context, CGRectMake(0, 0, _pageSize.width*scale, _pageSize.height*scale));
     CGContextScaleCTM(context, scale, scale);
-    CGRect imgBounds = CGRectMake(0, 0, pageSize.width/2, pageSize.height);
+    CGRect imgBounds = CGRectMake(0, 0, _pageSize.width/2, _pageSize.height);
     CGContextDrawImage(context, imgBounds, leftRef);
-    imgBounds = CGRectMake(pageSize.width/2, 0, pageSize.width/2, pageSize.height);
+    imgBounds = CGRectMake(_pageSize.width/2, 0, _pageSize.width/2, _pageSize.height);
     CGContextDrawImage(context, imgBounds, rightRef);
     
     
@@ -186,8 +186,8 @@
 
 #pragma mark accessors
 
-- (void) setPageSize:(CGSize)value {
-	pageSize = value;
+- (void) setPageSize:(CGSize)pageSize {
+	_pageSize = pageSize;
 	[self flush];
 }
 

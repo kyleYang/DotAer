@@ -14,6 +14,7 @@
 #import "iVersion.h"
 #import "HumMassCleanViewController.h"
 #import "HumDotaUIOps.h"
+#import "HumFeedbackViewController.h"
 
 @interface HumSettingView()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -66,7 +67,7 @@
         // create subviews
         // table view
         
-        CGRect rct = CGRectMake(0, 0, CGRectGetWidth(self.bounds)-kMainLeftViewRightGap, CGRectGetHeight(self.bounds));
+        CGRect rct = CGRectMake(0, 20, CGRectGetWidth(self.bounds)-kMainLeftViewRightGap, CGRectGetHeight(self.bounds)-20);
         
         self.tableView = [[[UITableView alloc] initWithFrame:rct style:UITableViewStylePlain] autorelease];
         self.tableView.delegate = self;
@@ -281,6 +282,8 @@
 
 -(void)onClickFeedback {
     BqsLog(@"onClickFeedback");
+    HumFeedbackViewController *feedbackCt =[[[ HumFeedbackViewController alloc] init] autorelease];
+    [HumDotaUIOps slideShowModalViewInNavControler:feedbackCt ParentVCtl:self.parCtl];
 }
 
 

@@ -18,6 +18,7 @@
 #import "HumWebImageView.h"
 #import "HumImageTableCell.h"
 #import "HMImageViewController.h"
+#import "HumDotaUserCenterOps.h"
 
 
 #define kImageEachDownNum 10
@@ -63,9 +64,26 @@
 #pragma mark instance method
 
 
-- (void)loadLocalData{
+- (BOOL)loadLocalDataNeedFresh{
     self.dataArray = [[HumDotaDataMgr instance] readLocalSaveImageDataCat:self.imageCatId];
+    self.netArray = [NSMutableArray arrayWithArray:self.dataArray];
+    _curPage = self.dataArray.count / kImageEachDownNum;
+    if (_curPage != 0) {
+        _curPage -= 1;
+    }
+
     
+    CGFloat lastUploadTs = [HumDotaUserCenterOps floatValueReadForKey:[NSString stringWithFormat:kDftImageCatSaveTimeForCat,self.imageCatId]];
+    const float fNow = (float)[NSDate timeIntervalSinceReferenceDate];
+    
+    if (fNow - lastUploadTs > kRefreshImageIntervalS) {
+        return TRUE;
+    }
+    
+    return FALSE;
+
+    
+       
 }
 
 
@@ -118,6 +136,10 @@
     
     self.dataArray = self.netArray;
     [[HumDotaDataMgr instance] saveImageData:self.dataArray forCat:self.imageCatId];
+    
+    const float fNow = (float)[NSDate timeIntervalSinceReferenceDate];
+    [HumDotaUserCenterOps floatVaule:fNow saveForKey:[NSString stringWithFormat:kDftImageCatSaveTimeForCat,self.imageCatId]];
+   
 
 }
 

@@ -19,6 +19,7 @@
 @interface LeavesViewController ()<HumLeavesDelegate>{
     UIStatusBarStyle _statusBarStyle;
     BOOL _statusBarHidden;
+    BOOL _firstLoad;
 }
 @property (nonatomic, retain, readwrite) HMLeavesView *leavesView; // overwrite as readwrite
 
@@ -80,6 +81,8 @@
         
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
         
+        _firstLoad = YES;
+        
     }
     return self;
 
@@ -100,7 +103,7 @@
         _statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
         
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
-
+        _firstLoad = YES;
     }
     return self;
 }
@@ -113,7 +116,7 @@
         _statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
         
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
-        
+        _firstLoad = YES;
     }
     return self;
 }
@@ -122,6 +125,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     
     self.downloader = [[[Downloader alloc] init] autorelease];
     self.downloader.bSearialLoad = YES;
@@ -144,11 +148,18 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+   
     if (animated) {
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     } else {
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     }
+    
+    if (!_firstLoad) {
+        return;
+    }
+    
+    _firstLoad = NO;
 
     if (articleId != nil) {
         Article *content = [[HumDotaDataMgr instance] articleContentOfAritcleID:self.articleId];
@@ -227,6 +238,7 @@
     article.md5 = self.articlMd5;
     article.content = content;
     [[HumDotaDataMgr instance] saveArticleContent:article ArticleID:self.articleId];
+    [content release];
 
 }
 

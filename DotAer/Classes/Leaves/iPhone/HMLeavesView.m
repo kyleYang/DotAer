@@ -23,6 +23,7 @@
 #import "BqsUtils.h"
 #import "Env.h"
 #import "HumDotaUserCenterOps.h"
+#import "SVModalWebViewController.h"
 
 
 @interface HMLeavesView ()<humWebImageDelegae,HumLeavesDelegate,LeavesViewDataSource, LeavesViewDelegate,OHAttributedLabelDelegate,UIGestureRecognizerDelegate,HumLeavesControlActionDelegate>
@@ -30,6 +31,7 @@
     NSMutableArray *_images;
     NSMutableArray *_linkes;
     NSUInteger _totalPageNum;
+    
     
     BOOL _statusBarVisible;
     UIStatusBarStyle _statusBarStyle;
@@ -58,6 +60,7 @@
 
 @property (nonatomic, retain) MBProgressHUD *activityView;
 
+@property (nonatomic, retain) HMImagePopManager *popImage;
 @end
 
 @implementation HMLeavesView
@@ -86,6 +89,7 @@
 @synthesize paraseImges;
 @synthesize paraImagesDictory;
 @synthesize activityView;
+@synthesize popImage;
 
 - (void)dealloc
 {
@@ -101,28 +105,14 @@
     [_controlsView release]; _controlsView = nil;
     [_layout release]; _layout = nil;
     
-    NSArray*keys = [self.asyImgViews allKeys];
-    
-    if ([keys count]) {
-        for (id key in keys) {
-            NSArray *imgViewAry = [self.asyImgViews objectForKey:key];
-            if ([imgViewAry count]) {
-                for (AsyncImageView *img in imgViewAry) {
-                    img.delegate = nil;
-                    [img release];
-                    
-                }
-            }
-        }
-        
-    }
     self.asyImgViews = nil;
-   
+      
     self.imgDic = nil;
     self.paraseImges = nil;
     self.paraImagesDictory = nil;
     self.attributes = nil;
     self.activityView = nil;
+    self.popImage = nil;
     [_content release]; _content = nil;
       
     [super dealloc];
@@ -718,6 +708,8 @@
         
         if (frameRange.length == 0) {
             BqsLog(@"Error When frameRange == 0");
+            CFRelease(path);
+            CFRelease(frame);
             break;
         }
         
@@ -777,7 +769,7 @@
 - (BOOL)ParagraphStyleAttributeSetting:(NSMutableAttributedString *)attributeSting // 设置文章间隔距离
 {
     /*****设置字间距离*********/
-    long number = _characterSpacing;
+    CGFloat number = _characterSpacing;
     CFNumberRef num = CFNumberCreate(kCFAllocatorDefault,kCFNumberSInt8Type,&number);
     [attributeSting addAttribute:(id)kCTKernAttributeName value:(id)num range:NSMakeRange(0, [attributeSting length])];
     CFRelease(num);
@@ -902,13 +894,7 @@
     [self.paraImagesDictory setObject:imgFrams forKey:[NSNumber numberWithInt:index]];
     
     NSMutableArray *imgViewAry = [self.asyImgViews objectForKey:[NSNumber numberWithInt:index]]; //case for load the async view more than one time in the same page
-    if (imgViewAry) {
-        for (HumWebImageView *img in imgViewAry) {
-            img.delegate = nil;
-            [img release];
-        }
-        [imgViewAry removeAllObjects];
-    }
+    [imgViewAry removeAllObjects];
     imgViewAry = nil;
     imgViewAry = [NSMutableArray array];
     
@@ -935,9 +921,11 @@
                 imageView.imgTag = index;
                 imageView.imgUrl = [imageData objectAtIndex:0];
                 [imgViewAry addObject:imageView];
-                
+                [imageView release];
+                img = [[Env sharedEnv] cacheScretchableImage:@"dota_default.png" X:10 Y:10];//default img
             }
-            img = [[Env sharedEnv] cacheScretchableImage:@"dota_default.png" X:10 Y:10];//default img
+                
+        
             CGContextDrawImage(ctx, imgBounds, img.CGImage);
             //            [imageView addTarget:self action:@selector(clickImage:) forControlEvents:UIControlEventTouchUpInside];
         }else {
@@ -1083,7 +1071,10 @@
 
 - (BOOL)leavef:(LeavesView *)leaf shouldFollowLink:(NSTextCheckingResult *)active
 {
-    [[UIApplication sharedApplication] openURL:active.URL];
+    SVModalWebViewController *webViewController = [[SVModalWebViewController alloc] initWithURL:active.URL];
+    [self.parentController presentModalViewController:webViewController animated:YES];
+    [webViewController release];
+
     return FALSE;
 }
 
@@ -1116,10 +1107,9 @@
     
         CGRect rect = CGRectMake(imgBounds.origin.x, self.frame.size.height-imgBounds.origin.y-imgBounds.size.height+18, imgBounds.size.width, imgBounds.size.height);
         
-        
-
-        HMImagePopManager *popView = [[HMImagePopManager alloc] initWithParentConroller:self.parentController DefaultImg:img imageUrl:[imgInfo objectAtIndex:0] imageFrame:rect];
-        [popView handleFocusGesture:nil];
+               
+        self.popImage = [[[HMImagePopManager alloc] initWithParentConroller:self.parentController DefaultImg:img imageUrl:[imgInfo objectAtIndex:0] imageFrame:rect] autorelease];
+        [self.popImage handleFocusGesture:nil];
     
     }
 }

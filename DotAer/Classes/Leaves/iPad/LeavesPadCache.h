@@ -13,10 +13,9 @@
 @interface LeavesPadCache : NSObject {
 	NSMutableDictionary *pageCache;
 	id<LeavesPadViewDataSource> dataSource;
-	CGSize pageSize;
 }
 
-@property (assign) CGSize pageSize;
+@property (nonatomic, assign) CGSize pageSize;
 @property (assign) id<LeavesPadViewDataSource> dataSource;
 
 - (id) initWithPageSize:(CGSize)aPageSize;

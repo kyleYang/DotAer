@@ -16,7 +16,7 @@
 
 
 -(void)onClickBtnLeft:(id)sender;
--(void)onClickBtnControl:(id)sender;
+-(void)onClickBtnRight:(id)sender;
 
 @end
 

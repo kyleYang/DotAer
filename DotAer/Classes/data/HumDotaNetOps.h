@@ -34,4 +34,8 @@
 +(int)strategyMessageDownloader:(Downloader *)dl Target:(id)target Sel:(SEL)action Attached:(id)att page:(int)page;
 //simulator
 +(int)checkUpdataForSimulatorDownloader:(Downloader *)dl Target:(id)target Sel:(SEL)action Attached:(id)att;
+
+//feedback
++(NSInteger)tskPostFeedback:(NSString *)content Downloader:(Downloader*)dl Target:(id)target Callback:(SEL)op Attached:(id)att;
++(int)questionMessageDownloader:(Downloader *)dl Target:(id)target Sel:(SEL)action Attached:(id)att page:(int)page;
 @end

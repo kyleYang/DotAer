@@ -64,14 +64,14 @@
         
         
         // content view
-        self.viewContent = [[[UIView alloc] initWithFrame:CGRectMake(0,0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)-kBottomNavigation_Heigh)] autorelease];
+        self.viewContent = [[[UIView alloc] initWithFrame:CGRectMake(0,0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+20-kBottomNavigation_Heigh)] autorelease];
         self.viewContent.backgroundColor = [UIColor clearColor];
         self.viewContent.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:self.viewContent];
         
 
         //buttom category select view
-        self.viewCatSel = [[[HumDotaButtomNav alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds)-kBottomNavigation_Heigh, CGRectGetWidth(self.bounds), kBottomNavigation_Heigh)] autorelease];
+        self.viewCatSel = [[[HumDotaButtomNav alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds)-kBottomNavigation_Heigh+20, CGRectGetWidth(self.bounds), kBottomNavigation_Heigh)] autorelease];
         self.viewCatSel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:self.viewCatSel];
         
@@ -137,7 +137,6 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [event.allTouches anyObject];
     _endPoint =  [touch locationInView:self];
-    CGFloat distance = _endPoint.x - _beginPoint.x;
     _direct = HumMoveDirectUnknow;
     
         
@@ -145,7 +144,7 @@
         return;
     }
     _didMoved = FALSE;
-    BqsLog(@"HumDotaBaseFrameView touchesEnded point x:%f y:%f distance:%f",_endPoint.x,_endPoint.y,distance);
+    BqsLog(@"HumDotaBaseFrameView touchesEnded point x:%f y:%f distance:%f",_endPoint.x,_endPoint.y,_endPoint.x - _beginPoint.x);
     if (self.delegate && [self.delegate respondsToSelector:@selector(humDotaBaseFrameMoveEnd:)]) {
 //        [self.delegate humDotaBaseFrameMoveEnd:self];
     }

@@ -30,6 +30,7 @@
 
 
 -(HumDotaCateTowBaseView *)viewForViewController:(HumDotaBaseViewController *)ctl frame:(CGRect)frm{
+    frm.size.height += 20;
     HumDotaNewsCateTwoView *viewContent = [[[HumDotaNewsCateTwoView alloc] initWithDotaCatFrameViewCtl:ctl Frame:frm] autorelease];
     return viewContent;
 }

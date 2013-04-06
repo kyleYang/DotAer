@@ -39,10 +39,10 @@
     
     self.parCtl = ctl;
     
-    self.topNav = [[[HumDotaTopNav alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), kTopNavHeigh)] autorelease];
+    self.topNav = [[[HumDotaTopNav alloc] initWithFrame:CGRectMake(0, 20, CGRectGetWidth(self.bounds), kTopNavHeigh)] autorelease];
     [self addSubview:self.topNav];
     
-    self.contentView = [[[HumDotaCateTowBaseView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.topNav.frame), CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)-CGRectGetHeight(self.topNav.frame))] autorelease];
+    self.contentView = [[[HumDotaCateTowBaseView alloc] initWithFrame:CGRectMake(0,CGRectGetMaxY(self.topNav.frame), CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)-CGRectGetMaxY(self.topNav.frame))] autorelease];
     [self addSubview:self.contentView];
     
     
