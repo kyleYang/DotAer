@@ -65,6 +65,8 @@ typedef enum{
 @property (nonatomic, retain, readonly) UIView *topControlsView;
 @property (nonatomic, retain, readonly) UIView *bottomControlsView;
 @property (nonatomic, retain, readonly) UIView *topControlsContainerView;
+@property (nonatomic, retain, readonly) UIImageView *buttomControlsContainerView;
+
 
 @property (nonatomic, retain, readonly) MptScrubber *scrubberControl;;
 @property (nonatomic, retain, readonly) UILabel *currentTimeLabel;

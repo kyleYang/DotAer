@@ -124,7 +124,7 @@
     static NSString *cellIden = @"cellId";
     HumVideoTableCell *cell = (HumVideoTableCell *)[aTableView dequeueReusableCellWithIdentifier:cellIden];
     if (!cell) {
-        cell = [[HumVideoTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+        cell = [[[HumVideoTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden] autorelease];
     }
     cell.delegate = self;
     

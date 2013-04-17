@@ -7,11 +7,12 @@
 //
 
 #import "OHAttributedLabel.h"
-#import "HumLeavesDelegate.h"
+
 #import "HumLeavesControlView.h"
 #import "HumLeavesControlStyle.h"
 
 
+@protocol HumLeavesDelegate;
 @interface HMLeavesView : UIView
 {
     CGFloat _offsetX;

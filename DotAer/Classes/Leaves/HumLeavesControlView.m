@@ -78,8 +78,9 @@
         
         _backControl = [UIButton buttonWithType:UIButtonTypeCustom];
         _backControl.showsTouchWhenHighlighted = YES;
-        _backControl.frame = (CGRect) { .size = CGSizeMake(35.f, 33.f) };
+        _backControl.frame = (CGRect) { .size = CGSizeMake(60.f, 40.f) };
         _backControl.contentMode = UIViewContentModeCenter;
+        _backControl.backgroundColor = [UIColor clearColor];
         [_backControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_bar_back"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlStateNormal];
         [_backControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_backdown"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlEventTouchDown];
         [_backControl addTarget:self action:@selector(handleBackButtonPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -93,7 +94,7 @@
         [_addControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_bar_add"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlStateNormal];
         [_addControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_bar_add_down"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlEventTouchDown];
         [_addControl addTarget:self action:@selector(handleAddButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-        [_topControlsView addSubview:_addControl];
+//        [_topControlsView addSubview:_addControl];
         
         
         _cutControl = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -103,7 +104,7 @@
         [_cutControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_bar_plus"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlStateNormal];
         [_cutControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_bar_plus_down"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlEventTouchDown];
         [_cutControl addTarget:self action:@selector(handleCutButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-        [_topControlsView addSubview:_cutControl];
+//        [_topControlsView addSubview:_cutControl];
 
 
 

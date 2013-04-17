@@ -40,7 +40,7 @@
 
 
 @protocol DSEquipViewDelegate <NSObject>
-
-- (void)DSEquipViewAddition:(AddtionProperty*)addtion;
-
+@optional
+    - (void)DSEquipViewAddition:(AddtionProperty*)addtion;
+    - (void)DSEquipViewDidSelect:(Equipment*)equip;
 @end

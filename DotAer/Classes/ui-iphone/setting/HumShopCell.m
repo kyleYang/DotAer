@@ -41,6 +41,7 @@
         self.title.backgroundColor = [UIColor clearColor];
         self.title.textAlignment = UITextAlignmentCenter;
         self.title.font = [UIFont systemFontOfSize:14.0f];
+        self.title.textColor = [UIColor whiteColor];
         [self addSubview:self.title];
         
     }

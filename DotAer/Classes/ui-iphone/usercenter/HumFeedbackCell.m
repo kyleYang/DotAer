@@ -7,6 +7,7 @@
 //
 
 #import "HumFeedbackCell.h"
+#import "Env.h"
 
 @implementation HumFeedbackCell
 @synthesize questSign;
@@ -15,6 +16,9 @@
 @synthesize answerLb;
 @synthesize userLb;
 @synthesize timeLb;
+@synthesize userImage;
+@synthesize answerImage;
+@synthesize adminImage;
 
 - (void)dealloc{
     self.questSign = nil;
@@ -23,6 +27,9 @@
     self.answerLb = nil;
     self.userLb = nil;
     self.timeLb = nil;
+    self.userImage = nil;
+    self.answerImage = nil;
+    self.adminImage = nil;
     [super dealloc];
 }
 
@@ -32,7 +39,35 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        self.questSign = [[[UILabel alloc] initWithFrame:CGRectMake(kOrgX, kOrgY, 50, 20)] autorelease];
+        self.userImage= [[[UIImageView alloc] initWithImage:[[Env sharedEnv] cacheImage:@"feedback_user.png"]] autorelease];
+        CGRect frame = self.userImage.frame;
+        frame.origin.x = kOrgX;
+        self.userImage.frame = frame;
+        [self addSubview:self.userImage];
+        
+        self.userLb = [[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.userImage.frame), CGRectGetMinY(self.userImage.frame), 140, kNameHeigh)] autorelease];
+        self.userLb.backgroundColor = [UIColor clearColor];
+        self.userLb.font = [UIFont systemFontOfSize:13.0f];
+        self.userLb.numberOfLines = 0;
+        self.userLb.textColor = [UIColor whiteColor];
+        [self addSubview:self.userLb];
+        
+        self.timeLb = [[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.userLb.frame), CGRectGetMinY(self.answerLb.frame), 200, kNameHeigh)] autorelease];
+        self.timeLb.backgroundColor = [UIColor clearColor];
+        self.timeLb.font = [UIFont systemFontOfSize:13.0f];
+        self.timeLb.numberOfLines = 0;
+        self.timeLb.textColor = [UIColor whiteColor];
+        [self addSubview:self.timeLb];
+
+        self.answerImage= [[[UIImageView alloc] initWithImage:[[Env sharedEnv] cacheImage:@"feedback_answer.png"]] autorelease];
+        frame = self.answerImage.frame;
+        frame.origin.x = kOrgX;
+        self.answerImage.frame = frame;
+
+        [self addSubview:self.answerImage];
+        
+        
+        self.questSign = [[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.answerImage.frame), CGRectGetMinY(self.answerImage.frame), 50, 20)] autorelease];
         self.questSign.backgroundColor = [UIColor clearColor];
         self.questSign.font = [UIFont systemFontOfSize:17.0f];
         self.questSign.textColor = [UIColor whiteColor];
@@ -47,7 +82,14 @@
         self.questionLb.textColor = [UIColor whiteColor];
         [self addSubview:self.questionLb];
         
-        self.answerSign = [[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.questSign.frame), kOrgY, 50, 20)] autorelease];
+        
+        self.adminImage =[[[UIImageView alloc] initWithImage:[[Env sharedEnv] cacheImage:@"feedback_admin.png"]] autorelease];
+        frame = self.adminImage.frame;
+        frame.origin.x = kOrgX;
+        self.adminImage.frame = frame;
+        [self addSubview:self.adminImage];
+        
+        self.answerSign = [[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.adminImage.frame), kOrgY, 50, 20)] autorelease];
         self.answerSign.backgroundColor = [UIColor clearColor];
         self.answerSign.font = [UIFont systemFontOfSize:17.0f];
         self.answerSign.text = NSLocalizedString(@"setting.feeback.answer.head", nil);
@@ -61,20 +103,13 @@
         self.answerLb.textColor = [UIColor whiteColor];
         [self addSubview:self.answerLb];
         
-        self.userLb = [[[UILabel alloc] initWithFrame:CGRectMake(kOrgX, CGRectGetMaxY(self.answerLb.frame), 140, kNameHeigh)] autorelease];
-        self.userLb.backgroundColor = [UIColor clearColor];
-        self.userLb.font = [UIFont systemFontOfSize:13.0f];
-        self.userLb.numberOfLines = 0;
-        self.userLb.textColor = [UIColor whiteColor];
-        [self addSubview:self.userLb];
+        UIImageView *line =  [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 3, self.frame.size.width, 2)];
+        line.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
+        line.image = [[Env sharedEnv] cacheImage:@"dota_cell_line.png"];
+        [self addSubview:line];
+        [line release];
         
-        self.timeLb = [[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.userLb.frame), CGRectGetMinY(self.answerLb.frame), 200, kNameHeigh)] autorelease];
-        self.timeLb.backgroundColor = [UIColor clearColor];
-        self.timeLb.font = [UIFont systemFontOfSize:13.0f];
-        self.timeLb.numberOfLines = 0;
-        self.timeLb.textColor = [UIColor whiteColor];
-        [self addSubview:self.timeLb];
-
+       
         
     }
     return self;

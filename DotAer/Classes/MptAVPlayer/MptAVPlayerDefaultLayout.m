@@ -20,11 +20,13 @@
 
 @property (nonatomic, readonly) UIImage *bottomControlFullscreenImage;
 @property (nonatomic, readonly) UIImage *TopControlFullscreenImage;
+@property (nonatomic, readonly) UIImage *bottomContainerFullscreenImage;
 
 @end
 
 @implementation MptAVPlayerDefaultLayout
 @synthesize bottomControlFullscreenImage = _bottomControlFullscreenImage;
+@synthesize bottomContainerFullscreenImage =  _bottomContainerFullscreenImage;
 @synthesize TopControlFullscreenImage = _TopControlFullscreenImage;
 @synthesize topControlsButtons = _topControlsButtons;
 @synthesize scrubberHidden = _scrubberHidden;
@@ -38,6 +40,7 @@
 - (void)dealloc
 {
     _bottomControlFullscreenImage = nil;
+    _bottomContainerFullscreenImage = nil;
     _TopControlFullscreenImage = nil;
     _topControlsButtons = nil;
     [_scrubberFillColor release]; _scrubberFillColor = nil;
@@ -88,10 +91,12 @@
 - (void)customizeBottomControlsViewWithControlStyle:(MptAVPlayerControlStyle)controlStyle {
     // update styling of bottom controls view
     UIImageView *bottomControlsImageView = (UIImageView *)self.bottomControlsView;
+    UIImageView *buttomContainImageView = self.buttomControlsContainerView;
     
     if (controlStyle == MptAVPlayerControlStyleFullscreen) {
         bottomControlsImageView.backgroundColor = [UIColor clearColor];
         bottomControlsImageView.image = self.bottomControlFullscreenImage;
+        buttomContainImageView.image = self.bottomContainerFullscreenImage;
     } else if (controlStyle == MptAVPlayerControlStyleInline) {
         bottomControlsImageView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.6f];
         bottomControlsImageView.image = nil;
@@ -130,6 +135,7 @@
                                                self.height-controlsViewHeight,
                                                self.width - 2.f*offset,
                                                controlsViewHeight-offset);
+    self.buttomControlsContainerView.frame = CGRectMake(5, CGRectGetHeight(self.bottomControlsView.frame)-35, CGRectGetWidth(self.bottomControlsView.frame)-2*5, 30);
 }
 
 - (void)layoutControlsWithControlStyle:(MptAVPlayerControlStyle)controlStyle AirplayAvailable:(BOOL)airPlayAvailable{
@@ -238,13 +244,13 @@
     //Build a roundedRect of appropriate size at origin 0,0
     UIBezierPath* roundedRect = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0.f, 0.f, height, height) cornerRadius:radius];
     //Color for Stroke
-    CGColorRef strokeColor = [[UIColor blackColor] CGColor];
+    CGColorRef strokeColor = [[UIColor colorWithRed:186.0f/255.0f green:116.0f/255.0f blue:57.0f/255.0f alpha:0.8f] CGColor];
     
     // create minimum track image
     UIGraphicsBeginImageContext(CGSizeMake(height, height));
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
     //Set the fill color
-    CGContextSetFillColorWithColor(currentContext, self.scrubberControl.fillColor.CGColor);
+    CGContextSetFillColorWithColor(currentContext, strokeColor);
     //Fill the color
     [roundedRect fill];
     //Draw stroke
@@ -265,7 +271,7 @@
     UIGraphicsBeginImageContext(CGSizeMake(height, height));
     currentContext = UIGraphicsGetCurrentContext();
     //Set the fill color
-    CGContextSetFillColorWithColor(currentContext, [UIColor colorWithWhite:1.f alpha:.2f].CGColor);
+    CGContextSetFillColorWithColor(currentContext, [UIColor colorWithRed:117.0f/255.0f green:95.0f/255.0f blue:83.0f/255.0f alpha:0.6f].CGColor);
     //Fill the color
     [roundedRect fill];
     //Draw stroke
@@ -322,6 +328,23 @@
     
     return _bottomControlFullscreenImage;
 }
+
+
+- (UIImage *)bottomContainerFullscreenImage {
+    if (_bottomContainerFullscreenImage == nil) {
+        _bottomContainerFullscreenImage = [[UIImage imageNamed:@"MptPlayer.bundle/iPhone/player_buttom_container_bg"] stretchableImageWithLeftCapWidth:30 topCapHeight:15];
+        
+        // make it a resizable image
+//        if ([_bottomContainerFullscreenImage respondsToSelector:@selector(resizableImageWithCapInsets:)]) {
+//            _bottomContainerFullscreenImage = [_bottomContainerFullscreenImage resizableImageWithCapInsets:UIEdgeInsetsMake(48.f, 15.f, 46.f, 15.f)];
+//        } else {
+//            _bottomContainerFullscreenImage = [_bottomContainerFullscreenImage stretchableImageWithLeftCapWidth:15 topCapHeight:47];
+//        }
+    }
+    
+    return _bottomContainerFullscreenImage;
+}
+
 
 - (void)layoutSubviewsForControlStyleInlineAirplayAvailable:(BOOL)airPlayAvailable{
     CGFloat width = self.width;
@@ -387,10 +410,10 @@
 //    }
     
 //    CGFloat offX = 0.0f;
-    CGFloat paddingX = 0.0f;
-    if (!airPlayAvailable) {
-        paddingX = 20.0f;
-    }
+    CGFloat paddingX = 20.0f;
+//    if (!airPlayAvailable) {
+//        paddingX = 20.0f;
+//    }
     
     
     
@@ -398,7 +421,7 @@
 //        offX = 10.0f;
     }
     
-    self.scrubberControl.frame = CGRectMake(12.f, 0,  width- 24.f, 15.f);
+    self.scrubberControl.frame = CGRectMake(12.f, 10,  width- 24.f, 15.f);
     
     self.currentTimeLabel.frame = CGRectMake(outerPadding, CGRectGetMaxY(self.scrubberControl.frame), 55.f, 15.f);
     self.currentTimeLabel.textAlignment = UITextAlignmentCenter;
@@ -409,28 +432,28 @@
     
     
     // play/skip segment centered in first row
-    CGRect frame = self.rewindControl.frame;
-    frame.origin.y = 30.0f;
-    frame.origin.x = 0.0f;
-    self.rewindControl.frame = frame;
+//    CGRect frame = self.rewindControl.frame;
+//    frame.origin.y = 30.0f;
+//    frame.origin.x = 0.0f;
+//    self.rewindControl.frame = frame;
     
-    frame = self.playPauseControl.frame;
-    frame.origin.x = CGRectGetMaxX(self.rewindControl.frame)+paddingX;
-    frame.origin.y = CGRectGetMinY(self.rewindControl.frame);
+    CGRect frame = self.playPauseControl.frame;
+    frame.origin.x = 15;
+    frame.origin.y = -5;
     self.playPauseControl.frame = frame;
     
 //    self.rewindControl.frame = CGRectOffset(self.playPauseControl.frame, -offset, 0.f);
     frame = self.forwardControl.frame;
-    frame.origin.y = CGRectGetMinY(self.rewindControl.frame);
-    frame.origin.x = CGRectGetMaxX(self.playPauseControl.frame);
+    frame.origin.y = CGRectGetMinY(self.playPauseControl.frame);
+    frame.origin.x = CGRectGetMaxX(self.playPauseControl.frame)+paddingX;
     self.forwardControl.frame = frame;
 //    self.rewindControl.hidden = !displaySkipButtons;
     self.forwardControl.enabled = displaySkipButtons;
        
     
     frame = self.volumeControl.frame;
-    frame.origin.x = CGRectGetMaxX(self.forwardControl.frame);
-    frame.origin.y = CGRectGetMinY(self.rewindControl.frame);
+    frame.origin.x = CGRectGetMaxX(self.forwardControl.frame)+130;
+    frame.origin.y = CGRectGetMinY(self.playPauseControl.frame);
     self.volumeControl.frame = frame;
     
     NSLog(@"the volumeControl orgX = %f, orgY = %f, widht = %f, heigh = %f", CGRectGetMinX(self.volumeControl.frame), CGRectGetMinY(self.volumeControl.frame), CGRectGetWidth(self.volumeControl.frame), CGRectGetHeight(self.volumeControl.frame));
@@ -440,8 +463,8 @@
 //    // airplay left-aligned
     
     frame = self.airPlayControlContainer.frame;
-    frame.origin.x = CGRectGetMaxX(self.volumeControl.frame);
-    frame.origin.y = (CGRectGetHeight(self.bottomControlsView.frame)  - CGRectGetHeight(frame))/2;
+    frame.origin.x = CGRectGetMaxX(self.volumeControl.frame)+10;
+    frame.origin.y = CGRectGetMinY(self.playPauseControl.frame)-10;
     self.airPlayControlContainer.frame = frame;
     
     // next row of controls

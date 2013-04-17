@@ -126,7 +126,7 @@
     static NSString *cellIden = @"cellId";
     HumNewsTxtCell *cell = (HumNewsTxtCell *)[aTableView dequeueReusableCellWithIdentifier:cellIden];
     if (!cell) {
-        cell = [[HumNewsTxtCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+        cell = [[[HumNewsTxtCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden] autorelease];
     }
     cell.delegate = self;
     

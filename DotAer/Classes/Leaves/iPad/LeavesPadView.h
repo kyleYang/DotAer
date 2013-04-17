@@ -97,6 +97,9 @@
 - (void) renderPageAtIndex:(NSUInteger)index inContext:(CGContextRef)ctx isleft:(BOOL)left;
 
 @optional
+
+- (UIImage *)imageForBackground;
+
 -(void)leafAddLinker:(LeavesPadView *)leaf withLines:(NSMutableArray *)allLinkes withFrame:(CTFrameRef)frame isLeft:(BOOL)left;
 - (CTFrameRef)getTextFrameAtPage:(NSUInteger)index isLeft:(BOOL)left;
 - (NSMutableAttributedString *)getAttributedTextAtPage:(NSUInteger)index isLeft:(BOOL)left;

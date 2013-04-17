@@ -42,6 +42,13 @@ typedef enum HeroProperty HeroProperty;
 @property (nonatomic, retain) UILabel *strength;
 @property (nonatomic, retain) UILabel *agility;
 @property (nonatomic, retain) UILabel *intelligence;
+
+@property (nonatomic, retain) UILabel *additionDamage;
+@property (nonatomic, retain) UILabel *additionArmor;
+@property (nonatomic, retain) UILabel *additionStrength;
+@property (nonatomic, retain) UILabel *additionAgility;
+@property (nonatomic, retain) UILabel *additionIntelligence;
+
 @property (nonatomic, retain) DSEquipView *equipSimu;
 @property (nonatomic, retain) UILabel *heroHistrory;
 @property (nonatomic, retain) HeroInfo *hero;

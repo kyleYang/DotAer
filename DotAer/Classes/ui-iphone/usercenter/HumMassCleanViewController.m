@@ -57,6 +57,8 @@
     self.tableView = [[[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped] autorelease];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor colorWithRed:117.0f/255.0f green:95.0f/255.0f blue:81.0f/255.0f alpha:1.0f];
     [self.view addSubview:self.tableView];
     
 //    "massclean.mass.image" = "清空图片缓存";

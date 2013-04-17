@@ -21,6 +21,7 @@
 
 -(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame;
 
+- (void)didClickHideLefttView;
 -(void)viewDidAppear;
 -(void)viewDidDisappear;
 

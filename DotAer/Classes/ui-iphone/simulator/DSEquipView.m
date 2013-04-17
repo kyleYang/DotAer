@@ -13,6 +13,7 @@
 #import "Material.h"
 #import "Constants.h"
 #import "BqsUtils.h"
+#import "Env.h"
 
 #define kEquipGap 5
 
@@ -59,6 +60,13 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        UIImageView *bg = [[UIImageView alloc] initWithFrame:self.bounds];
+        bg.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        bg.image = [[Env sharedEnv] cacheImage:@"simu_equip_bg.png"];
+        [self addSubview:bg];
+        [bg release];
+        
         self.itemArrary = [NSMutableArray arrayWithCapacity:1];
         float width = CGRectGetWidth(frame)/3 - 2*kEquipGap;
         float height = CGRectGetHeight(frame)/2 - 2*kEquipGap;
@@ -120,6 +128,8 @@
 {
     DSItemImag *item = (DSItemImag *)sender;
     if (item.equip) {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(DSEquipViewDidSelect:)])
+            [self.delegate DSEquipViewDidSelect:item.equip];
         item.isFormula = FALSE;
         item.equip = nil;
     }

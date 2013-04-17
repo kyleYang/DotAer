@@ -83,7 +83,7 @@
         _touchesMoved = NO;
         _touchStartPoint = CGPointZero;
         
-        _volumeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.f, 0.f, 50.f, 50.f)];
+        _volumeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.f, 0.f, 40.f, 40.f)];
         _volumeBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         [_volumeBtn addTarget:self action:@selector(volumeOpenShut:) forControlEvents:UIControlEventTouchUpInside];
         _volumeBtn.contentMode = UIViewContentModeCenter;
@@ -92,7 +92,7 @@
         
         
         
-        _slider = [[UISlider alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_volumeBtn.frame), (CGRectGetHeight(self.frame) - kMptSliderHeigh)/2, CGRectGetWidth(self.frame) - CGRectGetMaxX(_volumeBtn.frame), kMptSliderHeigh)];
+        _slider = [[UISlider alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_volumeBtn.frame)+10, (CGRectGetHeight(self.frame) - kMptSliderHeigh)/2, CGRectGetWidth(self.frame) - CGRectGetMaxX(_volumeBtn.frame)-10, kMptSliderHeigh)];
         _slider.minimumValue = 0.f;
         _slider.maximumValue = 1.f;
         _slider.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;

@@ -88,10 +88,12 @@
         self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"setting.mian.use.feedback.submit", nil)style:UIBarButtonItemStyleDone target:self action:@selector(onClickNavOK:)] autorelease];
     }
     
-    UIImageView *iv = [[[UIImageView alloc] initWithImage:[_env cacheImage:@"guide_frame_bg.png"]] autorelease];
-    iv.frame = self.view.bounds;
-    iv.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:iv];
+//    UIImageView *iv = [[[UIImageView alloc] initWithImage:[_env cacheImage:@"guide_frame_bg.png"]] autorelease];
+//    iv.frame = self.view.bounds;
+//    iv.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    [self.view addSubview:iv];
+    
+    self.view.backgroundColor = [UIColor colorWithRed:117.0f/255.0f green:96.0f/255.0f blue:81.0f/255.0f alpha:1.0f];
     
     CGRect rct = CGRectZero;
     UIImage *txtBg = [_env cacheImage:@"setting_badrate_txtview_bg.png"];
@@ -114,7 +116,7 @@
     self.ratFiled.selectedRange = NSMakeRange(0, 0);
     [self.view addSubview:self.ratFiled];
     
-    self.tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.ratFiled.frame)+10, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-CGRectGetMaxY(self.ratFiled.frame)-55) style:UITableViewStylePlain] autorelease];
+    self.tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.ratFiled.frame)+20, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-CGRectGetMaxY(self.ratFiled.frame)-55) style:UITableViewStylePlain] autorelease];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -298,9 +300,45 @@
     Question *qestion = [self.dataArray objectAtIndex:indexPath.row];
     
     CGFloat heigh = kOrgY;
+    
+    
+    
+    CGRect frame = cell.userImage.frame;
+    frame.origin.y = heigh;
+    cell.userImage.frame = frame;
+    
+    frame = cell.userLb.frame;
+    frame.origin.y = heigh;
+    cell.userLb.frame = frame;
+    
+    NSString *userName = @"";
+    if (!qestion.userName || qestion.userName.length == 0) {
+        userName = [NSString stringWithFormat:NSLocalizedString(@"setting.feedback.nousername.format", nil),qestion.questId];
+    }else{
+        userName = [NSString stringWithFormat:NSLocalizedString(@"setting.feedback.username.format", nil),qestion.userName];
+    }
+    cell.userLb.text = userName;
+    
+    frame = cell.timeLb.frame;
+    frame.origin.y = heigh;
+    cell.timeLb.frame = frame;
+    cell.timeLb.text = [NSString stringWithFormat:NSLocalizedString(@"setting.feedback.time.format", nil),qestion.time];
+    
+    heigh += kNameHeigh;
+    heigh += kAUGap;
+    
+    frame = cell.answerImage.frame;
+    frame.origin.y = heigh;
+    cell.answerImage.frame = frame;
+    
+    frame = cell.questSign.frame;
+    frame.origin.y = heigh;
+    cell.questSign.frame = frame;
+    
     NSString *descript = [NSString stringWithFormat:NSLocalizedString(@"setting.feedback.qeestion.fromat", nil),qestion.descript];
     CGSize size = [descript sizeWithFont:cell.questionLb.font constrainedToSize:CGSizeMake(CGRectGetWidth(cell.questionLb.frame), 1000) lineBreakMode:NSLineBreakByWordWrapping];
-    CGRect frame = cell.questionLb.frame;
+    frame = cell.questionLb.frame;
+    frame.origin.y = heigh;
     frame.size.height = size.height;
     cell.questionLb.frame = frame;
     cell.questionLb.text = descript;
@@ -309,6 +347,11 @@
     
     heigh +=size.height;
     heigh +=kQAGap;
+    
+    frame = cell.adminImage.frame;
+    frame.origin.y = heigh;
+    cell.adminImage.frame = frame;
+
     
     NSString *answer = qestion.answer;
     if (!answer || answer.length == 0) {
@@ -331,24 +374,6 @@
     heigh +=size.height;
     heigh +=kAUGap;
     
-    frame = cell.userLb.frame;
-    frame.origin.y = heigh;
-    cell.userLb.frame = frame;
-    NSString *userName = @"";
-    if (!qestion.userName || qestion.userName.length == 0) {
-        userName = [NSString stringWithFormat:NSLocalizedString(@"setting.feedback.nousername.format", nil),qestion.questId];
-    }else{
-        userName = [NSString stringWithFormat:NSLocalizedString(@"setting.feedback.username.format", nil),qestion.userName];
-    }
-    cell.userLb.text = userName;
-    
-    frame = cell.timeLb.frame;
-    frame.origin.y = heigh;
-    cell.timeLb.frame = frame;
-    cell.timeLb.text = [NSString stringWithFormat:NSLocalizedString(@"setting.feedback.time.format", nil),qestion.time];
-    
-    heigh += kNameHeigh;
-    heigh += kOrgY;
     
     frame = cell.frame;
     frame.size.height = heigh;

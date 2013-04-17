@@ -11,11 +11,19 @@
 @interface HumDotaUserCenterOps : NSObject
 
 
+
 #define kReadFontSize @"dota.raad.font.size"
 
+//net
 #define kDftHaveNetWork @"dota.network.have"
 #define kDftNetTypeWifi @"dota.network.type"//net type
 
+//user
+#define kDftUserReallyPassport @"user.really.passport"
+#define kDftUserLogoinStatus @"user.logoin.status"
+#define kDftUserName @"user.login.username"
+#define kDftUserPassword @"user.login.password"
+//
 #define kSimulatorLastVersionKey  @"simulatorLastVersionChecked"
 #define kSimulatorNowVersionName  @"simulatorLastVersionName"
 #define kSimulatorIgnoreVersion  @"simulatorIgnoreVersion"
@@ -28,10 +36,10 @@
 #define kDftImageCatSaveTimeForCat @"dft.image.xml.save.time.%@"
 #define kDftStrategyCatSaveTimeForCat @"dft.strategy.xml.save.time.%@"
 
-#define kRefreshNewsIntervalS (0.5*60*60.0)
-#define kRefreshVideoInterVals (0.5*60*60)
-#define kRefreshImageIntervalS (0.5*60*60.0)
-#define kRefreshStrategyInterVals (0.5*60*60)
+#define kRefreshNewsIntervalS (2*60*60.0)
+#define kRefreshVideoInterVals (2*60*60)
+#define kRefreshImageIntervalS (2*60*60.0)
+#define kRefreshStrategyInterVals (2*60*60)
 
 
 +(CGFloat)intValueReadForKey:(NSString *)key;

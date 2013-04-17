@@ -67,6 +67,7 @@
 
    
     _scrollView = [[HMImageScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     _scrollView.dataSource = self;
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
@@ -105,7 +106,7 @@
 #pragma mark IOS < 6
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return YES;
+        return (interfaceOrientation == UIInterfaceOrientationPortrait);
     }
     
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -116,7 +117,7 @@
 
 -(NSUInteger)supportedInterfaceOrientations{
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return UIInterfaceOrientationMaskAll;
+        return UIInterfaceOrientationMaskPortrait;
     }
     
     return UIInterfaceOrientationMaskPortrait;  // 可以修改为任何方向

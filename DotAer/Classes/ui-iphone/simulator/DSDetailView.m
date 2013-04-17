@@ -7,6 +7,7 @@
 //
 
 #import "DSDetailView.h"
+#import "Env.h"
 #define kItemGap 5
 
 @interface DSDetailView (){
@@ -114,6 +115,13 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        UIImageView *image = [[UIImageView alloc] initWithFrame:self.bounds];
+        image.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        image.image = [[Env sharedEnv] cacheImage:@"doto_detail.png"];
+        [self addSubview:image];
+        [image release];
+        
         self.itemArrary = [NSMutableArray arrayWithCapacity:1];
         float width = CGRectGetWidth(frame)/4 - 2*kItemGap;
         float height = CGRectGetHeight(frame)/3 - 2*kItemGap;

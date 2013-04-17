@@ -45,7 +45,7 @@
 
 @property (retain, nonatomic) NSString* font;
 @property (assign, nonatomic) CGFloat setFontSize;
-@property (nonatomic,copy) NSString *setFont;
+@property (nonatomic, retain) NSString *setFont;
 @property (nonatomic, retain) UIColor *setColor;
 @property (retain, nonatomic) UIColor* color;
 @property (retain, nonatomic) UIColor* strokeColor;

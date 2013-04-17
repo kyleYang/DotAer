@@ -37,7 +37,7 @@
     CustomNavigationController *nav = [[[CustomNavigationController alloc] initWithRootViewController:vctl] autorelease];
     nav.navigationBar.barStyle = UIBarStyleBlackOpaque;
     CustomNavigationBar *navBar = [[[CustomNavigationBar alloc] init] autorelease];
-    UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"pg_navigation_bg.png" X:6 Y:20];
+    UIImage *bgImg = [[Env sharedEnv] cacheImage:@"dota_frame_title_bg.jpg"];
     [navBar setCustomBgImage:bgImg];
     [nav setValue:navBar forKey:@"navigationBar"];
     

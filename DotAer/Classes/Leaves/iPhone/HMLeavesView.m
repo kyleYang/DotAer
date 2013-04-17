@@ -18,6 +18,7 @@
 #import "LeavesView.h"
 #import "HumLeavesControlActionDelegate.h"
 #import "HumLeavesLayout.h"
+#import "HumLeavesDelegate.h"
 #import "HMImagePopManager.h"
 #import "MBProgressHUD.h"
 #import "BqsUtils.h"
@@ -26,7 +27,7 @@
 #import "SVModalWebViewController.h"
 
 
-@interface HMLeavesView ()<humWebImageDelegae,HumLeavesDelegate,LeavesViewDataSource, LeavesViewDelegate,OHAttributedLabelDelegate,UIGestureRecognizerDelegate,HumLeavesControlActionDelegate>
+@interface HMLeavesView ()<humWebImageDelegae,HumLeavesDelegate,LeavesViewDataSource, LeavesViewDelegate,OHAttributedLabelDelegate,UIGestureRecognizerDelegate,HumLeavesControlActionDelegate,humWebImageDelegae>
 {
     NSMutableArray *_images;
     NSMutableArray *_linkes;
@@ -176,7 +177,7 @@
     _controlsVisible = NO;
    
     // Controls
-    _controlsView = [[HumLeavesControlView alloc] initWithFrame:self.bounds];
+    _controlsView = [[HumLeavesControlView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 60)];
     _controlsView.delegate = self;
     [self addSubview:_controlsView];
     
@@ -200,11 +201,11 @@
     [self.activityView hide:YES];
     
     
-    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-    singleTapGestureRecognizer.numberOfTapsRequired = 1;
-    singleTapGestureRecognizer.delegate = self;
-    [self.controlsView addGestureRecognizer:singleTapGestureRecognizer];
-    [singleTapGestureRecognizer release];
+//    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+//    singleTapGestureRecognizer.numberOfTapsRequired = 1;
+//    singleTapGestureRecognizer.delegate = self;
+//    [self.controlsView addGestureRecognizer:singleTapGestureRecognizer];
+//    [singleTapGestureRecognizer release];
 
     
 }
@@ -920,9 +921,15 @@
                 imageView.style = HUMWebImageStyleTopCentre;
                 imageView.imgTag = index;
                 imageView.imgUrl = [imageData objectAtIndex:0];
+                img = imageView.downImage;
                 [imgViewAry addObject:imageView];
                 [imageView release];
-                img = [[Env sharedEnv] cacheScretchableImage:@"dota_default.png" X:10 Y:10];//default img
+                if(!img){
+                    img = [[Env sharedEnv] cacheScretchableImage:@"dota_default.png" X:10 Y:10];//default img
+                }else{
+                    [self.imgDic setObject:img forKey:[imageData objectAtIndex:0]];
+
+                }
             }
                 
         
@@ -965,7 +972,7 @@
         if ([type isEqualToString:kCTImgDefaultType]) {
             UIImage* img = [self.imgDic objectForKey:[imageData objectAtIndex:0]];
             if (!img) {
-                
+                img = [[Env sharedEnv] cacheScretchableImage:@"dota_default.png" X:10 Y:10];//default img
             }
             CGContextDrawImage(ctx, imgBounds, img.CGImage);
             //            [imageView addTarget:self action:@selector(clickImage:) forControlEvents:UIControlEventTouchUpInside];

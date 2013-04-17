@@ -89,6 +89,8 @@ typedef enum {
 @optional
 
 - (void)humWebImageDidDownloader:(HumWebImageView *)view image:(UIImage *)image;
+- (void)humWebImageDidLoad:(HumWebImageView *)view image:(UIImage *)image;
+
 
 //Guest
 - (void)photoViewDidSingleTap:(HumWebImageView *)photoView;

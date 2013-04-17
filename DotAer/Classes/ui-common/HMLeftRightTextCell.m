@@ -36,6 +36,7 @@
     self.lblLeft.backgroundColor = [UIColor clearColor];
     self.lblLeft.font = [UIFont systemFontOfSize:fontSizeLeft];
     self.lblLeft.adjustsFontSizeToFitWidth = NO;
+    self.lblLeft.textColor = [UIColor whiteColor];
 //    self.lblLeft.textColor = [UIColor whiteColor];//RGBA(0x9e, 0x9e, 0x9e, 1);
     [self.contentView addSubview:self.lblLeft];
     
@@ -43,6 +44,7 @@
     self.lblRight.backgroundColor = [UIColor clearColor];
     self.lblRight.font = [UIFont systemFontOfSize:fontSizeRight];
     self.lblRight.adjustsFontSizeToFitWidth = NO;
+    self.lblRight.textColor = [UIColor whiteColor];
 //    self.lblRight.textColor = RGBA(0xff, 0xcc, 0x2f, 1);
     [self.contentView addSubview:self.lblRight];
     
@@ -50,7 +52,14 @@
     self.imgDisclosure.hidden = YES;
     [self.contentView addSubview:self.imgDisclosure];
     
-    // set background   
+    
+    UIImageView *line =  [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 3, self.frame.size.width, 2)];
+    line.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
+    line.image = [[Env sharedEnv] cacheImage:@"dota_line.png"];
+    [self addSubview:line];
+    [line release];
+
+    // set background
     {
         UIView *bgV = [[[UIView alloc]initWithFrame:self.contentView.bounds] autorelease];
         bgV.backgroundColor = [UIColor clearColor];

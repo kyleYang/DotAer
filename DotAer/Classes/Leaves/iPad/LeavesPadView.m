@@ -708,14 +708,14 @@ CGFloat distancePad(CGPoint a, CGPoint b);
         if (touchOtherEvent != -1 && !dragged) {
             if ([delegate respondsToSelector:@selector(eventTouchAtPoint:atPageIndex:)])
                 [delegate excuteEventAtIndex:touchOtherEvent atPageIndex:currentPageIndex];
-            return;
+
         }else if(activeLink && (NSEqualRanges(activeLink.range,linkAtTouchesEnded.range) || !dragged)){
             BOOL openLink = (delegate && [delegate respondsToSelector:@selector(leavef:shouldFollowLink:)])
             ? [delegate leavef:self shouldFollowLink:activeLink] : YES;
             if (openLink) [[UIApplication sharedApplication] openURL:activeLink.URL];
-            return;
-        }
     
+        }
+        return;
     }
 	touchIsActive = NO;
 	

@@ -11,7 +11,7 @@
 #define kOrgX 10
 #define kOrgY 5
 
-#define kWidht 250
+#define kWidht 240
 
 #define kNameHeigh 20
 
@@ -29,5 +29,9 @@
 @property (nonatomic, retain) UILabel *answerLb;
 @property (nonatomic, retain) UILabel *userLb;
 @property (nonatomic, retain) UILabel *timeLb;
+
+@property (nonatomic, retain) UIImageView *userImage;
+@property (nonatomic, retain) UIImageView *answerImage;
+@property (nonatomic, retain) UIImageView *adminImage;
 
 @end

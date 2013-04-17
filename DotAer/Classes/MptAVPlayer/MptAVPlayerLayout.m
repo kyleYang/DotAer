@@ -17,6 +17,7 @@
 @property (nonatomic, retain, readwrite) UIView *topControlsView;
 @property (nonatomic, retain, readwrite) UIView *bottomControlsView;
 @property (nonatomic, retain, readwrite) UIView *topControlsContainerView;
+@property (nonatomic, retain, readwrite) UIImageView *buttomControlsContainerView;
 
 @property (nonatomic, assign, readwrite) UIDeviceScreenType screenType;
 
@@ -48,7 +49,7 @@
 @synthesize width;
 @synthesize height;
 @synthesize scrubberControl,currentTimeLabel,totalTimeLabel;
-@synthesize topControlsView,bottomControlsView,topControlsContainerView,playPauseControl,rewindControl,forwardControl,airPlayControlContainer,airPlayControl,dismissControl,videoTitle,zoomControl;
+@synthesize topControlsView,bottomControlsView,topControlsContainerView,buttomControlsContainerView,playPauseControl,rewindControl,forwardControl,airPlayControlContainer,airPlayControl,dismissControl,videoTitle,zoomControl;
 @synthesize screenType;
 
 
@@ -59,6 +60,7 @@
     self.topControlsView = nil;
     self.bottomControlsView = nil;
     self.topControlsContainerView = nil;
+    self.buttomControlsContainerView = nil;
     self.scrubberControl = nil;
     self.currentTimeLabel = nil;
     self.totalTimeLabel = nil;
@@ -120,6 +122,7 @@
         self.topControlsView = _moviePlayer.view.controlsView.topControlsView;
         self.bottomControlsView = _moviePlayer.view.controlsView.bottomControlsView;
         self.topControlsContainerView = _moviePlayer.view.controlsView.topControlsContainerView;
+        self.buttomControlsContainerView = _moviePlayer.view.controlsView.buttomControlsContainerView;
         
         self.scrubberControl = _moviePlayer.view.controlsView.scrubberControl;
         self.currentTimeLabel = _moviePlayer.view.controlsView.currentTimeLabel;

@@ -14,6 +14,7 @@
 
 #define kCode @"code"
 #define kMsg @"msg"
+#define kPassport @"passport"
 #define kTotalPage @"totalPage"
 #define kPage @"page"
 
@@ -23,17 +24,18 @@
 @synthesize msg;
 @synthesize totalPage;
 @synthesize curPage;
-
+@synthesize passport;
 - (void)dealloc{
     self.msg = nil;
+    self.passport = nil;
     [super dealloc];
 }
 
 
 
 -(NSString*)description {
-    return [NSString stringWithFormat:@"[Status code:%d,msg:%@,totalPage:%d,curPage:%d]",
-            self.code, self.msg,self.totalPage,self.curPage];
+    return [NSString stringWithFormat:@"[Status code:%d,msg:%@,totalPage:%d,curPage:%d,passport:%@]",
+            !self.code, self.msg,self.totalPage,self.curPage,self.passport];
 }
 
 
@@ -66,6 +68,8 @@
             status.code = ![value boolValue]; //retun defalut 0 for true
         }else if([kMsg isEqualToString:name]){
             status.msg = value;
+        }else if([kPassport isEqualToString:name]){
+            status.passport = value;
         }else if([kTotalPage isEqualToString:name]){
             status.totalPage = [value intValue];
         }else if([kPage isEqualToString:name]){

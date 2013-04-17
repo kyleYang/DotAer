@@ -122,7 +122,7 @@
     static NSString *cellIden = @"cellId";
     HumStrategyTableCell *cell = (HumStrategyTableCell *)[aTableView dequeueReusableCellWithIdentifier:cellIden];
     if (!cell) {
-        cell = [[HumStrategyTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+        cell = [[[HumStrategyTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden] autorelease];
     }
     cell.delegate = self;
     

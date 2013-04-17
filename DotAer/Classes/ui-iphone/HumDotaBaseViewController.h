@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "News.h"
 
 @interface HumDotaBaseViewController : UIViewController
 
 @property (nonatomic,retain) NSManagedObjectContext* managedObjectContext;
 
+
+- (void)pushNotificationNews:(News *)info;
 @end

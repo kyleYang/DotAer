@@ -6,21 +6,50 @@
 //  Copyright (c) 2012年 深圳微普特. All rights reserved.
 //
 
-#import "HMLeavesPadViewController.h"
+#import "HMLeavesPadView.h"
 #import <CoreText/CoreText.h>
 #import "NSAttributedString+Attributes.h"
-#import "HMImageViewController.h"
 #import "RegexKitLite.h"
 #import "MarkupParser.h"
 #import "AsyncImageView.h"
 #import "Utilities.h"
+#import "HumLeavesDelegate.h"
+#import "HumWebImageView.h"
+#import "LeavesPadView.h"
+#import "HumLeavesControlActionDelegate.h"
+#import "HumLeavesLayout.h"
+#import "HMImagePopManager.h"
+#import "MBProgressHUD.h"
+#import "BqsUtils.h"
+#import "Env.h"
+#import "HumDotaUserCenterOps.h"
+#import "SVModalWebViewController.h"
 
-@interface HMLeavesPadViewController ()<AsyncImageViewGuestDelegate>
+@interface HMLeavesPadView ()<AsyncImageViewGuestDelegate,LeavesPadViewDataSource,LeavesPadViewDelegate,HumLeavesControlActionDelegate,UIGestureRecognizerDelegate,humWebImageDelegae>
 {
     NSMutableArray *_images;
     NSMutableArray *_linkes;
     NSUInteger _totalPageNum;
+    
+    BOOL _statusBarVisible;
+    UIStatusBarStyle _statusBarStyle;
+    BOOL _shouldHideControls;
+    
+    BOOL _controlsVisible;
+    struct {
+        unsigned int didBack:1;
+        
+    } _delegateFlags;
+    
 }
+
+
+@property (nonatomic, retain) LeavesPadView *leavesView;
+@property (nonatomic, retain) HumLeavesLayout *layout;
+@property (nonatomic, retain, readwrite) HumLeavesControlView *controlsView;
+
+@property (nonatomic, retain) MBProgressHUD *activityView;
+@property (nonatomic, retain) HMImagePopManager *popImage;
 
 @property (nonatomic, retain) NSString *transmitText; // 存放转换好的数据
 @property (nonatomic, retain) NSMutableArray *frames; //存放解析好的分页数据
@@ -33,7 +62,17 @@
 
 @end
 
-@implementation HMLeavesPadViewController
+@implementation HMLeavesPadView
+
+@synthesize parentController;
+@synthesize leavesView;
+@synthesize delegate = _delegate;
+@synthesize controlsView = _controlsView;
+@synthesize controlStyle = _controlStyle;
+@synthesize controlsVisible = _controlsVisible;
+@synthesize layout = _layout;
+@synthesize activityView;
+@synthesize popImage;
 
 @synthesize offsetX = _offsetX,offsetY = _offsetY,bottomX = _bottomX,bottomY = _bottomY;
 @synthesize characterSpacing = _characterSpacing , linesSpacing = _linesSpacing , paragraphSpacing = _paragraphSpacing;
@@ -54,26 +93,22 @@
 
 - (void)dealloc
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeOutControls) object:nil];
+    
+    self.leavesView = nil;
+    self.parentController = nil;
+    self.popImage = nil;
+    self.activityView = nil;
+    _delegate =nil;
     [_bgColor release]; _bgColor= nil;
     [_characterColor release]; _characterColor = nil;
     [_characterFont release]; _characterFont = nil;
     [_linkerColor release]; _linkerColor = nil;
+    [_controlsView release]; _controlsView = nil;
+    [_layout release]; _layout = nil;
     
-    NSArray*keys = [self.asyImgViews allKeys];
     
-    if ([keys count]) {
-        for (id key in keys) {
-            NSArray *imgViewAry = [self.asyImgViews objectForKey:key];
-            if ([imgViewAry count]) {
-                for (AsyncImageView *img in imgViewAry) {
-                    img.delegate = nil;
-                    [img release];
-                    
-                }
-            }
-        }
-        
-    }
+    
     self.asyImgViews = nil;
     
     self.imgDic = nil;
@@ -85,47 +120,15 @@
     [super dealloc];
 }
 
-- (id)init
+- (id)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
         [self parameterInit];
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(back:)] autorelease];
-    
-    UIButton *add = [[UIButton alloc] initWithFrame:CGRectMake(100, 50, 50, 50)];
-    add.backgroundColor = [UIColor redColor];
-    [add setTitle:@"+" forState:UIControlStateNormal];
-    [add addTarget:self action:@selector(addFont:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:add];
-    [add release];
-    
-    UIButton *plus = [[UIButton alloc] initWithFrame:CGRectMake(200, 50, 50, 50)];
-    plus.backgroundColor = [UIColor redColor];
-    [plus setTitle:@"-" forState:UIControlStateNormal];
-    [plus addTarget:self action:@selector(plusFont:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:plus];
-    [plus release];
-    
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (void)back:(id)sender
-{
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 - (void)addFont:(id)sender
 {
@@ -162,11 +165,352 @@
     self.asyImgViews = [NSMutableDictionary dictionary];
     self.imgDic = [NSMutableDictionary dictionary];
     self.paraImagesDictory = [NSMutableDictionary dictionary];
+        
+    CGRect labFrame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+20.f);
     
-    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.view.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.view.bounds)-_offsetY-_bottomY);
-    self.leavesView.frame = labFrame;
+    CGRect rec = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+20);
+    UIImageView *bg = [[UIImageView alloc] initWithFrame:rec];
+    bg.image = [[Env sharedEnv] cacheImage:@"dota_read_bg.png"];
+    [self addSubview:bg];
+    [bg release];
+    
+    self.leavesView = [[[LeavesPadView alloc] initWithFrame:labFrame] autorelease];
+	self.leavesView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    self.leavesView.dataSource = self;
+	self.leavesView.delegate = self;
+	[self addSubview:self.leavesView];
+    
+    self.controlStyle = HumLeavesControlStyleFullscreen;
+    _controlsVisible = NO;
+    
+    // Controls
+    _controlsView = [[HumLeavesControlView alloc] initWithFrame:self.bounds];
+    _controlsView.delegate = self;
+    [self addSubview:_controlsView];
+    
+    _controlsView.alpha = 0.0f;
+    [self sendSubviewToBack:_controlsView];
+    
+    
+    _layout = [[HumLeavesLayout alloc] init];
+    _layout.controlsView = _controlsView;
+    [_layout updateControlStyle:HumLeavesControlStyleFullscreen];
+
+    
+    self.activityView = [[[MBProgressHUD alloc] initWithView:self] autorelease];
+    self.activityView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.activityView.mode = MBProgressHUDModeIndeterminate;
+    self.activityView.animationType = MBProgressHUDAnimationZoom;
+    self.activityView.screenType = MBProgressHUDSectionScreen;
+    self.activityView.opacity = 0.5;
+    self.activityView.labelText = NSLocalizedStringFromTable(@"player.loading.more", @"mptplayer",nil);
+    [self  addSubview:self.activityView];
+    [self.activityView hide:YES];
+    
+    
+    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    singleTapGestureRecognizer.numberOfTapsRequired = 1;
+    singleTapGestureRecognizer.delegate = self;
+    [self.controlsView addGestureRecognizer:singleTapGestureRecognizer];
+    [singleTapGestureRecognizer release];
+
     
 }
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    [_layout layoutTopControlsViewWithControlStyle:self.controlStyle];
+    [_layout layoutBottomControlsViewWithControlStyle:self.controlStyle];
+    [_layout layoutControlsWithControlStyle:self.controlStyle];
+}
+
+
+////////////////////////////////////////////////////////////////////////
+#pragma makr property setting
+////////////////////////////////////////////////////////////////////////
+- (void)setDelegate:(id<HumLeavesDelegate>)delegate {
+    if (delegate != _delegate) {
+        _delegate = delegate;
+        
+        _delegateFlags.didBack = [delegate respondsToSelector:@selector(humLeavesBack:)];
+        
+    }
+}
+
+
+- (void)contentReadForRead{
+    [self.activityView show:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // 原代码块二
+        BOOL finish = [self stringParaseAgain];
+        if (finish) {
+            // 原代码块三
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                BOOL done = [self buildFrames];
+                if (done) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.activityView hide:YES];
+                        [self.leavesView reloadData];
+                    });
+                }else{
+                    NSLog(@"error when buildFrames");
+                }
+                
+            });
+        } else {
+            NSLog(@"error when stringParaseAgain");
+        }
+    });
+    
+}
+
+- (void)contentSettingAgain{
+    [self.activityView show:YES];
+    
+    self.frames = nil;
+    self.attributes = nil;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // 原代码块二
+        BOOL finish = [self stringParaseAgain];
+        if (finish) {
+            // 原代码块三
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                CTFrameRef curframe = [self.leavesView getCurentFrame];
+                CFRange curRange = CTFrameGetVisibleStringRange(curframe); //得到没有变化时候的字体的frame
+                
+                for (id temp in self.frames) {
+                    CFRelease((CTFrameRef)temp);
+                    temp = NULL;
+                }
+                
+                BOOL finish = [self buildFrames];
+                
+                if (finish) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.activityView hide:YES];
+                        int curPage = 0;
+                        for (id temp in self.frames) {  //重新计算原来的页面在新的参数下属于哪一页
+                            CTFrameRef frame = (CTFrameRef)temp;
+                            CFRange frameRange = CTFrameGetVisibleStringRange(frame);
+                            if (curRange.location+curRange.length/2>=frameRange.location && curRange.location+curRange.length/2<frameRange.location+frameRange.length) {
+                                break;
+                            }
+                            curPage++;
+                        }
+                        if (curPage >= self.attributes.count) {
+                            curPage = self.attributes.count - 1;
+                        }
+                        [self.leavesView flush];
+                        [self.leavesView setCurrentPageIndex:curPage];
+                        
+                    });
+                }else{
+                    NSLog(@"error when buildFrames");
+                }
+            });
+        } else {
+            NSLog(@"error when stringParaseAgain");
+        }
+    });
+    
+    
+}
+
+
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)tap {
+    if ((tap.state & UIGestureRecognizerStateRecognized) == UIGestureRecognizerStateRecognized) {
+        
+        [self setControlsVisible:!self.controlsVisible animated:YES];
+        
+    }
+}
+
+
+
+- (void)setControlsVisible:(BOOL)controlsVisible {
+    [self setControlsVisible:controlsVisible animated:NO];
+}
+
+- (void)setControlsVisible:(BOOL)controlsVisible animated:(BOOL)animated {
+    if (controlsVisible) {
+        [self bringSubviewToFront:self.controlsView];
+    } else {
+        //        [self.controlsView.volumeControl setExpanded:NO animated:YES];
+    }
+    
+    if (controlsVisible != _controlsVisible) {
+        _controlsVisible = controlsVisible;
+        
+        NSTimeInterval duration = animated ? kHumFadeDuration : 0.;
+        HumLeavesControlAction willAction = controlsVisible ? HumLeavesControlActionWillShowControls : HumLeavesControlActionWillHideControls;
+        HumLeavesControlAction didAction = controlsVisible ? HumLeavesControlActionDidShowControls : HumLeavesControlActionDidHideControls;
+        
+        [self humLeavesControl:self.controlsView didPerformAction:willAction];
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeOutControls) object:nil];
+        
+        __block HMLeavesPadView *weakSelf = self;
+        [UIView animateWithDuration:duration
+                              delay:0.
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             weakSelf->_controlsView.alpha = controlsVisible ? 1.f : 0.f;
+                         } completion:^(BOOL finished) {
+                             [weakSelf restartFadeOutControlsViewTimer];
+                             [weakSelf humLeavesControl:weakSelf->_controlsView didPerformAction:didAction];
+                             
+                             if (!controlsVisible) {
+                                 [self sendSubviewToBack:self.controlsView];
+                             }
+                             
+                             //self.controlsView.scrubberControl.layer.shouldRasterize = NO;
+                         }];
+        
+        if (self.controlStyle == HumLeavesControlStyleFullscreen) {
+            [[UIApplication sharedApplication] setStatusBarHidden:(!controlsVisible) withAnimation:UIStatusBarAnimationFade];
+        }
+    }
+}
+
+- (void)fadeOutControls {
+    if (_shouldHideControls) {
+        [self setControlsVisible:NO animated:YES];
+    }
+}
+
+
+- (void)setControlStyle:(HumLeavesControlStyle)controlStyle {
+    if (controlStyle != self.controlsView.controlStyle) {
+        self.controlsView.controlStyle = controlStyle;
+        
+        BOOL isIPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+        
+        // hide status bar in fullscreen, restore to previous state
+        if (controlStyle == HumLeavesControlStyleFullscreen) {
+            [[UIApplication sharedApplication] setStatusBarStyle: (isIPad ? UIStatusBarStyleBlackOpaque : UIStatusBarStyleBlackTranslucent)];
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarStyle:_statusBarStyle];
+            [[UIApplication sharedApplication] setStatusBarHidden:!_statusBarVisible withAnimation:UIStatusBarAnimationFade];
+        }
+    }
+    
+    self.controlsVisible = NO;
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark - HumLeavesControlActionDelegate
+////////////////////////////////////////////////////////////////////////
+
+- (void)humLeavesControl:(id)control didPerformAction:(HumLeavesControlAction)action {
+    [self stopFadeOutControlsViewTimer];
+    
+    switch (action) {
+        case HumLeavesControlActionBack:{
+            if (_delegateFlags.didBack) {
+                _shouldHideControls = FALSE;
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeOutControls) object:nil];
+                [self.delegate humLeavesPadBack:self];
+            }
+            break;
+            
+        }
+        case HumLeavesControlActionFontAdd:{
+            
+            _shouldHideControls = FALSE;
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeOutControls) object:nil];
+            self.fontAdd = 0.5f;
+            break;
+        }
+            
+        case HumLeavesControlActionFontCut:{
+            
+            _shouldHideControls = FALSE;
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeOutControls) object:nil];
+            self.fontAdd = -0.5f;
+            break;
+        }
+            
+            
+            
+        case HumLeavesControlActionWillShowControls: {
+            [self leavesWillShowControlsWithDuration:kHumFadeDuration];
+            [self restartFadeOutControlsViewTimer];
+            break;
+        }
+            
+        case HumLeavesControlActionDidShowControls: {
+            [self leavesDidShowControls];
+            [self restartFadeOutControlsViewTimer];
+            break;
+        }
+            
+        case HumLeavesControlActionWillHideControls: {
+            [self leavesWillHideControlsWithDuration:kHumFadeDuration];
+            [self restartFadeOutControlsViewTimer];
+            break;
+        }
+            
+        case HumLeavesControlActionDidHideControls: {
+            [self leavesDidHideControls];
+            [self restartFadeOutControlsViewTimer];
+            break;
+        }
+            
+            
+        default:
+            // do nothing
+            break;
+            
+    }
+}
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark - MptAVPlayer Subclass Hooks
+////////////////////////////////////////////////////////////////////////
+
+
+- (void)leavesWillShowControlsWithDuration:(NSTimeInterval)duration {
+    // do nothing here
+}
+
+- (void)leavesDidShowControls {
+    // do nothing here
+}
+
+- (void)leavesWillHideControlsWithDuration:(NSTimeInterval)duration {
+    // do nothing here
+}
+
+- (void)leavesDidHideControls {
+    // do nothing here
+}
+
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark - Controls
+////////////////////////////////////////////////////////////////////////
+
+- (void)stopFadeOutControlsViewTimer {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeOutControls) object:nil];
+}
+
+- (void)restartFadeOutControlsViewTimer {
+    [self stopFadeOutControlsViewTimer];
+    
+    [self performSelector:@selector(fadeOutControls) withObject:nil afterDelay:kHumControlVisibilityDuration];
+}
+
+
+
+
 
 
 #pragma makr property setting
@@ -180,33 +524,30 @@
     
     [_content release];
     _content = [acontent copy];
-    NSArray*keys = [self.asyImgViews allKeys];
     
-    if ([keys count]) {
-        for (id key in keys) {
-            NSArray *imgViewAry = [self.asyImgViews objectForKey:key];
-            if ([imgViewAry count]) {
-                for (AsyncImageView *img in imgViewAry) {
-                    img.delegate = nil;
-                    [img release];
-                    
-                }
-            }
-        }
-        self.asyImgViews = nil;
-        self.asyImgViews = [NSMutableDictionary dictionary];
-    }
+    self.asyImgViews = nil;
+    self.asyImgViews = [NSMutableDictionary dictionary];
+
     
+    
+    _shouldHideControls = TRUE;
+    
+    [self setControlsVisible:!self.controlsVisible animated:YES];
     
     
     self.transmitText = [self transformString:_content];
+    [self contentReadForRead];
     
-    [self stringParaseAgain];
-    //    [self.attString setFont:_characterFont];
     
-    [self buildFrames];
     
-    [self.leavesView reloadData];
+//    self.transmitText = [self transformString:_content];
+//    
+//    [self stringParaseAgain];
+//    //    [self.attString setFont:_characterFont];
+//    
+//    [self buildFrames];
+//    
+//    [self.leavesView reloadData];
     
 }
 
@@ -217,7 +558,7 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.view.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.view.bounds)-_offsetY-_bottomY);
+    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
     self.leavesView.frame = labFrame;
     
     [self propertySetAgain];
@@ -230,7 +571,7 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.view.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.view.bounds)-_offsetY-_bottomY);
+    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
     self.leavesView.frame = labFrame;
     
     [self propertySetAgain];
@@ -243,7 +584,7 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.view.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.view.bounds)-_offsetY-_bottomY);
+    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
     self.leavesView.frame = labFrame;
     
     [self propertySetAgain];
@@ -256,7 +597,7 @@
     if (!_content || _content.length == 0) {
         return;
     }
-    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.view.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.view.bounds)-_offsetY-_bottomY);
+    CGRect labFrame = CGRectMake(_offsetX, _offsetX, CGRectGetWidth(self.bounds)-_offsetX-_bottomX, CGRectGetHeight(self.bounds)-_offsetY-_bottomY);
     self.leavesView.frame = labFrame;
     [self propertySetAgain];
 }
@@ -348,13 +689,13 @@
 
 
 
-- (void)buildFrames //创建分页信息
+- (BOOL)buildFrames //创建分页信息
 {
     
     self.frames = [NSMutableArray array];
     self.attributes = [NSMutableArray array];
     CGMutablePathRef path = CGPathCreateMutable(); //2
-    CGRect textFrame = CGRectInset(self.view.bounds, _offsetX*2, _offsetY);
+    CGRect textFrame = CGRectInset(self.bounds, _offsetX*2, _offsetY);
     CGPathAddRect(path, NULL, textFrame );
     
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.attString);
@@ -381,6 +722,14 @@
         [self.attributes addObject:subString];
         [self.frames addObject: (id)frame];
         
+        if (frameRange.length == 0) {
+            BqsLog(@"Error When frameRange == 0");
+            CFRelease(path);
+            CFRelease(frame);
+            break;
+        }
+
+        
         //prepare for next frame
         textPos += frameRange.length;
         
@@ -391,14 +740,15 @@
     }
     
     _totalPageNum =  columnIndex/2+(columnIndex%2);
-    
+    return TRUE;
+
 }
 
 
-- (void)stringParaseAgain
+- (BOOL)stringParaseAgain
 {
     if (!_content || _content.length == 0) {
-        return;
+        return FALSE;
     }
     self.attString = nil;
     self.images = nil;
@@ -414,9 +764,10 @@
     self.images = p.images;
     self.linkes = p.linkeres; //链接
     
+    
     self.attString = [NSMutableAttributedString attributedStringWithAttributedString:self.attString];
     
-    [self ParagraphStyleAttributeSetting:self.attString];
+    return [self ParagraphStyleAttributeSetting:self.attString];
     
     
 }
@@ -461,7 +812,7 @@
 
 
 
-- (void)ParagraphStyleAttributeSetting:(NSMutableAttributedString *)attributeSting // 设置文章间隔距离
+- (BOOL)ParagraphStyleAttributeSetting:(NSMutableAttributedString *)attributeSting // 设置文章间隔距离
 {
     /*****设置字间距离*********/
     CGFloat number = _characterSpacing;
@@ -483,7 +834,12 @@
     lineSpaceStyle.valueSize = sizeof(lineSpace);
     lineSpaceStyle.value =&lineSpace;
     
-    
+    /*********设置行开始的位置********/
+    CGFloat lineHead = _offsetX;
+    CTParagraphStyleSetting lineHeadStyle;
+    lineHeadStyle.spec = kCTParagraphStyleSpecifierHeadIndent;
+    lineHeadStyle.valueSize = sizeof(lineHead);
+    lineHeadStyle.value =&lineHead;
     
     //设置文本段间距
     CGFloat paragraphSpacing = _paragraphSpacing;
@@ -496,6 +852,8 @@
     CTParagraphStyleRef style = CTParagraphStyleCreate(settings ,3);
     //给文本添加设置
     [attributeSting addAttribute:(id)kCTParagraphStyleAttributeName value:(id)style range:NSMakeRange(0 , [attributeSting length])];
+    
+    return TRUE;
 }
 
 
@@ -550,17 +908,17 @@
 	            runBounds.origin.y -= descent;
                 //NSLog(@"name %@",[nextImage objectForKey:@"fileName"]);
                 //                UIImage *img = [UIImage imageNamed: [nextImage objectForKey:@"fileName"] ];
-                NSString *imgStr = [nextImage objectForKey:@"fileName"];
+                NSString *imgStr = [nextImage objectForKey:kCTFileName];
                 //NSLog(@"img %@",img);
                 CGPathRef pathRef = CTFrameGetPath(f); //10
                 CGRect colRect = CGPathGetBoundingBox(pathRef);
                 CGRect imgBounds = CGRectOffset(runBounds, colRect.origin.x, colRect.origin.y);
                 
                 if(!left) //在右边
-                    imgBounds.origin.x = imgBounds.origin.x + self.view.bounds.size.width/2;
+                    imgBounds.origin.x = imgBounds.origin.x + self.bounds.size.width/2;
                 
                 //-->
-                NSString *type = [nextImage objectForKey:@"type"];
+                NSString *type = [nextImage objectForKey:kCTType];
                 [pagImgFrames  addObject: //11
                  [NSArray arrayWithObjects:imgStr, NSStringFromCGRect(imgBounds), type, nil]
                  ];
@@ -568,7 +926,7 @@
                 imgIndex++;
                 if (imgIndex < [self.images count]) {
                     nextImage = [self.images objectAtIndex: imgIndex];
-                    imgLocation = [[nextImage objectForKey: @"location"] intValue];
+                    imgLocation = [[nextImage objectForKey: kCTLocation] intValue];
                 }
                 
             }
@@ -594,18 +952,10 @@
     [self.paraImagesDictory setObject:imgFrams forKey:[NSNumber numberWithInt:index]];
     
     NSMutableArray *imgViewAry = [self.asyImgViews objectForKey:[NSNumber numberWithInt:index]];//case for load the async view more than one time in the same page
-    if(left){
-        if (imgViewAry) {
-            for (AsyncImageView *img in imgViewAry) {
-                img.delegate = nil;
-                [img release];
-            }
-            [imgViewAry removeAllObjects];
-        }
-        imgViewAry = nil;
-        imgViewAry = [NSMutableArray array];
-    }
-   
+    [imgViewAry removeAllObjects];
+    imgViewAry = nil;
+    imgViewAry = [NSMutableArray array];
+    
     
     for (NSArray* imageData in pagImgFrames )
     {
@@ -618,26 +968,37 @@
         //哥添加的代码
         CGFloat frameOrg = 0;
         if(!left)
-            frameOrg = self.view.bounds.size.width/2; //当是右侧的时候，frame 的 org 是半个屏幕
+            frameOrg = self.bounds.size.width/2; //当是右侧的时候，frame 的 org 是半个屏幕
         
-        CGRect rect = CGRectMake(imgBounds.origin.x, self.view.frame.size.height-imgBounds.origin.y-imgBounds.size.height, imgBounds.size.width, imgBounds.size.height);
+        CGRect rect = CGRectMake(imgBounds.origin.x, self.frame.size.height-imgBounds.origin.y-imgBounds.size.height, imgBounds.size.width, imgBounds.size.height);
         //        UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
         //        imageView.image = img;
         
         imgBounds.origin.x = imgBounds.origin.x - frameOrg;
-        if ([type isEqualToString:@"url"]) {
+        if ([type isEqualToString:kCTImgDefaultType]) {
             UIImage* img = [self.imgDic objectForKey:[imageData objectAtIndex:0]];
             if (!img) {
-                AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:rect];
-                imageView.delegate = self;
-                imageView.index = [NSNumber numberWithInt:index];
-                imageView.urlString = [imageData objectAtIndex:0];
+                HumWebImageView *imageView = [[HumWebImageView alloc] initWithFrame:rect];
+                imageView.imgDelegate = self;
+                imageView.style = HUMWebImageStyleTopCentre;
+                imageView.imgTag = index;
+                imageView.imgUrl = [imageData objectAtIndex:0];
                 [imgViewAry addObject:imageView];
+                [imageView release];
                 
+                img = imageView.downImage;
+                if(!img){
+                    img = [[Env sharedEnv] cacheScretchableImage:@"dota_default.png" X:10 Y:10];//default img
+                }else{
+                    [self.imgDic setObject:img forKey:[imageData objectAtIndex:0]];
+                     BqsLog(@"image set dic url : %@ ",[imageData objectAtIndex:0]);
+                }
+
             }
-            //            img = [UIImage imageNamed:[imageData objectAtIndex:0]];//default img
+            
             
             CGContextDrawImage(ctx, imgBounds, img.CGImage);
+            
             //            [imageView addTarget:self action:@selector(clickImage:) forControlEvents:UIControlEventTouchUpInside];
         }else {
             
@@ -686,10 +1047,13 @@
         //        imageView.image = img;
         
         
-        if ([type isEqualToString:@"url"]) {
+        if ([type isEqualToString:kCTImgDefaultType]) {
             UIImage* img = [self.imgDic objectForKey:[imageData objectAtIndex:0]];
             if (!img) {
-                
+                img = [[Env sharedEnv] cacheScretchableImage:@"dota_default.png" X:10 Y:10];//default img
+
+            }else{
+                BqsLog(@"reload image url :%@",[imageData objectAtIndex:0]);
             }
             CGContextDrawImage(ctx, imgBounds, img.CGImage);
             //            [imageView addTarget:self action:@selector(clickImage:) forControlEvents:UIControlEventTouchUpInside];
@@ -779,6 +1143,18 @@
 }
 
 
+#pragma mark AsyncImageView Delegate
+
+
+- (void)humWebImageDidDownloader:(HumWebImageView *)view image:(UIImage *)image{
+    int index = view.imgTag;
+    [self.imgDic setObject:image forKey:view.imgUrl];
+    BqsLog(@"image download url :%@",view.imgUrl);
+    [self.leavesView reloadCurrentPage:index];
+}
+
+
+
 
 
 #pragma mark  LeavesViewDelegate methods
@@ -791,7 +1167,7 @@
 
 - (int) eventTouchAtPoint:(CGPoint)point atPageIndex:(NSUInteger)pageIndex
 {
-    CGPoint framPoint = CGPointMake(point.x, self.view.frame.size.height - point.y);
+    CGPoint framPoint = CGPointMake(point.x, self.frame.size.height - point.y);
     NSMutableArray *imgFrams = [self.paraImagesDictory objectForKey:[NSNumber numberWithInt:pageIndex]];
     NSMutableArray *pageFrames = nil;
     if(imgFrams.count>0)
@@ -914,6 +1290,11 @@
 
     id subString = [self.attributes objectAtIndex:reallIndex];
     return (NSMutableAttributedString *)subString;
+}
+
+
+- (UIImage *)imageForBackground{
+    return [[Env sharedEnv] cacheImage:@"dota_read_bg.png"];
 }
 
 

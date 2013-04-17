@@ -13,18 +13,18 @@
 	<key>swtype</key>
 	<string>tvguide</string>
 	<key>itunes_app_id</key>
-	<string>537898385</string>
+	<string>637384723</string>
 	<key>app_download_url_forweibo</key>
 	<string>http://guide.mobee.tv</string>
 	<key>about_website</key>
-	<string>http://www.mobee.tv</string>
+	<string>待建</string>
 	<key>about_website_click</key>
 	<string>http://guide.mobee.tv</string>
 	<key>about_phone</key>
-	<string>0755-86369112</string>
+	<string>175763217</string>
 	<key>about_mail</key>
-	<string>kefu@mobee.tv</string>
+	<string>82978540@qq.com</string>
 	<key>help_phone</key>
-	<string>0755-86369112</string>
+	<string>82978540</string>
 </dict>
 </plist>

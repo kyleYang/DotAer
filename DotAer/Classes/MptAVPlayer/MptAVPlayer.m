@@ -262,19 +262,27 @@ static void *MptAVPlayerAirPlayVideoActiveContext = &MptAVPlayerAirPlayVideoActi
         if (_delegateFlags.didChangeStatus) {
             [self.delegate moviePlayer:self didChangeStatus:status];
         }  
-    }else if(context == MptAVPlayerItemLikelyToKeepUp){
-        NSLog(@"the MptAVPlayerItemLikelyToKeepUp is did");
-        [self.view hideActivityViewAnimated:YES];
-        [self play];
     }else if(context == MptAVPlayerItemBufferEmpty){
         NSLog(@"the MptAVPlayerItemBufferEmpty is did");
         [self.view showActivityViewAnimated:YES];
+        [self pause];
+    }else if(context == MptAVPlayerItemLikelyToKeepUp){
+        AVPlayerItem * item = (AVPlayerItem *)object;
+        NSLog(@"the MptAVPlayerItemLikelyToKeepUp is did");
+        
+        if(item.playbackLikelyToKeepUp) {
+            [self play];
+            NSLog(@"Play item due to likelyToKeepUp");
+        } else {
+            [self pause];
+            NSLog(@"Pause item due to likelyToKeepUp");
+        }
+        [self.view hideActivityViewAnimated:YES];
+    
     }else if (context == MptAVPlayerItemDurationContext) {
        
         [self.view updateWithCurrentTime:self.currentPlaybackTime duration:self.duration];
-    }
-    
-    else if (context == MptAVPlayerCurrentItemContext) {
+    }else if (context == MptAVPlayerCurrentItemContext) {
         AVPlayerItem *newPlayerItem = [change objectForKey:NSKeyValueChangeNewKey];
         
         if (newPlayerItem == (id)[NSNull null]) {
@@ -285,16 +293,13 @@ static void *MptAVPlayerAirPlayVideoActiveContext = &MptAVPlayerAirPlayVideoActi
             [self startObservingPlayerTimeChanges];
             self.videoGravity = _videoGravity;
         }
-    }
-    
-    else if (context == MptAVPlayerRateContext) {
+    }else if (context == MptAVPlayerRateContext) {
         [self.view updateWithPlaybackStatus:self.playing];
         
         if (_delegateFlags.didChangePlaybackRate) {
             [self.delegate moviePlayer:self didChangePlaybackRate:self.player.rate];
         }
-    }
-    else if (context == MptAVPlayerAirPlayVideoActiveContext) {
+    }else if (context == MptAVPlayerAirPlayVideoActiveContext) {
         if ([AVPlayer instancesRespondToSelector:@selector(isAirPlayVideoActive)]) {
             [self.view updateViewsForCurrentScreenState];
             
@@ -304,9 +309,7 @@ static void *MptAVPlayerAirPlayVideoActiveContext = &MptAVPlayerAirPlayVideoActi
                 [self.delegate moviePlayer:self didChangeAirPlayActive:airPlayVideoActive];
             }
         }
-    }
-    
-    else {
+    }else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }

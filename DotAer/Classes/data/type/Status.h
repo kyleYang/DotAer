@@ -15,6 +15,7 @@
 
 @property (nonatomic, assign) BOOL code;
 @property (nonatomic, copy) NSString *msg;
+@property (nonatomic, copy) NSString *passport;
 @property (nonatomic, assign) int totalPage;
 @property (nonatomic, assign) int curPage;
 

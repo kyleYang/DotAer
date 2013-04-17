@@ -159,7 +159,7 @@
     static NSString *cellIden = @"cellId";
     HumImageTableCell *cell = (HumImageTableCell *)[aTableView dequeueReusableCellWithIdentifier:cellIden];
     if (!cell) {
-        cell = [[HumImageTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+        cell = [[[HumImageTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden] autorelease];
     }
     cell.delegate = self;
     

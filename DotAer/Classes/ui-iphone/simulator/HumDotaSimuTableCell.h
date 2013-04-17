@@ -10,7 +10,9 @@
 
 @interface HumDotaSimuTableCell : UITableViewCell
 
-#define kSillWidth 250
+#define kBgHeigh 40
+#define kSillNameWidth 240
+#define kSillIntoWidht 290
 #define kNameFont [UIFont systemFontOfSize:17.0f]
 #define kIntroFont [UIFont systemFontOfSize:16.0f]
 #define kNoteFont [UIFont systemFontOfSize:14.0f]

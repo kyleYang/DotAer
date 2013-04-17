@@ -154,8 +154,8 @@
     static NSString *cellIden = @"cellId";
     HMCateOneTableCell *cell = (HMCateOneTableCell *)[tableView dequeueReusableCellWithIdentifier:cellIden];
     if (!cell) {
-        cell = [[HMCateOneTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
-    }
+        cell = [[[HMCateOneTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden] autorelease];
+    } 
     cell.delegate = self;
     
     if ([arrItem count] <= indexPath.row) {

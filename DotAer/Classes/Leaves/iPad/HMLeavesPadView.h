@@ -8,7 +8,11 @@
 #import "LeavesPadViewController.h"
 #import "OHAttributedLabel.h"
 
-@interface HMLeavesPadViewController : LeavesPadViewController
+#import "HumLeavesControlView.h"
+#import "HumLeavesControlStyle.h"
+
+@protocol HumLeavesDelegate;
+@interface HMLeavesPadView : UIView
 {
     CGFloat _offsetX;
     CGFloat _offsetY;
@@ -34,6 +38,17 @@
     
     
 }
+
+@property (nonatomic, assign) UIViewController *parentController;
+@property (nonatomic, assign) id<HumLeavesDelegate> delegate;
+/** The view that contains the controls and fades in/out */
+@property (nonatomic, retain, readonly) HumLeavesControlView *controlsView;
+
+@property (nonatomic, assign) HumLeavesControlStyle controlStyle;
+
+/** flag that indicates whether the player controls are currently visible. changes are made non-animated */
+@property (nonatomic, assign) BOOL controlsVisible;
+
 
 @property (nonatomic, assign) CGFloat offsetX; //边框X偏移值
 @property (nonatomic, assign) CGFloat offsetY; //边框Y偏移值

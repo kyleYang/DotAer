@@ -22,7 +22,13 @@
 #import "HumSettingView.h"
 #import "HumRightView.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "HumTypeConstant.h"
+#import "LeavesViewController.h"
+#import "HMImageViewController.h"
+#import "HumDotaUserCenterOps.h"
+#import "MptAVPlayerViewController.h"
+#import "HMPopMsgView.h"
+#import "HumDotaUIOps.h"
 #import "HumDotaMaco.h"
 
 #define kPanGuestureDistance 60
@@ -32,7 +38,7 @@
 #define kTimeInterval 0.6
 
 
-@interface HumDotaBaseViewController ()<HumDotaTopNavDelegate,HumDotaButtomNavDelgate,HumLeftBaseViewDelegate,HumRightBaseViewDelegate,DSDetailDelegate,HumBaseFrameDelegate>{
+@interface HumDotaBaseViewController ()<HumDotaTopNavDelegate,HumDotaButtomNavDelgate,HumLeftBaseViewDelegate,HumRightBaseViewDelegate,DSDetailDelegate,HumBaseFrameDelegate,MptAVPlayerViewController_Callback>{
     CGPoint _swipeBeg;
     CGPoint _swipeEnd;
     BOOL _swiped;
@@ -158,6 +164,109 @@
     [self.frameView.viewContent setNeedsLayout];
 }
 
+
+#pragma mark
+#pragma mark push notification 
+- (void)pushNotificationNews:(News *)info{
+    
+    switch (info.category) {
+        case HumDotaNewsTypeText:
+        {
+            LeavesViewController *leaves = [[[LeavesViewController alloc] initWithArtUrl:info.content articeId:info.newsId articlMd5:info.md5] autorelease];
+            [HumDotaUIOps slideShowModalViewControler:leaves ParentVCtl:self];
+        }
+            break;
+        case HumDotaNewsTypeImages:
+        {
+            NSMutableArray *arry = [NSMutableArray arrayWithCapacity:10];
+            NSMutableArray *sumAry = [NSMutableArray arrayWithCapacity:10];
+            for (NewsImg *newsImg in info.imgeArry) {
+                
+                               [arry addObject:newsImg.url ];
+                [sumAry addObject:newsImg.introduce];
+            }
+            
+            HMImageViewController *image = [[[HMImageViewController alloc] initWithImgArray:arry SumArray:sumAry] autorelease];
+            image.modalPresentationStyle = UIModalPresentationFullScreen;
+            [HumDotaUIOps slideShowModalViewControler:image ParentVCtl:self];
+            
+        }
+            break;
+        case HumDotaNewsTypeVideo:
+        {
+            
+            BOOL haveNet = [HumDotaUserCenterOps BoolValueForKey:kDftHaveNetWork];
+            if (!haveNet) {
+                [HMPopMsgView showAlterError:nil Msg:NSLocalizedString(@"title.nonetwork.cannot.paly", nil) Delegate:nil];
+                return;
+            }
+            
+            BOOL isWifi = [HumDotaUserCenterOps BoolValueForKey:kDftNetTypeWifi];
+            if (!isWifi) {
+                return;
+            }
+            NSString *titleName = info.title;
+            NSArray *nameAry = [info.title componentsSeparatedByString:@"]"];
+            if (nameAry && nameAry.count>0) {
+                titleName = [nameAry lastObject];
+            }
+            
+            
+            MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:info.content name:titleName] autorelease];
+            play.call_back = self;
+            [self presentModalViewController:play animated:YES];
+        }
+            
+            break;
+        default:
+            break;
+    }
+
+    
+}
+
+
+#pragma mark -
+#pragma mark MptAVPlayerViewController_Callback
+- (void)MptAVPlayerViewController:(MptAVPlayerViewController *)ctl didFinishWithResult:(MptAVPlayerResult)result error:(NSError *)error{
+    
+    BqsLog(@"MptAVPlayerViewController didFinished result = %d",result);
+    
+    
+    NSString *resultString = @"";
+    
+    switch (result) {
+        case MptAVPlayerCancelled:
+            resultString = NSLocalizedString(@"detail.progrome.player.cancle", nil);
+            break;
+        case MptAVPlayerFinished:
+            resultString = NSLocalizedString(@"detail.progrome.player.fininsh", nil);
+            break;
+        case MptAVPlayerURLError:
+            resultString = NSLocalizedString(@"detail.progrome.player.urleror", nil);
+            break;
+        case MptAVPlayerFailed:
+            resultString = NSLocalizedString(@"detail.progrome.player.failed", nil);
+            break;
+        default:
+            break;
+    }
+    
+    NSString *osVersion = [UIDevice currentDevice].systemVersion;
+    if ([osVersion floatValue] >= 5.0) {
+        [ctl dismissViewControllerAnimated:YES completion:^(void){
+            [HMPopMsgView showPopMsg:resultString];
+        }];
+    }else{
+        [ctl dismissModalViewControllerAnimated:YES];
+        [self performSelector:@selector(messageNotice:) withObject:[[resultString retain] autorelease] afterDelay:0.2];
+    }
+    
+}
+
+- (void)messageNotice:(NSString *)message{
+    [HMPopMsgView showPopMsg:message];
+}
 
 
 

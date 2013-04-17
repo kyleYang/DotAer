@@ -16,8 +16,8 @@
 #import "MptScrubber.h"
 
 
-#define kButtomBtWidht 60
-#define kButtomBtHeigh 50
+#define kButtomBtWidht 40
+#define kButtomBtHeigh 40
 
 
 static NSString *AirPlayAvailabilityChanged = @"AirPlayAvailabilityChanged";
@@ -37,6 +37,7 @@ static NSString *AirPlayAlpha = @"alpha";
 @property (nonatomic, retain, readwrite) UIView *topControlsView;
 @property (nonatomic, retain, readwrite) UIView *bottomControlsView;
 @property (nonatomic, retain, readwrite) UIView *topControlsContainerView;
+@property (nonatomic, retain, readwrite) UIImageView *buttomControlsContainerView;
 
 @property (nonatomic, retain, readwrite) MptScrubber *scrubberControl;
 @property (nonatomic, retain, readwrite) UILabel *currentTimeLabel;
@@ -63,6 +64,7 @@ static NSString *AirPlayAlpha = @"alpha";
 @synthesize topControlsView = _topControlsView;
 @synthesize bottomControlsView = _bottomControlsView;
 @synthesize topControlsContainerView = _topControlsContainerView;
+@synthesize buttomControlsContainerView = _buttomControlsContainerView;
 @synthesize scrubberControl = _scrubberControl;
 @synthesize currentTimeLabel = _currentTimeLabel;
 @synthesize totalTimeLabel = _totalTimeLabel;
@@ -86,6 +88,7 @@ static NSString *AirPlayAlpha = @"alpha";
     MptSafeRelease(_topControlsView);
     MptSafeRelease(_bottomControlsView);
     MptSafeRelease(_topControlsContainerView);
+    MptSafeRelease(_buttomControlsContainerView);
     MptSafeRelease(_scrubberControl);
     MptSafeRelease(_currentTimeLabel);
     MptSafeRelease(_totalTimeLabel);
@@ -129,6 +132,12 @@ static NSString *AirPlayAlpha = @"alpha";
         _bottomControlsView.backgroundColor = [UIColor clearColor];
         [self addSubview:_bottomControlsView];
         
+        _buttomControlsContainerView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _buttomControlsContainerView.backgroundColor = [UIColor clearColor];
+        _buttomControlsContainerView.userInteractionEnabled = YES;
+        [_bottomControlsView addSubview:_buttomControlsContainerView];
+
+        
         // volume control needs to get added to self instead of bottomControlView because otherwise the expanded slider
         // doesn't receive any touch events
         
@@ -164,42 +173,42 @@ static NSString *AirPlayAlpha = @"alpha";
         
         
         _playPauseControl = [UIButton buttonWithType:UIButtonTypeCustom];
-        _playPauseControl.frame = CGRectMake(0.f, 0.f, 95, kButtomBtHeigh);
+        _playPauseControl.frame = CGRectMake(0.f, 0.f, 40, kButtomBtHeigh);
         _playPauseControl.contentMode = UIViewContentModeCenter;
         _playPauseControl.showsTouchWhenHighlighted = YES;
         _playPauseControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
         [_playPauseControl addTarget:self action:@selector(handlePlayPauseButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-        [_bottomControlsView addSubview:_playPauseControl];
+        [_buttomControlsContainerView addSubview:_playPauseControl];
         _playPauseControl.backgroundColor = [UIColor clearColor];
         
         
         _rewindControl = [UIButton buttonWithType:UIButtonTypeCustom];
-        _rewindControl.frame = CGRectMake(95.f, 0.f, 70, kButtomBtHeigh);
+        _rewindControl.frame = CGRectMake(95.f, 0.f, 40, kButtomBtHeigh);
         _rewindControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
         _rewindControl.showsTouchWhenHighlighted = YES;
         [_rewindControl setImage:[UIImage imageNamed:@"NGMoviePlayer.bundle/prevtrack"] forState:UIControlStateNormal];
         [_rewindControl addTarget:self action:@selector(handleRewindButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
         [_rewindControl addTarget:self action:@selector(handleRewindButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
         [_rewindControl addTarget:self action:@selector(handleRewindButtonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
-        [_bottomControlsView addSubview:_rewindControl];
+//        [_bottomControlsView addSubview:_rewindControl];
 
         
         _forwardControl = [UIButton buttonWithType:UIButtonTypeCustom];
-        _forwardControl.frame = CGRectMake(95.f, 0.f, 70, kButtomBtHeigh);
+        _forwardControl.frame = CGRectMake(95.f, 0.f, 40, kButtomBtHeigh);
         _forwardControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
         _forwardControl.showsTouchWhenHighlighted = YES;
         [_forwardControl setImage:[UIImage imageNamed:@"NGMoviePlayer.bundle/nexttrack"] forState:UIControlStateNormal];
         [_forwardControl addTarget:self action:@selector(handleForwardButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
         [_forwardControl addTarget:self action:@selector(handleForwardButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
         [_forwardControl addTarget:self action:@selector(handleForwardButtonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
-        [_bottomControlsView addSubview:_forwardControl];
+        [_buttomControlsContainerView addSubview:_forwardControl];
         
         
         
-        _volumeControl = [[MptVolumeControl alloc] initWithFrame:CGRectMake(0, 0, 180, 50)];
+        _volumeControl = [[MptVolumeControl alloc] initWithFrame:CGRectMake(0, 0, 180, 40)];
         _volumeControl.delegate = self;
         _volumeControl.backgroundColor = [UIColor clearColor];
-        [_bottomControlsView addSubview:_volumeControl];
+        [_buttomControlsContainerView addSubview:_volumeControl];
         
         // We use the MPVolumeView just for displaying the AirPlay icon
         _isAirPlayAvailable = FALSE;
@@ -232,7 +241,7 @@ static NSString *AirPlayAlpha = @"alpha";
            
             [_airPlayControlContainer addTarget:self action:@selector(handleAirPlayButtonPress:) forControlEvents:UIControlEventTouchUpInside];
             [_airPlayControlContainer addSubview:_airPlayControl];
-            [_bottomControlsView addSubview:_airPlayControlContainer];
+            [_buttomControlsContainerView addSubview:_airPlayControlContainer];
         }
 
         

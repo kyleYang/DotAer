@@ -14,8 +14,19 @@
 @interface HumDotaNetOps : NSObject
 
 
+//push notification
++(int)uploadToken:(NSString *)token Downloader:(Downloader *)dl Target:(id)target PkgFile:(PackageFile *)pkf Sel:(SEL)action Attached:(id)att;
++(int)lastPushNotificationDownloader:(Downloader *)dl Target:(id)target PkgFile:(PackageFile *)pkf Sel:(SEL)action Attached:(id)att;
+
 //image 转码
 + (NSString *)imageConvert:(NSString  *)url width:(NSString *)widht heigh:(NSString *)heigh;
+
+//user
++(int)logoinDownloader:(Downloader *)dl username:(NSString *)name password:(NSString *)password PkgFile:(PackageFile *)pkf Target:(id)target  Sel:(SEL)action Attached:(id)att;
++(int)registerDownloader:(Downloader *)dl username:(NSString *)name password:(NSString *)password eMail:(NSString *)email PkgFile:(PackageFile *)pkf Target:(id)target  Sel:(SEL)action Attached:(id)att;
+
++(int)changePasswordDownloader:(Downloader *)dl username:(NSString *)name newPassword:(NSString *)password oldPassword:(NSString *)oldPass PkgFile:(PackageFile *)pkf Target:(id)target  Sel:(SEL)action Attached:(id)att;
++(int)changePasswordDownloader:(Downloader *)dl username:(NSString *)name newPassword:(NSString *)password eMail:(NSString *)email PkgFile:(PackageFile *)pkf Target:(id)target  Sel:(SEL)action Attached:(id)att;
 
 //news
 +(int)newsMessageDownloader:(Downloader *)dl Target:(id)target Sel:(SEL)action Attached:(id)att page:(int)page;

@@ -13,6 +13,9 @@
 #import "iVersion.h"
 #import "Reachability.h"
 #import "HumDotaUserCenterOps.h"
+#import "Downloader.h"
+#import "HumDotaNetOps.h"
+#import "News.h"
 
 
 @interface HumAppDelegate()<EnvProtocol>{
@@ -20,7 +23,7 @@
 }
 
 @property (nonatomic, retain) Env *theEnv;
-
+@property (nonatomic, retain) Downloader *downloader;
 
 @end
 
@@ -34,6 +37,8 @@
     [_managedObjectContext release];
     [_managedObjectModel release];
     [_persistentStoreCoordinator release];
+    [self.downloader cancelAll];
+    self.downloader = nil;
     self.theEnv = nil;
     self.viewController = nil;
     [super dealloc];
@@ -44,6 +49,7 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize viewController;
 @synthesize theEnv;
+@synthesize downloader;
 
 
 + (void)initialize
@@ -64,22 +70,42 @@
     [iRate sharedInstance].appStoreID = [[Env sharedEnv].itunesAppId intValue];
     [iVersion sharedInstance].appStoreID = [[Env sharedEnv].itunesAppId intValue];
     
+    self.downloader = [[[Downloader alloc] init] autorelease];
+    self.downloader.bSearialLoad = YES;
+    
+    
+    NSDictionary* payload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (payload)
+    {
+        [self startDownloadingDataFromProvider];
+    }
+
+    
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
   
     
     if (!self.theEnv.bIsPad) {
-         self.viewController = [[[HumDotaBaseViewController alloc] initWithNibName:nil bundle:nil] autorelease];
-         self.viewController.managedObjectContext = self.managedObjectContext;
+        HumDotaBaseViewController *ctl = [[HumDotaBaseViewController alloc] initWithNibName:nil bundle:nil];
+        ctl.managedObjectContext = self.managedObjectContext;
+        self.viewController = ctl;
+        [ctl release];
     }else{
-       
+        HumPadDotaBaseViewController *ctl = [[HumPadDotaBaseViewController alloc] initWithNibName:nil bundle:nil];
+        ctl.managedObjectContext = self.managedObjectContext;
+        self.viewController = ctl;
+        [ctl release];
     }
     
     
     self.window.rootViewController = self.viewController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    //register for push notificcations....
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound)];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -89,8 +115,125 @@
     _hostReach = [[Reachability reachabilityWithHostName:@"www.baidu.com"] retain];
     [_hostReach startNotifier];
     
+
+        
+    application.applicationIconBadgeNumber = 0;
+    
     return YES;
 }
+
+
+//data from provide
+- (void)startDownloadingDataFromProvider{
+    [HumDotaNetOps lastPushNotificationDownloader:self.downloader Target:self PkgFile:nil Sel:@selector(didFinishDownload:) Attached:nil];
+}
+
+- (void)sendProviderDeviceToken:(NSString *)token{
+    [HumDotaNetOps uploadToken:token Downloader:self.downloader Target:self PkgFile:nil Sel:@selector(didFinishedPost:) Attached:nil];
+}
+
+#pragma mark 
+#pragma mark download callback
+- (void)didFinishDownload:(DownloaderCallbackObj *)cb{
+    if(nil == cb) return;
+    
+    if(nil != cb.error || 200 != cb.httpStatus) {
+		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
+        return;
+	}
+    NSArray *arry = [News parseXmlData:cb.rspData];
+    if (!arry|| arry.count == 0) {
+        BqsLog(@"!arry|| arry.count == 0");
+        return;
+    }
+    News *news = [arry objectAtIndex:0];
+    
+    if (!self.theEnv.bIsPad) {
+        HumDotaBaseViewController *ctl = (HumDotaBaseViewController *)self.viewController;
+        [ctl pushNotificationNews:news];
+        
+    }else {
+//        HumPadDotaBaseViewController *ctl =(HumPadDotaBaseViewController *)self.viewController;
+       
+    }
+
+}
+
+
+- (void)didFinishedPost:(DownloaderCallbackObj *)cb{
+    if(nil == cb) return;
+    
+    if(nil != cb.error || 200 != cb.httpStatus) {
+		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
+        return;
+	}
+}
+
+
+
+
+//notification
+
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    
+   
+    NSString *newString =  [[[deviceToken description]
+                             stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]]
+                            stringByReplacingOccurrencesOfString:@" "
+                            withString:@""];
+    [self sendProviderDeviceToken:newString]; // custom method
+     NSLog(@"devicetoken : %@",newString);
+    
+}
+
+
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+     NSLog(@"didFailToRegisterForRemoteNotificationsWithError");
+    
+}
+
+
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError");
+    
+    NSLog(@"remote notification: %@",[userInfo description]);
+    NSString* alertStr = nil;
+    NSDictionary *apsInfo = [userInfo objectForKey:@"aps"];
+    NSObject *alert = [apsInfo objectForKey:@"alert"];
+    if ([alert isKindOfClass:[NSString class]])
+    {
+        alertStr = (NSString*)alert;
+    }
+    else if ([alert isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary* alertDict = (NSDictionary*)alert;
+        alertStr = [alertDict objectForKey:@"body"];
+    }
+    application.applicationIconBadgeNumber = application.applicationIconBadgeNumber+[[apsInfo objectForKey:@"badge"] integerValue];
+    if ([application applicationState] == UIApplicationStateActive && alertStr != nil)
+    {
+//        "button.cancle" = "取消";
+//        "button.sure" = "确定";
+       
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:nil message:alertStr delegate:self cancelButtonTitle:NSLocalizedString(@"button.sure", nil) otherButtonTitles:NSLocalizedString(@"button.cancle", nil),nil];
+        [alertView show];
+        [alertView release];
+    }
+    
+}
+
+
+//alter delegate
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    
+    if(buttonIndex == 0){
+        [self startDownloadingDataFromProvider];
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    }
+    
+}
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

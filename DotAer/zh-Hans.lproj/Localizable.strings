@@ -85,6 +85,15 @@
 "dota.simu.save.equip.error" = "解析物品装备数据出错,请重试";
 "dota.simu.save.data.ok" = "解析数据成功,您可以使用最新版模拟器了";
 
+"dota.simu.equip.name" = "装备名字: ";
+"dota.simu.equip.desrip" = "简介: ";
+"dota.simu.equip.mataril" = "原材料: ";
+"dota.simu.equip.upgade" = "可升级: ";
+"dota.simu.equip.mual" = "需要合成书: ";
+"dota.simu.equip.mual.need" = "需要";
+"dota.simu.equip.mual.noneed" = "不需要";
+"dota.simu.equip.null" = "无";
+
 //pull down
 "dota.pulling.fresh" = "松开刷新";
 "dota.pullup.fresh" = "下拉刷新";
@@ -131,18 +140,45 @@
 "setting.feedback.nousername.format" = "用户: 匿名%d";
 "setting.feedback.time.format" = "时间: %@";
 
+
+//logoin
+"user.acount.logoin.title" = "登录";
+"user.acount.logoin.name" = "用户名";
+"user.acount.logoin.passowrd" = "密码";
+"user.acount.logoin.btn" = "登录";
+"user.acount.logoin.register" = "注册";
+"user.acount.logoin.logoining" = "登陆中...";
+
+//register
+"user.acount.register.username" = "大于四位,不包涵特殊字符";
+
 //mass clean
 "massclean.navigation.title" = "缓存管理";
 "massclean.mass.image" = "清空图片缓存";
 "massclean.mass.article" = "清空文章缓存";
 "massclean.mass.other" = "清空其他缓存";
 
+//about
+"about.view.title" = "关于";
+"about.segbtn.introduce.title" = "产品介绍";
+"about.segbtn.agreement.title" = "特别感谢";
+"about.version.title" = "版本:";
+"about.web.key" = "官网 : ";
+"about.phone.key" = "客服QQ群 : ";
+"about.email.key" = "客服邮箱 : ";
+"about.copyright.key" = "版权所有 : ";
+"about.copyright.value" = "TeamWE工作室";
+"about.product.introduce" = "我是DOTAer 是几个DOTA爱好者为广大DOTA玩家开发的一款集视频观看，攻略研究，图片欣赏以及英雄模拟的应用，目的是提供给所有爱好DOTA一个便捷的获取相关资讯，怀念曾经拥有过得快乐时光。无兄弟，不DOTA！最终解释权归TeamWE工作室所有。";
+
+
+
 //network
 "title.error.nonetwork" = "网络断开链接";
 "title.nonetwork.cannot.paly" = "您已经断开网络,无法播放";
-"title.network.3G.play" = "您正在使用 3G 网络,会消耗教多流量,是否继续观看?";
+"title.network.3G.play" = "您正在使用 3G 网络,会消耗较多流量,是否继续观看?";
 
 //alter
+"button.cancle" = "取消";
 "button.sure" = "确定";
 "button.back" = "返回";
 

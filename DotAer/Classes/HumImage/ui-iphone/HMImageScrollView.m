@@ -135,7 +135,7 @@ if(x > pageWidth * 2) x = 0.0f;\
         
         
         self.summaryBg = [[[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds), CGRectGetWidth(self.bounds), 0)] autorelease];
-        self.summaryBg.backgroundColor = [UIColor clearColor];
+        self.summaryBg.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.6f];
         [self addSubview:self.summaryBg];
         
         self.summary = [[[UILabel alloc] initWithFrame:CGRectMake(kSumOrgX, kSumOrgY, CGRectGetWidth(self.summaryBg.frame)-2*kSumOrgX, CGRectGetHeight(self.summaryBg.frame))] autorelease];
@@ -347,7 +347,7 @@ if(x > pageWidth * 2) x = 0.0f;\
     
     CGRect frame = self.summaryBg.frame;
     frame.size.height = size.height + 2*kSumOrgY+kIndicatorHeigh+kTDGap;
-    frame.origin.y = CGRectGetHeight(self.bounds)-frame.size.height;
+    frame.origin.y = CGRectGetHeight(self.bounds)-frame.size.height-20;
     self.summaryBg.frame = frame;
     
     frame = self.summary.frame;

@@ -52,7 +52,7 @@
 - (void)setSetFont:(NSString *)asetFont
 {
     [_setFont release];
-    _setFont = [asetFont copy];
+    _setFont = [asetFont retain];
     self.font = _setFont;
 }
 

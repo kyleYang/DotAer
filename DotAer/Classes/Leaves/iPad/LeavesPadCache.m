@@ -92,11 +92,24 @@
                                                  kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     CGColorSpaceRelease(colorSpace);
     
+        
     CGContextClipToRect(context, CGRectMake(0, 0, _pageSize.width*scale, _pageSize.height*scale));
     CGContextScaleCTM(context, scale, scale);
-    CGRect imgBounds = CGRectMake(0, 0, _pageSize.width/2, _pageSize.height);
+    
+    CGRect imgBounds = CGRectMake(0, 0, _pageSize.width, _pageSize.height); //background image
+    UIImage *backgroundImg;
+    if (dataSource && [dataSource respondsToSelector:@selector(imageForBackground)]) {
+        backgroundImg = [dataSource imageForBackground];
+    }
+    if(nil != backgroundImg) {
+        CGContextDrawImage(context, imgBounds, backgroundImg.CGImage);
+    }
+    
+    imgBounds = CGRectMake(0, 0, _pageSize.width/2, _pageSize.height); //left page
     CGContextDrawImage(context, imgBounds, leftRef);
-    imgBounds = CGRectMake(_pageSize.width/2, 0, _pageSize.width/2, _pageSize.height);
+    
+    
+    imgBounds = CGRectMake(_pageSize.width/2, 0, _pageSize.width/2, _pageSize.height); // right page
     CGContextDrawImage(context, imgBounds, rightRef);
     
     

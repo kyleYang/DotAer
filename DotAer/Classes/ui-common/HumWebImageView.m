@@ -93,8 +93,8 @@
     [self displayImage:image];
 
     self.downImage = image;
-    if (self.imgDelegate && [self.imgDelegate respondsToSelector:@selector(humWebImageDidDownloader:image:)]) {
-        [self.imgDelegate humWebImageDidDownloader:self image:image];
+    if (self.imgDelegate && [self.imgDelegate respondsToSelector:@selector(humWebImageDidLoad:image:)]) {
+        [self.imgDelegate humWebImageDidLoad:self image:image];
     }
     [_acty stopAnimating];
     
@@ -134,8 +134,8 @@
     }
     [self displayImage:image];
     self.downImage = image;
-    if (self.imgDelegate && [self.delegate respondsToSelector:@selector(humWebImageDidDownloader:image:)]) {
-        [self.imgDelegate humWebImageDidDownloader:self image:image];
+    if (self.imgDelegate && [self.delegate respondsToSelector:@selector(humWebImageDidLoad:image:)]) {
+        [self.imgDelegate humWebImageDidLoad:self image:image];
     }
     [_acty stopAnimating];
     
@@ -204,8 +204,8 @@
         [_acty stopAnimating];
         [self displayImage:image];
         self.downImage = image;
-        if (self.imgDelegate && [self.imgDelegate respondsToSelector:@selector(humWebImageDidDownloader:image:)]) {
-            [self.imgDelegate humWebImageDidDownloader:self image:image];
+        if (self.imgDelegate && [self.imgDelegate respondsToSelector:@selector(humWebImageDidLoad:image:)]) {
+            [self.imgDelegate humWebImageDidLoad:self image:image];
         }
         return;
     }

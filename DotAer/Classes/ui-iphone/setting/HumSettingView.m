@@ -15,6 +15,8 @@
 #import "HumMassCleanViewController.h"
 #import "HumDotaUIOps.h"
 #import "HumFeedbackViewController.h"
+#import "HMLogoinViewController.h"
+#import "HumAboutViewController.h"
 
 @interface HumSettingView()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -34,6 +36,7 @@
 @property (nonatomic, retain) HMLeftRightTextCell *cellAbout;
 
 @property (nonatomic, retain) NSArray *arrSectionTitles; // NSString
+@property (nonatomic, retain) NSArray *arrSectionImages; // NSString
 @property (nonatomic, retain) NSArray *arrTableCells; // NSArray(NSArray(Cell))
 
 @end
@@ -43,7 +46,7 @@
 @synthesize tableView;
 @synthesize cellMyAccount;
 @synthesize cellClean,cellCheckNewVersion,cellFeedback,cellAppCommit,cellAppRecommend,cellAbout;
-@synthesize arrSectionTitles,arrTableCells;
+@synthesize arrSectionTitles,arrSectionImages,arrTableCells;
 
 - (void)dealloc{
     self.tableView = nil;
@@ -56,6 +59,7 @@
     self.cellAbout = nil;
     self.arrSectionTitles = nil;
     self.arrTableCells = nil;
+    self.arrSectionImages = nil;
     [super dealloc];
 }
 
@@ -67,6 +71,8 @@
         // create subviews
         // table view
         
+        self.backgroundColor = [UIColor colorWithRed:75.0f/255.0f green:64.0f/255.0f blue:59.0f/255.0f alpha:1.0f];
+        
         CGRect rct = CGRectMake(0, 20, CGRectGetWidth(self.bounds)-kMainLeftViewRightGap, CGRectGetHeight(self.bounds)-20);
         
         self.tableView = [[[UITableView alloc] initWithFrame:rct style:UITableViewStylePlain] autorelease];
@@ -74,6 +80,7 @@
         self.tableView.dataSource = self;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.tableView.separatorColor = [UIColor clearColor];
+        self.tableView.backgroundColor = [UIColor colorWithRed:75.0f/255.0f green:64.0f/255.0f blue:59.0f/255.0f alpha:1.0f];
         [self addSubview:self.tableView];
         
         
@@ -145,17 +152,17 @@
             
             [arrOther addObject:self.cellAppCommit];
         }
-        
-        {
-            self.cellAppRecommend = [[[HMLeftRightTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"24"] autorelease];
-            
-            self.cellAppRecommend.lblLeft.text = NSLocalizedString(@"setting.main.other.apprecommend", nil);
-            self.cellAppRecommend.lblRight.hidden = YES;
-            self.cellAppRecommend.imgDisclosure.hidden = NO;
-            self.cellAppRecommend.paddingHori = kPaddingHori;
-            
-            [arrOther addObject:self.cellAppRecommend];
-        }
+        // no recommen
+//        {  
+//            self.cellAppRecommend = [[[HMLeftRightTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"24"] autorelease];
+//            
+//            self.cellAppRecommend.lblLeft.text = NSLocalizedString(@"setting.main.other.apprecommend", nil);
+//            self.cellAppRecommend.lblRight.hidden = YES;
+//            self.cellAppRecommend.imgDisclosure.hidden = NO;
+//            self.cellAppRecommend.paddingHori = kPaddingHori;
+//            
+//            [arrOther addObject:self.cellAppRecommend];
+//        }
 
         
         {
@@ -171,14 +178,27 @@
                 
                             
                 
+//        self.arrSectionTitles = [NSArray arrayWithObjects:
+//                                 NSLocalizedString(@"setting.main.section.basic", nil),
+//                                 NSLocalizedString(@"setting.main.section.other", nil),
+//                                 nil];
+//        self.arrSectionImages = [NSArray arrayWithObjects:@"setting_user_icon.png",@"setting_user_other.png", nil];
+//        self.arrTableCells = [NSArray arrayWithObjects:
+//                              arrBasic,
+//                              arrOther,
+//                              nil];
+//        
+        
+        //no user
         self.arrSectionTitles = [NSArray arrayWithObjects:
-                                 NSLocalizedString(@"setting.main.section.basic", nil),
                                  NSLocalizedString(@"setting.main.section.other", nil),
                                  nil];
+        self.arrSectionImages = [NSArray arrayWithObjects:@"setting_user_other.png", nil];
         self.arrTableCells = [NSArray arrayWithObjects:
-                              arrBasic,
                               arrOther,
                               nil];
+
+        
 
 
        
@@ -197,7 +217,7 @@
     return 44.0;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 23.0;
+    return 30.0;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -242,12 +262,15 @@
     Env *env = [Env sharedEnv];
     
     UIView *v = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 23)] autorelease];
-    v.backgroundColor = [UIColor clearColor];
+    v.backgroundColor = [UIColor colorWithRed:145.0f/255.0f green:117.0f/255.0f blue:98.0f/255.0f alpha:1.0f];
     
-    UIImageView *iv = [[[UIImageView alloc] initWithImage:[env cacheScretchableImage:@"main_setting_section_bg.png" X:1 Y:10]] autorelease];
-    iv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    iv.frame = v.bounds;
+    UIImageView *iv = [[[UIImageView alloc] initWithImage:[env cacheImage:[self.arrSectionImages objectAtIndex:section]]] autorelease];
+//    iv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [v addSubview:iv];
+    CGRect frame = iv.frame;
+    frame.origin.x = 20;
+    frame.origin.y = 5;
+    iv.frame = frame;
     
     UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     lbl.backgroundColor = [UIColor clearColor];
@@ -255,7 +278,7 @@
     lbl.font = [UIFont systemFontOfSize:14];
     lbl.text = [self.arrSectionTitles objectAtIndex:section];
     [lbl sizeToFit];
-    lbl.center = CGPointMake(CGRectGetMidX(lbl.frame) + 17, CGRectGetMidY(v.bounds));
+    lbl.center = CGPointMake(CGRectGetMidX(lbl.frame) + 50, CGRectGetMidY(v.bounds));
     [v addSubview:lbl];
     
     return v;
@@ -266,6 +289,8 @@
 #define kCellMethod
 -(void)onClickMyAccount {
     BqsLog(@"onClickMyAccount");
+    HMLogoinViewController *loginVC = [[[HMLogoinViewController alloc] init] autorelease];
+    [HumDotaUIOps slideShowModalViewInNavControler:loginVC ParentVCtl:self.parCtl];
 }
 
 -(void)onClickCellClean {
@@ -300,6 +325,8 @@
 
 -(void)onClickAbout {
     BqsLog(@"onClickAbout");
+    HumAboutViewController *about = [[[HumAboutViewController alloc] init] autorelease];
+    [HumDotaUIOps slideShowModalViewInNavControler:about ParentVCtl:self.parCtl];
 }
 
 

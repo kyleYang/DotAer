@@ -45,6 +45,7 @@
     self = [super initWithDotaCatFrameViewCtl:ctl Frame:frame];
     if (nil == self) return nil;
     
+    self.backgroundColor = [UIColor colorWithRed:117.0f/255.0f green:95.0f/255.0f blue:81.0f/255.0f alpha:1.0f];
     
     self.managedObjectContext = manager;
     // create subview
@@ -113,7 +114,7 @@
     
     CGSize frameSize = [_selectHero.heroStory sizeWithFont:self.headView.heroHistrory.font constrainedToSize:CGSizeMake(300, 800) lineBreakMode:UILineBreakModeWordWrap];
     frame = self.headView.heroHistrory.frame;
-    frame.origin.y = CGRectGetMaxY(self.headView.equipSimu.frame)+10;
+    frame.origin.y = CGRectGetMaxY(self.headView.additionIntelligence.frame)+20;
     frame.size.height = frameSize.height;
     self.headView.heroHistrory.frame = frame;
     self.headView.heroHistrory.text = _selectHero.heroStory;
@@ -205,22 +206,22 @@
     }
     
     cell.skillImg.image = [SimuImageHelp imageForHeroSN:_selectHero.heroSN WithFileName:[arrItem objectAtIndex:0]];
-    CGFloat cellHeigh = 0.0f;
+    CGFloat cellHeigh = 10.0f;
 
     
     NSString *descript = [arrItem objectAtIndex:1];
     CGSize frameSize = [descript sizeWithFont:cell.skillName.font constrainedToSize:CGSizeMake(CGRectGetWidth(cell.skillName.frame), 800) lineBreakMode:UILineBreakModeWordWrap];
     CGRect frame  = cell.skillName.frame;
-    frame.size.height = frameSize.height;
+    frame.size.height = kBgHeigh;
     cell.skillName.frame = frame;
     cell.skillName.text = descript;
     
-    cellHeigh +=frameSize.height;
+    cellHeigh +=kBgHeigh+kCellGap;
     
     descript = [arrItem objectAtIndex:2];
     frameSize = [descript sizeWithFont:cell.skillIntro.font constrainedToSize:CGSizeMake(CGRectGetWidth(cell.skillIntro.frame), 800) lineBreakMode:UILineBreakModeWordWrap];
     frame  = cell.skillIntro.frame;
-    frame.origin.y = CGRectGetMaxY(cell.skillName.frame)+kCellGap;
+    frame.origin.y = cellHeigh+kCellGap;
     frame.size.height = frameSize.height;
     cell.skillIntro.frame = frame;
     cell.skillIntro.text = descript;
@@ -289,6 +290,9 @@
     frame = cell.frame;
     frame.size.height = cellHeigh;
     cell.frame = frame;
+    
+    cellHeigh +=5;
+    
     return cell;
 
 
@@ -347,44 +351,44 @@
     }
 
     
-    CGFloat cellHeigh = 0.0f;
+    CGFloat cellHeigh = 10.0f;
     
     NSString *descript = [arrItem objectAtIndex:1];
-    CGSize frameSize = [descript sizeWithFont:kNameFont constrainedToSize:CGSizeMake(kSillWidth, 800) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize frameSize = [descript sizeWithFont:kNameFont constrainedToSize:CGSizeMake(kSillNameWidth, 800) lineBreakMode:UILineBreakModeWordWrap];
         
-    cellHeigh +=frameSize.height;
+    cellHeigh += kBgHeigh+kCellGap;
     
     descript = [arrItem objectAtIndex:2];
-    frameSize = [descript sizeWithFont:kIntroFont constrainedToSize:CGSizeMake(kSillWidth, 800) lineBreakMode:UILineBreakModeWordWrap];
+    frameSize = [descript sizeWithFont:kIntroFont constrainedToSize:CGSizeMake(kSillIntoWidht, 800) lineBreakMode:UILineBreakModeWordWrap];
     cellHeigh +=frameSize.height+kCellGap;
     
     descript = [arrItem objectAtIndex:3];
-    frameSize = [descript sizeWithFont:kNoteFont constrainedToSize:CGSizeMake(kSillWidth, 800) lineBreakMode:UILineBreakModeWordWrap];
+    frameSize = [descript sizeWithFont:kNoteFont constrainedToSize:CGSizeMake(kSillIntoWidht, 800) lineBreakMode:UILineBreakModeWordWrap];
     
     cellHeigh +=frameSize.height+kCellGap;
     
     
     
     descript = [arrItem objectAtIndex:4];
-    frameSize = [descript sizeWithFont:kLevel1Font constrainedToSize:CGSizeMake(kSillWidth, 800) lineBreakMode:UILineBreakModeWordWrap];
+    frameSize = [descript sizeWithFont:kLevel1Font constrainedToSize:CGSizeMake(kSillIntoWidht, 800) lineBreakMode:UILineBreakModeWordWrap];
     cellHeigh +=frameSize.height+kCellGap;
     
     descript = [arrItem objectAtIndex:5];
-    frameSize = [descript sizeWithFont:kLevel2Font constrainedToSize:CGSizeMake(kSillWidth, 800) lineBreakMode:UILineBreakModeWordWrap];
+    frameSize = [descript sizeWithFont:kLevel2Font constrainedToSize:CGSizeMake(kSillIntoWidht, 800) lineBreakMode:UILineBreakModeWordWrap];
     cellHeigh +=frameSize.height+kCellGap;
     
     descript = [arrItem objectAtIndex:6];
-    frameSize = [descript sizeWithFont:kLevel3Font constrainedToSize:CGSizeMake(kSillWidth, 800) lineBreakMode:UILineBreakModeWordWrap];
+    frameSize = [descript sizeWithFont:kLevel3Font constrainedToSize:CGSizeMake(kSillIntoWidht, 800) lineBreakMode:UILineBreakModeWordWrap];
     cellHeigh +=frameSize.height+kCellGap;
     
 
     descript = [arrItem objectAtIndex:7];
     if (descript.length == 0) {
     }else{
-        frameSize = [descript sizeWithFont:kLevel4Font constrainedToSize:CGSizeMake(kSillWidth, 800) lineBreakMode:UILineBreakModeWordWrap];
+        frameSize = [descript sizeWithFont:kLevel4Font constrainedToSize:CGSizeMake(kSillIntoWidht, 800) lineBreakMode:UILineBreakModeWordWrap];
         cellHeigh +=frameSize.height+kCellGap;
     }
-    
+    cellHeigh +=5;
     
     return cellHeigh;
 }

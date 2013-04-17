@@ -10,16 +10,15 @@
 #import "LeavesPadView.h"
 #import "OHAttributedLabel.h"
 
-@interface LeavesPadViewController : UIViewController <LeavesPadViewDataSource, LeavesPadViewDelegate,OHAttributedLabelDelegate> {
-	LeavesPadView *leavesView;
-    
-}
+@interface LeavesPadViewController : UIViewController
 
-@property (nonatomic, retain) LeavesPadView *leavesView;
-// added by Lnkd.com?24 - use designated initializer to avoid continuous loop when loaded from NIB
-- (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle;
+- (id)initWithLocalPath:(NSString *)path;
 
-- (id)init;
+- (id)initWithString:(NSString *)string;
+
+- (id)initWithArtUrl:(NSString *)url articeId:(NSString *)artId;
+
+- (id)initWithArtUrl:(NSString *)url articeId:(NSString *)artId articlMd5:(NSString *)md5;
 
 @end
 

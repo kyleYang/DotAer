@@ -8,14 +8,15 @@
 
 #import "HumDotaSimuTableHeadView.h"
 #import "BqsUtils.h"
+#import "Env.h"
 
 #define kItemWidth 30
 #define kItemHeigh 30
 
-#define kLabelWidth 60
-#define kLebelHeigh 15
+#define kLabelWidth 110
+#define kLebelHeigh 17
 
-#define kValueWidth 30
+#define kValueWidth 70
 #define kAddtionWidth 40
 
 
@@ -44,11 +45,7 @@
     
 }
 
-@property (nonatomic, retain) UILabel *additionDamage;
-@property (nonatomic, retain) UILabel *additionArmor;
-@property (nonatomic, retain) UILabel *additionStrength;
-@property (nonatomic, retain) UILabel *additionAgility;
-@property (nonatomic, retain) UILabel *additionIntelligence;
+
 
 @end
 
@@ -110,50 +107,72 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        _heroNameEn = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, CGRectGetWidth(frame), 15)];
+        _heroNameEn = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, CGRectGetWidth(frame), 25)];
         _heroNameEn.textAlignment = UITextAlignmentCenter;
-        _heroNameEn.font = [UIFont systemFontOfSize:14];
+        _heroNameEn.font = [UIFont systemFontOfSize:16];
         _heroNameEn.backgroundColor = [UIColor clearColor];
+        _heroNameEn.textColor = [UIColor whiteColor];
         [self addSubview:_heroNameEn];
         
         _grade = 1;
         
-        UIButton *buttonDown = [[UIButton alloc] initWithFrame:CGRectMake(25, CGRectGetMaxY(_heroNameEn.frame), 20, 20)];
-        buttonDown.backgroundColor = [UIColor redColor];
+        
+        UIImageView *titleImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_heroNameEn.frame), 300, 35)];
+        titleImage.image = [[Env sharedEnv] cacheScretchableImage:@"simu_grade_bg.png" X:30 Y:10];
+        [self addSubview:titleImage];
+        titleImage.userInteractionEnabled = YES;
+        [titleImage release];
+        
+        UIButton *buttonDown = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 30, CGRectGetHeight(titleImage.frame))];
+        buttonDown.backgroundColor = [UIColor clearColor];
+        [buttonDown setBackgroundImage:[[Env sharedEnv] cacheImage:@"simu_grade_down.png"] forState:UIControlStateNormal];
+        buttonDown.showsTouchWhenHighlighted = YES;
         [buttonDown addTarget:self action:@selector(gradeDown:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:buttonDown];
+        [titleImage addSubview:buttonDown];
         [buttonDown release];
         
-        _heroGrade = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(buttonDown.frame)+20, CGRectGetMinY(buttonDown.frame), 70, 20)];
-        _heroGrade.font = [UIFont systemFontOfSize:12];
+        _heroGrade = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(buttonDown.frame)+20, CGRectGetMinY(buttonDown.frame), 70, CGRectGetHeight(titleImage.frame))];
+        _heroGrade.font = [UIFont systemFontOfSize:14];
         _heroGrade.backgroundColor = [UIColor clearColor];
-        [self addSubview:_heroGrade];
+        _heroGrade.textColor = [UIColor whiteColor];
+        [titleImage addSubview:_heroGrade];
         
-        _heroNameCN = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_heroGrade.frame)+10, CGRectGetMinY(buttonDown.frame), 120, 20)];
-        _heroNameCN.font = [UIFont systemFontOfSize:12];
+        _heroNameCN = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_heroGrade.frame)+10, CGRectGetMinY(buttonDown.frame), 120, CGRectGetHeight(titleImage.frame))];
+        _heroNameCN.font = [UIFont systemFontOfSize:15];
         _heroNameCN.backgroundColor = [UIColor clearColor];
-        [self addSubview:_heroNameCN];
+        _heroNameCN.textColor = [UIColor whiteColor];
+        [titleImage addSubview:_heroNameCN];
         
-        UIButton *buttonUp = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_heroNameCN.frame ), CGRectGetMinY(buttonDown.frame), 20, 20)];
-        buttonUp.backgroundColor = [UIColor redColor];
+        UIButton *buttonUp = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(titleImage.frame)-50, CGRectGetMinY(buttonDown.frame), 30,  CGRectGetHeight(titleImage.frame))];
+        buttonUp.backgroundColor = [UIColor clearColor];
+        [buttonUp setBackgroundImage:[[Env sharedEnv] cacheImage:@"simu_grade_up.png"] forState:UIControlStateNormal];
+        buttonUp.showsTouchWhenHighlighted = YES;
         [buttonUp addTarget:self action:@selector(gradeUp:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:buttonUp];
+        [titleImage addSubview:buttonUp];
         [buttonUp release];
         
-        _heroHead = [[UIImageView alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(_heroNameCN.frame)+30, 80, 80)];
+        _heroHead = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(titleImage.frame), CGRectGetMaxY(titleImage.frame)+10, 80, 80)];
         [self addSubview:_heroHead];
         
-        _HPLeb = [[UILabel alloc] initWithFrame:CGRectMake(30, 100, 100, 15)];
+        _HPLeb = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_heroHead.frame), CGRectGetMaxY(_heroHead.frame), CGRectGetWidth(_heroHead.frame), 20)];
         _HPLeb.textAlignment = UITextAlignmentCenter;
-        _HPLeb.font = [UIFont systemFontOfSize:12];
+        _HPLeb.font = [UIFont systemFontOfSize:14];
+        _HPLeb.textColor = [UIColor whiteColor];
         _HPLeb.backgroundColor = [UIColor clearColor];
         [self addSubview:_HPLeb];
         
-        _MPLeb = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_HPLeb.frame), CGRectGetMaxY(_HPLeb.frame), 100, 15)];
+        _MPLeb = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_HPLeb.frame), CGRectGetMaxY(_HPLeb.frame), CGRectGetWidth(_HPLeb.frame), CGRectGetHeight(_HPLeb.frame))];
         _MPLeb.textAlignment = UITextAlignmentCenter;
-        _MPLeb.font = [UIFont systemFontOfSize:12];
+        _MPLeb.font = [UIFont systemFontOfSize:14];
+        _MPLeb.textColor = [UIColor whiteColor];
         _MPLeb.backgroundColor = [UIColor clearColor];
         [self addSubview:_MPLeb];
+        
+        
+        _equipSimu = [[DSEquipView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(titleImage.frame)-180, CGRectGetMaxY(titleImage.frame)+10, 180, 120)];
+        _equipSimu.backgroundColor = [UIColor clearColor];
+        _equipSimu.delegate = self;
+        [self addSubview:_equipSimu];
         
                
 //        "dota.simu.damage" = "攻击力";
@@ -163,14 +182,15 @@
 //        "dota.simu.inteli" = "智力";
         
         //damege
-        UIImageView *damageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_heroHead.frame)+5,CGRectGetMaxY(_heroNameCN.frame)+20,kItemWidth,kItemHeigh)];
+        UIImageView *damageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(_heroHead.frame)+5,CGRectGetMaxY(_MPLeb.frame)+25,kItemWidth,kItemHeigh)];
         damageView.image = [UIImage imageNamed:@"dota_dam.jpg"];
         [self addSubview:damageView];
         [damageView release];
 
-        UILabel *damLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(damageView.frame)+5,CGRectGetMinY(damageView.frame),kLabelWidth,kLebelHeigh)];
+        UILabel *damLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(damageView.frame)+8,CGRectGetMinY(damageView.frame),kLabelWidth,kLebelHeigh)];
         damLable.backgroundColor = [UIColor clearColor];
         damLable.font = [UIFont systemFontOfSize:14.0f];
+        damLable.textColor = [UIColor whiteColor];
         damLable.text = NSLocalizedString(@"dota.simu.damage", nil);
         [self addSubview:damLable];
         [damLable release];
@@ -178,6 +198,7 @@
         _damage = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(damLable.frame), CGRectGetMaxY(damLable.frame)+3, kValueWidth, 20)];
         _damage.font = [UIFont systemFontOfSize:12.0f];
         _damage.backgroundColor = [UIColor clearColor];
+        _damage.textColor = [UIColor whiteColor];
         [self addSubview:_damage];
         
         self.additionDamage = [[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_damage.frame), CGRectGetMinY(_damage.frame), kValueWidth, 20)] autorelease];
@@ -196,6 +217,7 @@
         UILabel *armorLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(armorView.frame)+6,CGRectGetMinY(armorView.frame),kLabelWidth,kLebelHeigh)];
         armorLable.backgroundColor = [UIColor clearColor];
         armorLable.font = [UIFont systemFontOfSize:14.0f];
+        armorLable.textColor = [UIColor whiteColor];
         armorLable.text = NSLocalizedString(@"dota.simu.armor", nil);
         [self addSubview:armorLable];
         [armorLable release];
@@ -203,6 +225,7 @@
         _armor = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_damage.frame), CGRectGetMaxY(armorLable.frame)+3, kValueWidth, 20)];
         _armor.font = [UIFont systemFontOfSize:14.0f];
         _armor.backgroundColor = [UIColor clearColor];
+        _armor.textColor = [UIColor whiteColor];
         [self addSubview:_armor];
         
         self.additionArmor = [[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_armor.frame), CGRectGetMinY(_armor.frame), kValueWidth, 20)] autorelease];
@@ -212,7 +235,7 @@
         [self addSubview:self.additionArmor];
         
         //strength
-        UIImageView *strengthView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(damLable.frame)+15,CGRectGetMinY(damageView.frame),kItemWidth,kItemHeigh)];
+        UIImageView *strengthView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(damLable.frame),CGRectGetMinY(damageView.frame),kItemWidth,kItemHeigh)];
         strengthView.image = [UIImage imageNamed:@"dota_stren.jpg"];
         [self addSubview:strengthView];
         [strengthView release];
@@ -222,11 +245,14 @@
         strengthLable.font = [UIFont systemFontOfSize:14.0f];
         strengthLable.text = NSLocalizedString(@"dota.simu.strength", nil);
         [self addSubview:strengthLable];
+        strengthLable.textColor = [UIColor whiteColor];
         [strengthLable release];
 
         _strength = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(strengthLable.frame), CGRectGetMaxY(strengthLable.frame), kValueWidth, kLebelHeigh)];
         _strength.font = [UIFont systemFontOfSize:12.0f];
         _strength.backgroundColor = [UIColor clearColor];
+        _strength.textColor = [UIColor whiteColor];
+
         [self addSubview:_strength];
         
         
@@ -241,11 +267,13 @@
         UIImageView *agilityView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(strengthView.frame),CGRectGetMaxY(_strength.frame)+10,kItemWidth,kItemHeigh)];
         agilityView.image = [UIImage imageNamed:@"dota_algo.jpg"];
         [self addSubview:agilityView];
+         
         [agilityView release];
         
         UILabel *agilityLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(strengthLable.frame),CGRectGetMinY(agilityView.frame),kLabelWidth,kLebelHeigh)];
         agilityLable.backgroundColor = [UIColor clearColor];
         agilityLable.font = [UIFont systemFontOfSize:14.0f];
+        agilityLable.textColor = [UIColor whiteColor];
         agilityLable.text = NSLocalizedString(@"dota.simu.algor", nil);
         [self addSubview:agilityLable];
         [agilityLable release];
@@ -253,6 +281,7 @@
         _agility = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(agilityLable.frame), CGRectGetMaxY(agilityLable.frame)+3, kValueWidth, kLebelHeigh)];
         _agility.font = [UIFont systemFontOfSize:12.0f];
         _agility.backgroundColor = [UIColor clearColor];
+        _agility.textColor = [UIColor whiteColor];
         [self addSubview:_agility];
         
         self.additionAgility = [[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_agility.frame), CGRectGetMinY(_agility.frame), kAddtionWidth, 20)] autorelease];
@@ -272,12 +301,14 @@
         intelligenceLable.font = [UIFont systemFontOfSize:14.0f];
         intelligenceLable.text = NSLocalizedString(@"dota.simu.inteli", nil);
         [self addSubview:intelligenceLable];
+        intelligenceLable.textColor = [UIColor whiteColor];
         [intelligenceLable release];
 
         
         _intelligence = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(intelligenceLable.frame), CGRectGetMaxY(intelligenceLable.frame)+6, kValueWidth, kLebelHeigh)];
         _intelligence.font = [UIFont systemFontOfSize:12.0f];
         _intelligence.backgroundColor = [UIColor clearColor];
+        _intelligence.textColor = [UIColor whiteColor];
         [self addSubview:_intelligence];
         
         
@@ -289,17 +320,14 @@
         
         
         //
-        _equipSimu = [[DSEquipView alloc] initWithFrame:CGRectMake(50, 200, 180, 120)];
-        _equipSimu.backgroundColor = [UIColor clearColor];
-        _equipSimu.delegate = self;
-        [self addSubview:_equipSimu];
-        
+       
 
-        _heroHistrory = [[UILabel alloc] initWithFrame:CGRectMake(10, 400, CGRectGetWidth(self.frame)-20, 10)];
+        _heroHistrory = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(armorView.frame)+20, CGRectGetWidth(self.frame)-20, 10)];
         _heroHistrory.font = [UIFont systemFontOfSize:15.0f];
         _heroHistrory.lineBreakMode = UILineBreakModeWordWrap;
         _heroHistrory.numberOfLines = 0;
         _heroHistrory.backgroundColor = [UIColor clearColor];
+        _heroHistrory.textColor = [UIColor whiteColor];
         [self addSubview:_heroHistrory];
         
         _addHP = 0;

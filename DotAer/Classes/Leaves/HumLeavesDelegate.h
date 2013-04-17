@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HMLeavesView.h"
+#import "HMLeavesPadView.h"
 
 
 @class HMLeavesView;
@@ -17,6 +18,8 @@
 @optional
 
 - (void)humLeavesBack:(HMLeavesView *)leaves;
+
+- (void)humLeavesPadBack:(HMLeavesPadView *)leaves;
 
 @end
 
