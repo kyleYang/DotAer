@@ -9,9 +9,9 @@
 	<key>host</key>
 	<string>42.96.151.160</string>
 	<key>service_entry_url</key>
-	<string>/phone/tvguide</string>
+	<string>/phone/DotAer</string>
 	<key>swtype</key>
-	<string>tvguide</string>
+	<string>DotAer</string>
 	<key>itunes_app_id</key>
 	<string>637384723</string>
 	<key>app_download_url_forweibo</key>
