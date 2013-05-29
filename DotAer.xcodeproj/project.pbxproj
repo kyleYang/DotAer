@@ -55,47 +55,50 @@
 		311A117D171E3CF500A3740B /* about_button_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 311A117B171E3CF500A3740B /* about_button_selected@2x.png */; };
 		311A117E171E3CF500A3740B /* about_button_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 311A117C171E3CF500A3740B /* about_button_normal@2x.png */; };
 		311A1180171E437900A3740B /* agreement_cn.txt in Resources */ = {isa = PBXBuildFile; fileRef = 311A117F171E437900A3740B /* agreement_cn.txt */; };
+		311C81DD1750A11800D8686E /* MptContentScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C81DA1750A11800D8686E /* MptContentScrollView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		311C81DE1750A11800D8686E /* MptCotentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C81DC1750A11800D8686E /* MptCotentCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		311C81E91750A67D00D8686E /* HumLeftRevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C81E81750A67D00D8686E /* HumLeftRevelViewController.m */; };
+		311C81ED1750ACD500D8686E /* MptTouchScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C81EC1750ACD500D8686E /* MptTouchScrollView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		311C81F01750AE4400D8686E /* HumDotaNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C81EF1750AE4400D8686E /* HumDotaNewsViewController.m */; };
+		311C81F31750B50A00D8686E /* HumDotaRevealBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C81F21750B50900D8686E /* HumDotaRevealBaseViewController.m */; };
+		311C81F61750D56E00D8686E /* HumDotaNoSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C81F51750D56D00D8686E /* HumDotaNoSplitViewController.m */; };
+		311C81F91750D58900D8686E /* HumDotaSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C81F81750D58700D8686E /* HumDotaSplitViewController.m */; };
+		311C81FC1750D7D400D8686E /* MptCatScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C81FB1750D7D400D8686E /* MptCatScrollView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		311C81FF1750F8C700D8686E /* HumDotaVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C81FE1750F8C700D8686E /* HumDotaVideoViewController.m */; };
+		311C82021751844100D8686E /* HumDotaImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C82011751844000D8686E /* HumDotaImageViewController.m */; };
+		311C8205175186E000D8686E /* HumDotaStrategyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C8204175186E000D8686E /* HumDotaStrategyViewController.m */; };
+		311C820817518B2600D8686E /* HumDotaSimuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C820717518B2600D8686E /* HumDotaSimuViewController.m */; };
 		31281BBC170DAA4A0058E6DC /* SVWebViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31281BB0170DAA4A0058E6DC /* SVWebViewController.strings */; };
 		31281BBD170DAA4A0058E6DC /* SVModalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31281BB6170DAA4A0058E6DC /* SVModalWebViewController.m */; };
 		31281BBE170DAA4A0058E6DC /* SVWebViewController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 31281BB7170DAA4A0058E6DC /* SVWebViewController.bundle */; };
 		31281BBF170DAA4A0058E6DC /* SVWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31281BB9170DAA4A0058E6DC /* SVWebViewController.m */; };
+		312FB086174BB8A000261D25 /* PKRevealController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FB081174BB89F00261D25 /* PKRevealController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		312FB087174BB8A000261D25 /* PKRevealControllerContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FB083174BB89F00261D25 /* PKRevealControllerContainerView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		312FB088174BB8A000261D25 /* UIViewController+PKRevealController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FB085174BB89F00261D25 /* UIViewController+PKRevealController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		313DF58E16AD8DDB003886EF /* HumDotaUserCenterOps.m in Sources */ = {isa = PBXBuildFile; fileRef = 313DF58D16AD8DDB003886EF /* HumDotaUserCenterOps.m */; };
-		313DF59216AD9B6F003886EF /* HumDotaCatOneBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313DF59116AD9B6F003886EF /* HumDotaCatOneBaseView.m */; };
 		313DF59516AD9B8A003886EF /* HumDotaCateTowBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313DF59416AD9B8A003886EF /* HumDotaCateTowBaseView.m */; };
-		313DF59816AD9C5F003886EF /* HumDotaBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313DF59716AD9C5F003886EF /* HumDotaBaseViewController.m */; };
 		313DF5AD16AEE0F3003886EF /* HumDotaBaseFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 313DF5AC16AEE0F3003886EF /* HumDotaBaseFrame.m */; };
 		313DF5B216AEE33E003886EF /* HumDotaTopNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 313DF5B116AEE33E003886EF /* HumDotaTopNav.m */; };
 		313DF5B516AEE371003886EF /* HumDotaButtomNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 313DF5B416AEE371003886EF /* HumDotaButtomNav.m */; };
 		313DF5C016AEE66B003886EF /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313DF5BB16AEE66B003886EF /* CustomNavigationBar.m */; };
 		313DF5C116AEE66B003886EF /* CustomUIBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 313DF5BD16AEE66B003886EF /* CustomUIBarButtonItem.m */; };
 		314E4139170176F500B83BD6 /* DotAer.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 314E4138170176F500B83BD6 /* DotAer.sqlite */; };
-		3153A5B817144CB2003C30AA /* HumDotaPadStrategyCateOneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3153A5B317144CB2003C30AA /* HumDotaPadStrategyCateOneView.m */; };
-		3153A5B917144CB2003C30AA /* HumDotaPadStrategyCateTwoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3153A5B517144CB2003C30AA /* HumDotaPadStrategyCateTwoView.m */; };
-		3153A5BA17144CB2003C30AA /* HumPadStrategyTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3153A5B717144CB2003C30AA /* HumPadStrategyTableCell.m */; };
 		31568BA517042FB1000D8CDC /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 31568BA217042FB1000D8CDC /* iRate.bundle */; };
 		31568BA617042FB1000D8CDC /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 31568BA417042FB1000D8CDC /* iRate.m */; };
 		31568BAC17044238000D8CDC /* iVersion.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 31568BA917044238000D8CDC /* iVersion.bundle */; };
 		31568BAD17044238000D8CDC /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 31568BAB17044238000D8CDC /* iVersion.m */; };
-		31678AB21711AEAF0044209A /* HumDotaPadButtomNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A481711AEAF0044209A /* HumDotaPadButtomNav.m */; };
-		31678AB71711AEAF0044209A /* HumDotaPadBaseFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A521711AEAF0044209A /* HumDotaPadBaseFrame.m */; };
-		31678AB81711AEAF0044209A /* HumPadDotaBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A541711AEAF0044209A /* HumPadDotaBaseViewController.m */; };
-		31678ABA1711AEAF0044209A /* HumDotaPadCateTowBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A581711AEAF0044209A /* HumDotaPadCateTowBaseView.m */; };
-		31678ABB1711AEAF0044209A /* HumDotaPadCateTwoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A5A1711AEAF0044209A /* HumDotaPadCateTwoTableView.m */; };
-		31678ABC1711AEAF0044209A /* HumDotaPadCatOneBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A5C1711AEAF0044209A /* HumDotaPadCatOneBaseView.m */; };
-		31678ABD1711AEAF0044209A /* HumDotaPadCatOneSplit.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A5E1711AEAF0044209A /* HumDotaPadCatOneSplit.m */; };
-		31678ABF1711AEAF0044209A /* HumPadLeftBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A621711AEAF0044209A /* HumPadLeftBaseView.m */; };
-		31678AC01711AEAF0044209A /* HumPadRightBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A641711AEAF0044209A /* HumPadRightBaseView.m */; };
-		31678AC11711AEAF0044209A /* HumDotaPadNewsCateOneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A671711AEAF0044209A /* HumDotaPadNewsCateOneView.m */; };
-		31678AC21711AEAF0044209A /* HumDotaPadNewsCateTwoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A691711AEAF0044209A /* HumDotaPadNewsCateTwoView.m */; };
-		31678AC31711AEAF0044209A /* HumPadNewsTxtCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678A6B1711AEAF0044209A /* HumPadNewsTxtCell.m */; };
-		31678AE31711B04B0044209A /* HumDotaPadTopNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678AE21711B04B0044209A /* HumDotaPadTopNav.m */; };
-		31678AE51711BDCE0044209A /* HumDotaPadCateOneNoSplit.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678AE41711BDCD0044209A /* HumDotaPadCateOneNoSplit.m */; };
-		31678AEE1712536C0044209A /* HumDotaPadVideoCateOneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678AEA1712536C0044209A /* HumDotaPadVideoCateOneView.m */; };
-		31678AEF1712536C0044209A /* HumVideoPadTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678AEC1712536C0044209A /* HumVideoPadTableCell.m */; };
-		31678AF2171253B10044209A /* HumDotaPadVideCateTwoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31678AF1171253B10044209A /* HumDotaPadVideCateTwoView.m */; };
+		318F152E1755F92500E6FB69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 318F151B1755F92500E6FB69 /* InfoPlist.strings */; };
+		318F152F1755F92500E6FB69 /* M3U8ExtXStreamInf.m in Sources */ = {isa = PBXBuildFile; fileRef = 318F151E1755F92500E6FB69 /* M3U8ExtXStreamInf.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		318F15301755F92500E6FB69 /* M3U8ExtXStreamInfList.m in Sources */ = {isa = PBXBuildFile; fileRef = 318F15201755F92500E6FB69 /* M3U8ExtXStreamInfList.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		318F15311755F92500E6FB69 /* M3U8Kit-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 318F15211755F92500E6FB69 /* M3U8Kit-Info.plist */; };
+		318F15321755F92500E6FB69 /* M3U8Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 318F15251755F92500E6FB69 /* M3U8Parser.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		318F15331755F92500E6FB69 /* M3U8SegmentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 318F15271755F92500E6FB69 /* M3U8SegmentInfo.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		318F15341755F92500E6FB69 /* M3U8SegmentInfoList.m in Sources */ = {isa = PBXBuildFile; fileRef = 318F15291755F92500E6FB69 /* M3U8SegmentInfoList.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		318F15351755F92500E6FB69 /* NSString+m3u8.m in Sources */ = {isa = PBXBuildFile; fileRef = 318F152B1755F92500E6FB69 /* NSString+m3u8.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		318F15361755F92500E6FB69 /* NSURL+m3u8.m in Sources */ = {isa = PBXBuildFile; fileRef = 318F152D1755F92500E6FB69 /* NSURL+m3u8.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		318F4C7117088A21008F7714 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 318F4C7017088A21008F7714 /* iTunesArtwork */; };
 		319A5B6416BECD4200C33620 /* HumRightBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A5B6316BECD4200C33620 /* HumRightBaseView.m */; };
-		319A5B6816BED00200C33620 /* HumRightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A5B6716BED00200C33620 /* HumRightView.m */; };
+		319A5B6816BED00200C33620 /* HumRightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A5B6716BED00200C33620 /* HumRightViewController.m */; };
 		319A5B9216C1DE9C00C33620 /* mptplayer.strings in Resources */ = {isa = PBXBuildFile; fileRef = 319A5B6E16C1DE9B00C33620 /* mptplayer.strings */; };
 		319A5B9316C1DE9C00C33620 /* MptAVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A5B7116C1DE9B00C33620 /* MptAVPlayer.m */; };
 		319A5B9416C1DE9C00C33620 /* MptAVPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A5B7716C1DE9B00C33620 /* MptAVPlayerControlView.m */; };
@@ -140,7 +143,6 @@
 		31B1DE7B16EF6FE100C2B77C /* dota_title_scr_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B1DE7816EF6FE100C2B77C /* dota_title_scr_bg@2x.png */; };
 		31B1DE7C16EF6FE100C2B77C /* dota_cell_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B1DE7916EF6FE100C2B77C /* dota_cell_select@2x.png */; };
 		31B1DE8216F0047700C2B77C /* dota_video_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B1DE8116F0047700C2B77C /* dota_video_play@2x.png */; };
-		31B9234216FC4F73004DB449 /* HumDotaStrategyCateOneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B9234116FC4F73004DB449 /* HumDotaStrategyCateOneView.m */; };
 		31B9234516FC4FD7004DB449 /* HumDotaStrategyCateTwoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B9234416FC4FD7004DB449 /* HumDotaStrategyCateTwoView.m */; };
 		31B9234816FC57A3004DB449 /* HumStrategyTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B9234716FC57A3004DB449 /* HumStrategyTableCell.m */; };
 		31B9235B16FCCC5B004DB449 /* DDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B9235A16FCCC5B004DB449 /* DDProgressView.m */; };
@@ -177,9 +179,6 @@
 		31BB2CBC170B19190066D9F1 /* tz_inttwo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31BB2CA5170B19190066D9F1 /* tz_inttwo.gif */; };
 		31BB2CBD170B19190066D9F1 /* tz_strone.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31BB2CA6170B19190066D9F1 /* tz_strone.gif */; };
 		31BB2CBE170B19190066D9F1 /* tz_strtwo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31BB2CA7170B19190066D9F1 /* tz_strtwo.gif */; };
-		31BF6E561712F8F400338FC6 /* HumDotaPadImageCateOneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31BF6E511712F8F400338FC6 /* HumDotaPadImageCateOneView.m */; };
-		31BF6E571712F8F400338FC6 /* HumDotaPadImageCateTwoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31BF6E531712F8F400338FC6 /* HumDotaPadImageCateTwoView.m */; };
-		31BF6E581712F8F400338FC6 /* HumPadImageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31BF6E551712F8F400338FC6 /* HumPadImageTableCell.m */; };
 		31C359EA16E628C3009043A4 /* HumWebImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C359E916E628C3009043A4 /* HumWebImageView.m */; };
 		31C359EE16E628F8009043A4 /* UIImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C359ED16E628F8009043A4 /* UIImage+Additions.m */; };
 		31C359F916E637F2009043A4 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C359F816E637F2009043A4 /* EGORefreshTableHeaderView.m */; };
@@ -346,7 +345,6 @@
 		31CBA9A8170308DE00F002B7 /* dota_inte.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 31CBA9A4170308DE00F002B7 /* dota_inte.jpg */; };
 		31CBA9AA17030AEE00F002B7 /* dota_stren.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 31CBA9A917030AEE00F002B7 /* dota_stren.jpg */; };
 		31D21C9816B0A7290092289C /* HumDotaCatTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D21C9716B0A7290092289C /* HumDotaCatTitle.m */; };
-		31D21C9B16B0A8020092289C /* HumDotaNewsCateOneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D21C9A16B0A8020092289C /* HumDotaNewsCateOneView.m */; };
 		31D21CAE16B25F3D0092289C /* HumDotaCatTwoSelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D21CAD16B25F3D0092289C /* HumDotaCatTwoSelView.m */; };
 		31D21CC216B25F6E0092289C /* dota_frame_cat_simulator_hilight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D21CB116B25F6E0092289C /* dota_frame_cat_simulator_hilight@2x.png */; };
 		31D21CC316B25F6E0092289C /* dota_frame_cat_simulator_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D21CB216B25F6E0092289C /* dota_frame_cat_simulator_nor@2x.png */; };
@@ -359,8 +357,6 @@
 		31D21CCA16B25F6E0092289C /* dota_frame_cat_news_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D21CB916B25F6E0092289C /* dota_frame_cat_news_nor@2x.png */; };
 		31D21CCB16B25F6E0092289C /* dota_frame_cat_news_hilight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D21CBA16B25F6E0092289C /* dota_frame_cat_news_hilight@2x.png */; };
 		31D21CCC16B25F6E0092289C /* dota_frame_cat_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D21CBB16B25F6E0092289C /* dota_frame_cat_bg@2x.png */; };
-		31D21CD916B26D500092289C /* HumDotaCatOneSplit.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D21CD816B26D4E0092289C /* HumDotaCatOneSplit.m */; };
-		31D21CDC16B274F70092289C /* HumDotaVideoCateOneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D21CDB16B274F70092289C /* HumDotaVideoCateOneView.m */; };
 		31D57DF816B7FAD20078C5C1 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D57DF716B7FAD20078C5C1 /* News.m */; };
 		31D57DFC16B7FB360078C5C1 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D57DFB16B7FB360078C5C1 /* Video.m */; };
 		31D57DFF16B7FB630078C5C1 /* Strategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D57DFE16B7FB630078C5C1 /* Strategy.m */; };
@@ -369,8 +365,6 @@
 		31D57E0C16B8034E0078C5C1 /* HumDotaCateTwoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D57E0B16B8034D0078C5C1 /* HumDotaCateTwoTableView.m */; };
 		31D57E1316B805130078C5C1 /* PgLoadingFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D57E1216B805130078C5C1 /* PgLoadingFooterView.m */; };
 		31D57E1616B811EC0078C5C1 /* HumDotaNewsCateTwoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D57E1516B811EC0078C5C1 /* HumDotaNewsCateTwoView.m */; };
-		31D57E1916B813890078C5C1 /* HumLeftBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D57E1816B813880078C5C1 /* HumLeftBaseView.m */; };
-		31D57E1D16B8181F0078C5C1 /* HumSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D57E1C16B8181F0078C5C1 /* HumSettingView.m */; };
 		31D5831316FEDC1B00C17E2D /* HMLeftRightTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D5831216FEDC1B00C17E2D /* HMLeftRightTextCell.m */; };
 		31D5831A16FEF8DD00C17E2D /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5831916FEF8DD00C17E2D /* whiteArrow@2x.png */; };
 		31D5831C16FEF92700C17E2D /* dota_pull_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5831B16FEF92700C17E2D /* dota_pull_bg@2x.png */; };
@@ -386,7 +380,6 @@
 		31D5833E16FF513000C17E2D /* dota_seg_selt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5833C16FF513000C17E2D /* dota_seg_selt@2x.png */; };
 		31D5834116FFE8AE00C17E2D /* tablecell_disclosure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5833F16FFE8AE00C17E2D /* tablecell_disclosure@2x.png */; };
 		31D5834216FFE8AE00C17E2D /* main_setting_section_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D5834016FFE8AE00C17E2D /* main_setting_section_bg.png */; };
-		31D86F8C17007C5100D94099 /* HumDotaSimuCateOneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D86F8B17007C5100D94099 /* HumDotaSimuCateOneView.m */; };
 		31D86F9017007E8F00D94099 /* HumDotaSimuCateTwoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D86F8F17007E8F00D94099 /* HumDotaSimuCateTwoView.m */; };
 		31D86F96170083E300D94099 /* HumDotaSimuTableHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D86F95170083E300D94099 /* HumDotaSimuTableHeadView.m */; };
 		31D86F991700869900D94099 /* DSEquipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D86F981700869900D94099 /* DSEquipView.m */; };
@@ -406,7 +399,6 @@
 		31E421F716F1A735003C0AEA /* HMNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E421F116F1A735003C0AEA /* HMNoticeView.m */; };
 		31E421F816F1A735003C0AEA /* HMPopMsgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E421F316F1A735003C0AEA /* HMPopMsgView.m */; };
 		31E421F916F1A735003C0AEA /* KGModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E421F516F1A735003C0AEA /* KGModal.m */; };
-		31E421FF16F1B2A9003C0AEA /* HumDotaImageCateOneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E421FE16F1B2A9003C0AEA /* HumDotaImageCateOneView.m */; };
 		31E4220216F1B3F8003C0AEA /* HumDotaImageCateTwoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4220116F1B3F8003C0AEA /* HumDotaImageCateTwoView.m */; };
 		31E4220516F1CD08003C0AEA /* HumImageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4220416F1CD08003C0AEA /* HumImageTableCell.m */; };
 		31E52F0416E780BD00C9734D /* HMImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E52F0316E780BD00C9734D /* HMImageViewController.m */; };
@@ -424,11 +416,11 @@
 		31F71F0916E30B2D0092BC2A /* property.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31F71F0816E30B2D0092BC2A /* property.plist */; };
 		31F71F0F16E316150092BC2A /* dota_frame_title_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 31F71F0C16E316150092BC2A /* dota_frame_title_bg@2x.jpg */; };
 		31F71F1116E316B90092BC2A /* dota_frame_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 31F71F1016E316B90092BC2A /* dota_frame_bg@2x.jpg */; };
-		31F71F1C16E31B0A0092BC2A /* HumDotaCateOneNoSplit.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F71F1B16E31B080092BC2A /* HumDotaCateOneNoSplit.m */; };
 		31F71F2316E3847F0092BC2A /* HumNewsTxtCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F71F2216E3847E0092BC2A /* HumNewsTxtCell.m */; };
 		31F71F2A16E38FFF0092BC2A /* dota_news_type_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31F71F2716E38FFF0092BC2A /* dota_news_type_img@2x.png */; };
 		31F71F2B16E38FFF0092BC2A /* dota_news_type_txt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31F71F2816E38FFF0092BC2A /* dota_news_type_txt@2x.png */; };
 		31F71F2C16E38FFF0092BC2A /* dota_news_type_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31F71F2916E38FFF0092BC2A /* dota_news_type_video@2x.png */; };
+		31FCDB9A1754E5A0000B2445 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FCDB981754E5A0000B2445 /* libMobClickLibrary.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -522,6 +514,33 @@
 		311A117B171E3CF500A3740B /* about_button_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "about_button_selected@2x.png"; sourceTree = "<group>"; };
 		311A117C171E3CF500A3740B /* about_button_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "about_button_normal@2x.png"; sourceTree = "<group>"; };
 		311A117F171E437900A3740B /* agreement_cn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = agreement_cn.txt; sourceTree = "<group>"; };
+		311C81D91750A11800D8686E /* MptContentScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MptContentScrollView.h; sourceTree = "<group>"; };
+		311C81DA1750A11800D8686E /* MptContentScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MptContentScrollView.m; sourceTree = "<group>"; };
+		311C81DB1750A11800D8686E /* MptCotentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MptCotentCell.h; sourceTree = "<group>"; };
+		311C81DC1750A11800D8686E /* MptCotentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MptCotentCell.m; sourceTree = "<group>"; };
+		311C81E71750A67D00D8686E /* HumLeftRevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumLeftRevelViewController.h; sourceTree = "<group>"; };
+		311C81E81750A67D00D8686E /* HumLeftRevelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumLeftRevelViewController.m; sourceTree = "<group>"; };
+		311C81EA1750AC8300D8686E /* MptMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MptMacro.h; sourceTree = "<group>"; };
+		311C81EB1750ACD500D8686E /* MptTouchScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MptTouchScrollView.h; sourceTree = "<group>"; };
+		311C81EC1750ACD500D8686E /* MptTouchScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MptTouchScrollView.m; sourceTree = "<group>"; };
+		311C81EE1750AE4400D8686E /* HumDotaNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaNewsViewController.h; sourceTree = "<group>"; };
+		311C81EF1750AE4400D8686E /* HumDotaNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaNewsViewController.m; sourceTree = "<group>"; };
+		311C81F11750B50700D8686E /* HumDotaRevealBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaRevealBaseViewController.h; sourceTree = "<group>"; };
+		311C81F21750B50900D8686E /* HumDotaRevealBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaRevealBaseViewController.m; sourceTree = "<group>"; };
+		311C81F41750D56B00D8686E /* HumDotaNoSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaNoSplitViewController.h; sourceTree = "<group>"; };
+		311C81F51750D56D00D8686E /* HumDotaNoSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaNoSplitViewController.m; sourceTree = "<group>"; };
+		311C81F71750D58600D8686E /* HumDotaSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaSplitViewController.h; sourceTree = "<group>"; };
+		311C81F81750D58700D8686E /* HumDotaSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaSplitViewController.m; sourceTree = "<group>"; };
+		311C81FA1750D7D400D8686E /* MptCatScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MptCatScrollView.h; sourceTree = "<group>"; };
+		311C81FB1750D7D400D8686E /* MptCatScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MptCatScrollView.m; sourceTree = "<group>"; };
+		311C81FD1750F8C700D8686E /* HumDotaVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaVideoViewController.h; sourceTree = "<group>"; };
+		311C81FE1750F8C700D8686E /* HumDotaVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaVideoViewController.m; sourceTree = "<group>"; };
+		311C82001751844000D8686E /* HumDotaImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaImageViewController.h; sourceTree = "<group>"; };
+		311C82011751844000D8686E /* HumDotaImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaImageViewController.m; sourceTree = "<group>"; };
+		311C8203175186E000D8686E /* HumDotaStrategyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaStrategyViewController.h; sourceTree = "<group>"; };
+		311C8204175186E000D8686E /* HumDotaStrategyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaStrategyViewController.m; sourceTree = "<group>"; };
+		311C820617518B2600D8686E /* HumDotaSimuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaSimuViewController.h; sourceTree = "<group>"; };
+		311C820717518B2600D8686E /* HumDotaSimuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaSimuViewController.m; sourceTree = "<group>"; };
 		31281BB1170DAA4A0058E6DC /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/SVWebViewController.strings; sourceTree = "<group>"; };
 		31281BB2170DAA4A0058E6DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SVWebViewController.strings; sourceTree = "<group>"; };
 		31281BB3170DAA4A0058E6DC /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/SVWebViewController.strings"; sourceTree = "<group>"; };
@@ -533,14 +552,16 @@
 		31281BB9170DAA4A0058E6DC /* SVWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebViewController.m; sourceTree = "<group>"; };
 		31281BBA170DAA4A0058E6DC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SVWebViewController.strings"; sourceTree = "<group>"; };
 		31281BBB170DAA4A0058E6DC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SVWebViewController.strings"; sourceTree = "<group>"; };
+		312FB080174BB89F00261D25 /* PKRevealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKRevealController.h; sourceTree = "<group>"; };
+		312FB081174BB89F00261D25 /* PKRevealController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKRevealController.m; sourceTree = "<group>"; };
+		312FB082174BB89F00261D25 /* PKRevealControllerContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKRevealControllerContainerView.h; sourceTree = "<group>"; };
+		312FB083174BB89F00261D25 /* PKRevealControllerContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKRevealControllerContainerView.m; sourceTree = "<group>"; };
+		312FB084174BB89F00261D25 /* UIViewController+PKRevealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PKRevealController.h"; sourceTree = "<group>"; };
+		312FB085174BB89F00261D25 /* UIViewController+PKRevealController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PKRevealController.m"; sourceTree = "<group>"; };
 		313DF58C16AD8DDB003886EF /* HumDotaUserCenterOps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HumDotaUserCenterOps.h; path = DotAer/Classes/data/HumDotaUserCenterOps.h; sourceTree = SOURCE_ROOT; };
 		313DF58D16AD8DDB003886EF /* HumDotaUserCenterOps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HumDotaUserCenterOps.m; path = DotAer/Classes/data/HumDotaUserCenterOps.m; sourceTree = SOURCE_ROOT; };
-		313DF59016AD9B6F003886EF /* HumDotaCatOneBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaCatOneBaseView.h; sourceTree = "<group>"; };
-		313DF59116AD9B6F003886EF /* HumDotaCatOneBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaCatOneBaseView.m; sourceTree = "<group>"; };
 		313DF59316AD9B8A003886EF /* HumDotaCateTowBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaCateTowBaseView.h; sourceTree = "<group>"; };
 		313DF59416AD9B8A003886EF /* HumDotaCateTowBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaCateTowBaseView.m; sourceTree = "<group>"; };
-		313DF59616AD9C5F003886EF /* HumDotaBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaBaseViewController.h; sourceTree = "<group>"; };
-		313DF59716AD9C5F003886EF /* HumDotaBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaBaseViewController.m; sourceTree = "<group>"; };
 		313DF5AB16AEE0F3003886EF /* HumDotaBaseFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaBaseFrame.h; sourceTree = "<group>"; };
 		313DF5AC16AEE0F3003886EF /* HumDotaBaseFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaBaseFrame.m; sourceTree = "<group>"; };
 		313DF5B016AEE33E003886EF /* HumDotaTopNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaTopNav.h; sourceTree = "<group>"; };
@@ -552,57 +573,35 @@
 		313DF5BC16AEE66B003886EF /* CustomUIBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUIBarButtonItem.h; sourceTree = "<group>"; };
 		313DF5BD16AEE66B003886EF /* CustomUIBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUIBarButtonItem.m; sourceTree = "<group>"; };
 		314E4138170176F500B83BD6 /* DotAer.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DotAer.sqlite; sourceTree = "<group>"; };
-		3153A5B217144CB2003C30AA /* HumDotaPadStrategyCateOneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadStrategyCateOneView.h; sourceTree = "<group>"; };
-		3153A5B317144CB2003C30AA /* HumDotaPadStrategyCateOneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadStrategyCateOneView.m; sourceTree = "<group>"; };
-		3153A5B417144CB2003C30AA /* HumDotaPadStrategyCateTwoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadStrategyCateTwoView.h; sourceTree = "<group>"; };
-		3153A5B517144CB2003C30AA /* HumDotaPadStrategyCateTwoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadStrategyCateTwoView.m; sourceTree = "<group>"; };
-		3153A5B617144CB2003C30AA /* HumPadStrategyTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumPadStrategyTableCell.h; sourceTree = "<group>"; };
-		3153A5B717144CB2003C30AA /* HumPadStrategyTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumPadStrategyTableCell.m; sourceTree = "<group>"; };
 		31568BA217042FB1000D8CDC /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
 		31568BA317042FB1000D8CDC /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		31568BA417042FB1000D8CDC /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		31568BA917044238000D8CDC /* iVersion.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iVersion.bundle; sourceTree = "<group>"; };
 		31568BAA17044238000D8CDC /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
 		31568BAB17044238000D8CDC /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
-		31678A471711AEAF0044209A /* HumDotaPadButtomNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadButtomNav.h; sourceTree = "<group>"; };
-		31678A481711AEAF0044209A /* HumDotaPadButtomNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadButtomNav.m; sourceTree = "<group>"; };
-		31678A4F1711AEAF0044209A /* HumDotaPadTopNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadTopNav.h; sourceTree = "<group>"; };
-		31678A511711AEAF0044209A /* HumDotaPadBaseFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadBaseFrame.h; sourceTree = "<group>"; };
-		31678A521711AEAF0044209A /* HumDotaPadBaseFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadBaseFrame.m; sourceTree = "<group>"; };
-		31678A531711AEAF0044209A /* HumPadDotaBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumPadDotaBaseViewController.h; sourceTree = "<group>"; };
-		31678A541711AEAF0044209A /* HumPadDotaBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumPadDotaBaseViewController.m; sourceTree = "<group>"; };
-		31678A551711AEAF0044209A /* HumDotaPadCateOneNoSplit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadCateOneNoSplit.h; sourceTree = "<group>"; };
-		31678A571711AEAF0044209A /* HumDotaPadCateTowBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadCateTowBaseView.h; sourceTree = "<group>"; };
-		31678A581711AEAF0044209A /* HumDotaPadCateTowBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadCateTowBaseView.m; sourceTree = "<group>"; };
-		31678A591711AEAF0044209A /* HumDotaPadCateTwoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadCateTwoTableView.h; sourceTree = "<group>"; };
-		31678A5A1711AEAF0044209A /* HumDotaPadCateTwoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadCateTwoTableView.m; sourceTree = "<group>"; };
-		31678A5B1711AEAF0044209A /* HumDotaPadCatOneBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadCatOneBaseView.h; sourceTree = "<group>"; };
-		31678A5C1711AEAF0044209A /* HumDotaPadCatOneBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadCatOneBaseView.m; sourceTree = "<group>"; };
-		31678A5D1711AEAF0044209A /* HumDotaPadCatOneSplit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadCatOneSplit.h; sourceTree = "<group>"; };
-		31678A5E1711AEAF0044209A /* HumDotaPadCatOneSplit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadCatOneSplit.m; sourceTree = "<group>"; };
-		31678A611711AEAF0044209A /* HumPadLeftBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumPadLeftBaseView.h; sourceTree = "<group>"; };
-		31678A621711AEAF0044209A /* HumPadLeftBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumPadLeftBaseView.m; sourceTree = "<group>"; };
-		31678A631711AEAF0044209A /* HumPadRightBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumPadRightBaseView.h; sourceTree = "<group>"; };
-		31678A641711AEAF0044209A /* HumPadRightBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumPadRightBaseView.m; sourceTree = "<group>"; };
-		31678A661711AEAF0044209A /* HumDotaPadNewsCateOneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadNewsCateOneView.h; sourceTree = "<group>"; };
-		31678A671711AEAF0044209A /* HumDotaPadNewsCateOneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadNewsCateOneView.m; sourceTree = "<group>"; };
-		31678A681711AEAF0044209A /* HumDotaPadNewsCateTwoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadNewsCateTwoView.h; sourceTree = "<group>"; };
-		31678A691711AEAF0044209A /* HumDotaPadNewsCateTwoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadNewsCateTwoView.m; sourceTree = "<group>"; };
-		31678A6A1711AEAF0044209A /* HumPadNewsTxtCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumPadNewsTxtCell.h; sourceTree = "<group>"; };
-		31678A6B1711AEAF0044209A /* HumPadNewsTxtCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumPadNewsTxtCell.m; sourceTree = "<group>"; };
-		31678AE21711B04B0044209A /* HumDotaPadTopNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadTopNav.m; sourceTree = "<group>"; };
-		31678AE41711BDCD0044209A /* HumDotaPadCateOneNoSplit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadCateOneNoSplit.m; sourceTree = "<group>"; };
-		31678AE71712536C0044209A /* HumDotaPadVideCateTwoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadVideCateTwoView.h; sourceTree = "<group>"; };
-		31678AE91712536C0044209A /* HumDotaPadVideoCateOneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadVideoCateOneView.h; sourceTree = "<group>"; };
-		31678AEA1712536C0044209A /* HumDotaPadVideoCateOneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadVideoCateOneView.m; sourceTree = "<group>"; };
-		31678AEC1712536C0044209A /* HumVideoPadTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumVideoPadTableCell.m; sourceTree = "<group>"; };
-		31678AF0171253B10044209A /* HumVideoPadTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumVideoPadTableCell.h; sourceTree = "<group>"; };
-		31678AF1171253B10044209A /* HumDotaPadVideCateTwoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadVideCateTwoView.m; sourceTree = "<group>"; };
+		318F151C1755F92500E6FB69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		318F151D1755F92500E6FB69 /* M3U8ExtXStreamInf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3U8ExtXStreamInf.h; sourceTree = "<group>"; };
+		318F151E1755F92500E6FB69 /* M3U8ExtXStreamInf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3U8ExtXStreamInf.m; sourceTree = "<group>"; };
+		318F151F1755F92500E6FB69 /* M3U8ExtXStreamInfList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3U8ExtXStreamInfList.h; sourceTree = "<group>"; };
+		318F15201755F92500E6FB69 /* M3U8ExtXStreamInfList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3U8ExtXStreamInfList.m; sourceTree = "<group>"; };
+		318F15211755F92500E6FB69 /* M3U8Kit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "M3U8Kit-Info.plist"; sourceTree = "<group>"; };
+		318F15221755F92500E6FB69 /* M3U8Kit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3U8Kit-Prefix.pch"; sourceTree = "<group>"; };
+		318F15231755F92500E6FB69 /* M3U8Kit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3U8Kit.h; sourceTree = "<group>"; };
+		318F15241755F92500E6FB69 /* M3U8Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3U8Parser.h; sourceTree = "<group>"; };
+		318F15251755F92500E6FB69 /* M3U8Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3U8Parser.m; sourceTree = "<group>"; };
+		318F15261755F92500E6FB69 /* M3U8SegmentInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3U8SegmentInfo.h; sourceTree = "<group>"; };
+		318F15271755F92500E6FB69 /* M3U8SegmentInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3U8SegmentInfo.m; sourceTree = "<group>"; };
+		318F15281755F92500E6FB69 /* M3U8SegmentInfoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3U8SegmentInfoList.h; sourceTree = "<group>"; };
+		318F15291755F92500E6FB69 /* M3U8SegmentInfoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3U8SegmentInfoList.m; sourceTree = "<group>"; };
+		318F152A1755F92500E6FB69 /* NSString+m3u8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+m3u8.h"; sourceTree = "<group>"; };
+		318F152B1755F92500E6FB69 /* NSString+m3u8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+m3u8.m"; sourceTree = "<group>"; };
+		318F152C1755F92500E6FB69 /* NSURL+m3u8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+m3u8.h"; sourceTree = "<group>"; };
+		318F152D1755F92500E6FB69 /* NSURL+m3u8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+m3u8.m"; sourceTree = "<group>"; };
 		318F4C7017088A21008F7714 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		319A5B6216BECD4200C33620 /* HumRightBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumRightBaseView.h; sourceTree = "<group>"; };
 		319A5B6316BECD4200C33620 /* HumRightBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumRightBaseView.m; sourceTree = "<group>"; };
-		319A5B6616BED00200C33620 /* HumRightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumRightView.h; sourceTree = "<group>"; };
-		319A5B6716BED00200C33620 /* HumRightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumRightView.m; sourceTree = "<group>"; };
+		319A5B6616BED00200C33620 /* HumRightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumRightViewController.h; sourceTree = "<group>"; };
+		319A5B6716BED00200C33620 /* HumRightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumRightViewController.m; sourceTree = "<group>"; };
 		319A5B6F16C1DE9B00C33620 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/mptplayer.strings; sourceTree = "<group>"; };
 		319A5B7016C1DE9B00C33620 /* MptAVPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MptAVPlayer.h; sourceTree = "<group>"; };
 		319A5B7116C1DE9B00C33620 /* MptAVPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MptAVPlayer.m; sourceTree = "<group>"; };
@@ -687,8 +686,6 @@
 		31B1DE7816EF6FE100C2B77C /* dota_title_scr_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_title_scr_bg@2x.png"; sourceTree = "<group>"; };
 		31B1DE7916EF6FE100C2B77C /* dota_cell_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_cell_select@2x.png"; sourceTree = "<group>"; };
 		31B1DE8116F0047700C2B77C /* dota_video_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_video_play@2x.png"; sourceTree = "<group>"; };
-		31B9234016FC4F73004DB449 /* HumDotaStrategyCateOneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaStrategyCateOneView.h; sourceTree = "<group>"; };
-		31B9234116FC4F73004DB449 /* HumDotaStrategyCateOneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaStrategyCateOneView.m; sourceTree = "<group>"; };
 		31B9234316FC4FD7004DB449 /* HumDotaStrategyCateTwoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaStrategyCateTwoView.h; sourceTree = "<group>"; };
 		31B9234416FC4FD7004DB449 /* HumDotaStrategyCateTwoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaStrategyCateTwoView.m; sourceTree = "<group>"; };
 		31B9234616FC57A3004DB449 /* HumStrategyTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumStrategyTableCell.h; sourceTree = "<group>"; };
@@ -735,12 +732,6 @@
 		31BB2CA5170B19190066D9F1 /* tz_inttwo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tz_inttwo.gif; sourceTree = "<group>"; };
 		31BB2CA6170B19190066D9F1 /* tz_strone.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tz_strone.gif; sourceTree = "<group>"; };
 		31BB2CA7170B19190066D9F1 /* tz_strtwo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tz_strtwo.gif; sourceTree = "<group>"; };
-		31BF6E501712F8F400338FC6 /* HumDotaPadImageCateOneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadImageCateOneView.h; sourceTree = "<group>"; };
-		31BF6E511712F8F400338FC6 /* HumDotaPadImageCateOneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadImageCateOneView.m; sourceTree = "<group>"; };
-		31BF6E521712F8F400338FC6 /* HumDotaPadImageCateTwoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaPadImageCateTwoView.h; sourceTree = "<group>"; };
-		31BF6E531712F8F400338FC6 /* HumDotaPadImageCateTwoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaPadImageCateTwoView.m; sourceTree = "<group>"; };
-		31BF6E541712F8F400338FC6 /* HumPadImageTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumPadImageTableCell.h; sourceTree = "<group>"; };
-		31BF6E551712F8F400338FC6 /* HumPadImageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumPadImageTableCell.m; sourceTree = "<group>"; };
 		31C359E816E628C3009043A4 /* HumWebImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumWebImageView.h; sourceTree = "<group>"; };
 		31C359E916E628C3009043A4 /* HumWebImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumWebImageView.m; sourceTree = "<group>"; };
 		31C359EC16E628F8009043A4 /* UIImage+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Additions.h"; sourceTree = "<group>"; };
@@ -1017,8 +1008,6 @@
 		31D21C9416B0212F0092289C /* HumDotaMaco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HumDotaMaco.h; path = type/HumDotaMaco.h; sourceTree = "<group>"; };
 		31D21C9616B0A7290092289C /* HumDotaCatTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaCatTitle.h; sourceTree = "<group>"; };
 		31D21C9716B0A7290092289C /* HumDotaCatTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaCatTitle.m; sourceTree = "<group>"; };
-		31D21C9916B0A8020092289C /* HumDotaNewsCateOneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaNewsCateOneView.h; sourceTree = "<group>"; };
-		31D21C9A16B0A8020092289C /* HumDotaNewsCateOneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaNewsCateOneView.m; sourceTree = "<group>"; };
 		31D21CAC16B25F3D0092289C /* HumDotaCatTwoSelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaCatTwoSelView.h; sourceTree = "<group>"; };
 		31D21CAD16B25F3D0092289C /* HumDotaCatTwoSelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaCatTwoSelView.m; sourceTree = "<group>"; };
 		31D21CB116B25F6E0092289C /* dota_frame_cat_simulator_hilight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_frame_cat_simulator_hilight@2x.png"; sourceTree = "<group>"; };
@@ -1032,10 +1021,6 @@
 		31D21CB916B25F6E0092289C /* dota_frame_cat_news_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_frame_cat_news_nor@2x.png"; sourceTree = "<group>"; };
 		31D21CBA16B25F6E0092289C /* dota_frame_cat_news_hilight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_frame_cat_news_hilight@2x.png"; sourceTree = "<group>"; };
 		31D21CBB16B25F6E0092289C /* dota_frame_cat_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_frame_cat_bg@2x.png"; sourceTree = "<group>"; };
-		31D21CD716B26D4C0092289C /* HumDotaCatOneSplit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaCatOneSplit.h; sourceTree = "<group>"; };
-		31D21CD816B26D4E0092289C /* HumDotaCatOneSplit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaCatOneSplit.m; sourceTree = "<group>"; };
-		31D21CDA16B274F70092289C /* HumDotaVideoCateOneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaVideoCateOneView.h; sourceTree = "<group>"; };
-		31D21CDB16B274F70092289C /* HumDotaVideoCateOneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaVideoCateOneView.m; sourceTree = "<group>"; };
 		31D57DF616B7FAD20078C5C1 /* News.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = News.h; sourceTree = "<group>"; };
 		31D57DF716B7FAD20078C5C1 /* News.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = News.m; sourceTree = "<group>"; };
 		31D57DFA16B7FB360078C5C1 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
@@ -1052,10 +1037,6 @@
 		31D57E1216B805130078C5C1 /* PgLoadingFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PgLoadingFooterView.m; sourceTree = "<group>"; };
 		31D57E1416B811EC0078C5C1 /* HumDotaNewsCateTwoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaNewsCateTwoView.h; sourceTree = "<group>"; };
 		31D57E1516B811EC0078C5C1 /* HumDotaNewsCateTwoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaNewsCateTwoView.m; sourceTree = "<group>"; };
-		31D57E1716B813860078C5C1 /* HumLeftBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumLeftBaseView.h; sourceTree = "<group>"; };
-		31D57E1816B813880078C5C1 /* HumLeftBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumLeftBaseView.m; sourceTree = "<group>"; };
-		31D57E1B16B8181F0078C5C1 /* HumSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumSettingView.h; sourceTree = "<group>"; };
-		31D57E1C16B8181F0078C5C1 /* HumSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumSettingView.m; sourceTree = "<group>"; };
 		31D5831116FEDC1B00C17E2D /* HMLeftRightTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLeftRightTextCell.h; sourceTree = "<group>"; };
 		31D5831216FEDC1B00C17E2D /* HMLeftRightTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLeftRightTextCell.m; sourceTree = "<group>"; };
 		31D5831916FEF8DD00C17E2D /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
@@ -1072,8 +1053,6 @@
 		31D5833C16FF513000C17E2D /* dota_seg_selt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_seg_selt@2x.png"; sourceTree = "<group>"; };
 		31D5833F16FFE8AE00C17E2D /* tablecell_disclosure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tablecell_disclosure@2x.png"; sourceTree = "<group>"; };
 		31D5834016FFE8AE00C17E2D /* main_setting_section_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_setting_section_bg.png; sourceTree = "<group>"; };
-		31D86F8A17007C5100D94099 /* HumDotaSimuCateOneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaSimuCateOneView.h; sourceTree = "<group>"; };
-		31D86F8B17007C5100D94099 /* HumDotaSimuCateOneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaSimuCateOneView.m; sourceTree = "<group>"; };
 		31D86F8E17007E8F00D94099 /* HumDotaSimuCateTwoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaSimuCateTwoView.h; sourceTree = "<group>"; };
 		31D86F8F17007E8F00D94099 /* HumDotaSimuCateTwoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaSimuCateTwoView.m; sourceTree = "<group>"; };
 		31D86F94170083E300D94099 /* HumDotaSimuTableHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaSimuTableHeadView.h; sourceTree = "<group>"; };
@@ -1109,8 +1088,6 @@
 		31E421F316F1A735003C0AEA /* HMPopMsgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMPopMsgView.m; sourceTree = "<group>"; };
 		31E421F416F1A735003C0AEA /* KGModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGModal.h; sourceTree = "<group>"; };
 		31E421F516F1A735003C0AEA /* KGModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGModal.m; sourceTree = "<group>"; };
-		31E421FD16F1B2A9003C0AEA /* HumDotaImageCateOneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaImageCateOneView.h; sourceTree = "<group>"; };
-		31E421FE16F1B2A9003C0AEA /* HumDotaImageCateOneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaImageCateOneView.m; sourceTree = "<group>"; };
 		31E4220016F1B3F8003C0AEA /* HumDotaImageCateTwoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaImageCateTwoView.h; sourceTree = "<group>"; };
 		31E4220116F1B3F8003C0AEA /* HumDotaImageCateTwoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaImageCateTwoView.m; sourceTree = "<group>"; };
 		31E4220316F1CD08003C0AEA /* HumImageTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumImageTableCell.h; sourceTree = "<group>"; };
@@ -1141,14 +1118,14 @@
 		31F71F0816E30B2D0092BC2A /* property.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = property.plist; sourceTree = "<group>"; };
 		31F71F0C16E316150092BC2A /* dota_frame_title_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dota_frame_title_bg@2x.jpg"; sourceTree = "<group>"; };
 		31F71F1016E316B90092BC2A /* dota_frame_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dota_frame_bg@2x.jpg"; sourceTree = "<group>"; };
-		31F71F1A16E31B050092BC2A /* HumDotaCateOneNoSplit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumDotaCateOneNoSplit.h; sourceTree = "<group>"; };
-		31F71F1B16E31B080092BC2A /* HumDotaCateOneNoSplit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumDotaCateOneNoSplit.m; sourceTree = "<group>"; };
 		31F71F2116E3847E0092BC2A /* HumNewsTxtCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumNewsTxtCell.h; sourceTree = "<group>"; };
 		31F71F2216E3847E0092BC2A /* HumNewsTxtCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumNewsTxtCell.m; sourceTree = "<group>"; };
 		31F71F2716E38FFF0092BC2A /* dota_news_type_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_news_type_img@2x.png"; sourceTree = "<group>"; };
 		31F71F2816E38FFF0092BC2A /* dota_news_type_txt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_news_type_txt@2x.png"; sourceTree = "<group>"; };
 		31F71F2916E38FFF0092BC2A /* dota_news_type_video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dota_news_type_video@2x.png"; sourceTree = "<group>"; };
 		31F71F2D16E3908A0092BC2A /* HumTypeConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumTypeConstant.h; sourceTree = "<group>"; };
+		31FCDB981754E5A0000B2445 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		31FCDB991754E5A0000B2445 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1175,6 +1152,7 @@
 				31C6E9FA16AC474800187A67 /* Foundation.framework in Frameworks */,
 				31C6E9FC16AC474800187A67 /* CoreGraphics.framework in Frameworks */,
 				31C6E9FE16AC474800187A67 /* CoreData.framework in Frameworks */,
+				31FCDB9A1754E5A0000B2445 /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1307,6 +1285,19 @@
 			path = SVWebViewController;
 			sourceTree = "<group>";
 		};
+		312FB07F174BB89F00261D25 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				312FB080174BB89F00261D25 /* PKRevealController.h */,
+				312FB081174BB89F00261D25 /* PKRevealController.m */,
+				312FB082174BB89F00261D25 /* PKRevealControllerContainerView.h */,
+				312FB083174BB89F00261D25 /* PKRevealControllerContainerView.m */,
+				312FB084174BB89F00261D25 /* UIViewController+PKRevealController.h */,
+				312FB085174BB89F00261D25 /* UIViewController+PKRevealController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		313DF5AF16AEE2F0003886EF /* frame */ = {
 			isa = PBXGroup;
 			children = (
@@ -1322,19 +1313,6 @@
 				31D57E0816B800BB0078C5C1 /* HumDotaSearchBar.m */,
 			);
 			path = frame;
-			sourceTree = "<group>";
-		};
-		3153A5B117144CB2003C30AA /* strategy */ = {
-			isa = PBXGroup;
-			children = (
-				3153A5B217144CB2003C30AA /* HumDotaPadStrategyCateOneView.h */,
-				3153A5B317144CB2003C30AA /* HumDotaPadStrategyCateOneView.m */,
-				3153A5B417144CB2003C30AA /* HumDotaPadStrategyCateTwoView.h */,
-				3153A5B517144CB2003C30AA /* HumDotaPadStrategyCateTwoView.m */,
-				3153A5B617144CB2003C30AA /* HumPadStrategyTableCell.h */,
-				3153A5B717144CB2003C30AA /* HumPadStrategyTableCell.m */,
-			);
-			path = strategy;
 			sourceTree = "<group>";
 		};
 		31568BA117042FB1000D8CDC /* iRate */ = {
@@ -1357,41 +1335,29 @@
 			path = iVersion;
 			sourceTree = "<group>";
 		};
-		31678A461711AEAF0044209A /* frame */ = {
+		318F151A1755F92500E6FB69 /* M3U8Kit */ = {
 			isa = PBXGroup;
 			children = (
-				31678A471711AEAF0044209A /* HumDotaPadButtomNav.h */,
-				31678A481711AEAF0044209A /* HumDotaPadButtomNav.m */,
-				31678AE21711B04B0044209A /* HumDotaPadTopNav.m */,
-				31678A4F1711AEAF0044209A /* HumDotaPadTopNav.h */,
+				318F151B1755F92500E6FB69 /* InfoPlist.strings */,
+				318F151D1755F92500E6FB69 /* M3U8ExtXStreamInf.h */,
+				318F151E1755F92500E6FB69 /* M3U8ExtXStreamInf.m */,
+				318F151F1755F92500E6FB69 /* M3U8ExtXStreamInfList.h */,
+				318F15201755F92500E6FB69 /* M3U8ExtXStreamInfList.m */,
+				318F15211755F92500E6FB69 /* M3U8Kit-Info.plist */,
+				318F15221755F92500E6FB69 /* M3U8Kit-Prefix.pch */,
+				318F15231755F92500E6FB69 /* M3U8Kit.h */,
+				318F15241755F92500E6FB69 /* M3U8Parser.h */,
+				318F15251755F92500E6FB69 /* M3U8Parser.m */,
+				318F15261755F92500E6FB69 /* M3U8SegmentInfo.h */,
+				318F15271755F92500E6FB69 /* M3U8SegmentInfo.m */,
+				318F15281755F92500E6FB69 /* M3U8SegmentInfoList.h */,
+				318F15291755F92500E6FB69 /* M3U8SegmentInfoList.m */,
+				318F152A1755F92500E6FB69 /* NSString+m3u8.h */,
+				318F152B1755F92500E6FB69 /* NSString+m3u8.m */,
+				318F152C1755F92500E6FB69 /* NSURL+m3u8.h */,
+				318F152D1755F92500E6FB69 /* NSURL+m3u8.m */,
 			);
-			path = frame;
-			sourceTree = "<group>";
-		};
-		31678A651711AEAF0044209A /* news */ = {
-			isa = PBXGroup;
-			children = (
-				31678A661711AEAF0044209A /* HumDotaPadNewsCateOneView.h */,
-				31678A671711AEAF0044209A /* HumDotaPadNewsCateOneView.m */,
-				31678A681711AEAF0044209A /* HumDotaPadNewsCateTwoView.h */,
-				31678A691711AEAF0044209A /* HumDotaPadNewsCateTwoView.m */,
-				31678A6A1711AEAF0044209A /* HumPadNewsTxtCell.h */,
-				31678A6B1711AEAF0044209A /* HumPadNewsTxtCell.m */,
-			);
-			path = news;
-			sourceTree = "<group>";
-		};
-		31678AE61712536A0044209A /* video */ = {
-			isa = PBXGroup;
-			children = (
-				31678AE91712536C0044209A /* HumDotaPadVideoCateOneView.h */,
-				31678AEA1712536C0044209A /* HumDotaPadVideoCateOneView.m */,
-				31678AE71712536C0044209A /* HumDotaPadVideCateTwoView.h */,
-				31678AF1171253B10044209A /* HumDotaPadVideCateTwoView.m */,
-				31678AF0171253B10044209A /* HumVideoPadTableCell.h */,
-				31678AEC1712536C0044209A /* HumVideoPadTableCell.m */,
-			);
-			path = video;
+			path = M3U8Kit;
 			sourceTree = "<group>";
 		};
 		319A5B6D16C1DE9B00C33620 /* MptAVPlayer */ = {
@@ -1521,19 +1487,6 @@
 				31BB2C671709D1A20066D9F1 /* setting_badrate_txtview_bg@2x.png */,
 			);
 			path = setting;
-			sourceTree = "<group>";
-		};
-		31BF6E4F1712F8F400338FC6 /* photo */ = {
-			isa = PBXGroup;
-			children = (
-				31BF6E501712F8F400338FC6 /* HumDotaPadImageCateOneView.h */,
-				31BF6E511712F8F400338FC6 /* HumDotaPadImageCateOneView.m */,
-				31BF6E521712F8F400338FC6 /* HumDotaPadImageCateTwoView.h */,
-				31BF6E531712F8F400338FC6 /* HumDotaPadImageCateTwoView.m */,
-				31BF6E541712F8F400338FC6 /* HumPadImageTableCell.h */,
-				31BF6E551712F8F400338FC6 /* HumPadImageTableCell.m */,
-			);
-			path = photo;
 			sourceTree = "<group>";
 		};
 		31C4B91917186F95008B89DE /* logoin */ = {
@@ -2064,7 +2017,6 @@
 				319A5B6D16C1DE9B00C33620 /* MptAVPlayer */,
 				31C6EB1716AC477700187A67 /* data */,
 				31C6EB1916AC477700187A67 /* ui-common */,
-				31C6EB1A16AC477700187A67 /* ui-ipad */,
 				31C6EB1B16AC477700187A67 /* ui-iphone */,
 			);
 			path = Classes;
@@ -2073,6 +2025,7 @@
 		31C6EB1716AC477700187A67 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				311C81EA1750AC8300D8686E /* MptMacro.h */,
 				31C6EB1816AC477700187A67 /* type */,
 				31C6EBC316AC4CDE00187A67 /* HumDotaNetOps.h */,
 				31C6EBC416AC4CDE00187A67 /* HumDotaNetOps.m */,
@@ -2120,6 +2073,14 @@
 		31C6EB1916AC477700187A67 /* ui-common */ = {
 			isa = PBXGroup;
 			children = (
+				311C81FA1750D7D400D8686E /* MptCatScrollView.h */,
+				311C81FB1750D7D400D8686E /* MptCatScrollView.m */,
+				311C81EB1750ACD500D8686E /* MptTouchScrollView.h */,
+				311C81EC1750ACD500D8686E /* MptTouchScrollView.m */,
+				311C81D91750A11800D8686E /* MptContentScrollView.h */,
+				311C81DA1750A11800D8686E /* MptContentScrollView.m */,
+				311C81DB1750A11800D8686E /* MptCotentCell.h */,
+				311C81DC1750A11800D8686E /* MptCotentCell.m */,
 				31C4B925171871A0008B89DE /* HMTextField.h */,
 				31C4B924171871A0008B89DE /* HMTextField.m */,
 				31D5831116FEDC1B00C17E2D /* HMLeftRightTextCell.h */,
@@ -2144,63 +2105,30 @@
 			path = "ui-common";
 			sourceTree = "<group>";
 		};
-		31C6EB1A16AC477700187A67 /* ui-ipad */ = {
-			isa = PBXGroup;
-			children = (
-				3153A5B117144CB2003C30AA /* strategy */,
-				31BF6E4F1712F8F400338FC6 /* photo */,
-				31678A651711AEAF0044209A /* news */,
-				31678AE61712536A0044209A /* video */,
-				31678A461711AEAF0044209A /* frame */,
-				31678A511711AEAF0044209A /* HumDotaPadBaseFrame.h */,
-				31678A521711AEAF0044209A /* HumDotaPadBaseFrame.m */,
-				31678A531711AEAF0044209A /* HumPadDotaBaseViewController.h */,
-				31678A541711AEAF0044209A /* HumPadDotaBaseViewController.m */,
-				31678A551711AEAF0044209A /* HumDotaPadCateOneNoSplit.h */,
-				31678AE41711BDCD0044209A /* HumDotaPadCateOneNoSplit.m */,
-				31678A571711AEAF0044209A /* HumDotaPadCateTowBaseView.h */,
-				31678A581711AEAF0044209A /* HumDotaPadCateTowBaseView.m */,
-				31678A591711AEAF0044209A /* HumDotaPadCateTwoTableView.h */,
-				31678A5A1711AEAF0044209A /* HumDotaPadCateTwoTableView.m */,
-				31678A5B1711AEAF0044209A /* HumDotaPadCatOneBaseView.h */,
-				31678A5C1711AEAF0044209A /* HumDotaPadCatOneBaseView.m */,
-				31678A5D1711AEAF0044209A /* HumDotaPadCatOneSplit.h */,
-				31678A5E1711AEAF0044209A /* HumDotaPadCatOneSplit.m */,
-				31678A611711AEAF0044209A /* HumPadLeftBaseView.h */,
-				31678A621711AEAF0044209A /* HumPadLeftBaseView.m */,
-				31678A631711AEAF0044209A /* HumPadRightBaseView.h */,
-				31678A641711AEAF0044209A /* HumPadRightBaseView.m */,
-			);
-			path = "ui-ipad";
-			sourceTree = "<group>";
-		};
 		31C6EB1B16AC477700187A67 /* ui-iphone */ = {
 			isa = PBXGroup;
 			children = (
+				312FB07F174BB89F00261D25 /* Controller */,
 				3101958417048C5D002ACE30 /* usercenter */,
-				31D57E1A16B816FF0078C5C1 /* setting */,
+				31D57E1A16B816FF0078C5C1 /* left */,
 				313DF5AF16AEE2F0003886EF /* frame */,
 				31C6EB1C16AC477700187A67 /* news */,
 				31C6EB1D16AC477700187A67 /* photo */,
 				31C6EB1E16AC477700187A67 /* simulator */,
 				31C6EB1F16AC477700187A67 /* strategy */,
 				31C6EB2016AC477700187A67 /* video */,
-				313DF59616AD9C5F003886EF /* HumDotaBaseViewController.h */,
-				313DF59716AD9C5F003886EF /* HumDotaBaseViewController.m */,
+				311C81F11750B50700D8686E /* HumDotaRevealBaseViewController.h */,
+				311C81F21750B50900D8686E /* HumDotaRevealBaseViewController.m */,
+				311C81F41750D56B00D8686E /* HumDotaNoSplitViewController.h */,
+				311C81F51750D56D00D8686E /* HumDotaNoSplitViewController.m */,
+				311C81F71750D58600D8686E /* HumDotaSplitViewController.h */,
+				311C81F81750D58700D8686E /* HumDotaSplitViewController.m */,
 				313DF5AB16AEE0F3003886EF /* HumDotaBaseFrame.h */,
 				313DF5AC16AEE0F3003886EF /* HumDotaBaseFrame.m */,
-				313DF59016AD9B6F003886EF /* HumDotaCatOneBaseView.h */,
-				313DF59116AD9B6F003886EF /* HumDotaCatOneBaseView.m */,
-				31F71F1A16E31B050092BC2A /* HumDotaCateOneNoSplit.h */,
-				31F71F1B16E31B080092BC2A /* HumDotaCateOneNoSplit.m */,
-				31D21CD716B26D4C0092289C /* HumDotaCatOneSplit.h */,
-				31D21CD816B26D4E0092289C /* HumDotaCatOneSplit.m */,
 				313DF59316AD9B8A003886EF /* HumDotaCateTowBaseView.h */,
 				313DF59416AD9B8A003886EF /* HumDotaCateTowBaseView.m */,
 				31D57E0A16B8034D0078C5C1 /* HumDotaCateTwoTableView.h */,
 				31D57E0B16B8034D0078C5C1 /* HumDotaCateTwoTableView.m */,
-				31D57E1716B813860078C5C1 /* HumLeftBaseView.h */,
-				31D57E1816B813880078C5C1 /* HumLeftBaseView.m */,
 				319A5B6216BECD4200C33620 /* HumRightBaseView.h */,
 				319A5B6316BECD4200C33620 /* HumRightBaseView.m */,
 				319A5C3016C60D0200C33620 /* HumDotaUIOps.h */,
@@ -2212,8 +2140,8 @@
 		31C6EB1C16AC477700187A67 /* news */ = {
 			isa = PBXGroup;
 			children = (
-				31D21C9916B0A8020092289C /* HumDotaNewsCateOneView.h */,
-				31D21C9A16B0A8020092289C /* HumDotaNewsCateOneView.m */,
+				311C81EE1750AE4400D8686E /* HumDotaNewsViewController.h */,
+				311C81EF1750AE4400D8686E /* HumDotaNewsViewController.m */,
 				31D57E1416B811EC0078C5C1 /* HumDotaNewsCateTwoView.h */,
 				31D57E1516B811EC0078C5C1 /* HumDotaNewsCateTwoView.m */,
 				31F71F2116E3847E0092BC2A /* HumNewsTxtCell.h */,
@@ -2225,8 +2153,8 @@
 		31C6EB1D16AC477700187A67 /* photo */ = {
 			isa = PBXGroup;
 			children = (
-				31E421FD16F1B2A9003C0AEA /* HumDotaImageCateOneView.h */,
-				31E421FE16F1B2A9003C0AEA /* HumDotaImageCateOneView.m */,
+				311C82001751844000D8686E /* HumDotaImageViewController.h */,
+				311C82011751844000D8686E /* HumDotaImageViewController.m */,
 				31E4220016F1B3F8003C0AEA /* HumDotaImageCateTwoView.h */,
 				31E4220116F1B3F8003C0AEA /* HumDotaImageCateTwoView.m */,
 				31E4220316F1CD08003C0AEA /* HumImageTableCell.h */,
@@ -2250,8 +2178,8 @@
 				31D86F971700869900D94099 /* DSEquipView.h */,
 				31D86F981700869900D94099 /* DSEquipView.m */,
 				31DCA60516CA72CE000F4C9D /* model */,
-				31D86F8A17007C5100D94099 /* HumDotaSimuCateOneView.h */,
-				31D86F8B17007C5100D94099 /* HumDotaSimuCateOneView.m */,
+				311C820617518B2600D8686E /* HumDotaSimuViewController.h */,
+				311C820717518B2600D8686E /* HumDotaSimuViewController.m */,
 				31D86F8E17007E8F00D94099 /* HumDotaSimuCateTwoView.h */,
 				31D86F8F17007E8F00D94099 /* HumDotaSimuCateTwoView.m */,
 				31D86F94170083E300D94099 /* HumDotaSimuTableHeadView.h */,
@@ -2267,8 +2195,8 @@
 		31C6EB1F16AC477700187A67 /* strategy */ = {
 			isa = PBXGroup;
 			children = (
-				31B9234016FC4F73004DB449 /* HumDotaStrategyCateOneView.h */,
-				31B9234116FC4F73004DB449 /* HumDotaStrategyCateOneView.m */,
+				311C8203175186E000D8686E /* HumDotaStrategyViewController.h */,
+				311C8204175186E000D8686E /* HumDotaStrategyViewController.m */,
 				31B9234316FC4FD7004DB449 /* HumDotaStrategyCateTwoView.h */,
 				31B9234416FC4FD7004DB449 /* HumDotaStrategyCateTwoView.m */,
 				31B9234616FC57A3004DB449 /* HumStrategyTableCell.h */,
@@ -2280,8 +2208,8 @@
 		31C6EB2016AC477700187A67 /* video */ = {
 			isa = PBXGroup;
 			children = (
-				31D21CDA16B274F70092289C /* HumDotaVideoCateOneView.h */,
-				31D21CDB16B274F70092289C /* HumDotaVideoCateOneView.m */,
+				311C81FD1750F8C700D8686E /* HumDotaVideoViewController.h */,
+				311C81FE1750F8C700D8686E /* HumDotaVideoViewController.m */,
 				31005C2716EAFB8E009607B1 /* HumDotaVideCateTwoView.h */,
 				31005C2816EAFB8E009607B1 /* HumDotaVideCateTwoView.m */,
 				31005C2A16EB05D1009607B1 /* HumVideoTableCell.h */,
@@ -2440,6 +2368,8 @@
 		31C6EB2916AC477700187A67 /* OpenSouce */ = {
 			isa = PBXGroup;
 			children = (
+				318F151A1755F92500E6FB69 /* M3U8Kit */,
+				31FCDB971754E5A0000B2445 /* UMAnalytics */,
 				31C4B927171872F7008B89DE /* MTStatusBarOverlay.h */,
 				31C4B928171872F7008B89DE /* MTStatusBarOverlay.m */,
 				31281BAF170DAA4A0058E6DC /* SVWebViewController */,
@@ -2459,16 +2389,17 @@
 			path = OpenSouce;
 			sourceTree = "<group>";
 		};
-		31D57E1A16B816FF0078C5C1 /* setting */ = {
+		31D57E1A16B816FF0078C5C1 /* left */ = {
 			isa = PBXGroup;
 			children = (
-				31D57E1B16B8181F0078C5C1 /* HumSettingView.h */,
-				31D57E1C16B8181F0078C5C1 /* HumSettingView.m */,
-				319A5B6616BED00200C33620 /* HumRightView.h */,
-				319A5B6716BED00200C33620 /* HumRightView.m */,
+				311C81E71750A67D00D8686E /* HumLeftRevelViewController.h */,
+				311C81E81750A67D00D8686E /* HumLeftRevelViewController.m */,
+				319A5B6616BED00200C33620 /* HumRightViewController.h */,
+				319A5B6716BED00200C33620 /* HumRightViewController.m */,
 				31BB2C8E170B162D0066D9F1 /* HumShopCell.h */,
 				31BB2C8F170B162E0066D9F1 /* HumShopCell.m */,
 			);
+			name = left;
 			path = setting;
 			sourceTree = "<group>";
 		};
@@ -2558,6 +2489,15 @@
 				31E7978316FBF50B0013D4EB /* HMImagePopController.m */,
 			);
 			path = HMImagePopView;
+			sourceTree = "<group>";
+		};
+		31FCDB971754E5A0000B2445 /* UMAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				31FCDB981754E5A0000B2445 /* libMobClickLibrary.a */,
+				31FCDB991754E5A0000B2445 /* MobClick.h */,
+			);
+			path = UMAnalytics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2788,6 +2728,8 @@
 				310E576B171E917D0083CDD0 /* icon-72.png in Resources */,
 				310E576C171E917D0083CDD0 /* icon.png in Resources */,
 				310E576D171E917D0083CDD0 /* icon@2x.png in Resources */,
+				318F152E1755F92500E6FB69 /* InfoPlist.strings in Resources */,
+				318F15311755F92500E6FB69 /* M3U8Kit-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2911,19 +2853,14 @@
 				31C6EBC516AC4CDE00187A67 /* HumDotaNetOps.m in Sources */,
 				31C6EBCC16AC4D7D00187A67 /* HumDotaDataMgr.m in Sources */,
 				313DF58E16AD8DDB003886EF /* HumDotaUserCenterOps.m in Sources */,
-				313DF59216AD9B6F003886EF /* HumDotaCatOneBaseView.m in Sources */,
 				313DF59516AD9B8A003886EF /* HumDotaCateTowBaseView.m in Sources */,
-				313DF59816AD9C5F003886EF /* HumDotaBaseViewController.m in Sources */,
 				313DF5AD16AEE0F3003886EF /* HumDotaBaseFrame.m in Sources */,
 				313DF5B216AEE33E003886EF /* HumDotaTopNav.m in Sources */,
 				313DF5B516AEE371003886EF /* HumDotaButtomNav.m in Sources */,
 				313DF5C016AEE66B003886EF /* CustomNavigationBar.m in Sources */,
 				313DF5C116AEE66B003886EF /* CustomUIBarButtonItem.m in Sources */,
 				31D21C9816B0A7290092289C /* HumDotaCatTitle.m in Sources */,
-				31D21C9B16B0A8020092289C /* HumDotaNewsCateOneView.m in Sources */,
 				31D21CAE16B25F3D0092289C /* HumDotaCatTwoSelView.m in Sources */,
-				31D21CD916B26D500092289C /* HumDotaCatOneSplit.m in Sources */,
-				31D21CDC16B274F70092289C /* HumDotaVideoCateOneView.m in Sources */,
 				31D57DF816B7FAD20078C5C1 /* News.m in Sources */,
 				31D57DFC16B7FB360078C5C1 /* Video.m in Sources */,
 				31D57DFF16B7FB630078C5C1 /* Strategy.m in Sources */,
@@ -2932,10 +2869,8 @@
 				31D57E0C16B8034E0078C5C1 /* HumDotaCateTwoTableView.m in Sources */,
 				31D57E1316B805130078C5C1 /* PgLoadingFooterView.m in Sources */,
 				31D57E1616B811EC0078C5C1 /* HumDotaNewsCateTwoView.m in Sources */,
-				31D57E1916B813890078C5C1 /* HumLeftBaseView.m in Sources */,
-				31D57E1D16B8181F0078C5C1 /* HumSettingView.m in Sources */,
 				319A5B6416BECD4200C33620 /* HumRightBaseView.m in Sources */,
-				319A5B6816BED00200C33620 /* HumRightView.m in Sources */,
+				319A5B6816BED00200C33620 /* HumRightViewController.m in Sources */,
 				319A5B9316C1DE9C00C33620 /* MptAVPlayer.m in Sources */,
 				319A5B9416C1DE9C00C33620 /* MptAVPlayerControlView.m in Sources */,
 				319A5B9516C1DE9C00C33620 /* MptAVPlayerDefaultLayout.m in Sources */,
@@ -2971,7 +2906,6 @@
 				31DCA61216CA72CE000F4C9D /* HeroInfo.m in Sources */,
 				31DCA61316CA72CE000F4C9D /* Material.m in Sources */,
 				31DCA61416CA72CE000F4C9D /* Upgrade.m in Sources */,
-				31F71F1C16E31B0A0092BC2A /* HumDotaCateOneNoSplit.m in Sources */,
 				31F71F2316E3847F0092BC2A /* HumNewsTxtCell.m in Sources */,
 				31C359EA16E628C3009043A4 /* HumWebImageView.m in Sources */,
 				31C359EE16E628F8009043A4 /* UIImage+Additions.m in Sources */,
@@ -2992,18 +2926,15 @@
 				31E421F716F1A735003C0AEA /* HMNoticeView.m in Sources */,
 				31E421F816F1A735003C0AEA /* HMPopMsgView.m in Sources */,
 				31E421F916F1A735003C0AEA /* KGModal.m in Sources */,
-				31E421FF16F1B2A9003C0AEA /* HumDotaImageCateOneView.m in Sources */,
 				31E4220216F1B3F8003C0AEA /* HumDotaImageCateTwoView.m in Sources */,
 				31E4220516F1CD08003C0AEA /* HumImageTableCell.m in Sources */,
 				31E7978416FBF50B0013D4EB /* HMImagePopController.m in Sources */,
 				31E7978816FBF7FB0013D4EB /* HMImagePopManager.m in Sources */,
-				31B9234216FC4F73004DB449 /* HumDotaStrategyCateOneView.m in Sources */,
 				31B9234516FC4FD7004DB449 /* HumDotaStrategyCateTwoView.m in Sources */,
 				31B9234816FC57A3004DB449 /* HumStrategyTableCell.m in Sources */,
 				31B9235B16FCCC5B004DB449 /* DDProgressView.m in Sources */,
 				31B9235E16FD6888004DB449 /* Article.m in Sources */,
 				31D5831316FEDC1B00C17E2D /* HMLeftRightTextCell.m in Sources */,
-				31D86F8C17007C5100D94099 /* HumDotaSimuCateOneView.m in Sources */,
 				31D86F9017007E8F00D94099 /* HumDotaSimuCateTwoView.m in Sources */,
 				31D86F96170083E300D94099 /* HumDotaSimuTableHeadView.m in Sources */,
 				31D86F991700869900D94099 /* DSEquipView.m in Sources */,
@@ -3041,35 +2972,35 @@
 				31BB2C90170B162E0066D9F1 /* HumShopCell.m in Sources */,
 				31281BBD170DAA4A0058E6DC /* SVModalWebViewController.m in Sources */,
 				31281BBF170DAA4A0058E6DC /* SVWebViewController.m in Sources */,
-				31678AB21711AEAF0044209A /* HumDotaPadButtomNav.m in Sources */,
-				31678AB71711AEAF0044209A /* HumDotaPadBaseFrame.m in Sources */,
-				31678AB81711AEAF0044209A /* HumPadDotaBaseViewController.m in Sources */,
-				31678ABA1711AEAF0044209A /* HumDotaPadCateTowBaseView.m in Sources */,
-				31678ABB1711AEAF0044209A /* HumDotaPadCateTwoTableView.m in Sources */,
-				31678ABC1711AEAF0044209A /* HumDotaPadCatOneBaseView.m in Sources */,
-				31678ABD1711AEAF0044209A /* HumDotaPadCatOneSplit.m in Sources */,
-				31678ABF1711AEAF0044209A /* HumPadLeftBaseView.m in Sources */,
-				31678AC01711AEAF0044209A /* HumPadRightBaseView.m in Sources */,
-				31678AC11711AEAF0044209A /* HumDotaPadNewsCateOneView.m in Sources */,
-				31678AC21711AEAF0044209A /* HumDotaPadNewsCateTwoView.m in Sources */,
-				31678AC31711AEAF0044209A /* HumPadNewsTxtCell.m in Sources */,
-				31678AE31711B04B0044209A /* HumDotaPadTopNav.m in Sources */,
-				31678AE51711BDCE0044209A /* HumDotaPadCateOneNoSplit.m in Sources */,
-				31678AEE1712536C0044209A /* HumDotaPadVideoCateOneView.m in Sources */,
-				31678AEF1712536C0044209A /* HumVideoPadTableCell.m in Sources */,
-				31678AF2171253B10044209A /* HumDotaPadVideCateTwoView.m in Sources */,
-				31BF6E561712F8F400338FC6 /* HumDotaPadImageCateOneView.m in Sources */,
-				31BF6E571712F8F400338FC6 /* HumDotaPadImageCateTwoView.m in Sources */,
-				31BF6E581712F8F400338FC6 /* HumPadImageTableCell.m in Sources */,
-				3153A5B817144CB2003C30AA /* HumDotaPadStrategyCateOneView.m in Sources */,
-				3153A5B917144CB2003C30AA /* HumDotaPadStrategyCateTwoView.m in Sources */,
-				3153A5BA17144CB2003C30AA /* HumPadStrategyTableCell.m in Sources */,
 				31C4B91C17186F95008B89DE /* HMLogoinViewController.m in Sources */,
 				31C4B9221718709D008B89DE /* HMRegistVC.m in Sources */,
 				31C4B9231718709D008B89DE /* HMPasswordChangeVC.m in Sources */,
 				31C4B926171871A0008B89DE /* HMTextField.m in Sources */,
 				31C4B929171872F7008B89DE /* MTStatusBarOverlay.m in Sources */,
 				311A117A171E36CA00A3740B /* HumAboutViewController.m in Sources */,
+				312FB086174BB8A000261D25 /* PKRevealController.m in Sources */,
+				312FB087174BB8A000261D25 /* PKRevealControllerContainerView.m in Sources */,
+				312FB088174BB8A000261D25 /* UIViewController+PKRevealController.m in Sources */,
+				311C81DD1750A11800D8686E /* MptContentScrollView.m in Sources */,
+				311C81DE1750A11800D8686E /* MptCotentCell.m in Sources */,
+				311C81ED1750ACD500D8686E /* MptTouchScrollView.m in Sources */,
+				311C81E91750A67D00D8686E /* HumLeftRevelViewController.m in Sources */,
+				311C81F01750AE4400D8686E /* HumDotaNewsViewController.m in Sources */,
+				311C81F31750B50A00D8686E /* HumDotaRevealBaseViewController.m in Sources */,
+				311C81F61750D56E00D8686E /* HumDotaNoSplitViewController.m in Sources */,
+				311C81F91750D58900D8686E /* HumDotaSplitViewController.m in Sources */,
+				311C81FC1750D7D400D8686E /* MptCatScrollView.m in Sources */,
+				311C81FF1750F8C700D8686E /* HumDotaVideoViewController.m in Sources */,
+				311C82021751844100D8686E /* HumDotaImageViewController.m in Sources */,
+				311C8205175186E000D8686E /* HumDotaStrategyViewController.m in Sources */,
+				311C820817518B2600D8686E /* HumDotaSimuViewController.m in Sources */,
+				318F152F1755F92500E6FB69 /* M3U8ExtXStreamInf.m in Sources */,
+				318F15301755F92500E6FB69 /* M3U8ExtXStreamInfList.m in Sources */,
+				318F15321755F92500E6FB69 /* M3U8Parser.m in Sources */,
+				318F15331755F92500E6FB69 /* M3U8SegmentInfo.m in Sources */,
+				318F15341755F92500E6FB69 /* M3U8SegmentInfoList.m in Sources */,
+				318F15351755F92500E6FB69 /* NSString+m3u8.m in Sources */,
+				318F15361755F92500E6FB69 /* NSURL+m3u8.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3103,6 +3034,14 @@
 				31281BBB170DAA4A0058E6DC /* zh-Hant */,
 			);
 			name = SVWebViewController.strings;
+			sourceTree = "<group>";
+		};
+		318F151B1755F92500E6FB69 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				318F151C1755F92500E6FB69 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		319A5B6E16C1DE9B00C33620 /* mptplayer.strings */ = {
@@ -3174,9 +3113,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ZHIYUN YANG (JLMRKUQTA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHIYUN YANG (S47X4Y5639)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3189,9 +3130,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "60EC8DC9-3B02-45AB-9420-DF31B8AF4A30";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "548AE165-C65A-4EB2-9995-B9B8C399233D";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
@@ -3204,17 +3145,19 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ZHIYUN YANG (JLMRKUQTA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZHIYUN YANG (S47X4Y5639)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "60EC8DC9-3B02-45AB-9420-DF31B8AF4A30";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "548AE165-C65A-4EB2-9995-B9B8C399233D";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -3231,7 +3174,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DotAer/DotAer-Prefix.pch";
 				INFOPLIST_FILE = "DotAer/DotAer-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/DotAer/OpenSouce/UMAnalytics_Sdk_2.2.0.OpenUDID\"",
+					"\"$(SRCROOT)/DotAer/OpenSouce/UMAnalytics\"",
+				);
 				OTHER_LDFLAGS = "-licucore";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3249,7 +3197,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DotAer/DotAer-Prefix.pch";
 				INFOPLIST_FILE = "DotAer/DotAer-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/DotAer/OpenSouce/UMAnalytics_Sdk_2.2.0.OpenUDID\"",
+					"\"$(SRCROOT)/DotAer/OpenSouce/UMAnalytics\"",
+				);
 				OTHER_LDFLAGS = "-licucore";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3262,6 +3215,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DotAer.app/DotAer";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_OBJCPP_ARC_ABI = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -3279,6 +3234,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DotAer.app/DotAer";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_OBJCPP_ARC_ABI = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",

@@ -24,3 +24,25 @@
 #define DISTANCE_X(_POINT_A_,POINT_B_,_X_) (_X_ = _POINT_A_.x - POINT_B_.x)
 
 #define DISTANCE_Y(_POINT_A_,POINT_B_,_Y_) (_Y_ = _POINT_A_.y - POINT_B_.y)
+
+
+
+//umeng tatics
+#define kUmeng_newspage @"newspage"
+#define kUmeng_videopage @"videopage"
+#define kUmeng_imagepage @"imagepage"
+#define kUmeng_strategyPage @"strategypage"
+#define kUmeng_simulatorPage @"simulatorpage"
+
+#define kUmeng_news_cell_event @"news_cell_event"
+
+#define kUmeng_video_cateChange @"video_category_change"
+#define kUmeng_video_dota1 @"category_dota1"
+#define kUmeng_video_dota2 @"category_dota2"
+
+#define kUmeng_video_cell_event @"video_cell_event"
+#define kUmeng_video_dota2_cell_event @"video_dota2_cell_event"
+
+
+#define kUmeng_image_cell_event @"image_cell_event"
+#define kUmeng_strategy_cell_event @"strategy_cell_event"

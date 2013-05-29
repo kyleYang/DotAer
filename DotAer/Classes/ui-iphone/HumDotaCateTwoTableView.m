@@ -7,7 +7,6 @@
 //
 
 #import "HumDotaCateTwoTableView.h"
-#import "HumDotaBaseViewController.h"
 #import "Env.h"
 
 
@@ -41,9 +40,9 @@
     [super dealloc];
 }
 
--(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame withIdentifier:(NSString *)ident withController:(UIViewController *)ctrl
 {
-    self = [super initWithDotaCatFrameViewCtl:ctl Frame:frame];
+    self = [super initWithFrame:frame withIdentifier:ident withController:ctrl];
     if (nil == self) return nil;
     
    
@@ -54,6 +53,7 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.separatorColor = [UIColor clearColor];
+    self.tableView.scrollsToTop = YES;
     self.tableView.showsHorizontalScrollIndicator = NO;
     self.tableView.allowsSelection = NO;
     self.tableView.allowsSelectionDuringEditing = NO;
@@ -112,7 +112,7 @@
     [super viewWillAppear];
     if(! [self loadLocalDataNeedFresh])
         return;
-    [self performSelector:@selector(tableContentFrsh) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(tableContentFrsh) withObject:nil afterDelay:1];
     
     
 }

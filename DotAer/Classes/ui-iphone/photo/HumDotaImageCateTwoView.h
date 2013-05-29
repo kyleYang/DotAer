@@ -20,7 +20,9 @@ typedef enum {
 
 @interface HumDotaImageCateTwoView  : HumDotaCateTwoTableView
 
--(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame CategoryId:(NSString *)catId;
+@property (nonatomic, copy) NSString *imageCatId;
+
+-(id)initWithDotaCatFrameViewCtl:(UIViewController*)ctl Frame:(CGRect)frame CategoryId:(NSString *)catId;
 
 @end
 

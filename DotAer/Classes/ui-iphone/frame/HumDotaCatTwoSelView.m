@@ -11,7 +11,7 @@
 #import "Env.h"
 #import "HumDotaMaco.h"
 #import "HMCateOnePopView.h"
-#import "iCarousel.h"
+#import "MptCatScrollView.h"
 
 #define kIndicateWidth 10
 #define kCatOneBtnWidth 80
@@ -95,12 +95,12 @@
 
 
 
-@interface HumDotaCatTwoSelView() <iCarouselDataSource,iCarouselDelegate,HMCateOnePopViewDelegate>{
+@interface HumDotaCatTwoSelView() <MptCatScrollViewDelegate,HMCateOnePopViewDelegate>{
     int _onViewNum;
 }
 
 
-@property (nonatomic, retain) iCarousel *viewScroll;
+@property (nonatomic, retain) MptCatScrollView *viewScroll;
 @property (nonatomic, retain) NSMutableArray *arrItemLabels; // UILabel
 
 @property (nonatomic, retain) NSArray *arrItems;// category under big category
@@ -110,7 +110,6 @@
 @property (nonatomic, retain) UIButton *cateOneBtn; //category one button
 @property (nonatomic, retain) UILabel *cateOneLab;
 @property (nonatomic, retain) UIImageView *cateOneImg;
-@property (nonatomic, retain) UIView *signView;
 
 @end
 
@@ -126,7 +125,6 @@
 @synthesize arrItemLabels;
 @synthesize cateOneBtn,cateOneLab,cateOneImg;
 
-@synthesize signView;
 
 - (void)dealloc{
     self.delegate = nil;
@@ -139,7 +137,6 @@
     self.cateOneImg = nil;
     
     self.arrItemLabels = nil;
-    self.signView = nil;
     [super dealloc];
 }
 
@@ -175,20 +172,13 @@
         [self.cateOneBtn addSubview:self.cateOneLab];
         
             
-    
-        self.viewScroll = [[[iCarousel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))] autorelease];
+        self.viewScroll = [[[MptCatScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))] autorelease];
         self.viewScroll.backgroundColor = [UIColor clearColor];
-        self.viewScroll.type = iCarouselTypeLinear;
-        self.viewScroll.dataSource = self;
+        self.viewScroll.normalColor = [UIColor grayColor];
+        self.viewScroll.hilightColor = [UIColor whiteColor];
         self.viewScroll.delegate = self;
         [self addSubview:self.viewScroll];
         
-        
-        self.signView = [[[UIView alloc] init] autorelease];
-        self.signView.backgroundColor = [UIColor whiteColor];
-        [self addSubview:self.signView];
-        
-
     }
     return self;
 }
@@ -198,14 +188,16 @@
 #pragma mark
 #pragma mark property setting
 
-- (void)humDotaCateTwoSetCatArr:(NSArray *)arrCat itemArr:(NSArray *)arrItem{
+- (void)setCateTwoCurSelectIndex:(NSUInteger)index{
+    [self.viewScroll setSelectedIndex:index];
+}
+
+- (void)humDotaCateTwoSetCatArr:(NSArray *)arrCat{
+    self.viewScroll.arrItems = arrCat;
+}
+
+-(void)humDotaCateOneSetCatArr:(NSArray *)arrCat{
    
-    if(!arrItem || [arrItem count] == 0){
-        BqsLog(@"_arrItems nil or _arrCategory count :0");
-        return;
-    }
-    [_arrAll release]; _arrAll= nil;
-    _arrAll = [arrItem retain];
     
     [_arrCategory release]; _arrCategory= nil;
     _arrCategory = [arrCat retain];
@@ -221,9 +213,6 @@
         frame.size.width = CGRectGetWidth(self.bounds);
         self.viewScroll.frame = frame;
         
-        [_arrItems release]; _arrItems = nil;
-        _arrItems = [[_arrAll objectAtIndex:0] retain];
-    
               
     }else{
         
@@ -237,38 +226,12 @@
         
         self.cateOneLab.text = [_arrCategory objectAtIndex:_catSelectedId];
         
-        if(![_arrCategory count] == [_arrAll count]){
-            BqsLog(@"cateone number != number");
-            return;
-        }
-        
-        id obj = [_arrAll objectAtIndex:_catSelectedId];
-        if (![obj isKindOfClass:[NSArray class]]) {
-            BqsLog(@"cateone not nil ,but catetwo obj is not NSArray");
-            return;
-        }
-        
-        
-        [_arrItems release]; _arrItems = nil;
-        _arrItems = [obj retain];
-
     }
-    _itemSelectedId = 0;
-    _oldItemSelectedid = -1;
-    self.viewScroll.scrollOffset = 0.0f;
-    [self.viewScroll reloadData];
-    
-    CGRect frame = self.signView.frame;
-    frame.size = CGSizeMake(65, 2);
-    frame.origin.y = CGRectGetHeight(self.bounds)-5;
-    frame.origin.x = (CGRectGetWidth(self.viewScroll.frame) - 65)/2;
-    self.signView.frame = frame;
-    
-    if(nil != self.delegate && [self.delegate respondsToSelector:@selector(humDotaCatTwoSelectView:DidSelectCatOne:CatTwo:PrevSelect:)]) {
+ 
+    if(nil != self.delegate && [self.delegate respondsToSelector:@selector(humDotaCatTwoSelectView:DidSelectCatOne:)]) {
         BqsLog(@"scrollView didTapped catone : %d,cattwo:%d ",_catSelectedId,_itemSelectedId);
-        [self.delegate humDotaCatTwoSelectView:self DidSelectCatOne:_catSelectedId CatTwo:_itemSelectedId PrevSelect:_oldItemSelectedid];
+        [self.delegate humDotaCatTwoSelectView:self DidSelectCatOne:_catSelectedId];
     }
-    
     
 }
 
@@ -298,113 +261,19 @@
 
 
 #pragma mark -
-#pragma mark iCarousel methods
+#pragma mark MptCatScrollViewDelegate
 
-- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
-{
-    NSLog(@"--numberOfItemsInCarousel----");
-    return [_arrItems count];
-}
-
-
-- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
-{
-    UILabel *label = nil;
-    if (view == nil)
-    {
-        label = [[[UILabel alloc] initWithFrame:CGRectMake(35,-3,101,46)] autorelease];
-        label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont systemFontOfSize:14.0f];
-        label.textAlignment = UITextAlignmentCenter;
-        label.textColor = [UIColor whiteColor];
-        label.shadowColor = RGBA(0, 0, 0, .6);
-        label.shadowOffset = CGSizeMake(0.0f, 1.0f);
-        
-        view = label;
-    }else{
-        label = (UILabel *)view;
-    }
-    ////show placeholder
-   
-    if ([_arrItems count] <= index) {
-        BqsLog(@"[_arrItems count] : %d <= index:%d",[_arrItems count], index);
-        return nil;
-    }
+- (void)catScrollView:(MptCatScrollView *)scrollView didSelect:(NSInteger)index{
     
-    label.text=[_arrItems objectAtIndex:index];
-
-    
-    return view;
-}
-
-
-- (CGFloat)carousel:(iCarousel *)_carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
-{
-    switch (option)
-    {
-        case iCarouselOptionWrap:
-        {
-            return YES;
-        }
-        case iCarouselOptionTilt:
-        {
-            if (self.cateOneBtn.hidden) {
-                return NUMBER_OF_HIDDEN_VISIBLE_ITEMS;
-            }else{
-                return 0.9;
-            }
-
-        }
-        case iCarouselOptionSpacing:
-        {
-            if (self.cateOneBtn.hidden) {
-                return 1.0;
-            }else{
-                return 0.8;
-            }
-        }
-        case iCarouselOptionFadeMin:
-        {
-            return 0.0f;
-        }
-        case iCarouselOptionFadeMax:
-        {
-            return 0.0f;
-        }
-        case iCarouselOptionFadeRange:
-        {
-            return 4.0f;
-        }
-        case iCarouselOptionVisibleItems:
-        {
-            if (self.cateOneBtn.hidden) {
-                return NUMBER_OF_HIDDEN_VISIBLE_ITEMS;
-            }else{
-                return NUMBER_OF_NO_HIDDEN_VISIBLE_ITEMS;
-            }
-        }
-        default:
-        {
-            return value;
-        }
-    }
-}
-#pragma mark
-#pragma mark iCarouselDelegate
-- (void)carouselCurrentItemIndexDidChange:(iCarousel *)acarousel
-{
-    NSUInteger curIndex = acarousel.currentItemIndex;
     _oldItemSelectedid = _itemSelectedId;
-    _itemSelectedId = curIndex;
-    
-    if(nil != self.delegate && [self.delegate respondsToSelector:@selector(humDotaCatTwoSelectView:DidSelectCatOne:CatTwo:PrevSelect:)]) {
+    _itemSelectedId = index;
+
+    if(nil != self.delegate && [self.delegate respondsToSelector:@selector(humDotaCatTwoSelectView:DidSelectCatTwo:)]) {
         BqsLog(@"scrollView didTapped catone : %d,cattwo:%d ",_catSelectedId,_itemSelectedId);
-        [self.delegate humDotaCatTwoSelectView:self DidSelectCatOne:_catSelectedId CatTwo:_itemSelectedId PrevSelect:_oldItemSelectedid];
+        [self.delegate humDotaCatTwoSelectView:self DidSelectCatTwo:_itemSelectedId];
     }
-
+    
 }
-
 
 
 #pragma mark
@@ -417,27 +286,11 @@
     
     self.cateOneLab.text = [_arrCategory objectAtIndex:_catSelectedId];
     
-    if(_catSelectedId >= [_arrAll count]){
-        BqsLog(@"hmCateOnePopView didSelectAt :%d cateone > _arrItems.count :%d ",_catSelectedId,[_arrItems count]);
-        return;
-    }
-    
-    id obj = [_arrAll objectAtIndex:_catSelectedId];
-    if (![obj isKindOfClass:[NSArray class]]) {
-        BqsLog(@"cateone not nil ,but catetwo obj is not NSArray");
-        return;
-    }
-    [_arrItems release]; _arrItems = nil;
-    _arrItems = [obj retain];
-    [self.viewScroll reloadData];
-   
-    _itemSelectedId = 0;
-    _oldItemSelectedid = -1;
-    if(nil != self.delegate && [self.delegate respondsToSelector:@selector(humDotaCatTwoSelectView:DidSelectCatOne:CatTwo:PrevSelect:)]) {
+       
+    if(nil != self.delegate && [self.delegate respondsToSelector:@selector(humDotaCatTwoSelectView:DidSelectCatOne:)]) {
         BqsLog(@"scrollView didTapped catone : %d,cattwo:%d ",_catSelectedId,_itemSelectedId);
-        [self.delegate humDotaCatTwoSelectView:self DidSelectCatOne:_catSelectedId CatTwo:_itemSelectedId PrevSelect:_oldItemSelectedid];
+        [self.delegate humDotaCatTwoSelectView:self DidSelectCatOne:_catSelectedId];
     }
-    
     
 }
 

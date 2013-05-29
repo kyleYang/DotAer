@@ -17,6 +17,7 @@
 #import "Strategy.h"
 #import "XmlWriter.h"
 #import "Article.h"
+#import "HMPopMsgView.h"
 
 #define kHumDota @"dotaer"
 #define kHumNews @"news"
@@ -42,6 +43,8 @@
 #define kFileNameArticle @"art_%@.txt"
 
 #define kFileSimulatorTempFile @"simuTemp.zip"
+#define kFileTestFile @"testVideo"
+#define kVideoName @"v.mp4"
 
 #define kCfgOneVideoCatResfreshTS @"cfg.dota.one.video.category.refreshTS"
 #define kRefreshOneVideoCatIntervalS (24*60*60.0)
@@ -464,6 +467,12 @@
 
 }
 
+//pathoftestvied
+- (NSString *)pathofTestM3u8:(NSUInteger)index{
+   return [[self.simulatorPath stringByAppendingPathComponent:kFileTestFile] stringByAppendingPathComponent:kVideoName];
+}
+
+
 
 
 #pragma mark
@@ -581,6 +590,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
         BqsLog(@"Failed to upload one video category http: %d err: %@", cb.httpStatus, cb.error);
+        [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         return;
     }
     
@@ -608,6 +618,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
         BqsLog(@"Failed to upload two video category http: %d err: %@", cb.httpStatus, cb.error);
+        [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         return;
     }
     
@@ -636,6 +647,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
         BqsLog(@"Failed to upload one image category http: %d err: %@", cb.httpStatus, cb.error);
+        [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         return;
     }
     

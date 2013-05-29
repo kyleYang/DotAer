@@ -8,6 +8,7 @@
 
 #import "HumMassCleanViewController.h"
 #import "CustomUIBarButtonItem.h"
+#import "PKRevealController.h"
 #import "HMLeftRightTextCell.h"
 #import "HumDotaDataMgr.h"
 #import "HumDotaUIOps.h"
@@ -173,7 +174,14 @@
 }
 
 - (void)backToTop{
-    [HumDotaUIOps slideDismissModalViewController:self];
+    if (self.navigationController.revealController.focusedController == self.navigationController.revealController.leftViewController)
+    {
+        [self.navigationController.revealController showViewController:self.navigationController.revealController.frontViewController];
+    }
+    else
+    {
+        [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
+    }
 }
 
 @end

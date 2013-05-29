@@ -20,7 +20,6 @@
 @interface HumDotaVideCateTwoView()<HumVideoTableCellDelegate,MptAVPlayerViewController_Callback>
 
 @property (nonatomic, retain) Video *retainInfo;
-@property (nonatomic, retain) NSString *videoCatId;
 @property (nonatomic, retain) NSMutableArray *netArray;
 
 @end
@@ -36,15 +35,6 @@
     [super dealloc];
 }
 
--(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame CategoryId:(NSString *)catId
-{
-    self = [super initWithDotaCatFrameViewCtl:ctl Frame:frame];
-    if (self) {
-        self.videoCatId = catId;
-        
-    }
-    return self;
-}
 
 
 - (BOOL)loadLocalDataNeedFresh{
@@ -87,6 +77,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
 		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
+        [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         return;
 	}
     if (nil == self.netArray) {
@@ -261,6 +252,7 @@
     }
     
     Video *info = [self.dataArray objectAtIndex:index.row];
+    [MobClick endEvent:kUmeng_video_cell_event label:info.title];
     self.retainInfo = info;
     BOOL isWifi = [HumDotaUserCenterOps BoolValueForKey:kDftNetTypeWifi];
     if (!isWifi) {

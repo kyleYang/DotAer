@@ -20,6 +20,7 @@
 #import "HumDotaUserCenterOps.h"
 #import "HMPopMsgView.h"
 
+
 #define kNewsPageEachNum 10
 
 @interface HumDotaNewsCateTwoView()<HumNewsCellDelegate,MptAVPlayerViewController_Callback>
@@ -89,6 +90,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
 		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
+        [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         return;
 	}
     if (nil == self.netArray) {
@@ -246,6 +248,7 @@
         return;
     }
     News *info = [self.dataArray objectAtIndex:index.row];
+    [MobClick event:kUmeng_news_cell_event label:info.title];
 
     switch (info.category) {
         case HumDotaNewsTypeText:

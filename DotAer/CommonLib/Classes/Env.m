@@ -27,6 +27,7 @@
 @property (nonatomic, copy, readwrite) NSString *sAppDownloadUrlForWeibo;
 @property (nonatomic, copy, readwrite) NSString *swType;
 @property (nonatomic, copy, readwrite) NSString *itunesAppId;
+@property (nonatomic, copy, readwrite) NSString *umengId;
 @property (nonatomic, copy, readwrite) NSString *market;
 @property (nonatomic, copy, readwrite) NSString *dirDocuments;
 @property (nonatomic, copy, readwrite) NSString *dirCache;
@@ -54,6 +55,7 @@
 @synthesize sAppDownloadUrlForWeibo;
 @synthesize swType=_swType;
 @synthesize itunesAppId;
+@synthesize umengId = _umengId;
 @synthesize market=_market;
 @synthesize dirDocuments = _dirDocuments;
 @synthesize dirCache = _dirCache;
@@ -175,6 +177,7 @@
 		self.swType = [properties objectForKey:@"swtype"];
         self.sAppDownloadUrlForWeibo = [properties objectForKey:@"app_download_url_forweibo"];
         self.itunesAppId = [properties objectForKey:@"itunes_app_id"];
+        self.umengId = [properties objectForKey:@"umeng_app_id"];
         self.dicNetAppAppendHeader = [properties objectForKey:@"app_net_append_header"];
 	}
     

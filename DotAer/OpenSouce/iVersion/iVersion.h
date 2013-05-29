@@ -58,6 +58,7 @@ static NSString *const iVersionInThisVersionTitleKey = @"iVersionInThisVersionTi
 static NSString *const iVersionUpdateAvailableTitleKey = @"iVersionUpdateAvailableTitle";
 static NSString *const iVersionVersionLabelFormatKey = @"iVersionVersionLabelFormat";
 static NSString *const iVersionOKButtonKey = @"iVersionOKButton";
+static NSString *const iVersionNoNewVersion = @"iVersionNoNewVersion";
 static NSString *const iVersionIgnoreButtonKey = @"iVersionIgnoreButton";
 static NSString *const iVersionRemindButtonKey = @"iVersionRemindButton";
 static NSString *const iVersionDownloadButtonKey = @"iVersionDownloadButton";
@@ -126,6 +127,7 @@ iVersionErrorCode;
 @property (nonatomic, copy) NSString *updateAvailableTitle;
 @property (nonatomic, copy) NSString *versionLabelFormat;
 @property (nonatomic, copy) NSString *okButtonLabel;
+@property (nonatomic, copy) NSString *noNewVersionString;
 @property (nonatomic, copy) NSString *ignoreButtonLabel;
 @property (nonatomic, copy) NSString *remindButtonLabel;
 @property (nonatomic, copy) NSString *downloadButtonLabel;

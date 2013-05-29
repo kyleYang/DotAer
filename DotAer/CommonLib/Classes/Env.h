@@ -46,6 +46,7 @@ typedef enum{
     NSString *_swVersion;
     NSString *_swType;
 	NSString *_market;
+    NSString *_umengId;
 	
 	NSString *_dirDocuments;
 	NSString *_dirCache;
@@ -75,6 +76,7 @@ typedef enum{
 @property (nonatomic, copy, readonly) NSString *sAppDownloadUrlForWeibo;
 @property (nonatomic, copy, readonly) NSString *swType;
 @property (nonatomic, copy, readonly) NSString *itunesAppId;
+@property (nonatomic, copy, readonly) NSString *umengId;
 @property (nonatomic, copy, readonly) NSString *market;
 @property (nonatomic, copy, readonly) NSString *dirDocuments;
 @property (nonatomic, copy, readonly) NSString *dirCache;

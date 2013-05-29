@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CustomNavigationBar.h"
 #import "Env.h"
+#import "PKRevealController.h"
 
 
 @implementation HumDotaUIOps
@@ -58,6 +59,64 @@
     [containerView.layer addAnimation:transition forKey:nil];
     
     [vctl dismissModalViewControllerAnimated:NO];
+}
+
++(void)revealLeftViewControl:(UIViewController *)left showNavigationFontViewControl:(UIViewController *)font{
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:font];
+    CustomNavigationBar *navBar = [[CustomNavigationBar alloc] init];
+    UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"dota_frame_title_bg.jpg" X:20.0f Y:10.0f];
+    [navBar setCustomBgImage:bgImg];
+    [navc setValue:navBar forKey:@"navigationBar"];
+    
+    left.revealController.frontViewController = navc;
+    [left.revealController showViewController:left.revealController.frontViewController];
+    [navc release];
+    [navBar release];
+
+}
+
++(void)revealLeftViewControl:(UIViewController *)left showNavigationFontViewControl:(UIViewController *)font wihtOtherViewControle:(UIViewController *)other{
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:font];
+    CustomNavigationBar *navBar = [[CustomNavigationBar alloc] init];
+    UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"dota_frame_title_bg.jpg" X:20.0f Y:10.0f];
+    [navBar setCustomBgImage:bgImg];
+    [navc setValue:navBar forKey:@"navigationBar"];
+    
+    left.revealController.frontViewController = navc;
+    left.revealController.rightViewController = other;
+    [left.revealController showViewController:left.revealController.frontViewController];
+    [navc release];
+    [navBar release];
+
+}
+
++(void)revealRightViewControl:(UIViewController *)right showNavigationFontViewControl:(UIViewController *)font wihtOtherViewControle:(UIViewController *)other{
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:font];
+    CustomNavigationBar *navBar = [[CustomNavigationBar alloc] init];
+    UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"dota_frame_title_bg.jpg" X:20.0f Y:10.0f];
+    [navBar setCustomBgImage:bgImg];
+    [navc setValue:navBar forKey:@"navigationBar"];
+    
+    right.revealController.frontViewController = navc;
+    right.revealController.leftViewController = other;
+    [right.revealController showViewController:right.revealController.frontViewController];
+    [navc release];
+    [navBar release];
+    
+}
+
++(void)revealRightViewControl:(UIViewController *)right showNavigationFontViewControl:(UIViewController *)font{
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:font];
+    CustomNavigationBar *navBar = [[CustomNavigationBar alloc] init];
+    UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"dota_frame_title_bg.jpg" X:20.0f Y:10.0f];
+    [navBar setCustomBgImage:bgImg];
+    [navc setValue:navBar forKey:@"navigationBar"];
+    
+    right.revealController.frontViewController = navc;
+    [right.revealController showViewController:right.revealController.frontViewController];
+    [navc release];
+    [navBar release];
+    
 }
 
 

@@ -25,8 +25,6 @@
 
 @interface HumDotaImageCateTwoView()<HumImageTableCellDelegate>
 
-@property (nonatomic, copy) NSString *imageCatId;
-
 @property (nonatomic, retain) NSMutableArray *netArray;
 
 
@@ -46,7 +44,7 @@
 
 
 
--(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame CategoryId:(NSString *)catId
+-(id)initWithDotaCatFrameViewCtl:(UIViewController*)ctl Frame:(CGRect)frame CategoryId:(NSString *)catId
 {
     self = [super initWithDotaCatFrameViewCtl:ctl Frame:frame];
     if (self) {
@@ -114,7 +112,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
 		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
-        [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"news.error.networkfailed", nil) Delegate:nil];
+        [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         return;
 	}
     
@@ -216,7 +214,7 @@
     }
     
     Photo *info = [self.dataArray objectAtIndex:index.row*2];
-    
+    [MobClick endEvent:kUmeng_image_cell_event label:info.title];
     NSMutableArray *arry = [NSMutableArray arrayWithCapacity:10];
     NSMutableArray *sumAry = [NSMutableArray arrayWithCapacity:10];
     for (PhotoImg *photo in info.arrImgUrls) {
@@ -239,7 +237,7 @@
     }
     
     Photo *info = [self.dataArray objectAtIndex:index.row*2+1];
-    
+    [MobClick endEvent:kUmeng_image_cell_event label:info.title];
     NSMutableArray *arry = [NSMutableArray arrayWithCapacity:10];
     NSMutableArray *sumAry = [NSMutableArray arrayWithCapacity:10];
     for (PhotoImg *photo in info.arrImgUrls) {

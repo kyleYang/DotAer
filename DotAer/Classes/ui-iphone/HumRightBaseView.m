@@ -31,7 +31,7 @@
     [super dealloc];
 }
 
--(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame{
+-(id)initWithDotaCatFrameViewCtl:(UIViewController*)ctl Frame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         self.parCtl = ctl;

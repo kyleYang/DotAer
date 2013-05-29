@@ -7,19 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HumDotaBaseViewController.h"
 #import "Downloader.h"
 #import "Env.h"
 #import "BqsUtils.h"
 #import "HeroInfo.h"
 #import "Equipment.h"
+#import "MptCotentCell.h"
+#import "MobClick.h"
+#import "HumDotaMaco.h"
 
-@interface HumDotaCateTowBaseView : UIView
+@interface HumDotaCateTowBaseView : MptCotentCell
 
-@property (nonatomic, assign) HumDotaBaseViewController *parCtl;
+@property (nonatomic, assign) UIViewController *parCtl;
 @property (nonatomic, retain) Downloader *downloader;
-
--(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame;
 
 
 -(BOOL)loadLocalDataNeedFresh;

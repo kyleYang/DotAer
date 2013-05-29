@@ -68,7 +68,7 @@
 +(void)showPopMsgString:(NSString*)err Msg:(NSString*)msg Delegate:(id)target {
 
     
-    if (!msg || msg.length ==0) {
+    if ((!err||err.length==0)&&(!msg || msg.length ==0)) {
         return;
     }
 

@@ -10,6 +10,9 @@
 
 @interface HumDotaVideCateTwoView : HumDotaCateTwoTableView
 
--(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame CategoryId:(NSString *)catId;
+
+
+@property (nonatomic, retain) NSString *videoCatId;
+
 
 @end

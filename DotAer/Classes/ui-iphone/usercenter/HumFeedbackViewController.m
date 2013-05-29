@@ -19,6 +19,7 @@
 #import "HMPopMsgView.h"
 #import "Status.h"
 #import "HumFeedbackCell.h"
+#import "PKRevealController.h"
 
 #define kPlachTxtColor [UIColor colorWithRed:227.0f/255.0f green:227.0f/255.0f blue:227.0f/255.0f alpha:0.8f]
 #define kTxtViewColor [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]
@@ -179,7 +180,15 @@
 
 - (void)onLeftBackButtonClick{
     [self.ratFiled resignFirstResponder];
-    [HumDotaUIOps slideDismissModalViewController:self];
+    if (self.navigationController.revealController.focusedController == self.navigationController.revealController.leftViewController)
+    {
+        [self.navigationController.revealController showViewController:self.navigationController.revealController.frontViewController];
+    }
+    else
+    {
+        [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
+    }
+
 }
 
 
@@ -214,7 +223,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
 		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
-        [HMPopMsgView showPopMsgError:cb.error Msg:nil Delegate:nil];
+        [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         
         return;
 	}
@@ -263,7 +272,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
 		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
-       [HMPopMsgView showPopMsgError:cb.error Msg:nil Delegate:nil];
+       [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         
         return;
 	}

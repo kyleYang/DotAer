@@ -14,6 +14,7 @@
 #import <MessageUI/MessageUI.h>
 #import "BqsRoundLeftArrowButton.h"
 #import "CustomUIBarButtonItem.h"
+#import "PKRevealController.h"
 
 #pragma mark - SetButtonView Class
 @interface SegButtonView : UIControl{
@@ -521,7 +522,15 @@
 #pragma mark -
 #pragma mark My Methods
 - (void)onLeftBackButtonClick{
-    [HumDotaUIOps slideDismissModalViewController:self];
+    if (self.navigationController.revealController.focusedController == self.navigationController.revealController.leftViewController)
+    {
+        [self.navigationController.revealController showViewController:self.navigationController.revealController.frontViewController];
+    }
+    else
+    {
+        [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
+    }
+
 }
 
 - (void)onIntroduceButtonClick{

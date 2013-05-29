@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HumDotaBaseViewController.h"
 
 #define kMainRightViewLeftGap 60
 
@@ -19,7 +18,7 @@
 @property (nonatomic, assign) UIViewController *parCtl;
 @property (nonatomic, assign) id<HumRightBaseViewDelegate> delegate;
 
--(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame;
+-(id)initWithDotaCatFrameViewCtl:(UIViewController*)ctl Frame:(CGRect)frame;
 
 - (void)didClickHideLefttView;
 -(void)viewDidAppear;

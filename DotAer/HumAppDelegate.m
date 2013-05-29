@@ -16,6 +16,15 @@
 #import "Downloader.h"
 #import "HumDotaNetOps.h"
 #import "News.h"
+#import "CustomNavigationBar.h"
+#import "PKRevealController.h"
+#import "HumLeftRevelViewController.h"
+#import "HumDotaNewsViewController.h"
+#import "HumDotaVideoViewController.h"
+#import "HumDotaImageViewController.h"
+#import "HumDotaStrategyViewController.h"
+#import "HMPopMsgView.h"
+#import "MobClick.h"
 
 
 @interface HumAppDelegate()<EnvProtocol>{
@@ -24,6 +33,7 @@
 
 @property (nonatomic, retain) Env *theEnv;
 @property (nonatomic, retain) Downloader *downloader;
+@property (nonatomic, retain) PKRevealController *revealController;
 
 @end
 
@@ -50,6 +60,33 @@
 @synthesize viewController;
 @synthesize theEnv;
 @synthesize downloader;
+@synthesize revealController;
+
+
+- (void)umengTrack {
+    //    [MobClick setCrashReportEnabled:NO]; // 如果不需要捕捉异常，注释掉此行
+    [MobClick setLogEnabled:YES];  // 打开友盟sdk调试，注意Release发布时需要注释掉此行,减少io消耗
+    [MobClick setAppVersion:XcodeAppVersion]; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取
+    //
+    [MobClick startWithAppkey:[Env sharedEnv].umengId reportPolicy:(ReportPolicy) REALTIME channelId:nil];
+    //   reportPolicy为枚举类型,可以为 REALTIME, BATCH,SENDDAILY,SENDWIFIONLY几种
+    //   channelId 为NSString * 类型，channelId 为nil或@""时,默认会被被当作@"App Store"渠道
+    
+    //      [MobClick checkUpdate];   //自动更新检查, 如果需要自定义更新请使用下面的方法,需要接收一个(NSDictionary *)appInfo的参数
+    //    [MobClick checkUpdateWithDelegate:self selector:@selector(updateMethod:)];
+    
+    [MobClick updateOnlineConfig];  //在线参数配置
+    
+    //    1.6.8之前的初始化方法
+    //    [MobClick setDelegate:self reportPolicy:REALTIME];  //建议使用新方法
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onlineConfigCallBack:) name:UMOnlineConfigDidFinishedNotification object:nil];
+    
+}
+
+- (void)onlineConfigCallBack:(NSNotification *)note {
+    
+    NSLog(@"online config has fininshed and note = %@", note.userInfo);
+}
 
 
 + (void)initialize
@@ -70,6 +107,8 @@
     [iRate sharedInstance].appStoreID = [[Env sharedEnv].itunesAppId intValue];
     [iVersion sharedInstance].appStoreID = [[Env sharedEnv].itunesAppId intValue];
     
+    [self umengTrack];
+    
     self.downloader = [[[Downloader alloc] init] autorelease];
     self.downloader.bSearialLoad = YES;
     
@@ -87,19 +126,43 @@
   
     
     if (!self.theEnv.bIsPad) {
-        HumDotaBaseViewController *ctl = [[HumDotaBaseViewController alloc] initWithNibName:nil bundle:nil];
-        ctl.managedObjectContext = self.managedObjectContext;
-        self.viewController = ctl;
+        
+        
+        HumDotaNewsViewController *ctl = [[HumDotaNewsViewController alloc] initWithNibName:nil bundle:nil];
+//        ctl.managedObjectContext = self.managedObjectContext;
+        
+        UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:ctl];
+        
+        CustomNavigationBar *navBar = [[CustomNavigationBar alloc] init];
+        UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"dota_frame_title_bg.jpg" X:20.0f Y:10.0f];
+        [navBar setCustomBgImage:bgImg];
+        [navc setValue:navBar forKey:@"navigationBar"];
+        
+        
+        HumLeftRevelViewController *leftCtl = [[HumLeftRevelViewController alloc] initWithNibName:nil bundle:nil];
+        leftCtl.managedObjectContext = self.managedObjectContext;
+        
+        self.revealController = [PKRevealController revealControllerWithFrontViewController:navc
+                                                                         leftViewController:leftCtl
+                                                                        rightViewController:nil
+                                                                                    options:nil];
+        
+
+        self.viewController = self.revealController;
+        [navc release];
+        [navBar release];
         [ctl release];
+        [leftCtl release];
     }else{
-        HumPadDotaBaseViewController *ctl = [[HumPadDotaBaseViewController alloc] initWithNibName:nil bundle:nil];
-        ctl.managedObjectContext = self.managedObjectContext;
-        self.viewController = ctl;
-        [ctl release];
+//        HumPadDotaBaseViewController *ctl = [[HumPadDotaBaseViewController alloc] initWithNibName:nil bundle:nil];
+//        ctl.managedObjectContext = self.managedObjectContext;
+//        self.viewController = ctl;
+//        [ctl release];
     }
     
+
     
-    self.window.rootViewController = self.viewController;
+    self.window.rootViewController = self.revealController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
@@ -139,6 +202,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
 		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
+        [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         return;
 	}
     NSArray *arry = [News parseXmlData:cb.rspData];
@@ -149,8 +213,8 @@
     News *news = [arry objectAtIndex:0];
     
     if (!self.theEnv.bIsPad) {
-        HumDotaBaseViewController *ctl = (HumDotaBaseViewController *)self.viewController;
-        [ctl pushNotificationNews:news];
+//        HumDotaBaseViewController *ctl = (HumDotaBaseViewController *)self.viewController;
+//        [ctl pushNotificationNews:news];
         
     }else {
 //        HumPadDotaBaseViewController *ctl =(HumPadDotaBaseViewController *)self.viewController;

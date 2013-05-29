@@ -7,7 +7,6 @@
 //
 
 #import "HumDotaPadCateTwoTableView.h"
-#import "HumDotaBaseViewController.h"
 #import "Env.h"
 
 

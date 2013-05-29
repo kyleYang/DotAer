@@ -84,7 +84,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
 		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
-        [HMPopMsgView showPopMsgError:cb.error Msg:nil Delegate:nil];
+       [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         
         return;
 	}
@@ -203,6 +203,7 @@
     }
     
     Strategy *info = [self.dataArray objectAtIndex:index.row];
+    [MobClick endEvent:kUmeng_strategy_cell_event label:info.title];
     LeavesViewController *leaves = [[[LeavesViewController alloc] initWithArtUrl:info.content articeId:info.articleId articlMd5:info.md5] autorelease];
     [HumDotaUIOps slideShowModalViewControler:leaves ParentVCtl:self.parCtl];
 

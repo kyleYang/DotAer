@@ -14,4 +14,11 @@
 +(void)slideShowModalViewInNavControler:(UIViewController *)vctl ParentVCtl:(UIViewController *)pvctl;
 +(void)slideDismissModalViewController:(UIViewController*)vctl;
 
++(void)revealLeftViewControl:(UIViewController *)left showNavigationFontViewControl:(UIViewController *)font;
++(void)revealLeftViewControl:(UIViewController *)left showNavigationFontViewControl:(UIViewController *)font wihtOtherViewControle:(UIViewController *)other;
+
++(void)revealRightViewControl:(UIViewController *)right showNavigationFontViewControl:(UIViewController *)font wihtOtherViewControle:(UIViewController *)other;
++(void)revealRightViewControl:(UIViewController *)right showNavigationFontViewControl:(UIViewController *)font;
+
+
 @end

@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HumDotaBaseViewController.h"
-#import "HumPadDotaBaseViewController.h"
 
 @interface HumAppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -87,7 +87,11 @@
 - (NSString *)pathOfEquipInfoXML;
 
 - (NSString *)pathOfHeroImageDir;
-- (NSString *)pathOfEquipImageDir;
+- (NSString *)pathofTestM3u8:(NSUInteger)index;
+
+
+//pathoftestvied
+- (NSString *)pathofTestM3u8;
 
 
 @end

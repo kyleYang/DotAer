@@ -36,9 +36,9 @@
 - (void)toggle;
 - (void)setupAccessibility;
 
-@property (nonatomic, strong) NSMutableArray *titlesArray;
-@property (nonatomic, strong) NSMutableArray *thumbRects;
-@property (nonatomic, strong) NSMutableArray *accessibilityElements;
+@property (nonatomic, retain) NSMutableArray *titlesArray;
+@property (nonatomic, retain) NSMutableArray *thumbRects;
+@property (nonatomic, retain) NSMutableArray *accessibilityElements;
 
 @property (nonatomic, readwrite) NSUInteger snapToIndex;
 @property (nonatomic, readwrite) BOOL trackingThumb;
@@ -64,6 +64,22 @@
 
 #pragma mark -
 #pragma mark Life Cycle
+
+- (void)dealloc{
+    self.changeHandler = nil;
+    self.selectedSegmentChangedHandler = nil;
+    self.accessibilityElements = nil;
+    self.tintColor = nil;
+    self.backgroundImage = nil;
+    self.font = nil;
+    self.textColor = nil;
+    self.textShadowColor=nil;
+    self.titlesArray = nil;
+    [thumb release];
+    self.delegate = nil;
+    self.shadowColor = nil;    
+    [super dealloc];
+}
 
 - (id)initWithSectionTitles:(NSArray*)array {
     

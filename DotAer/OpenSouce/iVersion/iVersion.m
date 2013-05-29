@@ -129,6 +129,7 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
 @synthesize updateAvailableTitle = _updateAvailableTitle;
 @synthesize versionLabelFormat = _versionLabelFormat;
 @synthesize okButtonLabel = _okButtonLabel;
+@synthesize noNewVersionString = _noNewVersionString;
 @synthesize ignoreButtonLabel = _ignoreButtonLabel;
 @synthesize remindButtonLabel = _remindButtonLabel;
 @synthesize downloadButtonLabel = _downloadButtonLabel;
@@ -178,6 +179,7 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
     [_updateAvailableTitle release]; _updateAvailableTitle = nil;
     [_versionLabelFormat release]; _versionLabelFormat = nil;
     [_okButtonLabel release]; _okButtonLabel = nil;
+    [_noNewVersionString release]; _noNewVersionString = nil;
     [_ignoreButtonLabel release]; _ignoreButtonLabel = nil;
     [_remindButtonLabel release]; _remindButtonLabel = nil;
     [_downloadButtonLabel release]; _downloadButtonLabel = nil;
@@ -329,6 +331,11 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
 - (NSString *)okButtonLabel
 {
     return _okButtonLabel ?: [self localizedStringForKey:iVersionOKButtonKey withDefault:@"OK"];
+}
+
+- (NSString *)noNewVersionString
+{
+    return _noNewVersionString ?: [self localizedStringForKey:iVersionNoNewVersion withDefault:@"This Version  is the newest version！"];
 }
 
 - (NSString *)ignoreButtonLabel
@@ -687,6 +694,7 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
     }
     else if ([self.delegate respondsToSelector:@selector(iVersionDidNotDetectNewVersion)])
     {
+
         [self.delegate iVersionDidNotDetectNewVersion];
     }
 }

@@ -22,14 +22,20 @@
 @property (nonatomic, assign) int itemSelectedId;
 @property (nonatomic, assign) int catSelectedId;
 
--(void)humDotaCateTwoSetCatArr:(NSArray *)arrCat itemArr:(NSArray *)arrItem;
+- (void)setCateTwoCurSelectIndex:(NSUInteger)index;
 
+- (void)humDotaCateTwoSetCatArr:(NSArray *)arrCat;
+
+-(void)humDotaCateOneSetCatArr:(NSArray *)arrCat;
 
 @end
 
 @protocol HumDotaCatTwoSelViewDelegate <NSObject>
 
 @optional
--(void)humDotaCatTwoSelectView:(HumDotaCatTwoSelView*)v DidSelectCatOne:(int)onIdx CatTwo:(int)twoIdx PrevSelect:(int)prevIdx;
+
+-(void)humDotaCatTwoSelectView:(HumDotaCatTwoSelView*)v DidSelectCatOne:(int)onIdx;
+
+-(void)humDotaCatTwoSelectView:(HumDotaCatTwoSelView*)v DidSelectCatTwo:(int)towIdx;
 
 @end

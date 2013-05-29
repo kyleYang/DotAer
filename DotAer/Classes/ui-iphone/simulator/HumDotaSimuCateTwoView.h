@@ -12,6 +12,7 @@
 
 @interface HumDotaSimuCateTwoView : HumDotaCateTowBaseView
 
--(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame managedObjectContext:(NSManagedObjectContext *)manager;
+
+@property (nonatomic,retain) NSManagedObjectContext* managedObjectContext;
 
 @end

@@ -21,7 +21,6 @@
 @property (nonatomic, retain) Equipment *selectEquip;
 
 
-@property (nonatomic,retain) NSManagedObjectContext* managedObjectContext;
 @end
 
 @implementation HumDotaSimuCateTwoView
@@ -40,18 +39,13 @@
     [super dealloc];
 }
 
--(id)initWithDotaCatFrameViewCtl:(HumDotaBaseViewController*)ctl Frame:(CGRect)frame managedObjectContext:(NSManagedObjectContext *)manager
-{
-    self = [super initWithDotaCatFrameViewCtl:ctl Frame:frame];
+- (id)initWithFrame:(CGRect)frame withIdentifier:(NSString *)ident withController:(UIViewController *)ctrl{
+    self = [super initWithFrame:frame withIdentifier:ident withController:ctrl];
     if (nil == self) return nil;
     
-    self.backgroundColor = [UIColor colorWithRed:117.0f/255.0f green:95.0f/255.0f blue:81.0f/255.0f alpha:1.0f];
-    
-    self.managedObjectContext = manager;
-    // create subview
     self.tableView = [[[UITableView alloc] initWithFrame:self.bounds style:UITableViewStylePlain] autorelease];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundColor =  [UIColor colorWithRed:75.0f/255.0f green:64.0f/255.0f blue:59.0f/255.0f alpha:1.0f];;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.showsHorizontalScrollIndicator = NO;
@@ -66,8 +60,11 @@
     self.tableView.tableHeaderView = self.headView;
     
     return self;
+
+    
     
 }
+
 
 -(void)setSelectHero:(HeroInfo *)aHero
 {
