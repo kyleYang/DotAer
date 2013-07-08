@@ -543,9 +543,9 @@ static void *mptPlayerLayerReadyForDisplayContext = &mptPlayerLayerReadyForDispl
     if (self.controlsVisible || self.placeholderView.alpha > 0.f) {
         id playButton = nil;
         
-//        if (self.controlsView.volumeControl.expanded) {
-//            return NO;
-//        }
+        if (self.controlsView.explaned) {
+            return NO;
+        }
         
         if ([self.placeholderView respondsToSelector:@selector(playButton)]) {
             playButton = [self.placeholderView performSelector:@selector(playButton)];
@@ -698,6 +698,8 @@ static void *mptPlayerLayerReadyForDisplayContext = &mptPlayerLayerReadyForDispl
     
     return NO;
 }
+
+
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)tap {
     if ((tap.state & UIGestureRecognizerStateRecognized) == UIGestureRecognizerStateRecognized) {

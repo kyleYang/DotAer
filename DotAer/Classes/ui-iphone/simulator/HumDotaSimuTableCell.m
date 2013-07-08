@@ -40,8 +40,15 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        UIImageView *bgView  = [[UIImageView alloc] initWithFrame:self.bounds];
+        bgView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+        bgView.image = [[Env sharedEnv] cacheScretchableImage:@"image_Cell_bg.png" X:15 Y:15];
+        [self addSubview:bgView];
+        [bgView release];
+
+        
         UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(15, 10, kSillIntoWidht, kBgHeigh)];
-        bg.backgroundColor = [UIColor colorWithRed:91.0f/255.0f green:73.0f/255.0f blue:61.0f/255.0f alpha:1.0f];
+        bg.backgroundColor = [UIColor clearColor];
         [self addSubview:bg];
         [bg release];
         
@@ -52,7 +59,7 @@
         self.skillName.font = kNameFont;
         self.skillName.lineBreakMode = UILineBreakModeWordWrap;
         self.skillName.numberOfLines = 0;
-        self.skillName.textColor = [UIColor whiteColor];
+        self.skillName.textColor = [UIColor blackColor];
         self.skillName.backgroundColor = [UIColor clearColor];
         [bg addSubview:self.skillName];
         
@@ -61,7 +68,7 @@
         self.skillIntro.numberOfLines = 0;
         self.skillIntro.backgroundColor = [UIColor clearColor];
         self.skillIntro.font = kIntroFont;
-        self.skillIntro.textColor = [UIColor whiteColor];
+        self.skillIntro.textColor = [UIColor blackColor];
         [self addSubview:self.skillIntro];
         
         self.skillNote = [[[UILabel alloc] initWithFrame:bg.frame] autorelease];
@@ -69,7 +76,7 @@
         self.skillNote.lineBreakMode = UILineBreakModeWordWrap;
         self.skillNote.numberOfLines = 0;
         self.skillNote.backgroundColor = [UIColor clearColor];
-        self.skillNote.textColor = [UIColor whiteColor];
+        self.skillNote.textColor = [UIColor blackColor];
         [self addSubview:self.skillNote];
         
         
@@ -78,7 +85,7 @@
         self.skillLev1.lineBreakMode = UILineBreakModeWordWrap;
         self.skillLev1.numberOfLines = 0;
         self.skillLev1.backgroundColor = [UIColor clearColor];
-        self.skillLev1.textColor = [UIColor whiteColor];
+        self.skillLev1.textColor = [UIColor blackColor];
         [self addSubview:self.skillLev1];
         
         self.skillLev2 = [[[UILabel alloc] initWithFrame:bg.frame] autorelease];
@@ -86,7 +93,7 @@
         self.skillLev2.lineBreakMode = UILineBreakModeWordWrap;
         self.skillLev2.numberOfLines = 0;
         self.skillLev2.backgroundColor = [UIColor clearColor];
-        self.skillLev2.textColor = [UIColor whiteColor];
+        self.skillLev2.textColor = [UIColor blackColor];
         [self addSubview:self.skillLev2];
         
         self.skillLev3 = [[[UILabel alloc] initWithFrame:bg.frame] autorelease];
@@ -94,7 +101,7 @@
         self.skillLev3.lineBreakMode = UILineBreakModeWordWrap;
         self.skillLev3.numberOfLines = 0;
         self.skillLev3.backgroundColor = [UIColor clearColor];
-        self.skillLev3.textColor = [UIColor whiteColor];
+        self.skillLev3.textColor = [UIColor blackColor];
         [self addSubview:self.skillLev3];
         
         self.skillLev4 = [[[UILabel alloc] initWithFrame:bg.frame] autorelease];
@@ -102,15 +109,9 @@
         self.skillLev4.lineBreakMode = UILineBreakModeWordWrap;
         self.skillLev4.numberOfLines = 0;
         self.skillLev4.backgroundColor = [UIColor clearColor];
-        self.skillLev4.textColor = [UIColor whiteColor];
+        self.skillLev4.textColor = [UIColor blackColor];
         [self addSubview:self.skillLev4];
         
-        UIImageView *line =  [[UIImageView alloc] initWithFrame:CGRectMake(15, self.frame.size.height - 3, self.frame.size.width-30, 2)];
-        line.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
-        line.image = [[Env sharedEnv] cacheImage:@"dota_cell_line.png"];
-        [self addSubview:line];
-        [line release];
-
         
     }
     return self;

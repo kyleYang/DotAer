@@ -11,13 +11,14 @@
 #import "HumDotaDataMgr.h"
 #import "Video.h"
 #import "HumVideoTableCell.h"
-#import "MptAVPlayerViewController.h"
+#import "NGDemoMoviePlayerViewController.h"
 #import "HumDotaUserCenterOps.h"
 #import "HMPopMsgView.h"
+#import "HumDotaVideoManager.h"
 
 #define kVideoPageEachNum 10
 
-@interface HumDotaVideCateTwoView()<HumVideoTableCellDelegate,MptAVPlayerViewController_Callback>
+@interface HumDotaVideCateTwoView()<HumVideoTableCellDelegate,MoviePlayerViewControllerDelegate>
 
 @property (nonatomic, retain) Video *retainInfo;
 @property (nonatomic, retain) NSMutableArray *netArray;
@@ -107,7 +108,9 @@
 }
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.dataArray count];
+    int row = [HumVideoTableCell rowCntForItemCnt:[self.dataArray count] ColumnCnt:[HumVideoTableCell columnCntForWidth:CGRectGetWidth(self.tableView.frame)]];
+    BqsLog(@"numberOfRowsInSection :%d",row);
+    return row;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,95 +122,58 @@
     }
     cell.delegate = self;
     
-    if (indexPath.row % 2 == 0) {
-        cell.bgImg.image = [[Env sharedEnv] cacheImage:@"dota_cell_singer_bg.png"];
-    }else{
-        cell.bgImg.image = [[Env sharedEnv] cacheImage:@"dota_cell_double_bg.png"];
-    }
+    [cell setItemArr:self.dataArray Row:indexPath.row];
+    
+    cell.backgroundColor = [UIColor clearColor];
+    
+//    "video.download.has.download" = "已下载";
+//    "video.download.is.downloading" = "下载中";
+//    "detail.video.download.title" = "下载";
 
     
-    Video *info = [self.dataArray objectAtIndex:indexPath.row];
-    CGFloat heigh = kOrgY;
+//    AddVideoTaskStatus addStatus =  [[HumDotaVideoManager instance] judgeStatusForVideo:info];
+//    NSString *tipsNSString = nil;
+//    switch (addStatus) {
+//        case TaskStatusSuccess:
+//            tipsNSString = NSLocalizedString(@"detail.video.download.title", nil);
+//            break;
+//        case TaskStatusAlready:
+//            tipsNSString = NSLocalizedString(@"video.download.is.downloading", nil);
+//            break;
+//        case TaskStatusExist:
+//            tipsNSString = NSLocalizedString(@"video.download.has.download", nil);
+//            break;
+//        default:
+//            tipsNSString = NSLocalizedString(@"detail.video.download.title", nil);
+//            break;
+//    }
     
-    [cell.videoCover displayImage:[[Env sharedEnv] cacheImage:@"dota_video_default.png"]];
-    cell.videoCover.imgUrl = info.imageUrl;
-    
-    CGSize size = [info.title sizeWithFont:cell.title.font constrainedToSize:CGSizeMake(cell.title.frame.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
-    CGRect frame = cell.title.frame;
-    frame.size.height = size.height;
-    cell.title.frame = frame;
-    cell.title.text = info.title;
-    
-    
-    heigh += (size.height > kCoverHeigh)? size.height:kCoverHeigh; //图片跟 title 高的
-    
-    size = [info.summary sizeWithFont:cell.summary.font constrainedToSize:CGSizeMake(cell.summary.frame.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
-    frame = cell.summary.frame;
-    frame.origin.y = heigh+kVSGap;
-    frame.size.height = size.height;
-    cell.summary.frame = frame;
-    cell.summary.text = info.summary;
-    
-    heigh += kVSGap+ size.height;
-    
-    frame = cell.timeLeb.frame;
-    frame.origin.y = heigh+kSTGap;
-    cell.timeLeb.frame = frame;
-    cell.timeLeb.text = info.time;
-    
-    heigh += kSTGap+kTimeHeigh; //timelable heig
-    
-    heigh += kOrgY;
-    
-
-    
-  
-    frame = cell.frame;
-    frame.size.height = heigh;
-    cell.frame = frame;
-    [cell setNeedsLayout];
     
     return cell;
 }
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    Video *info = [self.dataArray objectAtIndex:indexPath.row];
-    
-    CGFloat height= kOrgY;
-    
-    CGSize size = [info.title sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:CGSizeMake(CGRectGetWidth(self.bounds)-2*kOrgX-kCoverWidth-kVTGap, 1000) lineBreakMode:UILineBreakModeWordWrap];
-    height += (size.height > kCoverHeigh)? size.height:kCoverHeigh;
-    
-    size = [info.summary sizeWithFont:[UIFont systemFontOfSize:13.0f] constrainedToSize:CGSizeMake(CGRectGetWidth(self.bounds)-2*kOrgX, 1000) lineBreakMode:UILineBreakModeWordWrap];
-    
-    height += kVSGap+size.height;
-    
-    height += kSTGap+kTimeHeigh; //timelable heig
-    
-    height += kOrgY;
-    
-    
-    return height;
+
+    return kMptRecommnCell_nameHeigh+kMptRcommonCell_iconHeith+4*kMptRecommoCell_iconPaddingVert;
 }
 
 
 #pragma mark MptAVPlayerViewController_Callback
-- (void)MptAVPlayerViewController:(MptAVPlayerViewController *)ctl didFinishWithResult:(MptAVPlayerResult)result error:(NSError *)error{
+- (void)moviePlayerViewController:(NGDemoMoviePlayerViewController *)ctl didFinishWithResult:(NGMoviePlayerResult)result error:(NSError *)error{
     
     NSString *resultString = @"";
     
     switch (result) {
-        case MptAVPlayerCancelled:
+        case NGMoviePlayerCancelled:
             resultString = NSLocalizedString(@"detail.progrome.player.cancle", nil);
             break;
-        case MptAVPlayerFinished:
+        case NGMoviePlayerFinished:
             resultString = NSLocalizedString(@"detail.progrome.player.fininsh", nil);
             break;
-        case MptAVPlayerURLError:
+        case NGMoviePlayerURLError:
             resultString = NSLocalizedString(@"detail.progrome.player.urleror", nil);
             break;
-        case MptAVPlayerFailed:
+        case NGMoviePlayerFailed:
             resultString = NSLocalizedString(@"detail.progrome.player.failed", nil);
             break;
         default:
@@ -227,6 +193,7 @@
 }
 
 
+
 - (void)messageNotice:(NSString *)message{
     [HMPopMsgView showPopMsg:message];
 }
@@ -237,23 +204,31 @@
 #pragma mark
 #pragma mark HumVideoTableCellDelegate
 
-- (void)humVideoCell:(HumVideoTableCell *)cell didSelectIndex:(NSIndexPath *)index{
+- (void)humVideoCell:(HumVideoTableCell *)cell didPlayVideo:(Video *)video{
     
-    BqsLog(@"HumDotaVideoCateTwoView humVideoCell didSelectIndex section:%d row:%d",index.section,index.row);
-    if (index.row >= self.dataArray.count) {
-        BqsLog(@"HumDotaVideoCateTwoView humNewsCell didSelectIndex row > all row");
+    BqsLog(@"HumDotaVideoCateTwoView humVideoCell didPlayVideo:%@",video);
         
+    
+    NSString *localPlayM3u8 = [[HumDotaVideoManager instance] localPlayPathForVideo:video.youkuId];
+
+    if(localPlayM3u8){
+        
+        NGDemoMoviePlayerViewController *play = [[[NGDemoMoviePlayerViewController alloc] initWithUrl:localPlayM3u8 title:video.title] autorelease];
+        play.delegate = self;
+        //    play.modalTransitionStyle = UIModalTransitionStylePartialCurl;
+        [self.parCtl presentModalViewController:play animated:YES];
         return;
     }
+        
+    
     BOOL haveNet = [HumDotaUserCenterOps BoolValueForKey:kDftHaveNetWork];
     if (!haveNet) {
         [HMPopMsgView showAlterError:nil Msg:NSLocalizedString(@"title.nonetwork.cannot.paly", nil) Delegate:self];
         return;
     }
     
-    Video *info = [self.dataArray objectAtIndex:index.row];
-    [MobClick endEvent:kUmeng_video_cell_event label:info.title];
-    self.retainInfo = info;
+    [MobClick endEvent:kUmeng_video_play_event label:video.title];
+    self.retainInfo = video;
     BOOL isWifi = [HumDotaUserCenterOps BoolValueForKey:kDftNetTypeWifi];
     if (!isWifi) {
         [HMPopMsgView showChaoseAlertError:nil Msg:NSLocalizedString(@"title.network.3G.play", self) delegate:nil];
@@ -261,12 +236,81 @@
     }
     
 
-    MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:info.content name:info.title] autorelease];
-    play.call_back = self;
+    NGDemoMoviePlayerViewController *play = [[[NGDemoMoviePlayerViewController alloc] initWithVideo:video] autorelease];
+    play.delegate = self;
 //    play.modalTransitionStyle = UIModalTransitionStylePartialCurl;
     [self.parCtl presentModalViewController:play animated:YES];
        
     
+}
+
+- (void)humVideoCell:(HumVideoTableCell *)cell downloadVideo:(Video *)info{
+    
+    BqsLog(@"HumDotaVideoCateTwoView humVideoCell downloadVideo:%@ row:%d",info);
+    
+//    "detail.video.download.nonetwork" = "您已经断开网络,下载失败,请稍后重试";
+//    "detail.video.3G.download" = "您正在使用 3G 网络,会消耗较多流量,是否继续下载?"
+
+    
+    BOOL haveNet = [HumDotaUserCenterOps BoolValueForKey:kDftHaveNetWork];
+    if (!haveNet) {
+        [HMPopMsgView showAlterError:nil Msg:NSLocalizedString(@"detail.video.download.nonetwork", nil) Delegate:self];
+        return;
+    }
+    
+    [MobClick endEvent:kUmen_video_download_event label:info.title];
+    self.retainInfo = info;
+    BOOL isWifi = [HumDotaUserCenterOps BoolValueForKey:kDftNetTypeWifi];
+    if (!isWifi) {
+        [HMPopMsgView showAlterError:nil Msg:NSLocalizedString(@"detail.video.3G.download", nil) Delegate:self];
+        return;
+    }
+    
+//    TaskStatusSuccess = 1,
+//    TaskStatusAlready = 2,
+//    TaskStatusExist = 3,
+//    TaskStatusFailed = 4,
+    
+//    "video.download.already.downloaded" = "该视频已经存在,请进入视频管理界面管理";
+//    "video.download.already.downloading" = "该视频已经在下载列表,请进入视频管理界面管理";
+//    "video.download.addsuccess" = "添加下载视频成功,请进入视频管理界面管理";
+//    "video.download.failed" = "添加下载视频失败,请稍后重试";
+//    "video.download.unknow" = "未知错误,请稍后重试";
+    VideoScreenStatus videoState= [HumDotaUserCenterOps intValueReadForKey:kScreenPlayType];
+    
+   AddVideoTaskStatus addStatus =  [[HumDotaVideoManager instance] addDownloadTaskForVideo:info withStep:videoState];
+    NSString *tipsNSString = nil;
+    switch (addStatus) {
+        case TaskStatusSuccess:
+            tipsNSString = NSLocalizedString(@"video.download.addsuccess", nil);
+            break;
+        case TaskStatusAlready:
+            tipsNSString = NSLocalizedString(@"video.download.already.downloading", nil);
+            break;
+        case TaskStatusExist:
+            tipsNSString = NSLocalizedString(@"video.download.already.downloaded", nil);
+            break;
+        case TaskStatusFailed:
+            tipsNSString = NSLocalizedString(@"video.download.failed", nil);
+            break;
+        default:
+            tipsNSString = NSLocalizedString(@"video.download.unknow", nil);
+            break;
+    }
+    
+    [HMPopMsgView showPopMsgError:nil Msg:tipsNSString Delegate:nil];
+    
+    
+//    NSArray *arry = [NSArray arrayWithObject:index];
+//    [self.tableView reloadRowsAtIndexPaths:arry withRowAnimation:UITableViewRowAnimationNone];
+//    
+    
+}
+
+- (BOOL)humVideoCell:(HumVideoTableCell *)cell addFavVideo:(Video *)info{
+    BqsLog(@"HumDotaVideoCateTwoView humVideoCell addFavVideo:%@",info);
+
+    return [[HumDotaDataMgr instance] addFavoVideo:info];
 }
 
 #pragma mark
@@ -278,8 +322,8 @@
         if (self.retainInfo == nil) {
             BqsLog(@"Error because the retain info == nil");
         }
-        MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:self.retainInfo.content name:self.retainInfo.title] autorelease];
-        play.call_back = self;
+        NGDemoMoviePlayerViewController *play = [[[NGDemoMoviePlayerViewController alloc] initWithVideo:self.retainInfo] autorelease];
+        play.delegate = self;
         [self.parCtl presentModalViewController:play animated:YES];        
     }
     

@@ -172,11 +172,8 @@
     {
         self.navigationItem.title = NSLocalizedString(@"about.view.title", nil);
         
-         NSString *leftBarName = NSLocalizedString(@"button.back", nil);
-        //LeftBack Button;
-        self.navigationItem.leftBarButtonItem = [CustomUIBarButtonItem initWithImage:[env cacheScretchableImage:@"pg_bar_back.png" X:kBarStrePosX Y:kBarStrePosY] eventImg:[env cacheScretchableImage:@"pg_bar_backdown.png" X:kBarStrePosX Y:kBarStrePosY]  title:leftBarName target:self action:@selector(onLeftBackButtonClick)];
-
-        
+        NSString *leftBarName = NSLocalizedString(@"button.done", nil);
+        self.navigationItem.rightBarButtonItem = [CustomUIBarButtonItem initWithImage:[[Env sharedEnv] cacheScretchableImage:@"pg_bar_done.png" X:kBarStrePosX Y:kBarStrePosY] eventImg:[[Env sharedEnv] cacheScretchableImage:@"pg_bar_donedown.png" X:kBarStrePosX Y:kBarStrePosY]  title:leftBarName target:self action:@selector(onLeftBackButtonClick)];
 
 //        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"button.goback", @"commonlib",nil)  style:UIBarButtonItemStylePlain target:self action:@selector(onLeftBackButtonClick)];
 //        self.navigationItem.leftBarButtonItem = leftButton;
@@ -488,7 +485,7 @@
 
 -(BOOL)shouldAutorotate{
     
-    return YES;
+    return NO;
 }
 
 
@@ -522,15 +519,7 @@
 #pragma mark -
 #pragma mark My Methods
 - (void)onLeftBackButtonClick{
-    if (self.navigationController.revealController.focusedController == self.navigationController.revealController.leftViewController)
-    {
-        [self.navigationController.revealController showViewController:self.navigationController.revealController.frontViewController];
-    }
-    else
-    {
-        [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
-    }
-
+    [HumDotaUIOps popUIViewControlInNavigationControl:self];
 }
 
 - (void)onIntroduceButtonClick{

@@ -21,6 +21,7 @@
 #import "HumFeedbackCell.h"
 #import "PKRevealController.h"
 
+
 #define kPlachTxtColor [UIColor colorWithRed:227.0f/255.0f green:227.0f/255.0f blue:227.0f/255.0f alpha:0.8f]
 #define kTxtViewColor [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]
 
@@ -79,14 +80,23 @@
     
     _env = [Env sharedEnv];
     
+    UIImageView *bg = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    bg.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    bg.image = [[Env sharedEnv] cacheScretchableImage:@"background.png" X:20 Y:10];
+    [self.view addSubview:bg];
+    [bg release];
+
+    
 
     //LeftBack Button;
     {
         
-        NSString *leftBarName = NSLocalizedString(@"button.back", nil);
-        self.navigationItem.leftBarButtonItem = [CustomUIBarButtonItem initWithImage:[[Env sharedEnv] cacheScretchableImage:@"pg_bar_back.png" X:kBarStrePosX Y:kBarStrePosY] eventImg:[[Env sharedEnv] cacheScretchableImage:@"pg_bar_backdown.png" X:kBarStrePosX Y:kBarStrePosY]  title:leftBarName target:self action:@selector(onLeftBackButtonClick)];
+        NSString *leftBarName = NSLocalizedString(@"setting.mian.use.feedback.submit", nil);
+        self.navigationItem.leftBarButtonItem = [CustomUIBarButtonItem initWithImage:[[Env sharedEnv] cacheScretchableImage:@"pg_bar_done.png" X:kBarStrePosX Y:kBarStrePosY] eventImg:[[Env sharedEnv] cacheScretchableImage:@"pg_bar_donedown.png" X:kBarStrePosX Y:kBarStrePosY]  title:leftBarName target:self action:@selector(onClickNavOK:)];
         
-        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"setting.mian.use.feedback.submit", nil)style:UIBarButtonItemStyleDone target:self action:@selector(onClickNavOK:)] autorelease];
+        NSString *rightBarName = NSLocalizedString(@"button.done", nil);
+        self.navigationItem.rightBarButtonItem = [CustomUIBarButtonItem initWithImage:[[Env sharedEnv] cacheScretchableImage:@"pg_bar_done.png" X:kBarStrePosX Y:kBarStrePosY] eventImg:[[Env sharedEnv] cacheScretchableImage:@"pg_bar_donedown.png" X:kBarStrePosX Y:kBarStrePosY]  title:rightBarName target:self action:@selector(onLeftBackButtonClick)];
+        
     }
     
 //    UIImageView *iv = [[[UIImageView alloc] initWithImage:[_env cacheImage:@"guide_frame_bg.png"]] autorelease];
@@ -120,6 +130,7 @@
     self.tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.ratFiled.frame)+20, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-CGRectGetMaxY(self.ratFiled.frame)-55) style:UITableViewStylePlain] autorelease];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tableView];
     
@@ -180,28 +191,23 @@
 
 - (void)onLeftBackButtonClick{
     [self.ratFiled resignFirstResponder];
-    if (self.navigationController.revealController.focusedController == self.navigationController.revealController.leftViewController)
-    {
-        [self.navigationController.revealController showViewController:self.navigationController.revealController.frontViewController];
-    }
-    else
-    {
-        [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
-    }
-
+    [HumDotaUIOps popUIViewControlInNavigationControl:self];
 }
 
 
 - (void)onClickNavOK:(id)sender{
     [self.ratFiled resignFirstResponder];
     if (!_changed) {
+        [HMPopMsgView showPopMsg:NSLocalizedString(@"setting.mian.use.feedback.noinput", nil)];
         return;
     }
     if (_taskid >0 ) {
+        [HMPopMsgView showPopMsg:NSLocalizedString(@"setting.mian.use.feedback.posting", nil)];
         return;
     }
     
     if (!self.ratFiled.text || self.ratFiled.text.length == 0) {
+        [HMPopMsgView showPopMsg:NSLocalizedString(@"setting.mian.use.feedback.noinput", nil)];
         return;
     }
     NSString *content = self.ratFiled.text;
@@ -505,6 +511,21 @@
 - (void)textViewDidEndEditing:(UITextView *)textView{
     [self.ratFiled resignFirstResponder];
 }
+
+#pragma mark
+#pragma mark rotate
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return interfaceOrientation == UIInterfaceOrientationPortrait;
+}
+
+- (BOOL)shouldAutorotate{
+    return NO;
+};
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 
 
 @end

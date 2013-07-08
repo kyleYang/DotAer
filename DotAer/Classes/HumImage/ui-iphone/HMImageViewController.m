@@ -9,6 +9,7 @@
 #import "HMImageViewController.h"
 #import "HMImageScrollView.h"
 #import "HumDotaUIOps.h"
+#import "Env.h"
 
 @interface HMImageViewController ()<HMImageScrollDataSource,HMImageScrollDelegate>{
     UIStatusBarStyle _statusBarStyle;
@@ -71,7 +72,7 @@
     _scrollView.dataSource = self;
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
-    
+
 
 }
 
@@ -167,6 +168,10 @@
     
 }
 
+- (void)saveImgBlum:(id)sender{
+    
+}
+
 /////////////////////////////////////////////////////
 #pragma mark HumLeavesDelegate
 //////////////////////////////////////////////////
@@ -174,6 +179,10 @@
     [HumDotaUIOps slideDismissModalViewController:self];
 }
 
+
+- (void)humImageViewDownloadImage:(HMImageScrollView *)scroll{
+    [_scrollView saveImage];
+}
 
 - (void)didReceiveMemoryWarning
 {

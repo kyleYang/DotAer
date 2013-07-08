@@ -10,6 +10,11 @@
 #import "Downloader.h"
 #import "PackageFile.h"
 @class Article;
+@class Video;
+@class News;
+@class Photo;
+@class Strategy;
+
 
 #define kNtfDotaOneVideoChanged @"ntf.dota.one.video.category"
 #define kNtfDotaTwoVideoChanged @"ntf.dota.Two.video.category"
@@ -25,6 +30,11 @@
 @property (nonatomic, copy) NSString *articlePath;
 @property (nonatomic, copy) NSString *simulatorPath;
 
+@property (nonatomic, retain,readonly) NSMutableArray *arrFavVideo;
+@property (nonatomic, retain,readonly) NSMutableArray *arrFavNews;
+@property (nonatomic, retain,readonly) NSMutableArray *arrFavImage;
+@property (nonatomic, retain,readonly) NSMutableArray *arrFavStrategy;
+
 
 + (HumDotaDataMgr*)instance;
 - (PackageFile*)onlineCacheFilePath;
@@ -34,7 +44,7 @@
 - (void)cleanOtherCacheFile;
 - (void)cleanImageCacheFile;
 
--(long)fileSizeForDir:(NSString*)path;
+-(NSString *)fileSizeForDir:(NSString*)path;
 - (void)cleanAllFileForDir:(NSString *)path;
 
 - (NSString *)pathOfDotaOneVideoCategory;
@@ -87,11 +97,35 @@
 - (NSString *)pathOfEquipInfoXML;
 
 - (NSString *)pathOfHeroImageDir;
-- (NSString *)pathofTestM3u8:(NSUInteger)index;
 
 
-//pathoftestvied
-- (NSString *)pathofTestM3u8;
+//pathofvideo
+
+
+
+#pragma mark favorate
+//video
+- (NSString *)favVideoPathOfFile;
+- (NSArray *)arrOfLocalFavVideo;
+- (BOOL)addFavoVideo:(Video *)video;
+- (BOOL)judgeFavVideo:(Video *)video;
+
+//news
+
+- (NSString *)favNewsPathOfFile;
+- (BOOL)addFavNews:(News *)news;
+- (NSArray *)arrOfLocalFavNews;
+- (BOOL)judgeFavNews:(News *)news;
+
+- (NSString *)favImagePathOfFile;
+- (NSArray *)arrOfLocalFavImage;
+- (BOOL)addFavoImage:(Photo *)photo;
+- (BOOL)judgeFavImage:(Photo *)photo;
+
+- (NSString *)favStrategyPathOfFile;
+- (NSArray *)arrOfLocalFavStragety;
+- (BOOL)addFavoStragtegy:(Strategy *)strategy;
+- (BOOL)judgeFavStrategy:(Strategy *)strategy;
 
 
 @end

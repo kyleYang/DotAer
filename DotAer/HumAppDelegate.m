@@ -9,6 +9,7 @@
 #import "HumAppDelegate.h"
 #import "Env.h"
 #import "HumDotaDataMgr.h"
+#import "HumDotaVideoManager.h"
 #import "iRate.h"
 #import "iVersion.h"
 #import "Reachability.h"
@@ -16,15 +17,18 @@
 #import "Downloader.h"
 #import "HumDotaNetOps.h"
 #import "News.h"
+#import "Video.h"
 #import "CustomNavigationBar.h"
-#import "PKRevealController.h"
 #import "HumLeftRevelViewController.h"
 #import "HumDotaNewsViewController.h"
 #import "HumDotaVideoViewController.h"
 #import "HumDotaImageViewController.h"
 #import "HumDotaStrategyViewController.h"
+#import "HumUserCenterViewController.h"
 #import "HMPopMsgView.h"
+#import "HTTPServer.h"
 #import "MobClick.h"
+#import "HumDotaUserCenterOps.h"
 
 
 @interface HumAppDelegate()<EnvProtocol>{
@@ -33,7 +37,7 @@
 
 @property (nonatomic, retain) Env *theEnv;
 @property (nonatomic, retain) Downloader *downloader;
-@property (nonatomic, retain) PKRevealController *revealController;
+@property (nonatomic, retain) HTTPServer *httpServer;
 
 @end
 
@@ -47,6 +51,7 @@
     [_managedObjectContext release];
     [_managedObjectModel release];
     [_persistentStoreCoordinator release];
+    self.httpServer = nil;
     [self.downloader cancelAll];
     self.downloader = nil;
     self.theEnv = nil;
@@ -64,11 +69,11 @@
 
 
 - (void)umengTrack {
-    //    [MobClick setCrashReportEnabled:NO]; // 如果不需要捕捉异常，注释掉此行
-    [MobClick setLogEnabled:YES];  // 打开友盟sdk调试，注意Release发布时需要注释掉此行,减少io消耗
+    [MobClick setCrashReportEnabled:NO]; // 如果不需要捕捉异常，注释掉此行
+//    [MobClick setLogEnabled:YES];  // 打开友盟sdk调试，注意Release发布时需要注释掉此行,减少io消耗
     [MobClick setAppVersion:XcodeAppVersion]; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取
     //
-    [MobClick startWithAppkey:[Env sharedEnv].umengId reportPolicy:(ReportPolicy) REALTIME channelId:nil];
+    [MobClick startWithAppkey:[Env sharedEnv].umengId reportPolicy:(ReportPolicy) SEND_ON_EXIT channelId:[Env sharedEnv].market];
     //   reportPolicy为枚举类型,可以为 REALTIME, BATCH,SENDDAILY,SENDWIFIONLY几种
     //   channelId 为NSString * 类型，channelId 为nil或@""时,默认会被被当作@"App Store"渠道
     
@@ -107,7 +112,36 @@
     [iRate sharedInstance].appStoreID = [[Env sharedEnv].itunesAppId intValue];
     [iVersion sharedInstance].appStoreID = [[Env sharedEnv].itunesAppId intValue];
     
+    [HumDotaUserCenterOps saveBoolVaule:TRUE forKye:kDftNetTypeWifi]; //默认wifi
+    
+    if (![HumDotaUserCenterOps BoolValueForKey:kFirstUseDota]) {
+        [HumDotaUserCenterOps intVaule:VideoScreenClear saveForKey:kScreenDownType];
+        [HumDotaUserCenterOps intVaule:VideoScreenClear saveForKey:kScreenPlayType];
+        [HumDotaUserCenterOps saveBoolVaule:TRUE forKye:kFirstUseDota];
+    }
+    
     [self umengTrack];
+    
+    self.httpServer = [[[HTTPServer alloc] init] autorelease];
+	
+	// Tell the server to broadcast its presence via Bonjour.
+	// This allows browsers such as Safari to automatically discover our service.
+	[self.httpServer setType:@"_http._tcp."];
+	
+	// Normally there's no need to run our server on any specific port.
+	// Technologies like Bonjour allow clients to dynamically discover the server's port at runtime.
+	// However, for easy testing you may want force a certain port so you can just hit the refresh button.
+	[self.httpServer setPort:12345];
+    [self.httpServer setDocumentRoot:[HumDotaVideoManager instance].videoPath];
+	
+	// Start the server (and check for problems)
+	
+	NSError *error;
+	if(![self.httpServer start:&error])
+	{
+		BqsLog(@"Error starting HTTP Server: %@", error);
+	}
+
     
     self.downloader = [[[Downloader alloc] init] autorelease];
     self.downloader.bSearialLoad = YES;
@@ -134,7 +168,7 @@
         UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:ctl];
         
         CustomNavigationBar *navBar = [[CustomNavigationBar alloc] init];
-        UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"dota_frame_title_bg.jpg" X:20.0f Y:10.0f];
+        UIImage *bgImg = [[Env sharedEnv] cacheImage:@"dota_frame_title_bg.png"];
         [navBar setCustomBgImage:bgImg];
         [navc setValue:navBar forKey:@"navigationBar"];
         
@@ -142,9 +176,12 @@
         HumLeftRevelViewController *leftCtl = [[HumLeftRevelViewController alloc] initWithNibName:nil bundle:nil];
         leftCtl.managedObjectContext = self.managedObjectContext;
         
+        HumUserCenterViewController *rightCtl = [[[HumUserCenterViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+        
+        
         self.revealController = [PKRevealController revealControllerWithFrontViewController:navc
                                                                          leftViewController:leftCtl
-                                                                        rightViewController:nil
+                                                                        rightViewController:rightCtl
                                                                                     options:nil];
         
 
@@ -213,8 +250,15 @@
     News *news = [arry objectAtIndex:0];
     
     if (!self.theEnv.bIsPad) {
-//        HumDotaBaseViewController *ctl = (HumDotaBaseViewController *)self.viewController;
-//        [ctl pushNotificationNews:news];
+        if(![self.revealController.frontViewController isKindOfClass:[HumDotaRevealBaseViewController class]]){
+           BqsLog(@"revealController.frontViewController is not HumDotaRevealBaseViewController class");
+           return;
+        }
+        HumDotaRevealBaseViewController *ctl = (HumDotaRevealBaseViewController *)self.revealController.frontViewController;
+        if (![ctl respondsToSelector:@selector(pushNotificationNews:)]) {
+            BqsLog(@"HumDotaRevealBaseViewController ctl did not respondsToSelector pushNotificationNews:");
+        }
+        [ctl pushNotificationNews:news];
         
     }else {
 //        HumPadDotaBaseViewController *ctl =(HumPadDotaBaseViewController *)self.viewController;
@@ -439,7 +483,8 @@
 
 - (void)reachabilityChanged:(NSNotification *)note {
     Reachability* curReach = [note object];
-    NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+    if(![curReach isKindOfClass: [Reachability class]])
+        return;
     NetworkStatus status = [curReach currentReachabilityStatus];
     
     [HumDotaUserCenterOps saveBoolVaule:TRUE forKye:kDftHaveNetWork];

@@ -7,6 +7,7 @@
 //
 
 #import "HumDotaCateTowBaseView.h"
+#import "Env.h"
 
 @implementation HumDotaCateTowBaseView
 
@@ -25,6 +26,12 @@
 {
     self = [super initWithFrame:frame withIdentifier:ident withController:ctrl];
     if (nil == self) return nil;
+    
+    UIImageView *bg = [[UIImageView alloc] initWithFrame:self.bounds];
+    bg.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    bg.image = [[Env sharedEnv] cacheScretchableImage:@"background.png" X:20 Y:10];
+    [self addSubview:bg];
+    [bg release];
     
     self.downloader = [[[Downloader alloc] init] autorelease];
     self.downloader.bSearialLoad = YES;

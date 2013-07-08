@@ -13,6 +13,8 @@
 
 #include <sys/socket.h> // Per msqr
 #include <sys/sysctl.h>
+#include <sys/param.h>
+#include <sys/mount.h>
 #include <net/if.h>
 #include <net/if_dl.h>
 
@@ -417,6 +419,16 @@ int gamerand(unsigned int seed)
     free(buf);
     
     return outstring;
+}
+
+//get left size
++ (NSString *) freeDiskSpaceInBytes{
+    struct statfs buf;
+    long long freespace = -1;
+    if(statfs("/var", &buf) >= 0){
+        freespace = (long long)(buf.f_bsize * buf.f_bfree);
+    }
+    return [NSString stringWithFormat:@"%qi" ,freespace/1024/1024/1024];
 }
 
 + (NSString *) calcMD5forString:(NSString*)str {

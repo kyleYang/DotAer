@@ -154,7 +154,7 @@
         [bg release];
 
         //category one button
-        self.cateOneBtn = [[[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds)-kCatOneBtnWidth-3, 7, kCatOneBtnWidth, CGRectGetHeight(self.bounds)-13)] autorelease];
+        self.cateOneBtn = [[[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds)-kCatOneBtnWidth-10, 3, kCatOneBtnWidth, CGRectGetHeight(self.bounds)-6)] autorelease];
         [self.cateOneBtn addTarget:self action:@selector(cateOneSelect:) forControlEvents:UIControlEventTouchUpInside];
         [self.cateOneBtn setBackgroundImage:[[Env sharedEnv] cacheImage:@"dota_title_cat_one.png"] forState:UIControlStateNormal];
 //        [self.cateOneBtn setBackgroundImage:[[Env sharedEnv] cacheImage:@"dota_title_cat_one.png"] forState:UIControlStateNormal];
@@ -167,15 +167,15 @@
 //        self.cateOneLab.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         self.cateOneLab.backgroundColor = [UIColor clearColor];
         self.cateOneLab.textAlignment = UITextAlignmentLeft;
-        self.cateOneLab.textColor = [UIColor whiteColor];
+        self.cateOneLab.textColor = [UIColor blackColor];
         self.cateOneLab.font = [UIFont systemFontOfSize:13.0f];
         [self.cateOneBtn addSubview:self.cateOneLab];
         
             
         self.viewScroll = [[[MptCatScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))] autorelease];
         self.viewScroll.backgroundColor = [UIColor clearColor];
-        self.viewScroll.normalColor = [UIColor grayColor];
-        self.viewScroll.hilightColor = [UIColor whiteColor];
+//        self.viewScroll.normalColor = [UIColor grayColor];
+//        self.viewScroll.hilightColor = [UIColor whiteColor];
         self.viewScroll.delegate = self;
         [self addSubview:self.viewScroll];
         
@@ -245,7 +245,7 @@
     }
     UIView *topView = [[window subviews] objectAtIndex:0];
     
-    CGPoint popPoint = CGPointMake(CGRectGetMidX(self.cateOneBtn.frame), CGRectGetMaxY(self.cateOneBtn.frame)+20);
+    CGPoint popPoint = CGPointMake(CGRectGetMidX(self.cateOneBtn.frame), CGRectGetMaxY(self.cateOneBtn.frame)+10);
 
     HMCateOnePopView *popView = [[HMCateOnePopView alloc] initWithFrame:topView.bounds withArray:_arrCategory popAt:popPoint];
     [popView popViewAnimation];

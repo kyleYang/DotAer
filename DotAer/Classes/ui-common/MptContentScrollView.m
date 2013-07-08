@@ -11,6 +11,7 @@
 #import "BqsUtils.h"
 #import "MptTouchScrollView.h"
 
+#define kExistNum 1
 
 
 @interface MptContentScrollView()
@@ -39,7 +40,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor clearColor];
         
         self.onScreenCells = [NSMutableArray arrayWithCapacity:10];
         
@@ -142,7 +143,7 @@
     int curPage = self.scrollView.contentOffset.x / CGRectGetWidth(self.scrollView.bounds);
     BqsLog(@"scrollView contentOffset curPage :%d",curPage);
     
-    for (int i= -1; i<2 ; i++) {
+    for (int i= -1; i<kExistNum ; i++) {
         int loadPage = curPage+i;
        
         if (loadPage <0 ) {
@@ -199,9 +200,20 @@
     for (int i = 0;i<_total;i++) {
         
         BOOL OnScreen = FALSE;
+        BOOL onFront = FALSE;
         
-        if (i*CGRectGetWidth(self.scrollView.frame)>offset.x - 2*CGRectGetWidth(self.scrollView.frame) && i*CGRectGetWidth(self.scrollView.frame) < offset.x + 2*CGRectGetWidth(self.scrollView.frame) )
+        
+        if (i*CGRectGetWidth(self.scrollView.frame)>=offset.x&& i*CGRectGetWidth(self.scrollView.frame) < offset.x + kExistNum*CGRectGetWidth(self.scrollView.frame) ){
+            
             OnScreen = TRUE;
+            onFront = TRUE;
+            
+        }else if(i*CGRectGetWidth(self.scrollView.frame)>=offset.x-kExistNum*CGRectGetWidth(self.scrollView.frame)&& i*CGRectGetWidth(self.scrollView.frame) < offset.x ){
+            OnScreen = TRUE;
+            onFront = FALSE;
+
+            
+        }
         
         //在屏幕范围内的创建添加
         if (OnScreen) {
@@ -209,6 +221,7 @@
             for (MptCotentCell *vi in self.onScreenCells) {
                 if (i == vi.cellTag) {
                     HasOnScreen = TRUE;
+                    [vi mainViewOnFont:onFront];
                     break;
                 }
             }
@@ -231,7 +244,12 @@
                 [cell viewDidAppear];
                 
                 [self.onScreenCells addObject:cell];
+                
+                [cell mainViewOnFont:onFront];
             }
+            
+            
+            
         }
     }
     

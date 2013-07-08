@@ -52,8 +52,8 @@
         Env *env = [Env sharedEnv];
         
         _indicaHidden = NO;
-        _normalColor = [UIColor whiteColor];
-        _hilightColor = [UIColor colorWithRed:66.0f/255.0f green:151.0f/255.0f blue:231.0f/255.0f alpha:1.0f];
+        _normalColor = [UIColor blackColor];
+        _hilightColor = [UIColor colorWithRed:23.0f/255.0f green:129.0f/255.0f blue:241.0f/255.0f alpha:1.0f];
         
         self.viewScroll = [[BqsTouchScrollView alloc] initWithFrame:self.bounds];
         //    self.viewScroll.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -61,11 +61,12 @@
         self.viewScroll.showsHorizontalScrollIndicator = NO;
         self.viewScroll.callback = self;
         self.viewScroll.delegate = self;
+        self.viewScroll.scrollsToTop = FALSE;
         self.viewScroll.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         self.viewScroll.decelerationRate = UIScrollViewDecelerationRateFast;
         [self addSubview:self.viewScroll];
         
-        self.indicateImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        self.indicateImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, CGRectGetHeight(self.bounds))];
         self.indicateImage.image = [env cacheScretchableImage:@"scroll_indica.png" X:40 Y:15];
         [self.viewScroll addSubview:self.indicateImage];
         self.viewScroll.hidden = _indicaHidden;
@@ -137,7 +138,9 @@
     
     UILabel *lbl = [self.arrItemLabels objectAtIndex:_selectedId];
     
-    CGRect frm = lbl.frame;
+    CGRect frm = self.indicateImage.frame;
+    frm.origin.x = lbl.frame.origin.x;
+    frm.size.width = lbl.frame.size.width;
     //    frm.origin.x -= kSelectedBgExtandHori;
     //    frm.size.width += 2*kSelectedBgExtandHori;
     //    frm.origin.y -= kGapTextLine;
@@ -206,7 +209,9 @@
     
     if(_selectedId >= 0 && _selectedId < cnt) {
         UILabel *lbl = [self.arrItemLabels objectAtIndex:_selectedId];
-        CGRect frm = lbl.frame;
+        CGRect frm = self.indicateImage.frame;
+        frm.origin.x = lbl.frame.origin.x;
+        frm.size.width = lbl.frame.size.width;
         self.indicateImage.frame = frm;
         [self setLabelColors];
         [self setLabelColors];
@@ -319,7 +324,9 @@
     
     UILabel *lbl = [self.arrItemLabels objectAtIndex:_selectedId];
     
-    CGRect frm = lbl.frame;
+    CGRect frm = self.indicateImage.frame;
+    frm.origin.x = lbl.frame.origin.x;
+    frm.size.width = lbl.frame.size.width;
 //    frm.origin.x -= kSelectedBgExtandHori;
 //    frm.size.width += 2*kSelectedBgExtandHori;
 //    frm.origin.y -= kGapTextLine;

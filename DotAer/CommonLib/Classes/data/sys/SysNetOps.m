@@ -325,7 +325,7 @@
     if(nil != appType) {
         [dic setObject:appType forKey:@"appid"];
     }
-    [dic setObject:[Env sharedEnv].udid forKey:@"deviceid"];
+    [dic setObject:[Env sharedEnv].macUdid forKey:@"deviceid"];
     [dic setObject:sToken forKey:@"token"];
     
     NSString *sData = [dic JSONRepresentation];
@@ -400,7 +400,7 @@
     [dateFormater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 
     
-    NSString *sDevNum = [NSString stringWithFormat:@"%@_%@", env.sPhoneType, env.udid];
+    NSString *sDevNum = [NSString stringWithFormat:@"%@_%@", env.sPhoneType, env.macUdid];
     NSString *sDate = [dateFormater stringFromDate:tm];
     
     NSString *url = [[Env sharedEnv] getSEKey:kSEPurchaseNoAdAdd Def:kSEPurchaseNoAdAddDef];

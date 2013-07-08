@@ -132,11 +132,11 @@
 -(BOOL)isTmpUser {
     if(_isTmp) return YES;
     
-    NSString *udid = [Env sharedEnv].udid;
+    NSString *macUdid = [Env sharedEnv].macUdid;
         
     if([_email length] < 1 && [_phone length] < 1) {
         
-        if([udid isEqualToString:_userName] || [@"8888" isEqualToString:_password]) {
+        if([macUdid isEqualToString:_userName] || [@"8888" isEqualToString:_password]) {
             return YES;
         }/* else {
             if(nil != _nickName && [_nickName isEqualToString:_userName] && [@"8888" isEqualToString:_password]) {

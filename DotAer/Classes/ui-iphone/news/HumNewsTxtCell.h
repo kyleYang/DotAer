@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "HumWebImageView.h"
 
-#define kTxtCellImageWidth 300
-#define kTxtCellImageHeigh 140
+#define kOrgX 14
+#define kTimeWidth 120
+
+#define kTxtCellImageWidth 70
+#define kTxtCellImageHeigh 50
+
+#define kTitleFont [UIFont boldSystemFontOfSize:17.0f];
 
 @protocol HumNewsCellDelegate;
 
@@ -20,9 +25,10 @@
 
 @property (nonatomic, retain) UIImageView *bgImg;
 @property (nonatomic, retain) UILabel *title;
-@property (nonatomic, retain) UILabel *timeLeb;
 @property (nonatomic, retain) UIImageView *typeImg;
-@property (nonatomic, retain) UILabel *typeLeb;
+@property (nonatomic, retain) UILabel *timeLeb;
+@property (nonatomic, retain) UIButton *favButton;
+@property (nonatomic, retain) UIButton *downButton;
 @property (nonatomic, retain) HumWebImageView *contImage;
 
 
@@ -31,5 +37,8 @@
 @protocol HumNewsCellDelegate <NSObject>
 
 - (void)humNewsCell:(HumNewsTxtCell *)cell didSelectIndex:(NSIndexPath *)index;
+- (BOOL)humNewsCell:(HumNewsTxtCell *)cell addFavNewsAtIndex:(NSIndexPath *)index;
+- (void)humNewsCell:(HumNewsTxtCell *)cell addDownNewsAtIndex:(NSIndexPath *)index;
+
 
 @end

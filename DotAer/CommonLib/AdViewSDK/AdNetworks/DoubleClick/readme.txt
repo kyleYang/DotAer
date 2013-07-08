@@ -1,0 +1,1 @@
+Need lib file and header files in ../GoogleAdMob/

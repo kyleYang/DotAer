@@ -16,6 +16,7 @@
 
 typedef enum {
     HMImageControlActionBack,
+    HMImageControlActionImageDownload,
     HMImageControlActionWillShowControls,
     HMImagesControlActionDidShowControls,
     HMImageControlActionWillHideControls,
@@ -30,7 +31,7 @@ typedef enum {
 @property (nonatomic, retain, readonly) UIView *topControlsView;
 
 @property (nonatomic, retain, readonly) UIButton *backControl;
-
+@property (nonatomic, retain, readonly) UIButton *downloadImage;
 
 @end
 

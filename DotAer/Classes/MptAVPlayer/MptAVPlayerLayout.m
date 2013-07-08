@@ -29,6 +29,7 @@
 
 @property (nonatomic, retain, readwrite) UIButton *rewindControl;
 @property (nonatomic, retain, readwrite) UIButton *forwardControl;
+@property (nonatomic, retain, readwrite) UIButton *typeSelectControl;
 @property (nonatomic, retain, readwrite) MptVolumeControl *volumeControl;
 
 @property (nonatomic, retain, readwrite) UIControl *airPlayControlContainer;
@@ -49,7 +50,7 @@
 @synthesize width;
 @synthesize height;
 @synthesize scrubberControl,currentTimeLabel,totalTimeLabel;
-@synthesize topControlsView,bottomControlsView,topControlsContainerView,buttomControlsContainerView,playPauseControl,rewindControl,forwardControl,airPlayControlContainer,airPlayControl,dismissControl,videoTitle,zoomControl;
+@synthesize topControlsView,bottomControlsView,topControlsContainerView,buttomControlsContainerView,playPauseControl,rewindControl,forwardControl,typeSelectControl,airPlayControlContainer,airPlayControl,dismissControl,videoTitle,zoomControl;
 @synthesize screenType;
 
 
@@ -67,6 +68,7 @@
     self.playPauseControl = nil;
     self.rewindControl = nil;
     self.forwardControl = nil;
+    self.typeSelectControl = nil;
     self.volumeControl = nil;
     self.airPlayControlContainer = nil;
     self.airPlayControl = nil;
@@ -131,6 +133,8 @@
         self.playPauseControl = _moviePlayer.view.controlsView.playPauseControl;
         self.rewindControl = _moviePlayer.view.controlsView.rewindControl;
         self.forwardControl = _moviePlayer.view.controlsView.forwardControl;
+        
+        self.typeSelectControl = _moviePlayer.view.controlsView.typeSelectControl;
         
         self.volumeControl = _moviePlayer.view.controlsView.volumeControl;
         

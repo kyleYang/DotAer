@@ -31,8 +31,8 @@
     activty.backgroundColor = [UIColor clearColor];
     activty.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [activty addTarget:self action:@selector(loadMore:) forControlEvents:UIControlEventTouchUpInside];
-    [activty setBackgroundImage:[[Env sharedEnv] cacheImage:@"dota_cell_singer_bg.png"] forState:UIControlStateNormal];
-    [activty setBackgroundImage:[[Env sharedEnv] cacheImage:@"dota_cell_select.png"] forState:UIControlEventTouchDown];
+    [activty setBackgroundImage:[[Env sharedEnv] cacheScretchableImage:@"background.png" X:20 Y:10] forState:UIControlStateNormal];
+    [activty setBackgroundImage:[[Env sharedEnv] cacheScretchableImage:@"background.png" X:20 Y:10] forState:UIControlEventTouchDown];
     
     
     [self addSubview:activty];
@@ -65,8 +65,8 @@
 -(void)layoutSubviews {
     [super layoutSubviews];
     
-    self.viewAct.center = CGPointMake(80, CGRectGetHeight(self.bounds)/2);
-    self.message.center = CGPointMake(CGRectGetWidth(self.bounds)/2, CGRectGetHeight(self.bounds)/2);
+    self.viewAct.center = CGPointMake(80, CGRectGetHeight(self.bounds)/2-20);
+    self.message.center = CGPointMake(CGRectGetWidth(self.bounds)/2, CGRectGetHeight(self.bounds)/2-20);
     
 }
 

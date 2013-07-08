@@ -30,4 +30,6 @@
 - (void)viewWillDisappear;
 - (void)viewDidDisappear;
 
+- (void)mainViewOnFont:(BOOL)value;
+
 @end

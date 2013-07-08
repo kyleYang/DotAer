@@ -11,7 +11,6 @@
 #import "Env.h"
 #import "BqsUtils.h"
 #import "DSTavernTableCell.h"
-#import "DSDetailView.h"
 #import "SimuConstants.h"
 #import "HeroInfo.h"
 #import "Equipment.h"
@@ -28,11 +27,12 @@
 #import "HeroInfo.h"
 #import "HeroInfoSave.h"
 #import "EquipInfo.h"
-#import "JTListView.h"
 #import "HumShopCell.h"
 #import "DSEquipView.h"
 #import "PKRevealController.h"
-
+#import "HumSimulaterCell.h"
+#import "CustomNavigationBar.h"
+#import "AKSegmentedControl.h"
 
 #define kSTGap 5
 #define kSDGap 5
@@ -45,28 +45,29 @@
 
 #define SECONDS_IN_A_DAY 86400.0
 
+#define kMainRightViewRightGap 30
 
 
 
-
-@interface HumRightViewController()<JTListViewDataSource,JTListViewDelegate,DSDetailDelegate,HumShopCellDelegate,DSEquipViewDelegate>
+@interface HumRightViewController()<UITableViewDataSource,UITableViewDelegate,HumShopCellDelegate,DSEquipViewDelegate,simulateCellDelegate>
 {
     int _selectTyp;
     int _checkTaskId;
     int _prePercentage;
 }
 
-@property (nonatomic, retain) JTListView *tableView;
+@property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *resultAry;
-@property (nonatomic, retain) DSDetailView *detailView;
+@property (nonatomic, retain) AKSegmentedControl *navSC;
 
 @property (nonatomic, retain) NSArray *heroTav;
 @property (nonatomic, retain) NSArray *equipTav;
 @property (nonatomic, retain) NSArray *equipImgAry;
 @property (nonatomic, retain) Downloader *downloader;
 @property (nonatomic, retain) Simulator *downSimlator;
+@property (nonatomic, retain) NSMutableArray *heroArray;
+@property (nonatomic, retain) NSMutableArray *equipArray;
 
-@property (nonatomic, retain) DSEquipView *equipSimu;
 @property (nonatomic, retain) UITextView *equipDescript;
 
 @property (nonatomic, retain) UIView *progressBg;
@@ -78,10 +79,8 @@
 @implementation HumRightViewController
 
 @synthesize managedObjectContext = _managedObjectContext;
-@synthesize tableView;
+@synthesize tableView = _tableView;
 @synthesize resultAry;
-@synthesize detailView;
-@synthesize dsDelegate;
 @synthesize heroTav;
 @synthesize equipTav;
 @synthesize equipImgAry;
@@ -90,8 +89,11 @@
 @synthesize progressBg;
 @synthesize progress;
 @synthesize activityView;
-@synthesize equipSimu;
 @synthesize equipDescript;
+@synthesize heroArray;
+@synthesize equipArray;
+@synthesize navSC;
+@synthesize delegate;
 
 -(void)dealloc{
     
@@ -101,14 +103,15 @@
     self.tableView = nil;
     self.resultAry = nil;
     self.activityView = nil;
-    self.detailView = nil;
-    self.dsDelegate = nil;
     self.heroTav = nil;
     self.equipTav = nil;
     self.downSimlator = nil;
     self.progressBg = nil;
     self.progress = nil;
     self.equipImgAry = nil;
+    self.heroArray = nil;
+    self.equipArray = nil;
+    self.navSC = nil;
     [super dealloc];
 }
 
@@ -124,18 +127,72 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithRed:75.0f/255.0f green:64.0f/255.0f blue:59.0f/255.0f alpha:1.0f];
+    UIImageView *bg = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    bg.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    bg.image = [[Env sharedEnv] cacheScretchableImage:@"background.png" X:20 Y:10];
+    [self.view addSubview:bg];
+    [bg release];
+    
+    
+    CustomNavigationBar *navBar = [[CustomNavigationBar alloc] initWithFrame:CGRectMake(kMainRightViewRightGap, 0, CGRectGetWidth(self.view.bounds), 44)];
+    UIImage *bgImg = [[Env sharedEnv] cacheImage:@"dota_frame_title_bg.png"];
+    [navBar setCustomBgImage:bgImg];
+	[self.view addSubview:navBar];
+    [navBar release];
+    
+
     
     _selectTyp = DOTAHERO;
     
-    SVSegmentedControl *navSC = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects: NSLocalizedString(@"dota.simu.hero", nil), NSLocalizedString(@"dota.simu.equip", nil),nil]];
-    navSC.backgroundImage = [[Env sharedEnv] cacheImage:@"dota_seg_bg.png"];
-    [self.view addSubview:navSC];
     
-    navSC.center = CGPointMake(170, 20);
-    [navSC addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-    [navSC release];
-    [self segmentedControlChangedValue:navSC];
+    self.navSC = [[[AKSegmentedControl alloc] initWithFrame:CGRectMake(65, 10, 170, 30)] autorelease];
+    
+    
+    UIImage *backgroundImage = [[Env sharedEnv] cacheImage:@"segmented-bg.png"];
+    [self.navSC setBackgroundImage:backgroundImage];
+    [self.navSC setContentEdgeInsets:UIEdgeInsetsMake(2.0, 2.0, 3.0, 2.0)];
+    [self.navSC setSegmentedControlMode:AKSegmentedControlModeSticky];
+    [self.navSC setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleBottomMargin];
+    [self.navSC setSeparatorImage:[[Env sharedEnv] cacheImage:@"segmented-separator.png"]];
+    
+    UIImage *buttonBackgroundImagePressedLeft = [[Env sharedEnv] cacheImage:@"segmented-bg-pressed-left.png"];
+    UIImage *buttonBackgroundImagePressedRight = [[Env sharedEnv] cacheImage:@"segmented-bg-pressed-right.png"];
+    // Button 1
+    UIButton *buttonSocial = [[UIButton alloc] init];
+    
+//    "dota.simu.hero" = "英雄酒馆";
+//    "dota.simu.equip" = "装备商店";
+    
+    [buttonSocial setTitle:NSLocalizedString(@"dota.simu.hero", nil) forState:UIControlStateNormal];
+    [buttonSocial setTitle:NSLocalizedString(@"dota.simu.hero", nil) forState:UIControlStateHighlighted];
+    [buttonSocial setTitle:NSLocalizedString(@"dota.simu.hero", nil) forState:UIControlStateSelected];
+    [buttonSocial setTitle:NSLocalizedString(@"dota.simu.hero", nil) forState:(UIControlStateHighlighted|UIControlStateSelected)];
+    [buttonSocial addTarget:self action:@selector(dota1Select:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonSocial setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, 5.0)];
+    [buttonSocial setBackgroundImage:buttonBackgroundImagePressedLeft forState:UIControlStateHighlighted];
+    [buttonSocial setBackgroundImage:buttonBackgroundImagePressedLeft forState:UIControlStateSelected];
+    [buttonSocial setBackgroundImage:buttonBackgroundImagePressedLeft forState:(UIControlStateHighlighted|UIControlStateSelected)];
+    
+    // Button 2
+    
+    // Button 3
+    UIButton *buttonSettings = [[UIButton alloc] init];
+    [buttonSettings setTitle:NSLocalizedString(@"dota.simu.equip", nil) forState:UIControlStateNormal];
+    [buttonSettings setTitle:NSLocalizedString(@"dota.simu.equip", nil) forState:UIControlStateHighlighted];
+    [buttonSettings setTitle:NSLocalizedString(@"dota.simu.equip", nil) forState:UIControlStateSelected];
+    [buttonSettings setTitle:NSLocalizedString(@"dota.simu.equip", nil) forState:(UIControlStateHighlighted|UIControlStateSelected)];
+    [buttonSettings setBackgroundImage:buttonBackgroundImagePressedRight forState:UIControlStateHighlighted];
+    [buttonSettings addTarget:self action:@selector(dota2Select:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonSettings setBackgroundImage:buttonBackgroundImagePressedRight forState:UIControlStateSelected];
+    [buttonSettings setBackgroundImage:buttonBackgroundImagePressedRight forState:(UIControlStateHighlighted|UIControlStateSelected)];
+    
+    [self.navSC setButtonsArray:[NSArray arrayWithObjects:buttonSocial,buttonSettings,nil]];
+   
+    [buttonSocial release];
+    [buttonSettings release];
+    [navBar addSubview:self.navSC];
+    
+
     
     //        "dota.simu.hero.jw.strone" = "近卫力量（一）";
     //        "dota.simu.hero.jw.strtwo" = "近卫力量（二）";
@@ -151,8 +208,9 @@
     //        "dota.simu.hero.tz.intone" = "天灾智力（一）";
     //        "dota.simu.hero.tz.inttwo" = "天灾智力（二）";
     
-    self.heroTav = [NSArray arrayWithObjects:@"jw_strone.gif",@"jw_strtwo.gif",@"jw_agione.gif",@"jw_agitwo.gif",@"jw_intone.gif",@"jw_inttwo.gif",@"tz_strone.gif",@"tz_strtwo.gif",@"tz_agione.gif",@"tz_agitwo.gif",@"tz_intone.gif",@"tz_inttwo.gif",nil];
-    
+    self.heroTav = [NSArray arrayWithObjects:NSLocalizedString(@"dota.simu.hero.jw.strone", nil), NSLocalizedString(@"dota.simu.hero.jw.strtwo", nil),NSLocalizedString(@"dota.simu.hero.jw.agione", nil),NSLocalizedString(@"dota.simu.hero.jw.agitwo", nil),NSLocalizedString(@"dota.simu.hero.jw.intone", nil),NSLocalizedString(@"dota.simu.hero.jw.inttwo", nil),NSLocalizedString(@"dota.simu.hero.tz.strone", nil),NSLocalizedString(@"dota.simu.hero.tz.strtwo", nil),NSLocalizedString(@"dota.simu.hero.tz.agione", nil),NSLocalizedString(@"dota.simu.hero.tz.agitwo", nil),NSLocalizedString(@"dota.simu.hero.tz.intone", nil),NSLocalizedString(@"dota.simu.hero.tz.inttwo", nil),nil];
+//    [NSArray arrayWithObjects:@"jw_strone.gif",@"jw_strtwo.gif",@"jw_agione.gif",@"jw_agitwo.gif",@"jw_intone.gif",@"jw_inttwo.gif",@"tz_strone.gif",@"tz_strtwo.gif",@"tz_agione.gif",@"tz_agitwo.gif",@"tz_intone.gif",@"tz_inttwo.gif",nil];
+//    
     //        dota.simu.equip.one" = "圣物关口";
     //        "dota.simu.equip.two" = "支援法衣";
     //        "dota.simu.equip.three" = "秘法圣所";
@@ -168,40 +226,34 @@
     self.equipTav = [NSArray arrayWithObjects:NSLocalizedString(@"dota.simu.equip.one", nil), NSLocalizedString(@"dota.simu.equip.two", nil),NSLocalizedString(@"dota.simu.equip.three", nil),NSLocalizedString(@"dota.simu.equip.four", nil),NSLocalizedString(@"dota.simu.equip.five", nil),NSLocalizedString(@"dota.simu.equip.six", nil),NSLocalizedString(@"dota.simu.equip.seven", nil),NSLocalizedString(@"dota.simu.equip.egiht", nil),NSLocalizedString(@"dota.simu.equip.nine", nil),NSLocalizedString(@"dota.simu.equip.ten", nil),NSLocalizedString(@"dota.simu.equip.eleven", nil),nil];
     self.equipImgAry = [NSArray arrayWithObjects:@"equip_one.jpg",@"equip_two.jpg",@"equip_three.gif",@"equip_four.jpg",@"equip_five.jpg",@"equip_six.jpg",@"equip_seven.jpg",@"equip_egiht.jpg",@"equip_nine.jpg",@"equip_ten.jpg",@"equip_eleven.jpg", nil];
     
-    self.tableView = [[[JTListView alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(navSC.frame)+kSTGap, CGRectGetWidth(self.view.bounds) -CGRectGetMinX(navSC.frame)-20 , 100)] autorelease];
+    self.tableView = [[[UITableView alloc] initWithFrame:CGRectMake(36, CGRectGetMaxY(navBar.frame)+kSTGap, CGRectGetWidth(self.view.bounds)-50, CGRectGetHeight(self.view.bounds)-CGRectGetMaxY(navBar.frame)-kSTGap-120)] autorelease];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tableView];
     self.tableView.showsHorizontalScrollIndicator = FALSE;
     
-    self.equipSimu = [[[DSEquipView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.bounds)-kDetailWidth)/2+ CGRectGetMinX(self.tableView.frame)/2, CGRectGetMaxY(self.tableView.frame), 180, 120)] autorelease];
-    self.equipSimu.backgroundColor = [UIColor clearColor];
-    self.equipSimu.delegate = self;
-    [self.view addSubview:self.equipSimu];
+    UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.bounds)-kDetailWidth)/2+ CGRectGetMinX(self.tableView.frame)/2-10,CGRectGetMaxY(self.tableView.frame)+2, kDetailWidth+10, 2)];
+    line.image = [[Env sharedEnv] cacheImage:@"dota_line.png"];
+    [self.view addSubview:line];
+    [line release];
+
     
-    self.equipDescript = [[[UITextView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.equipSimu.frame), CGRectGetMaxY(self.equipSimu.frame)+3, kDetailWidth, CGRectGetHeight(self.view.bounds)-kDetailHeigh-kButtomH - CGRectGetMaxY(self.equipSimu.frame)-6 )] autorelease];
+    self.equipDescript = [[[UITextView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.tableView.frame), CGRectGetMaxY(self.tableView.frame)+4, kDetailWidth, CGRectGetHeight(self.view.bounds) - CGRectGetMaxY(self.tableView.frame)-8 )] autorelease];
     self.equipDescript.backgroundColor = [UIColor clearColor];
-    self.equipDescript.textColor = [UIColor whiteColor];
+    self.equipDescript.textColor = [UIColor blackColor];
     self.equipDescript.font = [UIFont systemFontOfSize:14.0f];
     self.equipDescript.editable = NO;
     self.equipDescript.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:self.equipDescript];
     
-    UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.bounds)-kDetailWidth)/2+ CGRectGetMinX(self.tableView.frame)/2-10,CGRectGetHeight(self.view.bounds)-kDetailHeigh-kButtomH, kDetailWidth+10, 2)];
-    line.image = [[Env sharedEnv] cacheImage:@"dota_line.png"];
-    [self.view addSubview:line];
-    [line release];
-    
-    self.detailView = [[[DSDetailView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.equipSimu.frame),CGRectGetMaxY(line.frame)+4, kDetailWidth,kDetailHeigh)] autorelease];
-    self.detailView.delegate = self;
-    [self.view addSubview:self.detailView];
+        
     
     self.downloader = [[[Downloader alloc] init] autorelease];
     self.downloader.bSearialLoad = YES;
     _checkTaskId = -1;
-
-
+    
+    
     
 }
 
@@ -213,9 +265,11 @@
     }
     self.downloader.delegate = nil;
     _checkTaskId = [HumDotaNetOps checkUpdataForSimulatorDownloader:self.downloader Target:self Sel:@selector(checkUpdataFinished:) Attached:nil];
-    
-    [self.tableView setContentOffset:CGPointZero animated:YES];
-    [self.tableView reloadData];
+   
+    NSString *lastVerion = [HumDotaUserCenterOps objectValueForKey:kSimulatorLastVersionKey];
+    if (lastVerion) {
+        [self dota1Select:nil];
+    }
     
 }
 
@@ -232,126 +286,182 @@
     [self.activityView hide:YES];
 }
 
+- (void)dota1Select:(id)sender{
+    BqsLog(@"dota2Select");
+      _selectTyp = DOTAHERO;
+     [self configHeroData];
+    [self.tableView setContentOffset:CGPointZero animated:YES];
+    [self.tableView reloadData];
+}
 
-
-- (void)segmentedControlChangedValue:(SVSegmentedControl*)segmentedControl {
-    BqsLog(@"segmentedControlChangedValue did select %d",segmentedControl);
-    if (segmentedControl.selectedIndex == DOTAHERO) {
-        _selectTyp = DOTAHERO;
-        
-        
-    }else if(segmentedControl.selectedIndex == DOTAEQUIP){
-        _selectTyp = DOTAEQUIP;
-    }
-    
+- (void)dota2Select:(id)sender{
+    BqsLog(@"dota1Select");
+    _selectTyp = DOTAEQUIP;
+    [self configEquipData];
     [self.tableView setContentOffset:CGPointZero animated:YES];
     [self.tableView reloadData];
     
 }
 
 
-- (void)configureResultWithPredicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors
-{
-    if(_selectTyp == DOTAHERO){
-        self.resultAry = [HeroInfo fetchedResultsWithManagedObjectContext:self.managedObjectContext predicate:predicate sortDescriptors:sortDescriptors];
-    }else if(_selectTyp == DOTAEQUIP){
-        self.resultAry = [Equipment fetchedResultsWithManagedObjectContext:self.managedObjectContext predicate:predicate sortDescriptors:sortDescriptors];
+
+- (void)configHeroData{
+    
+    if (!self.heroArray) {
+        
+        
+        self.heroArray = [[[NSMutableArray alloc] initWithCapacity:100] autorelease];
+        
+        for (int indx= 0; indx<[self.heroTav count]; indx++) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", kHeroTavern, [NSNumber numberWithInt:indx+1]];
+            NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:kHeroOrder ascending:YES];
+            NSArray *sortDescriptors = [NSArray arrayWithObject:descriptor];
+            NSArray *result =  [HeroInfo fetchedResultsWithManagedObjectContext:self.managedObjectContext predicate:predicate sortDescriptors:sortDescriptors];
+            if (result) {
+                [self.heroArray addObject:result];
+            }
+            
+        }
     }
-    [self detailViewReloadData];
+    
 }
 
 
-- (void)detailViewReloadData
-{
-    if (_selectTyp == DOTAHERO) {
-        [self.detailView setHeroArray:self.resultAry];
-    }else if(_selectTyp == DOTAEQUIP){
-        [self.detailView setEquipArray:self.resultAry];
+- (void)configEquipData{
+    
+    if (!self.equipArray) {
+        self.equipArray = [[[NSMutableArray alloc] initWithCapacity:100] autorelease];
+        
+        for (int indx=0; indx<[self.equipTav count]; indx++) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", kShopNumber, [NSNumber numberWithInt:indx+1]];
+            NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:kEquipOrder ascending:YES];
+            NSArray *sortDescriptors = [NSArray arrayWithObject:descriptor];
+            
+            NSArray *result = [Equipment fetchedResultsWithManagedObjectContext:self.managedObjectContext predicate:predicate sortDescriptors:sortDescriptors];
+            if (result) {
+                [self.equipArray addObject:result];
+            }
+            
+        }
     }
+    
 }
+
 
 
 
 #pragma mark
 #pragma mark UITableViewDataSource
-- (NSUInteger)numberOfItemsInListView:(JTListView *)listView{
-    if(listView == self.tableView){
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if(tableView == self.tableView){
         if(_selectTyp == DOTAHERO){
             return [self.heroTav count];
         }else if(_selectTyp == DOTAEQUIP){
-            return 11;
+            return [self.equipTav count];
         }
     }
+    
     return 0;
     
 }
-- (UIView *)listView:(JTListView *)listView viewForItemAtIndex:(NSUInteger)index{
-    HumShopCell *view = (HumShopCell *)[listView dequeueReusableView];
-    
-    if (!view) {
-        view = [[[HumShopCell alloc] initWithFrame:CGRectMake(0, 0, 80, 100)] autorelease];
-        
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if(tableView == self.tableView){
+        if(_selectTyp == DOTAHERO){
+            if (section>= self.heroTav.count) {
+                return nil;
+            }
+            return [self.heroTav objectAtIndex:section];
+        }else if(_selectTyp == DOTAEQUIP){
+            if (section>= self.equipTav.count) {
+                return nil;
+            }
+            return [self.equipTav objectAtIndex:section];
+        }
     }
+    return nil;
     
-    view.cellTag = index;
-    view.delegate = self;
-    NSString *imageName;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    NSArray *dataAry = nil;
     if (_selectTyp == DOTAHERO) {
-        imageName = [self.heroTav objectAtIndex:index];
-        view.title.hidden = YES;
+        if ([self.heroArray count] > section) {
+            dataAry = [self.heroArray objectAtIndex:section];
+        }
     }else if(_selectTyp == DOTAEQUIP){
-        imageName = [self.equipImgAry objectAtIndex:index];
-        view.title.hidden = NO;
-        view.title.text = [self.equipTav objectAtIndex:index];
+        if ([self.equipArray count] > section) {
+            dataAry = [self.equipArray objectAtIndex:section];
+        }
     }
-    view.logo.image = [UIImage imageNamed:imageName];
     
-    return view;
+    if (!dataAry) {
+        return 0;
+    }
+    
+    int row = [HumSimulaterCell rowCntForItemCnt:[dataAry count] ColumnCnt:[HumSimulaterCell columnCntForWidth:CGRectGetWidth(self.tableView.frame)]];
+    
+    BqsLog(@"numberOfRowsInSection :%d",row);
+    return row;
+
+
     
 }
 
 
-- (CGFloat)listView:(JTListView *)listView widthForItemAtIndex:(NSUInteger)index;  // for horizontal layouts
-{
-    return 80;
-}
-
-
-
-
-
-- (void)HumShopCellDidClick:(HumShopCell *)cell
-{
-    int indx = cell.cellTag;
-    BqsLog(@"Table didSelectRowAtIndexPath %d",indx);
-    if(_selectTyp == DOTAHERO){
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", kHeroTavern, [NSNumber numberWithInt:indx+1]];
-        NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:kHeroOrder ascending:YES];
-        NSArray *sortDescriptors = [NSArray arrayWithObject:descriptor];
-        
-        [self configureResultWithPredicate:predicate sortDescriptors:sortDescriptors];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *cellIde = @"cell";
+    HumSimulaterCell *cell = (HumSimulaterCell *)[tableView dequeueReusableCellWithIdentifier:cellIde];
+    if (!cell) {
+        cell = [[[HumSimulaterCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIde] autorelease];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    NSArray *dataAry = nil;
+    cell.delegate = self;
+    if (_selectTyp == DOTAHERO) {
+        if ([self.heroArray count] > indexPath.section) {
+            dataAry = [self.heroArray objectAtIndex:indexPath.section];
+            [cell setHeroArr:dataAry Row:indexPath.row];
+        }
     }else if(_selectTyp == DOTAEQUIP){
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", kShopNumber, [NSNumber numberWithInt:indx+1]];
-        NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:kEquipOrder ascending:YES];
-        NSArray *sortDescriptors = [NSArray arrayWithObject:descriptor];
-        
-        [self configureResultWithPredicate:predicate sortDescriptors:sortDescriptors];
-        
+        if ([self.equipArray count] > indexPath.section) {
+            dataAry = [self.equipArray objectAtIndex:indexPath.section];
+            [cell setEquipArr:dataAry Row:indexPath.row];
+        }
     }
+    
+    
+    return cell;
+    
 }
+
 
 
 #define mark
 #define makr DSDetailDelegate
 
-- (void)didSelectHero:(HeroInfo *)hero{
+- (void)humSimulateCell:(HumSimulaterCell *)cell didSelectHero:(HeroInfo *)hero{
     BqsLog(@"didSelectHero heroName = %@",hero.heroName);
     
-    if(self.dsDelegate && [self.dsDelegate respondsToSelector:@selector(didSelectHero:)])
-        [self.dsDelegate didSelectHero:hero];
+    self.equipDescript.text = hero.heroStory;
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectHero:)]) {
+        [self.delegate didSelectHero:hero];
+    }
     [self.revealController showViewController:self.revealController.frontViewController];
 }
-- (void)didSelectEquip:(Equipment *)equip{
+
+
+
+- (void)humSimulateCell:(HumSimulaterCell *)cell didSelectEquip:(Equipment *)equip{
+    
     BqsLog(@"didSelectEquip heroName = %@",equip.equipName);
     NSArray *upgrades = [self fetchUpgradeResultWithSN:equip.equipSN];
     NSArray *materials = [self fetchMaterialResultWithSN:equip.equipSN];
@@ -406,15 +516,16 @@
     //    "dota.simu.equip.mual.noneed" = "不需要";
     //    "dota.simu.equip.null" = "无";
     
-    [self.equipSimu addEquip:equip formula:[equip.formulaBe boolValue]];
-    
+//    [self.equipSimu addEquip:equip formula:[equip.formulaBe boolValue]];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectEquip:)]) {
+        [self.delegate didSelectEquip:equip];
+    }
     
 }
 
 
 - (void)DSEquipViewDidSelect:(Equipment *)equip{
-    if(self.dsDelegate && [self.dsDelegate respondsToSelector:@selector(didSelectEquip:)])
-        [self.dsDelegate didSelectEquip:equip];
+    
 }
 
 #pragma mark
@@ -443,7 +554,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
 		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
-         [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
+        [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         return;
 	}
     self.downSimlator = [Simulator parseXmlData:cb.rspData];
@@ -501,7 +612,7 @@
     
     if(nil != cb.error || 200 != cb.httpStatus) {
 		BqsLog(@"Error: len:%d, http%d, %@", [cb.rspData length], cb.httpStatus, cb.error);
-         [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
+        [HMPopMsgView showPopMsgError:cb.error Msg:NSLocalizedString(@"error.networkfailed", nil) Delegate:nil];
         return;
 	}
     self.progress.hidden = YES;
@@ -622,6 +733,7 @@
         [self.progress setPercent:0 animated:NO];
         self.progress.hidden = NO;
         _prePercentage = 0;
+        self.progress.allowTap = NO;
         [self.progress setPercent:_prePercentage animated:NO];
         [self.view addSubview:self.progress];
         
@@ -895,6 +1007,20 @@
     return TRUE;
     
 }
+
+
+
+- (BOOL)shouldAutorotate{
+    return NO;
+}
+- (NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+    return toInterfaceOrientation == UIInterfaceOrientationPortrait;
+}
+
 
 
 

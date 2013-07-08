@@ -7,6 +7,7 @@
 //
 
 #import "HMImageControllerView.h"
+#import "Env.h"
 
 #define kBarStrePosX 20
 #define kBarStrePosY 13
@@ -15,6 +16,7 @@
 
 @property (nonatomic, retain, readwrite) UIView *topControlsView;
 @property (nonatomic, retain, readwrite) UIButton *backControl;
+@property (nonatomic, retain, readwrite) UIButton *downloadImage;
 
 @property (nonatomic, readonly) UIImage *TopControlFullscreenImage;
 
@@ -28,6 +30,7 @@
 
 
 @synthesize backControl = _backControl;
+@synthesize downloadImage = _downloadImage;
 
 @synthesize TopControlFullscreenImage = _TopControlFullscreenImage;
 
@@ -35,6 +38,7 @@
 - (void)dealloc
 {
     [_topControlsView release]; _topControlsView = nil;
+    _backControl = nil;
     _backControl = nil;
     self.delegate = nil;
     [super dealloc];
@@ -66,6 +70,18 @@
         [_backControl setImage:[[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_backdown"] stretchableImageWithLeftCapWidth:kBarStrePosX topCapHeight:kBarStrePosY] forState:UIControlEventTouchDown];
         [_backControl addTarget:self action:@selector(handleBackButtonPress:) forControlEvents:UIControlEventTouchUpInside];
         [_topControlsView addSubview:_backControl];
+        
+        _downloadImage = [UIButton buttonWithType:UIButtonTypeCustom];
+        _downloadImage.frame = (CGRect) { .size = CGSizeMake(60.f, 36.f) };
+        _downloadImage.contentMode = UIViewContentModeCenter;
+        [_downloadImage setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_downloadImage setTitleColor:[UIColor whiteColor] forState:UIControlEventTouchDown];
+        [_downloadImage setTitle:NSLocalizedString(@"dota.image.save.title", nil) forState:UIControlStateNormal];
+         [_downloadImage setTitle:NSLocalizedString(@"dota.image.save.title", nil) forState:UIControlEventTouchDown];
+        [_downloadImage setBackgroundImage:[[Env sharedEnv] cacheScretchableImage:@"pg_bar_done.png" X:kBarStrePosX Y:kBarStrePosY] forState:UIControlStateNormal];
+        [_downloadImage setBackgroundImage:[[Env sharedEnv] cacheScretchableImage:@"pg_bar_donedown.png" X:kBarStrePosX Y:kBarStrePosY] forState:UIControlEventTouchDown];
+        [_downloadImage addTarget:self action:@selector(handleImageButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+        [_topControlsView addSubview:_downloadImage];
         
 
 
@@ -105,7 +121,7 @@
 
 - (UIImage *)TopControlFullscreenImage{
     if (_TopControlFullscreenImage == nil) {
-        _TopControlFullscreenImage = [[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_nv_top_bg"] stretchableImageWithLeftCapWidth:6 topCapHeight:20];
+        _TopControlFullscreenImage = [[Env sharedEnv] cacheImage:@"dota_frame_title_bg.png"];
         
         // make it a resizable image
         if ([_TopControlFullscreenImage respondsToSelector:@selector(resizableImageWithCapInsets:)]) {
@@ -150,7 +166,7 @@
 
 
 - (CGFloat)topControlsViewHeightForControlStyle{
-    return 40;
+    return 44;
 }
 
 - (CGFloat)bottomControlsViewHeightForControlStyle{
@@ -179,9 +195,13 @@
 
 
 - (void)layoutSubviewsForControlStyleInline{
+    CGRect frame = self.backControl.frame;
+    frame.origin = CGPointMake(15, 0);
+    self.backControl.frame = frame;
     
-    self.backControl.frame = CGRectMake(15, 0, 60, 40);
-    
+    frame = self.downloadImage.frame;
+    frame.origin = CGPointMake(CGRectGetWidth(self.bounds)-72, 4);
+    self.downloadImage.frame = frame;
     
 }
 
@@ -195,6 +215,10 @@
     
 }
 
+
+- (void)handleImageButtonPress:(id)sender{
+    [self.delegate humLeavesControl:sender didPerformAction:HMImageControlActionImageDownload];
+}
 
 
 

@@ -7,9 +7,10 @@
 //
 
 #import "HumRightBaseView.h"
-#import "DSDetailView.h"
 #import "HeroInfo.h"
 #import "Equipment.h"
+
+@protocol rightViewDelegate;
 
 @interface HumRightViewController : UIViewController
 
@@ -19,9 +20,18 @@ enum HUMDOTAITEM {
 };
 
 
-
+@property (nonatomic, assign) id<rightViewDelegate> delegate;
 @property (nonatomic,retain) NSManagedObjectContext* managedObjectContext;
-@property (nonatomic, assign) id<DSDetailDelegate>dsDelegate;
+
+
+@end
+
+
+@protocol rightViewDelegate <NSObject>
+
+-(void)didSelectHero:(HeroInfo *)hero;
+
+-(void)didSelectEquip:(Equipment *)equip;
 
 @end
 

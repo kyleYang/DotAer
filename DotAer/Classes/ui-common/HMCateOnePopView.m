@@ -11,7 +11,7 @@
 #import "BqsUtils.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define kOneWidth 80
+#define kOneWidth 100
 @protocol HMCateOneTableCellDelegate;
 
 @interface HMCateOneTableCell : UITableViewCell
@@ -47,7 +47,7 @@
         UIButton *cellSelct = [[UIButton alloc] initWithFrame:self.bounds];
         cellSelct.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         [cellSelct addTarget:self action:@selector(cellSelct:) forControlEvents:UIControlEventTouchUpInside];
-        [cellSelct setBackgroundImage:[[Env sharedEnv] cacheImage:@"dota_catOne_down.png"] forState:UIControlEventTouchDown];
+        [cellSelct setBackgroundImage:[[Env sharedEnv] cacheScretchableImage:@"video_cell_itembg.png" X:15 Y:15] forState:UIControlEventTouchDown];
         cellSelct.backgroundColor = [UIColor clearColor];
         [self addSubview:cellSelct];
         [cellSelct release];
@@ -57,7 +57,7 @@
         
         self.itemName = [[[UILabel alloc] initWithFrame:frame] autorelease];
         self.itemName.font = [UIFont systemFontOfSize:12.f];
-        self.itemName.textColor = [UIColor whiteColor];
+        self.itemName.textColor = [UIColor blackColor];
         self.itemName.backgroundColor = [UIColor clearColor];
         [self addSubview:self.itemName];
         
@@ -85,7 +85,7 @@
 
 
 
-@interface HMCateOnePopView()<UITableViewDataSource,UITableViewDelegate,HMCateOneTableCellDelegate>
+@interface HMCateOnePopView()<UITableViewDataSource,UITableViewDelegate,HMCateOneTableCellDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, retain) UIImageView *tableBg;
 @property (nonatomic, retain) UITableView *table;
@@ -109,17 +109,13 @@
     
 }
 
-
-
-
-
-- (id)initWithFrame:(CGRect)frame withArray:(NSArray *)arr popAt:(CGPoint)point{
+- (id)initWithFrame:(CGRect)frame withArray:(NSArray *)arr popAt:(CGPoint)point withTableFrame:(CGRect)tableFrame{
     self = [super initWithFrame:frame];
     if (self ) {
         self.arrItem = arr;
         self.popPoint = point;
         
-        CGRect sFrame = CGRectMake(point.x - kOneWidth/2, point.y+35, kOneWidth, 212);
+        CGRect sFrame = tableFrame;
         self.tableBg = [[[UIImageView alloc] initWithFrame:sFrame] autorelease];
         self.tableBg.image = [[Env sharedEnv] cacheImage:@"dota_video_cate_one_bg.png"];
         self.tableBg.userInteractionEnabled = YES;
@@ -132,6 +128,43 @@
         self.table.backgroundColor = [UIColor clearColor];
         [self.tableBg addSubview:self.table];
         
+//        UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+//        singleTapGestureRecognizer.delegate = self;
+//        [self addGestureRecognizer:singleTapGestureRecognizer];
+//        [singleTapGestureRecognizer release];
+        
+        
+    }
+    return self;
+
+}
+
+
+
+- (id)initWithFrame:(CGRect)frame withArray:(NSArray *)arr popAt:(CGPoint)point{
+    self = [super initWithFrame:frame];
+    if (self ) {
+        self.arrItem = arr;
+        self.popPoint = point;
+        
+        CGRect sFrame = CGRectMake(point.x - kOneWidth/2, point.y+35, kOneWidth, 212);
+        self.tableBg = [[[UIImageView alloc] initWithFrame:sFrame] autorelease];
+        self.tableBg.image = [[Env sharedEnv] cacheScretchableImage:@"background.png" X:20 Y:10];
+        self.tableBg.userInteractionEnabled = YES;
+        self.tableBg.alpha = 0.6;
+        [self addSubview:self.tableBg];
+        
+        self.table = [[[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(sFrame), CGRectGetHeight(sFrame) - 12)] autorelease];
+        self.table.dataSource = self;
+        self.table.delegate = self;
+        self.table.backgroundColor = [UIColor clearColor];
+        [self.tableBg addSubview:self.table];
+        
+        
+//        UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+//        singleTapGestureRecognizer.delegate = self;
+//        [self addGestureRecognizer:singleTapGestureRecognizer];
+//        [singleTapGestureRecognizer release];
 
     }
     return self;
@@ -207,6 +240,10 @@
 
 - (void)selfDimss
 {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(hmCateOneDismissPopView:)]) {
+        [self.delegate hmCateOneDismissPopView:self];
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
@@ -217,6 +254,15 @@
     });
     
 }
+
+//- (void)handleSingleTap:(UITapGestureRecognizer *)tap {
+//    
+//    CGPoint point  = [tap locationInView:self];
+//    if (!CGRectContainsPoint(self.tableBg.frame, point)) {
+//        [self selfDimss];
+//    }
+//
+//}
 
 
 

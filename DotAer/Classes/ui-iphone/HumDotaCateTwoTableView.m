@@ -11,7 +11,7 @@
 
 
 
-@interface HumDotaCateTwoTableView()<UITableViewDelegate, UITableViewDataSource, EGORefreshTableHeaderDelegate,UISearchBarDelegate,pgFootViewDelegate>
+@interface HumDotaCateTwoTableView()<EGORefreshTableHeaderDelegate,UISearchBarDelegate,pgFootViewDelegate>
 
 
 @end
@@ -110,6 +110,7 @@
 
 - (void)viewWillAppear{
     [super viewWillAppear];
+    _hasMore = YES;
     if(! [self loadLocalDataNeedFresh])
         return;
     [self performSelector:@selector(tableContentFrsh) withObject:nil afterDelay:1];
@@ -142,6 +143,16 @@
     [self.downloader cancelAll];
     [super viewWillDisappear];
 }
+
+
+- (void)mainViewOnFont:(BOOL)value{
+    if (value) {
+        self.tableView.scrollsToTop = YES;
+    }else{
+        self.tableView.scrollsToTop = NO;
+    }
+}
+
 #pragma mark
 #pragma mark - network ops
 - (BOOL)loadLocalDataNeedFresh{

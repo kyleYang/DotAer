@@ -53,6 +53,11 @@ typedef enum {
 	MBProgressHUDAnimationZoom
 } MBProgressHUDAnimation;
 
+typedef enum {
+    MBProgressHUDFullScreen,
+    MBProgressHUDSectionScreen
+}MBProgressHUDScreenSize;
+
 
 #ifndef MB_STRONG
 #if __has_feature(objc_arc)
@@ -229,6 +234,13 @@ typedef enum {
  * @see MBProgressHUDAnimation
  */
 @property (assign) MBProgressHUDAnimation animationType;
+
+/** 
+ * MBProgressHUD operation screenType. The default is MBProgressHUDFullScreen.
+ *
+ * @see MBProgressHUDScreenSize
+ */
+@property (assign) MBProgressHUDScreenSize screenType;
 
 /**
  * The UIView (e.g., a UIImageView) to be shown when the HUD is in MBProgressHUDModeCustomView.

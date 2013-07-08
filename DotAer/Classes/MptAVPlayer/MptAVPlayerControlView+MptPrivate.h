@@ -31,10 +31,11 @@
 @property (nonatomic, retain, readonly) UIButton *playPauseControl;
 @property (nonatomic, strong, readonly) UIButton *rewindControl;
 @property (nonatomic, retain, readonly) UIButton *forwardControl;
+@property (nonatomic, retain, readonly) UIButton *typeSelectControl;
 @property (nonatomic, retain, readonly) MptVolumeControl *volumeControl;
 @property (nonatomic, retain, readonly) UIControl *airPlayControlContainer;
 @property (nonatomic, retain, readonly) MPVolumeView *airPlayControl;
-@property (nonatomic, retain, readonly) UIButton *dismissControl;
+@property (nonatomic, retain, readonly) UIButton *settingControl;
 @property (nonatomic, retain, readonly) UILabel *videoTitle;
 @property (nonatomic, retain, readonly) UIButton *zoomControl;
 

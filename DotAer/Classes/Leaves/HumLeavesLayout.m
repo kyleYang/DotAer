@@ -7,6 +7,7 @@
 //
 
 #import "HumLeavesLayout.h"
+#import "Env.h"
 
 @interface HumLeavesLayout()
 
@@ -98,7 +99,7 @@
 
 - (UIImage *)TopControlFullscreenImage{
     if (_TopControlFullscreenImage == nil) {
-        _TopControlFullscreenImage = [[UIImage imageNamed:@"HMLeaves.bundle/HM_Leaves_nv_top_bg"] stretchableImageWithLeftCapWidth:6 topCapHeight:20];
+        _TopControlFullscreenImage = [[Env sharedEnv] cacheImage:@"dota_frame_title_bg.png"];
         
         // make it a resizable image
         if ([_TopControlFullscreenImage respondsToSelector:@selector(resizableImageWithCapInsets:)]) {

@@ -42,7 +42,7 @@
 	// Do any additional setup after loading the view.
     
     self.title = NSLocalizedString(@"dota.categor.simulator", nil);
-    self.view.backgroundColor = [UIColor colorWithRed:75.0f/255.0f green:64.0f/255.0f blue:59.0f/255.0f alpha:1.0f];
+    
 }
 
 - (void)didReceiveMemoryWarning

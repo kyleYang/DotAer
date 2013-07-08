@@ -12,7 +12,7 @@
 #include "Env.h"
 
 
-#define TEXT_COLOR	 [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]
+#define TEXT_COLOR	 [UIColor colorWithRed:210.0/255.0 green:210.0/255.0 blue:210.0/255.0 alpha:1.0]
 #define FLIP_ANIMATION_DURATION 0.18f
 
 
@@ -47,7 +47,7 @@
         
         UIImageView *bg = [[UIImageView alloc] initWithFrame:self.bounds];
         bg.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        bg.image = [[Env sharedEnv] cacheScretchableImage:@"dota_pull_bg.png" X:20 Y:3];
+        bg.image = [[Env sharedEnv] cacheScretchableImage:@"background.png" X:20 Y:10];
         [self addSubview:bg];
         [bg release];
         
@@ -84,7 +84,7 @@
 		
 		
 		CALayer *layer = [CALayer layer];
-		layer.frame = CGRectMake(80.0f, CGRectGetHeight(frame)- 30, 15.0f, 17.0f);
+		layer.frame = CGRectMake(80.0f, CGRectGetHeight(frame)- 33, 15.0f, 27.0f);
 		layer.contentsGravity = kCAGravityResizeAspect;
 		layer.contents = (id)[UIImage imageNamed:@"whiteArrow.png"].CGImage;
 		
@@ -97,7 +97,7 @@
 		[[self layer] addSublayer:layer];
 		_arrowImage=layer;
 		
-		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 		view.frame = CGRectMake(80.0f, CGRectGetHeight(frame)- 25.0f, 20.0f, 20.0f);
 		[self addSubview:view];
 		_activityView = view;

@@ -138,11 +138,11 @@
     NSString *url = [env getSEKey:kSEUserAutoRegister Def:kSEUserAutoRegisterDef];
     
     // set udid as imsi
-    url = [BqsUtils setURL:url ParameterName:@"imsi" Value:env.udid];
+    url = [BqsUtils setURL:url ParameterName:@"imsi" Value:env.macUdid];
     url = [BqsUtils setURL:url ParameterName:@"supportenc" Value:@"true"];
     url = [BqsUtils setURL:url ParameterName:@"checkmark" Value:
            [BqsUtils bqsPasswordEnc:
-            [NSString stringWithFormat:@"%@,%@,%@", env.udid, (weiboId.length > 0 ? weiboId : @""), (weiboUid.length > 0 ? weiboUid : @"")]]];
+            [NSString stringWithFormat:@"%@,%@,%@", env.macUdid, (weiboId.length > 0 ? weiboId : @""), (weiboUid.length > 0 ? weiboUid : @"")]]];
     url = [BqsUtils setURL:url ParameterName:@"channel" Value:env.market];
     url = [BqsUtils setURL:url ParameterName:@"psVendor" Value:@"apple"];
     url = [BqsUtils setURL:url ParameterName:@"psType" Value:[myDevice.model stringByReplacingOccurrencesOfString:@" " withString:@"_"]];

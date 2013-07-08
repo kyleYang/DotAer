@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kOrgX 10
+#define kOrgX 14
 #define kOrgY 10
 
 #define kTimeWidth 120
@@ -27,15 +27,17 @@
 
 @property (nonatomic, assign) id<HumStrategyCellDelegate> delegate;
 
-@property (nonatomic, retain) UIImageView *bgImg;
 @property (nonatomic, retain) UILabel *title;
 @property (nonatomic, retain) UILabel *timeLeb;
+@property (nonatomic, retain) UIButton *favButton;
 @property (nonatomic, retain) UILabel *summary;
+
 
 @end
 
 @protocol HumStrategyCellDelegate <NSObject>
 
 - (void)humNewsCell:(HumStrategyTableCell *)cell didSelectIndex:(NSIndexPath *)index;
+- (BOOL)humNewsStrategyCell:(HumStrategyTableCell *)cell addFavAtIndex:(NSIndexPath *)index;
 
 @end

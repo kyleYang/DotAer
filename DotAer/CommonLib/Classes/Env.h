@@ -35,7 +35,7 @@ typedef enum{
 
 
 @interface Env : NSObject {
-	NSString *_udid;
+	NSString *_macUdid;
 	CGSize _screenSize;
     NSString *_sScreenSize;
     CGFloat _screenScale;
@@ -61,7 +61,7 @@ typedef enum{
 }
 
 @property (nonatomic, copy, readonly) NSString *sPhoneType;
-@property (nonatomic, copy, readonly) NSString *udid;
+@property (nonatomic, copy, readonly) NSString *macUdid;
 @property (nonatomic, copy, readonly) NSString *sDevId; // device id generated from udid
 @property (nonatomic, readonly) CGSize screenSize;
 @property (nonatomic, copy, readonly) NSString *sScreenSize;

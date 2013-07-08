@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PKRevealController.h"
 
 @interface HumAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (retain, nonatomic) UIWindow *window;
 @property (retain, nonatomic) UIViewController *viewController;
+@property (nonatomic, retain) PKRevealController *revealController;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

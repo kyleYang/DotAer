@@ -9,30 +9,31 @@
 #import "HumNewsTxtCell.h"
 #import "Env.h"
 
-#define kTitleColor [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]
-#define kTimeColor [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]
+#define kTitleColor [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]
+#define kTimeColor [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]
 #define kTypeColor [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]
 
-#define kOrgX 10
-#define kTimeWidth 120
+
 
 @implementation HumNewsTxtCell
 @synthesize title;
 @synthesize timeLeb;
-@synthesize typeImg;
-@synthesize typeLeb;
 @synthesize contImage;
 @synthesize delegate;
 @synthesize bgImg;
+@synthesize typeImg;
+@synthesize favButton;
+@synthesize downButton;
 
 - (void)dealloc{
     self.bgImg = nil;
     self.title = nil;
     self.timeLeb = nil;
-    self.typeImg = nil;
-    self.typeLeb = nil;
     self.contImage = nil;
     self.delegate = nil;
+    self.favButton = nil;
+    self.downButton = nil;
+    self.typeImg = nil;
     [super dealloc];
     
 }
@@ -45,6 +46,7 @@
         self.bgImg = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
         self.bgImg.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         self.bgImg.backgroundColor = [UIColor clearColor];
+        self.bgImg.image = [[Env sharedEnv] cacheScretchableImage:@"news_cell_bg.png" X:40 Y:20];
         [self addSubview:self.bgImg];
         
         UIButton *cellSelct = [[UIButton alloc] initWithFrame:self.bounds];
@@ -55,13 +57,22 @@
         [self addSubview:cellSelct];
         [cellSelct release];
         
-        CGRect frame = CGRectMake(kOrgX, 10, CGRectGetWidth(self.bounds)-2*10, 0);
+        CGRect frame = CGRectMake(kOrgX, 10, CGRectGetWidth(self.bounds)-2*kOrgX, 0);
         self.title = [[[UILabel alloc] initWithFrame:frame] autorelease];
-        self.title.font = [UIFont systemFontOfSize:17.0f];
+        self.title.font = kTitleFont
         self.title.numberOfLines = 0;
         self.title.textColor = kTitleColor;
         self.title.backgroundColor = [UIColor clearColor];
         [self addSubview:self.title];
+        
+        self.typeImg = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 23)] autorelease];
+        self.typeImg.backgroundColor = [UIColor clearColor];
+        [self.title addSubview:self.typeImg];
+        
+        self.contImage = [[[HumWebImageView alloc] init] autorelease];
+        self.contImage.style = HUMWebImageStyleTopCentre;
+        [self addSubview:self.contImage];
+
         
         frame = CGRectMake(CGRectGetWidth(self.bounds) - 2*kOrgX - kTimeWidth, 0, kTimeWidth, 20);
         self.timeLeb = [[[UILabel alloc] initWithFrame:frame] autorelease];
@@ -71,28 +82,22 @@
         self.timeLeb.textAlignment = UITextAlignmentRight;
         [self addSubview:self.timeLeb];
         
-        frame = CGRectMake(CGRectGetMinX(self.title.frame), 0, 18, 15);
-        self.typeImg = [[[UIImageView alloc] initWithFrame:frame] autorelease];
-        [self addSubview:self.typeImg];
         
-        frame = CGRectMake(CGRectGetMaxX(self.typeImg.frame)+3, CGRectGetMinY(self.typeImg.frame), 120, 14);
-        self.typeLeb = [[[UILabel alloc] initWithFrame:frame] autorelease];
-        self.typeLeb.textColor = kTypeColor;
-        self.typeLeb.backgroundColor = [UIColor clearColor];
-        self.typeLeb.font = [UIFont systemFontOfSize:13.0f];
-        [self addSubview:self.typeLeb];
-        
-        self.contImage = [[[HumWebImageView alloc] init] autorelease];
-        self.contImage.style = HUMWebImageStyleTopCentre;
-        [self addSubview:self.contImage];
+        self.favButton = [[[UIButton alloc] initWithFrame:CGRectMake(10, 2, 22, 20)] autorelease];
+        [self.favButton addTarget:self action:@selector(addFavVideo:) forControlEvents:UIControlEventTouchUpInside];
+        [favButton setBackgroundImage:[[Env sharedEnv] cacheImage:@"video_addFav_did.png"] forState:UIControlStateSelected];
+        [self.favButton setBackgroundImage:[[Env sharedEnv] cacheImage:@"video_addFav.png"] forState:UIControlStateNormal];
+        [self addSubview:self.favButton];
         
         
-        UIImageView *line =  [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 3, self.frame.size.width, 2)];
-        line.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
-        line.image = [[Env sharedEnv] cacheImage:@"dota_cell_line.png"];
-        [self addSubview:line];
-        [line release];
-
+        
+        self.downButton = [[[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.favButton.frame)+5, 2, 24, 20)] autorelease];
+        [self.downButton addTarget:self action:@selector(downVideo:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.downButton];
+        [self.downButton setBackgroundImage:[[Env sharedEnv] cacheImage:@"video_download.png"] forState:UIControlStateNormal];
+        [self.downButton setBackgroundImage:[[Env sharedEnv] cacheImage:@"video_download_down.png"] forState:UIControlEventTouchDown];
+               
+    
     }
     return self;
 }
@@ -105,6 +110,30 @@
     }
     
 }
+
+
+- (void)addFavVideo:(id)sender{
+    
+    NSIndexPath *index = [(UITableView *)self.superview indexPathForCell:self];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(humNewsCell:addFavNewsAtIndex:)]) {
+       BOOL value =  [self.delegate humNewsCell:self addFavNewsAtIndex:index];
+        if (value) {
+            self.favButton.selected = !self.favButton.selected;
+        }
+    }
+    
+}
+
+- (void)downVideo:(id)sender{
+    
+    NSIndexPath *index = [(UITableView *)self.superview indexPathForCell:self];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(humNewsCell:addDownNewsAtIndex:)]) {
+        [self.delegate humNewsCell:self addDownNewsAtIndex:index];
+    }
+
+    
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

@@ -17,7 +17,7 @@
 @property (nonatomic, retain) NSArray *arrItem; //item array
 @property (nonatomic, assign) CGPoint popPoint;
 
-
+- (id)initWithFrame:(CGRect)frame withArray:(NSArray *)arr popAt:(CGPoint)point withTableFrame:(CGRect)tableFrame;
 - (id)initWithFrame:(CGRect)frame withArray:(NSArray *)arr popAt:(CGPoint)point;
 
 - (void)popViewAnimation;
@@ -29,5 +29,6 @@
 @protocol HMCateOnePopViewDelegate <NSObject>
 
 - (void)hmCateOnePopView:(HMCateOnePopView *)popView didSelectAt:(NSIndexPath*)index;
+- (void)hmCateOneDismissPopView:(HMCateOnePopView *)popView;
 
 @end

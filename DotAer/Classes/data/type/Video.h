@@ -11,16 +11,30 @@
 #import "XmlWriter.h"
 #import "TBXML.h"
 
+typedef enum
+{
+   
+    VideoScreenNormal = 0,
+    VideoScreenClear = 1, //default
+    VideoScreenHD = 2,
+    VideoScreenUnknow = 3
+}VideoScreenStatus;
+
+typedef VideoScreenStatus VideoScreen;
+
 @interface Video : NSObject
 
 @property (nonatomic, copy) NSString *category;
 @property (nonatomic, copy) NSString *videoId;
+@property (nonatomic, copy) NSString *youkuId;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *time;
-@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *content; //高清
+@property (nonatomic, copy) NSString *hdContent;//超清
+@property (nonatomic, copy) NSString *norContent;//标清
 @property (nonatomic, copy) NSString *summary;
 @property (nonatomic, copy) NSString *imageUrl;
-
+@property (nonatomic, copy) NSString *md5;
 
 -(NSString*)description;
 

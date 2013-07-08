@@ -33,6 +33,7 @@
 + (NSString*)bqsPasswordDec:(NSString*)encPwd;
 
 + (NSString*)readDevMACAddress;
++ (NSString *) freeDiskSpaceInBytes;
 + (NSString *)calcMD5forString:(NSString*)str;
 + (void)clearCookiesForUrl:(NSString*)url;
 

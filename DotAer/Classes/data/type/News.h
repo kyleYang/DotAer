@@ -21,9 +21,12 @@
 @interface News : NSObject
 @property (nonatomic, assign) int category;
 @property (nonatomic, copy) NSString *newsId;
+@property (nonatomic, copy) NSString *youkuId;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *time;
-@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *content; //高清
+@property (nonatomic, copy) NSString *hdContent;//超清
+@property (nonatomic, copy) NSString *norContent;//标清
 @property (nonatomic, copy) NSString *summary;
 @property (nonatomic, copy) NSString *md5;
 @property (nonatomic, copy) NSString *imageUrl;

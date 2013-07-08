@@ -12,7 +12,9 @@
 #import "HMCategory.h"
 #import "HumDotaImageCateTwoView.h"
 
-@interface HumDotaImageViewController ()
+@interface HumDotaImageViewController (){
+    BOOL _first;
+}
 
 @property (nonatomic, assign) NSUInteger nCatHash;
 
@@ -54,6 +56,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oneImageChange) name:kNtfDotaOneImageChanged object:nil];
     self.arrCatList = [self loadCatForCatOneId];
     self.nCatHash = [self calcCatTwoHash:self.arrCatList];
+    _first = FALSE;
     
         
 }
@@ -67,13 +70,17 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if (_first) {
+        return;
+    }
     [self checkDotaCatChanged];
     [self.cateScroll humDotaCateOneSetCatArr:self.arrCateOne];
     [MobClick beginLogPageView:kUmeng_imagepage];
+    _first = TRUE;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    [MobClick endLogPageView:kUmeng_imagepage];
+   [MobClick endLogPageView:kUmeng_imagepage];
     [super viewWillDisappear:animated];
 }
 

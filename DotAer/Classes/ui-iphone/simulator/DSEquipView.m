@@ -78,7 +78,7 @@
         
         self.item12 = [[[DSItemImag alloc] initWithFrame:CGRectMake(self.item11.frame.origin.x+ self.item11.frame.size.width+2*kEquipGap, self.item11.frame.origin.y, width, height)] autorelease];
         self.item12.goods = TRUE;
-        [self.item12 addTarget:self action:@selector(itemRemove:) forControlEvents:UIControlEventTouchUpInside];
+       [self.item12 addTarget:self action:@selector(itemRemove:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.item12];
         
         self.item13 = [[[DSItemImag alloc] initWithFrame:CGRectMake(self.item12.frame.origin.x+self.item12.frame.size.width+2* kEquipGap, self.item11.frame.origin.y, width, height)] autorelease];

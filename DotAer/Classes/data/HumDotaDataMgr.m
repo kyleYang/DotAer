@@ -18,6 +18,7 @@
 #import "XmlWriter.h"
 #import "Article.h"
 #import "HMPopMsgView.h"
+#import "M3U8SegmentInfoList.h"
 
 #define kHumDota @"dotaer"
 #define kHumNews @"news"
@@ -43,7 +44,15 @@
 #define kFileNameArticle @"art_%@.txt"
 
 #define kFileSimulatorTempFile @"simuTemp.zip"
-#define kFileTestFile @"testVideo"
+
+#define kFileFavVideoFile @"favvideo.xml"
+#define kFileFavNewsFile @"favNews.xml"
+#define kFileFavImageFile @"favImage.xml"
+#define kFileFavStrategyFile @"favStrategy.xml"
+
+
+
+//downloader video
 #define kVideoName @"v.mp4"
 
 #define kCfgOneVideoCatResfreshTS @"cfg.dota.one.video.category.refreshTS"
@@ -76,6 +85,11 @@
 @property (nonatomic, retain) NSString *pathHeroImgDir;//image category
 @property (nonatomic, retain) NSString *pathEquipImgDIr;
 
+@property (nonatomic, retain,readwrite) NSMutableArray *arrFavVideo;
+@property (nonatomic, retain,readwrite) NSMutableArray *arrFavNews;
+@property (nonatomic, retain,readwrite) NSMutableArray *arrFavImage;
+@property (nonatomic, retain,readwrite) NSMutableArray *arrFavStrategy;
+
 - (void)doNetworkUpdataChecks;
 - (void)oneVideCategoryRefresh; // one for dotaOne, two for dotaTwo
 - (void)twoVideCategoryRefresh;
@@ -105,6 +119,11 @@
 
 @synthesize arrOneImageCat;//image category
 
+@synthesize arrFavVideo;
+@synthesize arrFavNews;
+@synthesize arrFavImage;
+@synthesize arrFavStrategy;
+
 - (void)dealloc{
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -126,6 +145,10 @@
     self.arrOneImageCat = nil;
     self.pathEquipImgDIr  = nil;
     self.pathHeroImgDir = nil;
+    self.arrFavVideo = nil;
+    self.arrFavNews = nil;
+    self.arrFavImage = nil;
+    self.arrFavStrategy = nil;
     [super dealloc];
 }
 
@@ -273,7 +296,7 @@
 
 #pragma mark
 #pragma mark file dir 
--(long)fileSizeForDir:(NSString*)path//计算文件夹下文件的总大小
+-(NSString *)fileSizeForDir:(NSString*)path//计算文件夹下文件的总大小
 {
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     
@@ -297,7 +320,10 @@
         }
     }
     [fileManager release];
-    return size;
+    
+    NSString *sizeStr = [NSString stringWithFormat:@"%0.1f MB",size/1024.0f/1024.0f ];
+
+    return sizeStr;
     
 }
 
@@ -467,13 +493,6 @@
 
 }
 
-//pathoftestvied
-- (NSString *)pathofTestM3u8:(NSUInteger)index{
-   return [[self.simulatorPath stringByAppendingPathComponent:kFileTestFile] stringByAppendingPathComponent:kVideoName];
-}
-
-
-
 
 #pragma mark
 #pragma mark category save message
@@ -536,6 +555,223 @@
 - (BOOL)saveDotaOneImageCagegory:(NSArray *)arry{
     return [HMCategory saveToFile:[self pathOfDotaOneImageCategory] Arr:arry];
 }
+
+
+#pragma mark favorate
+//video
+- (NSString *)favVideoPathOfFile{
+    NSString *path = [self.rootPath stringByAppendingPathComponent:kFileFavVideoFile];
+    return path;
+}
+
+- (NSArray *)arrOfLocalFavVideo{
+    if (!self.arrFavVideo) {
+        self.arrFavVideo = (NSMutableArray *)[Video parseXmlData:[NSData dataWithContentsOfFile:[self favVideoPathOfFile]]];
+    }
+    return self.arrFavVideo;
+}
+
+- (BOOL)addFavoVideo:(Video *)video{
+    if (!self.arrFavVideo) {
+        self.arrFavVideo = (NSMutableArray *)[Video parseXmlData:[NSData dataWithContentsOfFile:[self favVideoPathOfFile]]];
+    }
+    if (!self.arrFavVideo) {
+        self.arrFavVideo = [NSMutableArray arrayWithCapacity:10];
+    }
+    
+    
+    for (Video *v in self.arrFavVideo) {
+        if ([v.videoId isEqualToString:video.videoId]) {
+            [self.arrFavVideo removeObject:v];
+            return [Video saveToFile:[self favVideoPathOfFile] Arr:self.arrFavVideo];
+            
+        }
+    }
+
+    [self.arrFavVideo insertObject:video atIndex:0];
+    return [Video saveToFile:[self favVideoPathOfFile] Arr:self.arrFavVideo];
+
+}
+
+- (BOOL)judgeFavVideo:(Video *)video{
+    if (!self.arrFavVideo) {
+        self.arrFavVideo = (NSMutableArray *)[Video parseXmlData:[NSData dataWithContentsOfFile:[self favVideoPathOfFile]]];
+    }
+    if (!self.arrFavVideo) {
+        self.arrFavVideo = [NSMutableArray arrayWithCapacity:10];
+        return FALSE;
+    }
+    
+    for (Video *v in self.arrFavVideo) {
+        if ([v.videoId isEqualToString:video.videoId]) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+
+}
+
+//news
+
+- (NSString *)favNewsPathOfFile{
+    NSString *path = [self.rootPath stringByAppendingPathComponent:kFileFavNewsFile];
+    return path;
+}
+
+- (NSArray *)arrOfLocalFavNews{
+    if (!self.arrFavNews) {
+        self.arrFavNews = (NSMutableArray *)[News parseXmlData:[NSData dataWithContentsOfFile:[self favNewsPathOfFile]]];
+    }
+    return self.arrFavNews;
+}
+
+- (BOOL)addFavNews:(News *)news{
+    if (!self.arrFavNews) {
+        self.arrFavNews = (NSMutableArray *)[News parseXmlData:[NSData dataWithContentsOfFile:[self favNewsPathOfFile]]];
+    }
+    if (!self.arrFavNews) {
+        self.arrFavNews = [NSMutableArray arrayWithCapacity:10];
+    }
+    
+    
+    for (News *v in self.arrFavNews) {
+        if ([v.newsId isEqualToString:news.newsId]) {
+            [self.arrFavNews removeObject:v];
+            return [News saveToFile:[self favNewsPathOfFile] Arr:self.arrFavNews];
+            
+        }
+    }
+    
+    [self.arrFavNews insertObject:news atIndex:0];
+    return [News saveToFile:[self favNewsPathOfFile] Arr:self.arrFavNews];
+    
+}
+
+- (BOOL)judgeFavNews:(News *)news{
+    if (!self.arrFavNews) {
+        self.arrFavNews = (NSMutableArray *)[News parseXmlData:[NSData dataWithContentsOfFile:[self favNewsPathOfFile]]];
+    }
+    if (!self.arrFavNews) {
+        self.arrFavNews = [NSMutableArray arrayWithCapacity:10];
+        return FALSE;
+    }
+    
+    for (News *v in self.arrFavNews) {
+        if ([v.newsId isEqualToString:news.newsId]) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+    
+}
+
+- (NSString *)favImagePathOfFile{
+    NSString *path = [self.rootPath stringByAppendingPathComponent:kFileFavImageFile];
+    return path;
+}
+
+- (NSArray *)arrOfLocalFavImage{
+    if (!self.arrFavImage) {
+        self.arrFavImage = (NSMutableArray *)[Photo parseXmlData:[NSData dataWithContentsOfFile:[self favImagePathOfFile]]];
+    }
+    return self.arrFavImage;
+}
+
+- (BOOL)addFavoImage:(Photo *)photo{
+    if (!self.arrFavImage) {
+        self.arrFavImage = (NSMutableArray *)[Photo parseXmlData:[NSData dataWithContentsOfFile:[self favImagePathOfFile]]];
+    }
+    if (!self.arrFavImage) {
+        self.arrFavImage = [NSMutableArray arrayWithCapacity:10];
+    }
+    
+    
+    for (Photo *v in self.arrFavImage) {
+        if ([v.imgId isEqualToString:photo.imgId]) {
+            [self.arrFavImage removeObject:v];
+            return [Photo saveToFile:[self favImagePathOfFile] Arr:self.arrFavImage];
+            
+        }
+    }
+    
+    [self.arrFavImage insertObject:photo atIndex:0];
+    return [Video saveToFile:[self favVideoPathOfFile] Arr:self.arrFavImage];
+    
+}
+
+- (BOOL)judgeFavImage:(Photo *)photo{
+    if (!self.arrFavImage) {
+        self.arrFavImage = (NSMutableArray *)[Photo parseXmlData:[NSData dataWithContentsOfFile:[self favVideoPathOfFile]]];
+    }
+    if (!self.arrFavImage) {
+        self.arrFavImage = [NSMutableArray arrayWithCapacity:10];
+        return FALSE;
+    }
+    
+    for (Photo *v in self.arrFavImage) {
+        if ([v.imgId isEqualToString:photo.imgId]) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+    
+}
+
+- (NSString *)favStrategyPathOfFile{
+    NSString *path = [self.rootPath stringByAppendingPathComponent:kFileFavStrategyFile];
+    return path;
+}
+
+- (NSArray *)arrOfLocalFavStragety{
+    if (!self.arrFavStrategy) {
+        self.arrFavStrategy = (NSMutableArray *)[Strategy parseXmlData:[NSData dataWithContentsOfFile:[self favStrategyPathOfFile]]];
+    }
+    return self.arrFavStrategy;
+}
+
+
+- (BOOL)addFavoStragtegy:(Strategy *)strategy{
+    if (!self.arrFavStrategy) {
+        self.arrFavStrategy = (NSMutableArray *)[Strategy parseXmlData:[NSData dataWithContentsOfFile:[self favStrategyPathOfFile]]];
+    }
+    if (!self.arrFavStrategy) {
+        self.arrFavStrategy = [NSMutableArray arrayWithCapacity:10];
+    }
+    
+    
+    for (Strategy *v in self.arrFavStrategy) {
+        if ([v.articleId isEqualToString:strategy.articleId]) {
+            [self.arrFavStrategy removeObject:v];
+            return [Strategy saveToFile:[self favStrategyPathOfFile] Arr:self.arrFavStrategy];
+            
+        }
+    }
+    
+    [self.arrFavStrategy insertObject:strategy atIndex:0];
+    return [Strategy saveToFile:[self favVideoPathOfFile] Arr:self.arrFavStrategy];
+    
+}
+
+- (BOOL)judgeFavStrategy:(Strategy *)strategy{
+    if (!self.arrFavStrategy) {
+        self.arrFavStrategy = (NSMutableArray *)[Strategy parseXmlData:[NSData dataWithContentsOfFile:[self favVideoPathOfFile]]];
+    }
+    if (!self.arrFavStrategy) {
+        self.arrFavStrategy = [NSMutableArray arrayWithCapacity:10];
+        return FALSE;
+    }
+    
+    for (Strategy *v in self.arrFavStrategy) {
+        if ([v.articleId isEqualToString:strategy.articleId]) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+    
+}
+
+
+
 
 
 #pragma mark

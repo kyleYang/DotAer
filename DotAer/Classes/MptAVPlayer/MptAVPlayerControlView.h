@@ -34,6 +34,7 @@
 @property (nonatomic, assign) NSTimeInterval playableDuration;
 @property (nonatomic, readonly, getter = isAirPlayButtonVisible) BOOL airPlayButtonVisible;
 
+@property (nonatomic, assign, readonly) BOOL explaned; //YES accept touch
 
 /******************************************
  @name Updating

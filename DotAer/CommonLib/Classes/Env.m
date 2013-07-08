@@ -14,7 +14,7 @@
 @interface Env() 
 
 @property (nonatomic, copy, readwrite) NSString *sPhoneType;
-@property (nonatomic, copy, readwrite) NSString *udid;
+@property (nonatomic, copy, readwrite) NSString *macUdid;
 @property (nonatomic, copy, readwrite) NSString *sDevId; // device id generated from udid
 @property (nonatomic, copy, readwrite) NSString *host;
 @property (nonatomic, copy, readwrite) NSString *sServiceEntryUrl; // /phone/tvguide.xml
@@ -41,7 +41,7 @@
 @implementation Env
 
 @synthesize sPhoneType;
-@synthesize udid = _udid;
+@synthesize macUdid = _macUdid;
 @synthesize sDevId;
 @synthesize deviceType;
 @synthesize bIsPad;
@@ -110,13 +110,13 @@
 //    if([myDevice respondsToSelector:@selector(uniqueIdentifier)]) {
 //        self.udid = [[myDevice uniqueIdentifier] stringByReplacingOccurrencesOfString: @"-" withString: @""];
 //    }
-    if(nil == self.udid || [self.udid length] < 1) {
-        self.udid = [@"ios" stringByAppendingString:[BqsUtils calcMD5forString:[BqsUtils readDevMACAddress]]];
+    if(nil == self.macUdid || [self.macUdid length] < 1) {
+        self.macUdid = [@"ios" stringByAppendingString:[BqsUtils calcMD5forString:[BqsUtils readDevMACAddress]]];
         //    BqsLog(@"mac=%@, macmd5:%@", [BqsUtils readDevMACAddress], [BqsUtils calcMD5forString:[BqsUtils readDevMACAddress]]);
     }
     
-    self.sDevId = [NSString stringWithFormat:@"%d", abs((int)[self.udid hash])];
-	BqsLog(@"udid=%@,devid=%@", _udid,self.sDevId);
+    self.sDevId = [NSString stringWithFormat:@"%d", abs((int)[self.macUdid hash])];
+	BqsLog(@"udid=%@,devid=%@", _macUdid,self.sDevId);
     
 	// get screen size
 	_screenSize = [[UIScreen mainScreen] bounds].size;
@@ -205,7 +205,7 @@
 	self.dirTmp = nil;
 	self.runtimeData = nil;
     self.sPhoneType = nil;
-	self.udid = nil;
+	self.macUdid = nil;
     self.sDevId = nil;
 	self.host = nil;
     self.swVersion = nil;

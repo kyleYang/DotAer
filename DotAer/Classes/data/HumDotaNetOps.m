@@ -186,6 +186,13 @@
 
 }
 
++(int)videoM3u8Downloader:(Downloader *)dl Url:(NSString *)url PkgFile:(PackageFile *)pkf Target:(id)target  Sel:(SEL)action Attached:(id)att{
+    
+    return [dl addCachedTask:url PkgFile:pkf Target:target Callback:action Attached:att];
+    
+    
+}
+
 
 //image
 +(int)oneImageCateDownloader:(Downloader *)dl PkgFile:(PackageFile *)pkf Target:(id)target Sel:(SEL)action Attached:(id)att{
@@ -195,12 +202,13 @@
     return [dl addCachedTask:url PkgFile:pkf Target:target Callback:action Attached:att];
 }
 
-+(int)imageMessageDownloader:(Downloader *)dl Target:(id)target Sel:(SEL)action Attached:(id)att categoryId:(NSString *)catId page:(int)page{
++(int)imageMessageDownloader:(Downloader *)dl Target:(id)target Sel:(SEL)action Attached:(id)att categoryId:(NSString *)catId page:(int)page pageNum:(int)number{
     Env *env = [Env sharedEnv];
     NSString *url = [env getSEKey:kSEImageMessagelList Def:kSEDefImageMessageURL];
     
     url = [BqsUtils setURL:url ParameterName:@"page" Value:[NSString stringWithFormat:@"%d",page]];
     url = [BqsUtils setURL:url ParameterName:@"catId" Value:catId];
+    url = [BqsUtils setURL:url ParameterName:@"num" Value:[NSString stringWithFormat:@"%d",number]];
     return [dl addTask:url Target:target Callback:action Attached:att];
 }
 

@@ -49,6 +49,10 @@
     
 }
 
+- (void)mainViewOnFont:(BOOL)value{
+    
+}
+
 
 
 @end

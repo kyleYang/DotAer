@@ -11,7 +11,7 @@
 #import "MptScrubber.h"
 
 #define kMinWidthToDisplaySkipButtons          420.f
-#define kControlWidth                          (UI_USER_INTERFACE_IDIOM()  == UIUserInterfaceIdiomPhone ? 44.f : 50.f)
+#define kControlWidth                          (UI_USER_INTERFACE_IDIOM()  == UIUserInterfaceIdiomPhone ? 64.f : 50.f)
 
 
 @interface MptAVPlayerDefaultLayout () {
@@ -131,11 +131,12 @@
     CGFloat controlsViewHeight = [self bottomControlsViewHeightForControlStyle:controlStyle];
     CGFloat offset = (self.controlStyle == MptAVPlayerControlStyleFullscreen ? 0.f : 0.f);
     
+    
     self.bottomControlsView.frame = CGRectMake(offset,
-                                               self.height-controlsViewHeight,
+                                               self.height-controlsViewHeight+20,
                                                self.width - 2.f*offset,
                                                controlsViewHeight-offset);
-    self.buttomControlsContainerView.frame = CGRectMake(5, CGRectGetHeight(self.bottomControlsView.frame)-35, CGRectGetWidth(self.bottomControlsView.frame)-2*5, 30);
+    self.buttomControlsContainerView.frame = CGRectMake(0, 0, CGRectGetWidth(self.bottomControlsView.frame), CGRectGetHeight(self.bottomControlsView.frame));
 }
 
 - (void)layoutControlsWithControlStyle:(MptAVPlayerControlStyle)controlStyle AirplayAvailable:(BOOL)airPlayAvailable{
@@ -202,7 +203,7 @@
 
 - (CGFloat)topControlsViewHeightForControlStyle:(MptAVPlayerControlStyle)controlStyle {
     if (controlStyle == MptAVPlayerControlStyleFullscreen) {
-        return 40.f; //all state is fullScreen ,heigh for topView
+        return 44.f; //all state is fullScreen ,heigh for topView
     } else {
         return 40.f;
     }
@@ -211,7 +212,7 @@
 
 - (CGFloat)bottomControlsViewHeightForControlStyle:(MptAVPlayerControlStyle)controlStyle {
     if (controlStyle == MptAVPlayerControlStyleFullscreen) {
-        return 80.f; //all state is fullScreen
+        return 62.f; //all state is fullScreen
     } else {
         return 40.f;
     }
@@ -332,7 +333,7 @@
 
 - (UIImage *)bottomContainerFullscreenImage {
     if (_bottomContainerFullscreenImage == nil) {
-        _bottomContainerFullscreenImage = [[UIImage imageNamed:@"MptPlayer.bundle/iPhone/player_buttom_container_bg"] stretchableImageWithLeftCapWidth:30 topCapHeight:15];
+//        _bottomContainerFullscreenImage = [[UIImage imageNamed:@"MptPlayer.bundle/iPhone/player_buttom_container_bg"] stretchableImageWithLeftCapWidth:30 topCapHeight:15];
         
         // make it a resizable image
 //        if ([_bottomContainerFullscreenImage respondsToSelector:@selector(resizableImageWithCapInsets:)]) {
@@ -394,7 +395,7 @@
 //    CGFloat controlHeight = 44.f;
 //    CGFloat topY = 2.f;
     
-    self.dismissControl.frame = CGRectMake(15, 0, 40, 40);
+    self.dismissControl.frame = CGRectMake(5, 0, 45, 44);
     
     CGRect rct = CGRectMake(CGRectGetMaxX(self.dismissControl.frame), CGRectGetMinY(self.dismissControl.frame), CGRectGetWidth(self.topControlsView.frame)-CGRectGetMaxX(self.dismissControl.frame), CGRectGetHeight(self.topControlsContainerView.frame));
     self.videoTitle.frame = rct;
@@ -449,6 +450,12 @@
     self.forwardControl.frame = frame;
 //    self.rewindControl.hidden = !displaySkipButtons;
     self.forwardControl.enabled = displaySkipButtons;
+    
+    frame = self.typeSelectControl.frame;
+    frame.origin.y = CGRectGetMinY(self.forwardControl.frame);
+    frame.origin.x = CGRectGetMaxX(self.forwardControl.frame)+paddingX;
+    self.typeSelectControl.frame = frame;
+
        
     
     frame = self.volumeControl.frame;

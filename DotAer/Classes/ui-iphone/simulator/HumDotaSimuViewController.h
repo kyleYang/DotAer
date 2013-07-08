@@ -7,10 +7,10 @@
 //
 
 #import "HumDotaNoSplitViewController.h"
-#import "DSDetailView.h"
+#import "HumRightViewController.h"
 
 
-@interface HumDotaSimuViewController : HumDotaNoSplitViewController<DSDetailDelegate>
+@interface HumDotaSimuViewController : HumDotaNoSplitViewController<rightViewDelegate>
 
 @property (nonatomic,retain) NSManagedObjectContext* managedObjectContext;
 

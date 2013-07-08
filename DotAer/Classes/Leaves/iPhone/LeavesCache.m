@@ -22,6 +22,7 @@
 		pageCache = [[NSMutableDictionary alloc] init];
 	}
 	return self;
+   
 }
 
 - (void) dealloc

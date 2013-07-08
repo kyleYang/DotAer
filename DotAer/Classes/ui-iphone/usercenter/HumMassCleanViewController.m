@@ -9,6 +9,7 @@
 #import "HumMassCleanViewController.h"
 #import "CustomUIBarButtonItem.h"
 #import "PKRevealController.h"
+#import "HumUserCenterCell.h"
 #import "HMLeftRightTextCell.h"
 #import "HumDotaDataMgr.h"
 #import "HumDotaUIOps.h"
@@ -19,9 +20,9 @@
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *dataArray;
 
-@property (nonatomic, retain) HMLeftRightTextCell *imageCell;
-@property (nonatomic, retain) HMLeftRightTextCell *articleCell;
-@property (nonatomic, retain) HMLeftRightTextCell *otherCell;
+@property (nonatomic, retain) HumUserCenterCell *imageCell;
+@property (nonatomic, retain) HumUserCenterCell *articleCell;
+@property (nonatomic, retain) HumUserCenterCell *otherCell;
 
 @end
 
@@ -32,6 +33,9 @@
 - (void)dealloc{
     self.tableView = nil;
     self.dataArray = nil;
+    self.imageCell = nil;
+    self.articleCell = nil;
+    self.otherCell = nil;
     [super dealloc];
 }
 
@@ -49,17 +53,22 @@
     [super viewDidLoad];
     Env *env = [Env sharedEnv];
     
+    self.view.backgroundColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
+
+    
     self.navigationItem.title = NSLocalizedString(@"massclean.navigation.title", nil);
     
-    NSString *leftBarName = NSLocalizedString(@"button.back", nil);
+    NSString *rightBarName = NSLocalizedString(@"button.done", nil);
         
-    self.navigationItem.leftBarButtonItem = [CustomUIBarButtonItem initWithImage:[env cacheScretchableImage:@"pg_bar_back.png" X:kBarStrePosX Y:kBarStrePosY] eventImg:[env cacheScretchableImage:@"pg_bar_backdown.png" X:kBarStrePosX Y:kBarStrePosY]  title:leftBarName target:self action:@selector(backToTop)];
+    self.navigationItem.rightBarButtonItem = [CustomUIBarButtonItem initWithImage:[env cacheScretchableImage:@"pg_bar_done.png" X:kBarStrePosX Y:kBarStrePosY] eventImg:[env cacheScretchableImage:@"pg_bar_donedown.png" X:kBarStrePosX Y:kBarStrePosY]  title:rightBarName target:self action:@selector(backToTop)];
+    
     
     self.tableView = [[[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped] autorelease];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundView = nil;
-    self.tableView.backgroundColor = [UIColor colorWithRed:117.0f/255.0f green:95.0f/255.0f blue:81.0f/255.0f alpha:1.0f];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    self.tableView.separatorColor = [UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0f];
     [self.view addSubview:self.tableView];
     
 //    "massclean.mass.image" = "清空图片缓存";
@@ -70,46 +79,37 @@
     const float kPaddingHori = 10;
     
     {
-        self.imageCell = [[[HMLeftRightTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"10"] autorelease];
+        self.imageCell = [[[HumUserCenterCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"10"] autorelease];
+        self.imageCell.cellType = USCellTypeBoth;
         
-        self.imageCell.lblLeft.text = NSLocalizedString(@"massclean.mass.image", nil);
-        self.imageCell.lblRight.hidden = NO;
-        self.imageCell.imgDisclosure.hidden = YES;
-        self.imageCell.paddingHori = kPaddingHori;       
+        self.imageCell.titleLabel.text = NSLocalizedString(@"massclean.mass.image", nil);
+
         [self.dataArray addObject:self.imageCell];
         
         unsigned int size = [[[HumDotaDataMgr instance] imgCacheFilePath] getFileSize];
         NSString *sizeStr = [NSString stringWithFormat:@"%0.1f MB",size/1024.0f/1024.0f ];
-        self.imageCell.lblRight.text = sizeStr;
+        self.imageCell.detailLabel.text = sizeStr;
     }
     
     {
-        self.articleCell = [[[HMLeftRightTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"11"] autorelease];
-        
-        self.articleCell.lblLeft.text = NSLocalizedString(@"massclean.mass.article", nil);
-        self.articleCell.lblRight.hidden = NO;
-        self.articleCell.imgDisclosure.hidden = YES;
-        self.articleCell.paddingHori = kPaddingHori;
+        self.articleCell = [[[HumUserCenterCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"11"] autorelease];
+        self.articleCell.cellType = USCellTypeBoth;
+        self.articleCell.titleLabel.text = NSLocalizedString(@"massclean.mass.article", nil);
         [self.dataArray addObject:self.articleCell];
         
-        unsigned int size = (unsigned int)[[HumDotaDataMgr instance] fileSizeForDir:[HumDotaDataMgr instance].articlePath];
-        NSString *sizeStr = [NSString stringWithFormat:@"%0.1f MB",size/1024.0f/1024.0f ];
-        self.articleCell.lblRight.text = sizeStr;
+        self.articleCell.detailLabel.text = [[HumDotaDataMgr instance] fileSizeForDir:[HumDotaDataMgr instance].articlePath];
 
     }
     
     {
-        self.otherCell = [[[HMLeftRightTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"12"] autorelease];
-        
-        self.otherCell.lblLeft.text = NSLocalizedString(@"massclean.mass.other", nil);
-        self.otherCell.lblRight.hidden = NO;
-        self.otherCell.imgDisclosure.hidden = YES;
-        self.otherCell.paddingHori = kPaddingHori;
+        self.otherCell = [[[HumUserCenterCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"12"] autorelease];
+        self.otherCell.cellType = USCellTypeBoth;
+        self.otherCell.titleLabel.text = NSLocalizedString(@"massclean.mass.other", nil);
         [self.dataArray addObject:self.otherCell];
         
         unsigned int size = [[[HumDotaDataMgr instance] onlineCacheFilePath] getFileSize];
         NSString *sizeStr = [NSString stringWithFormat:@"%0.1f MB",size/1024.0f/1024.0f ];
-        self.otherCell.lblRight.text = sizeStr;
+        self.otherCell.detailLabel.text = sizeStr;
     }
     
 
@@ -156,32 +156,41 @@
     BqsLog(@"imageCacheClean");
     
     [[HumDotaDataMgr instance] cleanImageCacheFile];
-    self.imageCell.lblRight.text = @"0.0 MB";
+    self.imageCell.detailLabel.text = @"0.0 MB";
 
 }
 
 - (void)articleCacheClean{
     BqsLog(@"articleCacheClean");
     [[HumDotaDataMgr instance] cleanAllFileForDir:[HumDotaDataMgr instance].articlePath];
-    self.articleCell.lblRight.text = @"0.0 MB";
+    self.articleCell.detailLabel.text = @"0.0 MB";
 }
 
 - (void)otherCacheClean{
     BqsLog(@"otherCacheClean");
     [[HumDotaDataMgr instance] cleanOtherCacheFile];
-    self.otherCell.lblRight.text = @"0.0 MB";
+    self.otherCell.detailLabel.text = @"0.0 MB";
 
 }
 
 - (void)backToTop{
-    if (self.navigationController.revealController.focusedController == self.navigationController.revealController.leftViewController)
-    {
-        [self.navigationController.revealController showViewController:self.navigationController.revealController.frontViewController];
-    }
-    else
-    {
-        [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
-    }
+    [HumDotaUIOps popUIViewControlInNavigationControl:self];
 }
+
+
+#pragma mark
+#pragma mark rotate
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return interfaceOrientation == UIInterfaceOrientationPortrait;
+}
+
+- (BOOL)shouldAutorotate{
+    return NO;
+};
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 
 @end

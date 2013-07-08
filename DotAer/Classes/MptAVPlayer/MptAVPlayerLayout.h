@@ -76,7 +76,7 @@ typedef enum{
 
 @property (nonatomic, retain, readonly) UIButton *rewindControl;
 @property (nonatomic, retain, readonly) UIButton *forwardControl;
-
+@property (nonatomic, retain, readonly) UIButton *typeSelectControl;
 
 @property (nonatomic, retain, readonly) MptVolumeControl *volumeControl;
 

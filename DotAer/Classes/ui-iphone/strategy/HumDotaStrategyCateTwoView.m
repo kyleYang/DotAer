@@ -126,12 +126,6 @@
     }
     cell.delegate = self;
     
-    if (indexPath.row % 2 == 0) {
-        cell.bgImg.image = [[Env sharedEnv] cacheImage:@"dota_cell_singer_bg.png"];
-    }else{
-        cell.bgImg.image = [[Env sharedEnv] cacheImage:@"dota_cell_double_bg.png"];
-    }
-    
     
     Strategy *info = [self.dataArray objectAtIndex:indexPath.row];
     CGFloat heigh = kOrgY;
@@ -157,6 +151,14 @@
     frame.origin.y = heigh+kSTGap;
     cell.timeLeb.frame = frame;
     cell.timeLeb.text = info.time;
+
+    
+    frame = cell.favButton.frame;
+    frame.origin.y = CGRectGetMinY(cell.timeLeb.frame);
+    cell.favButton.frame = frame;
+    
+    cell.favButton.selected = [[HumDotaDataMgr instance] judgeFavStrategy:info];
+    
     
     heigh += kSTGap+kTimeHeigh; //timelable heig
     
@@ -206,8 +208,20 @@
     [MobClick endEvent:kUmeng_strategy_cell_event label:info.title];
     LeavesViewController *leaves = [[[LeavesViewController alloc] initWithArtUrl:info.content articeId:info.articleId articlMd5:info.md5] autorelease];
     [HumDotaUIOps slideShowModalViewControler:leaves ParentVCtl:self.parCtl];
-
     
+}
+
+
+- (BOOL)humNewsStrategyCell:(HumStrategyTableCell *)cell addFavAtIndex:(NSIndexPath *)index{
+    BqsLog(@"HumDotaStrategyCateTwoView HumStrategyTableCell addFavAtIndex indexPaht;%@",index);
+    if (index.row >= self.dataArray.count) {
+        BqsLog(@"HumDotaStrategyCateTwoView HumStrategyTableCell addFavAtIndex row > all row");
+        return FALSE;
+    }
+    
+    Strategy *info = [self.dataArray objectAtIndex:index.row];
+    [MobClick endEvent:kUmeng_stategy_addFav_event label:info.title];
+    return [[HumDotaDataMgr instance] addFavoStragtegy:info];
 }
 
 @end

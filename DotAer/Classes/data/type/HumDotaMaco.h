@@ -33,16 +33,25 @@
 #define kUmeng_imagepage @"imagepage"
 #define kUmeng_strategyPage @"strategypage"
 #define kUmeng_simulatorPage @"simulatorpage"
+#define kUmeng_favoritPage @"favoritpage"
+
+#define kUmen_video_down_page @"videodownpage"
 
 #define kUmeng_news_cell_event @"news_cell_event"
+#define kUmeng_news_addFav_event @"news_addFav_event"
+#define kUmeng_news_addDown_event @"news_addDown_event"
 
 #define kUmeng_video_cateChange @"video_category_change"
 #define kUmeng_video_dota1 @"category_dota1"
 #define kUmeng_video_dota2 @"category_dota2"
 
-#define kUmeng_video_cell_event @"video_cell_event"
+#define kUmeng_video_play_event @"video_play_event"
 #define kUmeng_video_dota2_cell_event @"video_dota2_cell_event"
 
+#define kUmen_video_download_event @"video_download_event"
 
 #define kUmeng_image_cell_event @"image_cell_event"
+
 #define kUmeng_strategy_cell_event @"strategy_cell_event"
+#define kUmeng_stategy_addFav_event @"stategy_addFav_event"
+#define kUmeng_stategy_addDown_event @"stategy_addDown_event"

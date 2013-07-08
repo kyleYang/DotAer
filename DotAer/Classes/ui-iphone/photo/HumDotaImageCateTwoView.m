@@ -21,7 +21,7 @@
 #import "HumDotaUserCenterOps.h"
 
 
-#define kImageEachDownNum 10
+#define kImageEachDownNum 20
 
 @interface HumDotaImageCateTwoView()<HumImageTableCellDelegate>
 
@@ -39,22 +39,6 @@
     self.imageCatId = nil;
     [super dealloc];
 }
-
-
-
-
-
--(id)initWithDotaCatFrameViewCtl:(UIViewController*)ctl Frame:(CGRect)frame CategoryId:(NSString *)catId
-{
-    self = [super initWithDotaCatFrameViewCtl:ctl Frame:frame];
-    if (self) {
-        self.imageCatId = catId;
-        
-
-    }
-    return self;
-}
-
 
 
 
@@ -91,10 +75,10 @@
         _hasMore = YES;
         self.netArray = nil;
         _curPage = 0;
-        self.nTaskId = [HumDotaNetOps imageMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.imageCatId page:_curPage];
+        self.nTaskId = [HumDotaNetOps imageMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.imageCatId page:_curPage pageNum:kImageEachDownNum];
     }else{
         _curPage++;
-        self.nTaskId = [HumDotaNetOps imageMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.imageCatId page:_curPage];
+        self.nTaskId = [HumDotaNetOps imageMessageDownloader:self.downloader Target:self Sel:@selector(onLoadDataFinished:) Attached:nil categoryId:self.imageCatId page:_curPage pageNum:kImageEachDownNum];
     }
     
 }
@@ -148,8 +132,9 @@
 }
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    int plus = [self.dataArray count]%2 == 1?1:0;
-    return [self.dataArray count]/2 + plus;
+    int row = [HumImageTableCell rowCntForItemCnt:[self.dataArray count] ColumnCnt:[HumImageTableCell columnCntForWidth:CGRectGetWidth(self.tableView.frame)]];
+    BqsLog(@"numberOfRowsInSection :%d",row);
+    return row;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -161,38 +146,9 @@
     }
     cell.delegate = self;
     
-    CGRect frame = cell.frame;
-    frame.size.height = 150;
-    cell.frame = frame;
+    [cell setItemArr:self.dataArray Row:indexPath.row];
     
-    if ([self.dataArray count] <= indexPath.row*2) {
-        BqsLog(@"self.dataArray count < indexPath.row *2 : %d",indexPath.row*2);
-        return nil;
-    }
-    
-    if (indexPath.row % 2 == 0) {
-        cell.bgImg.image = [[Env sharedEnv] cacheImage:@"dota_cell_singer_bg.png"];
-    }else{
-        cell.bgImg.image = [[Env sharedEnv] cacheImage:@"dota_cell_double_bg.png"];
-    }
-        
-    Photo *leftinfo = [self.dataArray objectAtIndex:indexPath.row*2];
-    
-    [cell.leftImage displayImage:[[Env sharedEnv] cacheImage:@"dota_photo_default.png"]];
-    cell.leftImage.imgUrl = leftinfo.imageUrl;
-    
-    cell.rightImage.hidden = YES;
-    
-    if ([self.dataArray count] <= indexPath.row*2+1) {
-        BqsLog(@"hidden right image self.dataArray count < indexPath.row *2+1 : %d",indexPath.row*2+1);
-        return cell;
-    }
-    
-    cell.rightImage.hidden = NO;
-    [cell.rightImage displayImage:[[Env sharedEnv] cacheImage:@"dota_photo_default.png"]];
-    Photo *rightInfo = [self.dataArray objectAtIndex:indexPath.row*2+1];
-    cell.rightImage.imgUrl = rightInfo.imageUrl;
-    
+    cell.backgroundColor = [UIColor clearColor];
    
     return cell;
     
@@ -200,49 +156,19 @@
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return  150;
+    return kMptImageCell_Heigh;
 }
 
 #pragma mark
 #pragma mark HumImageTableCellDelegate
 
-- (void)humVideoCell:(HumImageTableCell *)cell didLeftAtSelectIndex:(NSIndexPath *)index{
-    
-    if ([self.dataArray count] <= index.row*2) {
-        BqsLog(@"self.dataArray count < indexPath.row *2 : %d",index.row*2);
-        return ;
-    }
-    
-    Photo *info = [self.dataArray objectAtIndex:index.row*2];
-    [MobClick endEvent:kUmeng_image_cell_event label:info.title];
+- (void)humItemCell:(HumImageTableCell *)cell didPlayImage:(Photo *)photoes{
+
+   [MobClick endEvent:kUmeng_image_cell_event label:photoes.title];
     NSMutableArray *arry = [NSMutableArray arrayWithCapacity:10];
     NSMutableArray *sumAry = [NSMutableArray arrayWithCapacity:10];
-    for (PhotoImg *photo in info.arrImgUrls) {
+    for (PhotoImg *photo in photoes.arrImgUrls) {
         
-        BqsLog(@"cell at section: %d,row :%d url = %@",index.section,index.row,photo.url);
-        [arry addObject:photo.url ];
-        [sumAry addObject:photo.introduce];
-    }
-    
-    HMImageViewController *image = [[[HMImageViewController alloc] initWithImgArray:arry SumArray:sumAry] autorelease];
-    image.modalPresentationStyle = UIModalPresentationFullScreen;
-    [HumDotaUIOps slideShowModalViewControler:image ParentVCtl:self.parCtl];
-    
-}
-- (void)humVideoCell:(HumImageTableCell *)cell didRightAtSelectIndex:(NSIndexPath *)index{
-    
-    if ([self.dataArray count] <= index.row*2+1) {
-        BqsLog(@"self.dataArray count < indexPath.row *2+1 : %d",index.row*2+1);
-        return ;
-    }
-    
-    Photo *info = [self.dataArray objectAtIndex:index.row*2+1];
-    [MobClick endEvent:kUmeng_image_cell_event label:info.title];
-    NSMutableArray *arry = [NSMutableArray arrayWithCapacity:10];
-    NSMutableArray *sumAry = [NSMutableArray arrayWithCapacity:10];
-    for (PhotoImg *photo in info.arrImgUrls) {
-        
-        BqsLog(@"cell at section: %d,row :%d url = %@",index.section,index.row,photo.url);
         [arry addObject:photo.url ];
         [sumAry addObject:photo.introduce];
     }
@@ -252,6 +178,10 @@
     [HumDotaUIOps slideShowModalViewControler:image ParentVCtl:self.parCtl];
 }
 
+- (BOOL)humItemCell:(HumImageTableCell *)cell addFavImage:(Photo *)photo{
+    
+     return [[HumDotaDataMgr instance] addFavoImage:photo];
+}
 
 
 @end

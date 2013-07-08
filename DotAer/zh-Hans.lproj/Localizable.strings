@@ -15,6 +15,8 @@
 "dota.buttom.nav.photo"="图片";
 "dota.buttom.nav.strategy"="攻略";
 "dota.buttom.nav.simulator"="模拟器";
+"dota.buttom.nav.usercenter" = "个人中心";
+"dota.navigation.title.favorit.manager" = "收藏管理";
 
 
 //news
@@ -23,16 +25,58 @@
 "dota.categor.photo" = "图片";
 "dota.categor.video" = "视频";
 "dota.categor.simulator" = "模拟器";
+"dota.video.downloader.title" = "视频管理";
+"dota.video.downloader.downloaded" = "已下载";
+"dota.video.downloader.downloading" = "正在下载";
 //video
+
+"detail.video.download.nonetwork" = "您已经断开网络,下载失败,请稍后重试";
+"detail.video.3G.download" = "您正在使用 3G 网络,请使用 Wi-Fi下载";
+
+"video.download.already.downloaded" = "该视频已经存在,请进入视频管理界面管理";
+"video.download.already.downloading" = "该视频已经在下载列表,请进入视频管理界面管理";
+"video.download.addsuccess" = "添加下载视频成功,请进入视频管理界面管理";
+"video.download.failed" = "添加下载视频失败,请稍后重试";
+"video.download.unknow" = "未知错误,请稍后重试";
+
+"video.download.file.wrong" = "下载数据有错误，请删除重新下载";
+
+"fav.local.add" = "收藏";
+"fav.local.remove" = "去掉";
+
+"video.download.has.download" = "已下载";
+"video.download.is.downloading" = "下载中";
+"detail.video.download.title" = "下载";
+
+"video.download.cell.resum" = "继续";
+"video.download.cell.stop" = "暂停";
+
+"title.error.nonetwork" = "网络断开链接";
+"title.nonetwork.cannot.paly" = "您已经断开网络,无法播放";
+"title.network.3G.play" = "您正在使用 3G 网络,会消耗较多流量,是否继续观看?";
+"error.networkfailed" = "网络错误";
+
 "detail.progrome.player.cancle" = "";
 "detail.progrome.player.fininsh" = "视频播放完毕";
 "detail.progrome.player.urleror" = "地址错误，视频播放失败";
 "detail.progrome.player.failed" = "未知原因，视频播放失败";
 
+"detail.progrome.player.help" = "1.点击右上角，切换全屏模式 \
+2.双击屏幕，切换播放模式 \
+3.上下滑动控制音量，左右滑动快进后退";
+
+
+//collect
+"detail.fav.mannager.news.no" = "无新闻收藏";
+"detail.fav.mannager.video.no" = "无视频收藏";
+"detail.fav.mannager.image.no" = "无图片收藏";
+"detail.fav.mannager.strategy.no" = "无攻略收藏";
 
 //photo
 
 "dota.image.title" = "图片";
+"dota.image.save.title" = "保存";
+"dota.image.save.success" = "保存图片成功!";
 
 //simulator
 "dota.simu.damage" = "攻击力";
@@ -115,7 +159,23 @@
 
 "setting.main.basic.account"="我的账户";
 
+"settin.main.manger.downloader" = "下载管理";
+"settin.main.manger.favorit" = "收藏管理";
+
+"setting.main.setting.play" = "播放";
+"setting.main.setting.downloader" = "下载";
+
+"settin.video.down.qulity.setting" = "下载设置";
+"settin.video.play.qulity.setting" = "播放设置";
+
+
+"settin.video.qulity.one" = "标清";
+"settin.video.qulity.two" = "高清";
+"settin.video.qulity.three" = "超清";
+
+
 "setting.main.other.about"="关于本软件";
+"setting.main.other.help" = "使用帮助";
 "setting.main.other.cleanMass"="清除缓存";
 "setting.main.other.checknewversion"="检查新版本";
 "setting.main.other.resetsetting"="恢复默认设置";
@@ -126,6 +186,8 @@
 "setting.mian.use.feedback" = "用户反馈";
 "setting.mian.use.feedback.submit" = "提交";
 "setting.mian.use.feedback.plac" = "您有任何建议,欢迎反馈给我们,帮助我们改进";
+"setting.mian.use.feedback.noinput" = "请输入您的建议，我们会尽快回复你的。";
+"setting.mian.use.feedback.posting" = "正在提交，请稍后再试！";
 
 "setting.post.feedback.error" = "提交反馈出错,请重试";
 "setting.post.feedback.success" = "提交反馈成功,谢谢您";
@@ -154,9 +216,9 @@
 
 //mass clean
 "massclean.navigation.title" = "缓存管理";
-"massclean.mass.image" = "清空图片缓存";
-"massclean.mass.article" = "清空文章缓存";
-"massclean.mass.other" = "清空其他缓存";
+"massclean.mass.image" = "图片缓存";
+"massclean.mass.article" = "文章缓存";
+"massclean.mass.other" = "其他缓存";
 
 //about
 "about.view.title" = "关于";
@@ -173,15 +235,13 @@
 
 
 //network
-"title.error.nonetwork" = "网络断开链接";
-"title.nonetwork.cannot.paly" = "您已经断开网络,无法播放";
-"title.network.3G.play" = "您正在使用 3G 网络,会消耗较多流量,是否继续观看?";
-"error.networkfailed" = "网络错误";
+
 
 //alter
 "button.cancle" = "取消";
 "button.sure" = "确定";
 "button.back" = "返回";
+"button.done" = "完成";
 "version.no.newversion" = "当前版本已经是最新版本";
 
 

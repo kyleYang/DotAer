@@ -57,10 +57,10 @@
         Env *env = [Env sharedEnv];
         
         //background view
-        self.ivBg = [[[UIImageView alloc] initWithImage:[env cacheImage:@"dota_table_bg.png"]] autorelease];
-        self.ivBg.frame = self.bounds;
-        self.ivBg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self addSubview:self.ivBg];
+//        self.ivBg = [[[UIImageView alloc] initWithImage:[env cacheImage:@"dota_table_bg.png"]] autorelease];
+//        self.ivBg.frame = self.bounds;
+//        self.ivBg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        [self addSubview:self.ivBg];
         
         
         // content view

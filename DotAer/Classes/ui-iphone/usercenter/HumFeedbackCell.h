@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 #define kOrgX 10
-#define kOrgY 5
+#define kOrgY 10
 
-#define kWidht 240
+#define kWidht 220
 
 #define kNameHeigh 20
 

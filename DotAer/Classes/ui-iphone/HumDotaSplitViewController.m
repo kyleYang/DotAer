@@ -9,7 +9,7 @@
 #import "HumDotaSplitViewController.h"
 
 #define kCatScrollX 3
-#define kCatScrollH 40
+#define kCatScrollH 35
 #define kCatScrollPaddY 0
 
 @interface HumDotaSplitViewController ()

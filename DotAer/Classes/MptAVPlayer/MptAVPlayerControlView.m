@@ -14,6 +14,7 @@
 #import "MptAVPlayerLayout.h"
 #import "MptVolumeControl.h"
 #import "MptScrubber.h"
+#import "HMCateOnePopView.h"
 
 
 #define kButtomBtWidht 40
@@ -23,7 +24,7 @@
 static NSString *AirPlayAvailabilityChanged = @"AirPlayAvailabilityChanged";
 static NSString *AirPlayAlpha = @"alpha";
 
-@interface MptAVPlayerControlView ()<MptVolumeDelegate> {
+@interface MptAVPlayerControlView ()<MptVolumeDelegate,HMCateOnePopViewDelegate> {
     BOOL _statusBarHidden;
     BOOL _isAirPlayAvailable;
 }
@@ -46,12 +47,15 @@ static NSString *AirPlayAlpha = @"alpha";
 @property (nonatomic, retain, readwrite) UIButton *playPauseControl;
 @property (nonatomic, retain, readwrite) UIButton *rewindControl;
 @property (nonatomic, retain, readwrite) UIButton *forwardControl;
+@property (nonatomic, retain, readwrite) UIButton *typeSelectControl;
 @property (nonatomic, retain, readwrite) MptVolumeControl *volumeControl;
 @property (nonatomic, retain, readwrite) UIControl *airPlayControlContainer;
 @property (nonatomic, retain, readwrite) MPVolumeView *airPlayControl;
 @property (nonatomic, retain, readwrite) UIButton *dismissControl;
 @property (nonatomic, retain, readwrite) UILabel *videoTitle;
 @property (nonatomic, retain, readwrite) UIButton *zoomControl;
+
+@property (nonatomic, assign, readwrite) BOOL explaned;
 
 @property (nonatomic, retain) UIButton *airplayButton;
 
@@ -71,6 +75,7 @@ static NSString *AirPlayAlpha = @"alpha";
 @synthesize playPauseControl = _playPauseControl;
 @synthesize rewindControl = _rewindControl;
 @synthesize forwardControl = _forwardControl;
+@synthesize typeSelectControl = _typeSelectControl;
 @synthesize airPlayControlContainer = _airPlayControlContainer;
 @synthesize airPlayControl = _airPlayControl;
 @synthesize dismissControl = _dismissControl;
@@ -79,6 +84,7 @@ static NSString *AirPlayAlpha = @"alpha";
 @synthesize volumeControl = _volumeControl;
 @synthesize airplayButton;
 @synthesize mptControlAble = _mptControlAble;
+@synthesize explaned;
 
 - (void)dealloc
 {
@@ -96,6 +102,7 @@ static NSString *AirPlayAlpha = @"alpha";
     _playPauseControl = nil;
     _rewindControl = nil;
     _forwardControl = nil;
+    _typeSelectControl = nil;
     _zoomControl = nil;
     _dismissControl = nil;
     MptSafeRelease(_airPlayControl);
@@ -115,7 +122,7 @@ static NSString *AirPlayAlpha = @"alpha";
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         _mptControlAble = NO; //defalut is NO;
-        
+        self.explaned = FALSE;
         
         _topControlsView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _topControlsView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.6f];
@@ -202,6 +209,17 @@ static NSString *AirPlayAlpha = @"alpha";
         [_forwardControl addTarget:self action:@selector(handleForwardButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
         [_forwardControl addTarget:self action:@selector(handleForwardButtonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
         [_buttomControlsContainerView addSubview:_forwardControl];
+        
+        
+        _typeSelectControl = [UIButton buttonWithType:UIButtonTypeCustom];
+        _typeSelectControl.frame = CGRectMake(95.f, 0.f, 40, kButtomBtHeigh);
+        _typeSelectControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+        _typeSelectControl.showsTouchWhenHighlighted = YES;
+        [_typeSelectControl setImage:[UIImage imageNamed:@"NGMoviePlayer.bundle/nexttrack"] forState:UIControlStateNormal];
+        [_typeSelectControl addTarget:self action:@selector(handleTypeButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+        [_buttomControlsContainerView addSubview:_typeSelectControl];
+        
+    
         
         
         
@@ -310,7 +328,7 @@ static NSString *AirPlayAlpha = @"alpha";
     BOOL insideTopControlsView = CGRectContainsPoint(self.topControlsView.frame, point);
     BOOL insideBottomControlsView = CGRectContainsPoint(self.bottomControlsView.frame, point);
     
-    return  insideTopControlsView || insideBottomControlsView;
+    return  insideTopControlsView || insideBottomControlsView||self.explaned;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -429,6 +447,21 @@ static NSString *AirPlayAlpha = @"alpha";
     [self.delegate moviePlayerControl:sender didPerformAction:MptAVPlayerControlActionEndSkipping];
 }
 
+- (void)handleTypeButtonTouchUp:(id)sender{
+    self.explaned = TRUE;
+    CGPoint popPoint = CGPointMake(CGRectGetMidX(self.typeSelectControl.frame), CGRectGetMaxY(self.typeSelectControl.frame)+20);
+    CGRect frame = CGRectMake(CGRectGetMinX(self.typeSelectControl.frame), CGRectGetHeight(self.bounds)-120-40, CGRectGetWidth(self.typeSelectControl.frame), 120);
+    
+    NSArray *arry = [NSArray arrayWithObjects:@"标清",@"高清",@"超清",nil];
+    
+    HMCateOnePopView *popView = [[HMCateOnePopView alloc] initWithFrame:self.bounds withArray:arry popAt:popPoint withTableFrame:frame];
+    [popView popViewAnimation];
+    popView.delegate = self;
+    [self addSubview:popView];
+    [popView release];
+    
+}
+
 - (void)handleOttConnectButtonPress:(id)sender{
     [self.delegate moviePlayerControl:sender didPerformAction:MptAVPlayerControlActionOttConnect];
 }
@@ -504,5 +537,29 @@ static NSString *AirPlayAlpha = @"alpha";
         [self.delegate moviePlayerControl:volume didPerformAction:MptAVPlayerControlActionVolumeChanged];
     }
 }
+
+
+#pragma mark
+#pragma mark HMCateOnePopViewDelegate
+- (void)hmCateOnePopView:(HMCateOnePopView *)popView didSelectAt:(NSIndexPath *)index{
+//    if (_catSelectedId == index.row) {
+//        BqsLog(@"hmCateOneSelect _catSelectedId == index.row :%d",_catSelectedId);
+//    }
+//    _catSelectedId = index.row;
+//    
+//    self.cateOneLab.text = [_arrCategory objectAtIndex:_catSelectedId];
+//    
+//    
+//    if(nil != self.delegate && [self.delegate respondsToSelector:@selector(humDotaCatTwoSelectView:DidSelectCatOne:)]) {
+//        BqsLog(@"scrollView didTapped catone : %d,cattwo:%d ",_catSelectedId,_itemSelectedId);
+//        [self.delegate humDotaCatTwoSelectView:self DidSelectCatOne:_catSelectedId];
+//    }
+    
+}
+
+- (void)hmCateOneDismissPopView:(HMCateOnePopView *)popView{
+    self.explaned = FALSE;
+}
+
 
 @end

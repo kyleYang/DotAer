@@ -10,6 +10,9 @@
 #import "HumWebImageView.h"
 #import "Env.h"
 #import "BqsUtils.h"
+#import "HMPopMsgView.h"
+
+#define kExistNum 1
 
 #define kSumOrgX 10
 #define kSumOrgY 10
@@ -55,6 +58,7 @@ if(x > pageWidth * 2) x = 0.0f;\
     
     struct {
         unsigned int didBack:1;
+        unsigned int imgDown:1;
         
     } _delegateFlags;
 }
@@ -71,6 +75,8 @@ if(x > pageWidth * 2) x = 0.0f;\
 @property (nonatomic, retain) UIImageView *summaryBg;
 @property (nonatomic, retain) UILabel *indicator;
 @property (nonatomic, retain) UILabel *summary;
+
+@property (nonatomic, retain) HumWebImageView *curWebImg;
 
 - (void)setSumStr:(NSString *)sumStr index:(int)index;
 
@@ -91,6 +97,7 @@ if(x > pageWidth * 2) x = 0.0f;\
 @synthesize summary;
 @synthesize indicator;
 @synthesize sumStr = _sumStr;
+@synthesize curWebImg;
 
 - (void)dealloc
 {
@@ -106,6 +113,7 @@ if(x > pageWidth * 2) x = 0.0f;\
     self.summaryBg = nil;
     self.summary = nil;
     self.indicator = nil;
+    self.curWebImg = nil;
     [_sumStr release]; _sumStr = nil;
     
     [super dealloc];
@@ -266,9 +274,19 @@ if(x > pageWidth * 2) x = 0.0f;\
     
                [self.delegate humImageViewBack:self];
             }
+            break;
             
         }
-            
+        
+        case HMImageControlActionImageDownload:{
+            if (_delegateFlags.imgDown) {
+                _shouldHideControls = FALSE;
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeOutControls) object:nil];
+                
+                [self.delegate humImageViewDownloadImage:self];
+            }
+             break;
+        }
             
         case HMImageControlActionWillShowControls: {
             [self leavesWillShowControlsWithDuration:kHumFadeDuration];
@@ -404,6 +422,7 @@ if(x > pageWidth * 2) x = 0.0f;\
         }
         
         if (i == nowIndex) {
+            self.curWebImg = imageView;
             if (_dataSource && [_dataSource respondsToSelector:@selector(summaryForScrollView:AtIndex:)]) {
                 NSString *sum = [_dataSource summaryForScrollView:self AtIndex:i];
                 [self setSumStr:sum index:nowIndex+1];
@@ -449,6 +468,7 @@ if(x > pageWidth * 2) x = 0.0f;\
         }
         
         if (i == nowIndex) {
+            self.curWebImg = imageView;
             if (_dataSource && [_dataSource respondsToSelector:@selector(summaryForScrollView:AtIndex:)]) {
                 NSString *sum = [_dataSource summaryForScrollView:self AtIndex:i];
                 [self setSumStr:sum index:nowIndex+1];
@@ -470,7 +490,7 @@ if(x > pageWidth * 2) x = 0.0f;\
         _delegate = delegate;
         
         _delegateFlags.didBack = [delegate respondsToSelector:@selector(humImageViewBack:)];
-        
+        _delegateFlags.imgDown = [delegate respondsToSelector:@selector(humImageViewDownloadImage:)];
     }
 
     
@@ -523,12 +543,24 @@ if(x > pageWidth * 2) x = 0.0f;\
     }
     //遍历图片数组
     
+       
     for (int i = 0;i<_total;i++) {
                 
         BOOL OnScreen = FALSE;
         
-        if (i*CGRectGetWidth(self.imgScorll.frame)>offset.x - 2*CGRectGetWidth(self.imgScorll.frame) && i*CGRectGetWidth(self.imgScorll.frame) < offset.x + 2*CGRectGetWidth(self.imgScorll.frame) )
+        BOOL onFront = FALSE;
+        
+        
+        if (i*CGRectGetWidth(self.imgScorll.frame)>=offset.x&& i*CGRectGetWidth(self.imgScorll.frame) < offset.x + kExistNum*CGRectGetWidth(self.imgScorll.frame) ){
+            
             OnScreen = TRUE;
+            onFront = TRUE;
+            
+        }else if(i*CGRectGetWidth(self.imgScorll.frame)>=offset.x-kExistNum*CGRectGetWidth(self.imgScorll.frame)&& i*CGRectGetWidth(self.imgScorll.frame) < offset.x ){
+            OnScreen = TRUE;
+            onFront = FALSE;
+        }
+
         
         //在屏幕范围内的创建添加
         if (OnScreen) {
@@ -536,6 +568,9 @@ if(x > pageWidth * 2) x = 0.0f;\
             for (HumWebImageView *vi in self.onScreenCells) {
                 if (i == vi.imgTag) {
                     HasOnScreen = TRUE;
+                    if (onFront) {
+                        self.curWebImg = vi;
+                    }
                     break;
                 }
             }
@@ -573,11 +608,16 @@ if(x > pageWidth * 2) x = 0.0f;\
                 }
                 [self.imgScorll addSubview:imageView];
                 [self.onScreenCells addObject:imageView];
+                
+                if (onFront) {
+                    self.curWebImg = imageView;
+                }
             }
         }
     }
     
     NSUInteger nowIndex = (self.imgScorll.contentOffset.x+CGRectGetWidth(self.imgScorll.frame)/2)/CGRectGetWidth(self.imgScorll.bounds); //already 1/2,then change
+
    
     if (_dataSource && [_dataSource respondsToSelector:@selector(summaryForScrollView:AtIndex:)]) {
             NSString *sum = [_dataSource summaryForScrollView:self AtIndex:nowIndex];
@@ -620,5 +660,18 @@ if(x > pageWidth * 2) x = 0.0f;\
     
 }
 
+
+- (void)saveImage{
+    if(!self.curWebImg.imageView.image){
+        BqsLog(@"downloadImage null");
+        return;
+    }
+    UIImageWriteToSavedPhotosAlbum(self.curWebImg.imageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NSLocalizedString(@"dota.image.save.success", nil));
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo: (void *) contextInfo;
+{
+    [HMPopMsgView showPopMsg:contextInfo];
+}
 
 @end

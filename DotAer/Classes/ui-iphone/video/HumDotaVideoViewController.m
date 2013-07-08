@@ -12,6 +12,7 @@
 #import "HMCategory.h"
 #import "SVSegmentedControl.h"
 #import "HumDotaVideCateTwoView.h"
+#import "AKSegmentedControl.h"
 
 enum VIDEOCASE {
     VIDEOONE = 0,
@@ -22,6 +23,7 @@ enum VIDEOCASE {
     NSUInteger _videoCase;
 }
 
+@property (nonatomic, retain) AKSegmentedControl *segmentedControl;
 @property (nonatomic, assign) NSUInteger nCatHash;
 
 -(NSArray *)loadCatForCatOneId; //one for dota1
@@ -35,11 +37,13 @@ enum VIDEOCASE {
 
 @implementation HumDotaVideoViewController
 @synthesize nCatHash;
+@synthesize segmentedControl;
 
 - (void)dealloc{
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNtfDotaOneVideoChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNtfDotaTwoVideoChanged object:nil];
+    self.segmentedControl = nil;
     [super dealloc];
 }
 
@@ -63,12 +67,50 @@ enum VIDEOCASE {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oneVideoChanged) name:kNtfDotaOneVideoChanged object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(twoVideoChanged) name:kNtfDotaTwoVideoChanged object:nil];
     
-    SVSegmentedControl *navSC = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects:@"DotA 1", @"DotA 2", nil]];
-    navSC.backgroundImage = [[Env sharedEnv] cacheImage:@"dota_seg_bg.png"];
-    [navSC addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     
-    self.navigationItem.titleView = navSC;
-    [navSC release];
+    self.segmentedControl = [[[AKSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 170, 30)] autorelease];
+
+    
+    UIImage *backgroundImage = [[Env sharedEnv] cacheImage:@"segmented-bg.png"];
+    [self.segmentedControl setBackgroundImage:backgroundImage];
+    [self.segmentedControl setContentEdgeInsets:UIEdgeInsetsMake(2.0, 2.0, 3.0, 2.0)];
+    [self.segmentedControl setSegmentedControlMode:AKSegmentedControlModeSticky];
+    [self.segmentedControl setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleBottomMargin];
+    [self.segmentedControl setSeparatorImage:[[Env sharedEnv] cacheImage:@"segmented-separator.png"]];
+    
+    UIImage *buttonBackgroundImagePressedLeft = [[Env sharedEnv] cacheImage:@"segmented-bg-pressed-left.png"];
+    UIImage *buttonBackgroundImagePressedRight = [[Env sharedEnv] cacheImage:@"segmented-bg-pressed-right.png"];
+    // Button 1
+    UIButton *buttonSocial = [[UIButton alloc] init];
+   
+    [buttonSocial setTitle:@"DotA1" forState:UIControlStateNormal];
+    [buttonSocial setTitle:@"DotA1" forState:UIControlStateHighlighted];
+    [buttonSocial setTitle:@"DotA1" forState:UIControlStateSelected];
+    [buttonSocial setTitle:@"DotA1" forState:(UIControlStateHighlighted|UIControlStateSelected)];
+    [buttonSocial addTarget:self action:@selector(dota1Select:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonSocial setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, 5.0)];
+    [buttonSocial setBackgroundImage:buttonBackgroundImagePressedLeft forState:UIControlStateHighlighted];
+    [buttonSocial setBackgroundImage:buttonBackgroundImagePressedLeft forState:UIControlStateSelected];
+    [buttonSocial setBackgroundImage:buttonBackgroundImagePressedLeft forState:(UIControlStateHighlighted|UIControlStateSelected)];
+    
+    // Button 2
+      
+    // Button 3
+    UIButton *buttonSettings = [[UIButton alloc] init];
+    [buttonSettings setTitle:@"DotA2" forState:UIControlStateNormal];
+    [buttonSettings setTitle:@"DotA2" forState:UIControlStateHighlighted];
+    [buttonSettings setTitle:@"DotA2" forState:UIControlStateSelected];
+    [buttonSettings setTitle:@"DotA2" forState:(UIControlStateHighlighted|UIControlStateSelected)];
+    [buttonSettings setBackgroundImage:buttonBackgroundImagePressedRight forState:UIControlStateHighlighted];
+    [buttonSettings addTarget:self action:@selector(dota2Select:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonSettings setBackgroundImage:buttonBackgroundImagePressedRight forState:UIControlStateSelected];
+    [buttonSettings setBackgroundImage:buttonBackgroundImagePressedRight forState:(UIControlStateHighlighted|UIControlStateSelected)];
+    
+    [self.segmentedControl setButtonsArray:[NSArray arrayWithObjects:buttonSocial,buttonSettings,nil]];
+    [buttonSocial release];
+    [buttonSettings release];
+    self.navigationItem.titleView = self.segmentedControl;
+
     
     
     
@@ -97,25 +139,20 @@ enum VIDEOCASE {
 #pragma mark -
 #pragma mark SPSegmentedControl
 
-- (void)segmentedControlChangedValue:(SVSegmentedControl*)segmentedControl {
-	NSLog(@"segmentedControl %i did select index %i (via UIControl method)", segmentedControl.tag, segmentedControl.selectedIndex);
-    
-    if (segmentedControl.selectedIndex == VIDEOONE) {
-        _videoCase = VIDEOONE;
-        [MobClick endEvent:kUmeng_video_cateChange label:kUmeng_video_dota1];
-        self.arrCatList = [self loadCatForCatOneId];
-        self.nCatHash = [self calcCatTwoHash:self.arrCatList];
-        [self.cateScroll humDotaCateOneSetCatArr:self.arrCateOne];
-        
-    }else if(segmentedControl.selectedIndex == VIDEOTWO){
-        _videoCase = VIDEOTWO;
-        [MobClick endEvent:kUmeng_video_cateChange label:kUmeng_video_dota2];
-        self.arrCatList = [self loadCatForCatTwoId];
-        self.nCatHash = [self calcCatTwoHash:self.arrCatList];
-       [self.cateScroll humDotaCateOneSetCatArr:self.arrCateOne];
-        
-    }
-    
+- (void)dota2Select:(id)sender{
+    BqsLog(@"dota2Select");
+    [MobClick endEvent:kUmeng_video_cateChange label:kUmeng_video_dota2];
+    self.arrCatList = [self loadCatForCatTwoId];
+    self.nCatHash = [self calcCatTwoHash:self.arrCatList];
+    [self.cateScroll humDotaCateOneSetCatArr:self.arrCateOne];
+}
+
+- (void)dota1Select:(id)sender{
+    BqsLog(@"dota1Select");
+    [MobClick endEvent:kUmeng_video_cateChange label:kUmeng_video_dota1];
+    self.arrCatList = [self loadCatForCatOneId];
+    self.nCatHash = [self calcCatTwoHash:self.arrCatList];
+    [self.cateScroll humDotaCateOneSetCatArr:self.arrCateOne];
 }
 
 

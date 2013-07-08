@@ -35,6 +35,7 @@
 @property (nonatomic, retain) UIImageView *viewImg;
 
 - (void)reloadData;
+- (void)saveImage;
 @end
 
 @protocol HMImageScrollDataSource <NSObject>
@@ -49,6 +50,6 @@
 @protocol HMImageScrollDelegate <NSObject>
 
 - (void)humImageViewBack:(HMImageScrollView *)scroll;
-
+- (void)humImageViewDownloadImage:(HMImageScrollView*)scroll;
 @end
 

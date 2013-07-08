@@ -45,7 +45,7 @@
     
     self.tableView = [[[UITableView alloc] initWithFrame:self.bounds style:UITableViewStylePlain] autorelease];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    self.tableView.backgroundColor =  [UIColor colorWithRed:75.0f/255.0f green:64.0f/255.0f blue:59.0f/255.0f alpha:1.0f];;
+    self.tableView.backgroundColor =  [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.showsHorizontalScrollIndicator = NO;
@@ -54,6 +54,13 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self addSubview:self.tableView];
+    
+    UIView *loadingMoreFootView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds),80)] ;
+    loadingMoreFootView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = loadingMoreFootView;
+    [loadingMoreFootView release];
+    
+
     
     self.headView = [[[HumDotaSimuTableHeadView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 200)] autorelease];
     self.headView.managedObjectContext = self.managedObjectContext;
@@ -270,7 +277,9 @@
     
     descript = [arrItem objectAtIndex:7];
     if (descript.length == 0) {
-        cell.skillLev4.frame = CGRectZero;
+        frame  = cell.skillLev4.frame;
+        frame.size.height = 0;
+        cell.skillLev4.frame = frame;
     }else{
         
         frameSize = [descript sizeWithFont:cell.skillLev4.font constrainedToSize:CGSizeMake(CGRectGetWidth(cell.skillLev4.frame), 800) lineBreakMode:UILineBreakModeWordWrap];

@@ -19,51 +19,66 @@
 
 #define kCategroy @"category"
 #define kVideoId @"id"
+#define kYoukuId @"youkuid"
 #define kTitle @"title"
 #define kTime @"time"
 #define kContent @"content"
+#define kHdContent @"hd2"
+#define kNorContent @"flv"
 #define kSummary @"summary"
 #define kImageUrl @"imgeUrl"
+#define kMd5 @"md5"
+
 
 
 @implementation Video
 
 @synthesize category;
 @synthesize videoId;
+@synthesize youkuId;
 @synthesize title;
 @synthesize time;
 @synthesize content;
+@synthesize hdContent;
+@synthesize norContent;
 @synthesize summary;
 @synthesize imageUrl;
+@synthesize md5;
 
 - (void)dealloc{
     self.category = nil;
     self.videoId = nil;
+    self.youkuId = nil;
     self.title = nil;
     self.imageUrl = nil;
     self.time = nil;
     self.content = nil;
+    self.hdContent = nil;
+    self.norContent = nil;
     self.summary = nil;
-    
+    self.md5 = nil;
     [super dealloc];
 }
 
 
 -(NSString*)description {
-    return [NSString stringWithFormat:@"[category:%@, videoId:%@, title:%@,time:%@, content:%@, summary:%@, imageurl:%@]",
-            self.category, self.videoId,self.title,self.time,self.content,self.summary,self.imageUrl];
+    return [NSString stringWithFormat:@"[category:%@, videoId:%@, youkuId: %@,title:%@,time:%@, content:%@, hdContent:%@, norContent:%@, summary:%@, imageurl:%@ ,md5:%@]",
+            self.category, self.videoId,self.youkuId,self.title,self.time,self.content,self.hdContent,self.norContent,self.summary,self.imageUrl,self.md5];
 }
 
 - (void)writeXmlItem:(XmlWriter*)wrt {
     
     [wrt writeStringTag:kCategroy Value:self.category CData:NO];
     [wrt writeStringTag:kVideoId Value:self.videoId CData:NO];
+    [wrt writeStringTag:kYoukuId Value:self.youkuId CData:YES];
     [wrt writeStringTag:kTitle Value:self.title CData:YES];
     [wrt writeStringTag:kTime Value:self.time CData:NO];
-    [wrt writeStringTag:kContent Value:self.content CData:NO];
-    [wrt writeStringTag:kSummary Value:self.summary CData:NO];
-    [wrt writeStringTag:kImageUrl Value:self.imageUrl CData:NO];
-
+    [wrt writeStringTag:kContent Value:self.content CData:YES];
+    [wrt writeStringTag:kHdContent Value:self.hdContent CData:YES];
+    [wrt writeStringTag:kNorContent Value:self.norContent CData:YES];
+    [wrt writeStringTag:kSummary Value:self.summary CData:YES];
+    [wrt writeStringTag:kImageUrl Value:self.imageUrl CData:YES];
+    [wrt writeStringTag:kMd5 Value:self.md5 CData:YES];
 }
 
 +(Video *)parseXml:(TBXMLElement*)element {
@@ -87,16 +102,24 @@
                 news.category = text;
             }else if([kVideoId isEqualToString:sName]){
                 news.videoId = text;
-            } else if([kTitle isEqualToString:sName]) {
+            }else if([kYoukuId isEqualToString:sName]){
+                news.youkuId = text;
+            }else if([kTitle isEqualToString:sName]) {
                 news.title = text;
             } else if([kImageUrl isEqualToString:sName]) {
                 news.imageUrl = text;
             } else if([kTime isEqualToString:sName]) {
                 news.time = text;
-            } else if([kContent isEqualToString:sName]) {
+            }else if([kContent isEqualToString:sName]) {
                 news.content = text;
+            }else if([kHdContent isEqualToString:sName]) {
+                news.hdContent = text;
+            }else if([kNorContent isEqualToString:sName]) {
+                news.norContent = text;
             }else if([kSummary isEqualToString:sName]) {
                 news.summary = text;
+            }else if([kMd5 isEqualToString:sName]) {
+                news.md5 = text;
             }else {
                 BqsLog(@"unknown tag: %@", sName);
             }

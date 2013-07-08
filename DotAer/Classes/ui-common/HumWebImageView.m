@@ -330,6 +330,7 @@
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
         self.bouncesZoom = TRUE;
+        self.scrollsToTop = NO;
         self.decelerationRate = UIScrollViewDecelerationRateFast;
         
         UITapGestureRecognizer *scrollViewDoubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleScrollViewDoubleTap:)];

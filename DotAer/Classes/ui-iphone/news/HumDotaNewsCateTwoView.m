@@ -12,18 +12,19 @@
 #import "HumNewsTxtCell.h"
 #import "News.h"
 #import "HumTypeConstant.h"
-#import "MptAVPlayerViewController.h"
+#import "NGDemoMoviePlayerViewController.h"
 #import "HumWebImageView.h"
 #import "HMImageViewController.h"
 #import "LeavesViewController.h"
 #import "HumDotaDataMgr.h"
 #import "HumDotaUserCenterOps.h"
 #import "HMPopMsgView.h"
+#import "HumDotaVideoManager.h"
 
 
 #define kNewsPageEachNum 10
 
-@interface HumDotaNewsCateTwoView()<HumNewsCellDelegate,MptAVPlayerViewController_Callback>
+@interface HumDotaNewsCateTwoView()<HumNewsCellDelegate,MoviePlayerViewControllerDelegate>
 
 @property (nonatomic, retain) NSMutableArray *netArray;
 @property (nonatomic, retain) News *retainInfo;
@@ -131,23 +132,33 @@
         cell = [[[HumNewsTxtCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden] autorelease];
     }
     cell.delegate = self;
-    
-    if (indexPath.row % 2 == 0) {
-        cell.bgImg.image = [[Env sharedEnv] cacheImage:@"dota_cell_singer_bg.png"];
-    }else{
-        cell.bgImg.image = [[Env sharedEnv] cacheImage:@"dota_cell_double_bg.png"];
-    }
 
     
     News *info = [self.dataArray objectAtIndex:indexPath.row];
-    CGFloat heigh = 10;
     
-    CGSize size = [info.title sizeWithFont:cell.title.font constrainedToSize:CGSizeMake(cell.title.frame.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize titSize = CGSizeMake(292, 1000);
+    
+    if (info.category == HumDotaNewsTypeImages) {
+        titSize = CGSizeMake(212, 1000);
+    }
+    
+    CGFloat height= 10;
+    
+    CGSize size = [info.title sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:titSize lineBreakMode:UILineBreakModeWordWrap];
+    
+    if (info.category == HumDotaNewsTypeImages) {
+        height += (size.height>kTxtCellImageHeigh?size.height:kTxtCellImageHeigh);
+    }else{
+        height += size.height;
+    }
+
     CGRect frame = cell.title.frame;
     frame.size.height = size.height;
+    frame.size.width = size.width;
+    
     cell.title.frame = frame;
     cell.title.text = info.title;
-    heigh += size.height;
+   
     
         
     
@@ -155,18 +166,19 @@
 //    "dota.categor.photo" = "图片";
 //    "dota.categor.video" = "视频";
     
+//    cell.typeImg.frame = CGRectMake(0, 0, 35, 20);
     switch (info.category) {
         case HumDotaNewsTypeText:
             cell.typeImg.image = [[Env sharedEnv] cacheImage:@"dota_news_type_txt.png"];
-            cell.typeLeb.text = NSLocalizedString(@"dota.categor.strategy", nil);
+            cell.downButton.hidden = YES;
             break;
         case HumDotaNewsTypeImages:
             cell.typeImg.image = [[Env sharedEnv] cacheImage:@"dota_news_type_img.png"];
-            cell.typeLeb.text = NSLocalizedString(@"dota.categor.photo", nil);
+            cell.downButton.hidden = YES;
             break;
         case HumDotaNewsTypeVideo:
             cell.typeImg.image = [[Env sharedEnv] cacheImage:@"dota_news_type_video.png"];
-            cell.typeLeb.text = NSLocalizedString(@"dota.categor.video", nil);
+            cell.downButton.hidden = NO;
             break;
         default:
             break;
@@ -175,44 +187,45 @@
     
     if (info.category == HumDotaNewsTypeImages) {
         frame = cell.contImage.frame;
-        frame.origin.x = 10;
-        frame.origin.y = CGRectGetMaxY(cell.title.frame)+5;
+        frame.origin.x = CGRectGetWidth(cell.frame)-kTxtCellImageWidth-25;
+        frame.origin.y = CGRectGetMinY(cell.title.frame)+5;
         frame.size.width = kTxtCellImageWidth;
         frame.size.height = kTxtCellImageHeigh;
         
         cell.contImage.frame =frame;
-        heigh += 5+kTxtCellImageHeigh;
-        
         if([info.imgeArry count] != 0){
             NewsImg *newsImg = [info.imgeArry objectAtIndex:0];
             BqsLog(@"cell at section: %d,row :%d url = %@",indexPath.section,indexPath.row,newsImg.url);
             [cell.contImage displayImage:[[Env sharedEnv] cacheImage:@"dota_news_default.png"]];
             cell.contImage.imgUrl = newsImg.url;
         }
-        
     }else{
         cell.contImage.frame = CGRectZero;
     }
-    heigh += 5;
+    
+    height = height+5;
     
     frame = cell.timeLeb.frame;
-    frame.origin.y = heigh;
+    frame.origin.y = height;
     cell.timeLeb.text = info.time;
     cell.timeLeb.frame = frame;
+    
+    BOOL favAdded = [[HumDotaDataMgr instance] judgeFavNews:info];
   
-    
-    frame = cell.typeImg.frame;
+    frame = cell.favButton.frame;
     frame.origin.y = CGRectGetMinY(cell.timeLeb.frame);
-    cell.typeImg.frame = frame;
+    cell.favButton.frame = frame;
+    cell.favButton.selected = favAdded;
     
-    frame = cell.typeLeb.frame;
-    frame.origin.y = CGRectGetMinY(cell.typeImg.frame);
-    cell.typeLeb.frame = frame;
+    frame = cell.downButton.frame;
+    frame.origin.y = CGRectGetMinY(cell.timeLeb.frame);
+    cell.downButton.frame = frame;
+
     
-    heigh += 10+20;
+    height += 10+20;
     
     frame = cell.frame;
-    frame.size.height = heigh;
+    frame.size.height = height;
     cell.frame = frame;
     
     return cell;
@@ -222,13 +235,22 @@
     
     News *info = [self.dataArray objectAtIndex:indexPath.row];
     
+    CGSize titSize = CGSizeMake(292, 1000);
+    
+    if (info.category == HumDotaNewsTypeImages) {
+        titSize = CGSizeMake(212, 1000);
+    }
+    
     CGFloat height= 10;
     
-    CGSize size = [info.title sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:CGSizeMake(300, 1000) lineBreakMode:UILineBreakModeWordWrap];
-    height += size.height;
+    CGSize size = [info.title sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:titSize lineBreakMode:UILineBreakModeWordWrap];
+    
     if (info.category == HumDotaNewsTypeImages) {
-        height += 5+kTxtCellImageHeigh;
+        height += (size.height>kTxtCellImageHeigh?size.height:kTxtCellImageHeigh);
+    }else{
+        height += size.height;
     }
+    
     height += 5+20;
     
     height += 10;
@@ -248,7 +270,7 @@
         return;
     }
     News *info = [self.dataArray objectAtIndex:index.row];
-    [MobClick event:kUmeng_news_cell_event label:info.title];
+   [MobClick event:kUmeng_news_cell_event label:info.title];
 
     switch (info.category) {
         case HumDotaNewsTypeText:
@@ -283,6 +305,19 @@
                 return;
             }
             
+            
+            NSString *localPlayM3u8 = [[HumDotaVideoManager instance] localPlayPathForVideo:info.youkuId];
+            
+            if(localPlayM3u8){
+                
+                NGDemoMoviePlayerViewController *play = [[[NGDemoMoviePlayerViewController alloc] initWithUrl:localPlayM3u8 title:info.title] autorelease];
+                play.delegate = self;
+                //    play.modalTransitionStyle = UIModalTransitionStylePartialCurl;
+                [self.parCtl presentModalViewController:play animated:YES];
+                return;
+            }
+
+            
             self.retainInfo = info;
             BOOL isWifi = [HumDotaUserCenterOps BoolValueForKey:kDftNetTypeWifi];
             if (!isWifi) {
@@ -295,9 +330,8 @@
                 titleName = [nameAry lastObject];
             }
             
-            
-            MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:info.content name:titleName] autorelease];
-            play.call_back = self;
+            NGDemoMoviePlayerViewController *play = [[[NGDemoMoviePlayerViewController alloc] initWithNews:info] autorelease];
+            play.delegate = self;
             [self.parCtl presentModalViewController:play animated:YES];
         }
             
@@ -306,6 +340,85 @@
         break;
     }
 
+}
+
+
+- (BOOL)humNewsCell:(HumNewsTxtCell *)cell addFavNewsAtIndex:(NSIndexPath *)index{
+    BqsLog(@"HumDotaNesCateTwoView humNewsCell addFavNewsAtIndex index:%@",index);
+    if (index.row >= self.dataArray.count) {
+        BqsLog(@"HumDotaNesCateTwoView humNewsCell didSelectIndex row > all row",index.section,index.row);
+        
+        return FALSE;
+    }
+    News *info = [self.dataArray objectAtIndex:index.row];
+    [MobClick event:kUmeng_news_addFav_event label:info.title];
+
+    return [[HumDotaDataMgr instance] addFavNews:info];
+}
+
+- (void)humNewsCell:(HumNewsTxtCell *)cell addDownNewsAtIndex:(NSIndexPath *)index{
+    
+    BqsLog(@"HumDotaNesCateTwoView humNewsCell addDownNewsAtIndex index",index);
+    if (index.row >= self.dataArray.count) {
+        BqsLog(@"HumDotaNesCateTwoView humNewsCell addDownNewsAtIndex row > all row",index.section,index.row);
+        
+        return;
+    }
+    News *info = [self.dataArray objectAtIndex:index.row];
+    [MobClick event:kUmeng_news_addDown_event label:info.title];
+    
+    
+    BOOL haveNet = [HumDotaUserCenterOps BoolValueForKey:kDftHaveNetWork];
+    if (!haveNet) {
+        [HMPopMsgView showAlterError:nil Msg:NSLocalizedString(@"detail.video.download.nonetwork", nil) Delegate:self];
+        return;
+    }
+    
+    self.retainInfo = info;
+    BOOL isWifi = [HumDotaUserCenterOps BoolValueForKey:kDftNetTypeWifi];
+    if (!isWifi) {
+        [HMPopMsgView showAlterError:nil Msg:NSLocalizedString(@"detail.video.3G.download", nil) Delegate:self];
+        return;
+    }
+    
+    //    TaskStatusSuccess = 1,
+    //    TaskStatusAlready = 2,
+    //    TaskStatusExist = 3,
+    //    TaskStatusFailed = 4,
+    
+    //    "video.download.already.downloaded" = "该视频已经存在,请进入视频管理界面管理";
+    //    "video.download.already.downloading" = "该视频已经在下载列表,请进入视频管理界面管理";
+    //    "video.download.addsuccess" = "添加下载视频成功,请进入视频管理界面管理";
+    //    "video.download.failed" = "添加下载视频失败,请稍后重试";
+    //    "video.download.unknow" = "未知错误,请稍后重试";
+    
+    VideoScreenStatus videoState= [HumDotaUserCenterOps intValueReadForKey:kScreenPlayType];
+    
+    AddVideoTaskStatus addStatus =  [[HumDotaVideoManager instance] addDownloadTaskForNews:info withStep:videoState];
+    NSString *tipsNSString = nil;
+    switch (addStatus) {
+        case TaskStatusSuccess:
+            tipsNSString = NSLocalizedString(@"video.download.addsuccess", nil);
+            break;
+        case TaskStatusAlready:
+            tipsNSString = NSLocalizedString(@"video.download.already.downloading", nil);
+            break;
+        case TaskStatusExist:
+            tipsNSString = NSLocalizedString(@"video.download.already.downloaded", nil);
+            break;
+        case TaskStatusFailed:
+            tipsNSString = NSLocalizedString(@"video.download.failed", nil);
+            break;
+        default:
+            tipsNSString = NSLocalizedString(@"video.download.unknow", nil);
+            break;
+    }
+    
+    [HMPopMsgView showPopMsgError:nil Msg:tipsNSString Delegate:nil];
+    
+    
+    //    NSArray *arry = [NSArray arrayWithObject:index];
+    //    [self.tableView reloadRowsAtIndexPaths:arry withRowAnimation:UITableViewRowAnimationNone];
 }
 
 
@@ -325,8 +438,8 @@
         }
 
         
-        MptAVPlayerViewController *play = [[[MptAVPlayerViewController alloc] initWithContentString:self.retainInfo.content name:titleName] autorelease];
-        play.call_back = self;
+        NGDemoMoviePlayerViewController *play = [[[NGDemoMoviePlayerViewController alloc] initWithNews:self.retainInfo] autorelease];
+        play.delegate = self;
         [self.parCtl presentModalViewController:play animated:YES];
         
         
@@ -338,24 +451,21 @@
 
 #pragma mark -
 #pragma mark MptAVPlayerViewController_Callback
-- (void)MptAVPlayerViewController:(MptAVPlayerViewController *)ctl didFinishWithResult:(MptAVPlayerResult)result error:(NSError *)error{
+- (void)moviePlayerViewController:(NGDemoMoviePlayerViewController *)ctl didFinishWithResult:(NGMoviePlayerResult)result error:(NSError *)error{
     
-    BqsLog(@"MptAVPlayerViewController didFinished result = %d",result);
-    
-   
     NSString *resultString = @"";
     
     switch (result) {
-        case MptAVPlayerCancelled:
+        case NGMoviePlayerCancelled:
             resultString = NSLocalizedString(@"detail.progrome.player.cancle", nil);
             break;
-        case MptAVPlayerFinished:
+        case NGMoviePlayerFinished:
             resultString = NSLocalizedString(@"detail.progrome.player.fininsh", nil);
             break;
-        case MptAVPlayerURLError:
+        case NGMoviePlayerURLError:
             resultString = NSLocalizedString(@"detail.progrome.player.urleror", nil);
             break;
-        case MptAVPlayerFailed:
+        case NGMoviePlayerFailed:
             resultString = NSLocalizedString(@"detail.progrome.player.failed", nil);
             break;
         default:
@@ -373,6 +483,8 @@
     }
     
 }
+
+
 
 - (void)messageNotice:(NSString *)message{
     [HMPopMsgView showPopMsg:message];

@@ -14,7 +14,7 @@
 
 #define kFreshOffSet -80
 
-@interface HumDotaCateTwoTableView : HumDotaCateTowBaseView{
+@interface HumDotaCateTwoTableView : HumDotaCateTowBaseView<UITableViewDelegate, UITableViewDataSource>{
     BOOL _reloading;
     BOOL _loadMore;
     BOOL _hasMore;

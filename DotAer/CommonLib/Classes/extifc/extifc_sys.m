@@ -82,7 +82,7 @@
 		} else if([@"version" isEqualToString:n]) {
 			v = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 		} else if([@"udid" isEqualToString:n]) {
-			v = env.udid;
+			v = env.macUdid;
 		} else if([@"ScrRes" isEqualToString:n]) {
 			v = [NSString stringWithFormat:@"%dx%d", (int)env.screenSize.width, (int)env.screenSize.height];
 		} else if([@"ScrScale" isEqualToString:n]) {

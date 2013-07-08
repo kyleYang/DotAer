@@ -30,6 +30,11 @@
 #define kSimulatorLastChecked  @"simulatorLastChecked"
 #define kSimulatorLastReminded  @"simulatorLastReminded"
 
+#define kFirstUseDota @"dota.first.use"
+//screentype
+#define kScreenPlayType @"screenplaytype"
+#define kScreenDownType @"screendowntype"
+
 
 #define kDftNewsCatSaveTime @"dft.news.xml.save.time"
 #define kDftVideoCatSaveTimeForCat @"dft.video.xml.save.time.%@"

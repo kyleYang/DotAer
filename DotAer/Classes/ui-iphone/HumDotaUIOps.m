@@ -38,7 +38,7 @@
     CustomNavigationController *nav = [[[CustomNavigationController alloc] initWithRootViewController:vctl] autorelease];
     nav.navigationBar.barStyle = UIBarStyleBlackOpaque;
     CustomNavigationBar *navBar = [[[CustomNavigationBar alloc] init] autorelease];
-    UIImage *bgImg = [[Env sharedEnv] cacheImage:@"dota_frame_title_bg.jpg"];
+    UIImage *bgImg = [[Env sharedEnv] cacheImage:@"dota_frame_title_bg.png"];
     [navBar setCustomBgImage:bgImg];
     [nav setValue:navBar forKey:@"navigationBar"];
     
@@ -61,15 +61,27 @@
     [vctl dismissModalViewControllerAnimated:NO];
 }
 
-+(void)revealLeftViewControl:(UIViewController *)left showNavigationFontViewControl:(UIViewController *)font{
++(void)popUIViewControlInNavigationControl:(UIViewController *)control{
+    
+    UINavigationController *navCtl = control.navigationController;
+    if (control == [navCtl.viewControllers objectAtIndex:0]) {
+        [control dismissModalViewControllerAnimated:YES];
+    }else{
+        [navCtl popViewControllerAnimated:YES];
+    }
+    
+}
+
+
++(void)revealViewControl:(UIViewController *)left presentViewControlel:(UIViewController *)font{
     UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:font];
     CustomNavigationBar *navBar = [[CustomNavigationBar alloc] init];
-    UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"dota_frame_title_bg.jpg" X:20.0f Y:10.0f];
+    UIImage *bgImg = [[Env sharedEnv] cacheImage:@"dota_frame_title_bg.png"];
     [navBar setCustomBgImage:bgImg];
     [navc setValue:navBar forKey:@"navigationBar"];
     
-    left.revealController.frontViewController = navc;
-    [left.revealController showViewController:left.revealController.frontViewController];
+    [left.revealController presentModalViewController:navc animated:YES];;
+   
     [navc release];
     [navBar release];
 
@@ -78,7 +90,7 @@
 +(void)revealLeftViewControl:(UIViewController *)left showNavigationFontViewControl:(UIViewController *)font wihtOtherViewControle:(UIViewController *)other{
     UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:font];
     CustomNavigationBar *navBar = [[CustomNavigationBar alloc] init];
-    UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"dota_frame_title_bg.jpg" X:20.0f Y:10.0f];
+    UIImage *bgImg = [[Env sharedEnv] cacheImage:@"dota_frame_title_bg.png"];
     [navBar setCustomBgImage:bgImg];
     [navc setValue:navBar forKey:@"navigationBar"];
     
@@ -93,12 +105,11 @@
 +(void)revealRightViewControl:(UIViewController *)right showNavigationFontViewControl:(UIViewController *)font wihtOtherViewControle:(UIViewController *)other{
     UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:font];
     CustomNavigationBar *navBar = [[CustomNavigationBar alloc] init];
-    UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"dota_frame_title_bg.jpg" X:20.0f Y:10.0f];
+    UIImage *bgImg = [[Env sharedEnv] cacheImage:@"dota_frame_title_bg.png"];
     [navBar setCustomBgImage:bgImg];
     [navc setValue:navBar forKey:@"navigationBar"];
     
     right.revealController.frontViewController = navc;
-    right.revealController.leftViewController = other;
     [right.revealController showViewController:right.revealController.frontViewController];
     [navc release];
     [navBar release];
@@ -108,7 +119,7 @@
 +(void)revealRightViewControl:(UIViewController *)right showNavigationFontViewControl:(UIViewController *)font{
     UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:font];
     CustomNavigationBar *navBar = [[CustomNavigationBar alloc] init];
-    UIImage *bgImg = [[Env sharedEnv] cacheScretchableImage:@"dota_frame_title_bg.jpg" X:20.0f Y:10.0f];
+    UIImage *bgImg = [[Env sharedEnv] cacheImage:@"dota_frame_title_bg.png"];
     [navBar setCustomBgImage:bgImg];
     [navc setValue:navBar forKey:@"navigationBar"];
     
